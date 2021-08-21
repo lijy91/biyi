@@ -157,9 +157,11 @@ packages:
   hotkey_manager:
     dependency: "direct main"
     description:
-      path: "../../leanflutter/hotkey_manager"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: d5a8876037e22f125702ebd946b0b067f0c13491
+      url: "https://github.com/leanflutter/hotkey_manager.git"
+    source: git
     version: "0.0.3"
   http:
     dependency: transitive
@@ -203,13 +205,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-  network_inspector:
-    dependency: "direct main"
-    description:
-      path: "../../leanflutter/network_inspector"
-      relative: true
-    source: path
-    version: "0.0.1"
   ocr_engine_youdao:
     dependency: transitive
     description:
@@ -360,9 +355,11 @@ packages:
   screen_text_extractor:
     dependency: "direct main"
     description:
-      path: "../../leanflutter/screen_text_extractor"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "8e4c3e707bb51d651c54a1009a81a6873baa6b25"
+      url: "https://github.com/leanflutter/screen_text_extractor.git"
+    source: git
     version: "0.0.1"
   sky_engine:
     dependency: transitive
@@ -484,9 +481,11 @@ packages:
   tray_manager:
     dependency: "direct main"
     description:
-      path: "../../leanflutter/tray_manager"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: e3067a53ee28a83a10f310f27c17b7f9cf163617
+      url: "https://github.com/leanflutter/tray_manager.git"
+    source: git
     version: "0.0.1"
   typed_data:
     dependency: transitive
@@ -505,9 +504,11 @@ packages:
   uni_links_macos:
     dependency: "direct main"
     description:
-      path: "../dart_pkgs/packages/uni_links_macos"
-      relative: true
-    source: path
+      path: "packages/uni_links_macos"
+      ref: master
+      resolved-ref: dd03f6268f5e917abe620bfde58c12cfa1f20197
+      url: "https://github.com/biyidev/dart_pkgs.git"
+    source: git
     version: "0.0.1"
   uni_links_platform_interface:
     dependency: transitive
@@ -531,7 +532,7 @@ packages:
     source: path
     version: "0.0.1"
   uni_ocr_client:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       path: "../uni_ocr/packages/uni_ocr_client"
       relative: true
@@ -617,9 +618,11 @@ packages:
   window_manager:
     dependency: "direct main"
     description:
-      path: "../../leanflutter/window_manager"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: f4d3743ec48f12cd94e0334c7f2e64de18ccaafc
+      url: "https://github.com/leanflutter/window_manager.git"
+    source: git
     version: "0.0.1"
   xdg_directories:
     dependency: transitive

@@ -6,6 +6,6 @@ extension ExtOcrEngineConfig on OcrEngineConfig {
   }
 
   String get typeName {
-    return R.string('common.ocr_engine.${this.type}');
+    return 'ocr_engine.${this.type}'.tr();
   }
 }

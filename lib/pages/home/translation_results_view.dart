@@ -88,7 +88,8 @@ class TranslationResultsView extends StatelessWidget {
             children: [
               if (querySubmitted &&
                   translationMode == kTranslationModeAuto &&
-                  translationResultList.isEmpty)
+                  translationResultList.isEmpty &&
+                  textDetectedLanguage != null)
                 _buildNoMatchingTranslationTarget(context),
               for (var result in this.translationResultList)
                 Container(

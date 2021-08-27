@@ -9,6 +9,10 @@ class OcrEnginesManagePage extends StatefulWidget {
 }
 
 class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
+  String t(String key, {List<String> args}) {
+    return 'page_ocr_engines_manage.$key'.tr(args: args);
+  }
+
   Widget _buildBody(BuildContext context) {
     return LocalDbBuilder(builder: (context, dbData) {
       return PreferenceList(
@@ -55,7 +59,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
             ],
           ),
           PreferenceListSection(
-            title: Text('私有'),
+            title: Text(t('pref_section_title_private')),
             children: [
               for (OcrEngineConfig ocrEngineConfig
                   in dbData.privateOcrEngineList ?? [])
@@ -97,7 +101,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
                 ),
               PreferenceListItem(
                 title: Text(
-                  '添加',
+                  'add'.tr(),
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                   ),
@@ -121,7 +125,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('文字识别引擎'),
+        title: Text(t('title')),
       ),
       body: _buildBody(context),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hotkey_manager/hotkey_manager.dart';
 
 import '../../../includes.dart';
 
@@ -11,6 +10,10 @@ class SettingShortcutsPage extends StatefulWidget {
 
 class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
   Config _config = sharedConfigManager.getConfig();
+
+  String t(String key) {
+    return 'page_setting_shortcuts.$key'.tr();
+  }
 
   @override
   void initState() {
@@ -37,7 +40,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
           PreferenceListSection(
             children: [
               PreferenceListItem(
-                title: Text('显示/隐藏'),
+                title: Text(t('pref_item_title_show_or_hide')),
                 detailText: Text(
                   _config.shortcutShowOrHide.toString(),
                 ),
@@ -46,17 +49,17 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
             ],
           ),
           PreferenceListSection(
-            title: Text('屏幕取词'),
+            title: Text(t('pref_section_title_screen_extract_text')),
             children: [
               PreferenceListItem(
-                title: Text('选中文字'),
+                title: Text(t('pref_item_title_extract_text_from_selection')),
                 detailText: Text(
                   _config.shortcutExtractFromScreenSelection.toString(),
                 ),
                 onTap: () {},
               ),
               PreferenceListItem(
-                title: Text('截取区域'),
+                title: Text(t('pref_item_title_extract_text_from_capture')),
                 detailText: Text(
                   _config.shortcutExtractFromScreenCapture.toString(),
                 ),
@@ -72,7 +75,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('快捷键'),
+        title: Text(t('title')),
       ),
       body: _buildBody(context),
     );

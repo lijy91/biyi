@@ -12,6 +12,10 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
   String _translationMode = kTranslationModeManual;
   TranslationEngineConfig _defaultEngineConfig;
 
+  String t(String key, {List<String> args}) {
+    return 'page_setting_translate.$key'.tr(args: args);
+  }
+
   @override
   void initState() {
     _translationMode = sharedConfig.translationMode;
@@ -30,28 +34,26 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
       return PreferenceList(
         children: [
           PreferenceListSection(
-            title: Text('翻译模式'),
+            title: Text(t('pref_section_title_translation_mode')),
             children: [
               PreferenceListRadioItem(
                 value: kTranslationModeManual,
                 groupValue: _translationMode,
                 onChanged: _handleChanged,
-                title:
-                    Text(kKnownTranslationModeLabels[kTranslationModeManual]),
+                title: Text('translation_mode.manual'.tr()),
               ),
               PreferenceListRadioItem(
                 value: kTranslationModeAuto,
                 groupValue: _translationMode,
                 onChanged: _handleChanged,
-                title: Text(kKnownTranslationModeLabels[kTranslationModeAuto]),
+                title: Text('translation_mode.auto'.tr()),
               ),
             ],
           ),
           if (sharedConfig.translationMode == kTranslationModeAuto)
             PreferenceListSection(
-              title: Text('默认语种识别引擎'),
-              description: Text(
-                '当你提交翻译后，将使用该引擎进行语种识别',
+              title: Text(
+                t('pref_section_title_default_detect_language_engine'),
               ),
               children: [
                 PreferenceListItem(
@@ -59,7 +61,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                       ? null
                       : TranslationEngineIcon(_defaultEngineConfig),
                   title: Builder(builder: (_) {
-                    if (_defaultEngineConfig == null) return Text('请选择');
+                    if (_defaultEngineConfig == null) return Text('please_choose'.tr());
                     return Text.rich(
                       TextSpan(
                         text: _defaultEngineConfig.typeName,
@@ -94,10 +96,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
             ),
           if (sharedConfig.translationMode == kTranslationModeAuto)
             PreferenceListSection(
-              title: Text('翻译目标'),
-              description: Text(
-                '应用将匹配你的翻译目标并显示相应的翻译结果',
-              ),
+              title: Text(t('pref_section_title_translation_target')),
               children: [
                 for (TranslationTarget translationTarget
                     in dbData.translationTargetList ?? [])
@@ -135,7 +134,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                   ),
                 PreferenceListItem(
                   title: Text(
-                    '添加',
+                    'add'.tr(),
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -159,7 +158,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('翻译'),
+        title: Text('page_setting_translate.title'.tr()),
       ),
       body: _buildBody(context),
     );

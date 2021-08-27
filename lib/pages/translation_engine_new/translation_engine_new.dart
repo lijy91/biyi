@@ -54,6 +54,11 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
     return null;
   }
 
+  String t(String key, {List<String> args}) {
+    return 'page_translation_engine_new.$key'.tr(args: args);
+  }
+
+  @override
   void initState() {
     if (widget.engineConfig != null) {
       _identifier = widget.engineConfig.identifier;
@@ -89,7 +94,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
       title: widget.engineConfig != null
           ? Text.rich(
               TextSpan(
-                text: R.string('common.engine.${widget.engineConfig.type}'),
+                text: widget.engineConfig.typeName,
                 children: [
                   TextSpan(
                     text: ' (${widget.engineConfig.shortId})',
@@ -98,11 +103,11 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                 ],
               ),
             )
-          : Text('添加翻译引擎'),
+          : Text(t('title')),
       actions: [
         if (widget.editable)
           CustomAppBarActionItem(
-            text: '保存',
+            text: 'ok'.tr(),
             onPressed: _handleClickOk,
           ),
       ],
@@ -113,7 +118,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
     return PreferenceList(
       children: [
         PreferenceListSection(
-          title: Text('引擎类型'),
+          title: Text(t('pref_section_title_engine_type')),
           children: [
             PreferenceListItem(
               icon: _type == null
@@ -122,8 +127,8 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                       TranslationEngineConfig(type: _type),
                     ),
               title: _type == null
-                  ? Text('请选择')
-                  : Text(R.string('common.engine.$_type')),
+                  ? Text('please_choose'.tr())
+                  : Text('engine.$_type'.tr()),
               accessoryView: widget.editable ? null : Container(),
               onTap: widget.editable
                   ? () {
@@ -146,7 +151,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
         ),
         if (translationEngine != null)
           PreferenceListSection(
-            title: Text('支持接口'),
+            title: Text(t('pref_section_title_support_interface')),
             children: [
               for (var scope in _kAllScopes)
                 PreferenceListItem(
@@ -157,7 +162,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                     right: 12,
                   ),
                   title: Text(
-                    R.string('common.engine_scope.${scope.toLowerCase()}'),
+                    'engine_scope.${scope.toLowerCase()}'.tr(),
                   ),
                   summary: Text(scope),
                   accessoryView: Container(
@@ -172,7 +177,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
           ),
         if (widget.editable && _type != null)
           PreferenceListSection(
-            title: Text('选项'),
+            title: Text(t('pref_section_title_option')),
             children: [
               for (var optionKey in _engineOptionKeys)
                 PreferenceListTextFieldItem(
@@ -186,7 +191,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                 ),
               if (_engineOptionKeys.isEmpty)
                 PreferenceListItem(
-                  title: Text('无选项'),
+                  title: Text('No options'),
                   accessoryView: Container(),
                 ),
             ],
@@ -198,7 +203,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
               PreferenceListItem(
                 title: Center(
                   child: Text(
-                    '删除',
+                    'delete'.tr(),
                     style: TextStyle(color: Colors.red),
                   ),
                 ),

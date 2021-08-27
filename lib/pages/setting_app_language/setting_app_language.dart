@@ -5,12 +5,10 @@ import '../../includes.dart';
 
 class SettingAppLanguagePage extends StatefulWidget {
   final String initialLanguage;
-  final ValueChanged<String> onChoosed;
 
   const SettingAppLanguagePage({
     Key key,
     this.initialLanguage,
-    this.onChoosed,
   }) : super(key: key);
 
   @override
@@ -20,28 +18,19 @@ class SettingAppLanguagePage extends StatefulWidget {
 class _SettingAppLanguagePageState extends State<SettingAppLanguagePage> {
   String _language;
 
+  String t(String key) {
+    return 'page_setting_app_language.$key'.tr();
+  }
+
+  @override
   void initState() {
     _language = widget.initialLanguage;
     super.initState();
   }
 
-  void _handleClickOk() async {
-    if (widget.onChoosed != null) {
-      widget.onChoosed(_language);
-    }
-
-    Navigator.of(context).pop();
-  }
-
   Widget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      title: Text('显示语言'),
-      actions: [
-        CustomAppBarActionItem(
-          text: '确定',
-          onPressed: _handleClickOk,
-        ),
-      ],
+      title: Text(t('title')),
     );
   }
 
@@ -57,8 +46,10 @@ class _SettingAppLanguagePageState extends State<SettingAppLanguagePage> {
                   accessoryView: Container(),
                   value: appLanguage,
                   groupValue: _language,
-                  onChanged: (newGroupValue) {
-                    _language = appLanguage;
+                  onChanged: (newGroupValue) async {
+                    _language = newGroupValue;
+                    await context.setLocale(languageToLocale(newGroupValue));
+                    sharedConfigManager.setAppLanguage(newGroupValue);
                     setState(() {});
                   },
                 ),

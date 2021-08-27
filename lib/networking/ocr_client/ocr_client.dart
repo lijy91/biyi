@@ -10,15 +10,15 @@ const kSupportedOcrEngineTypes = [
 ];
 
 OcrEngine createOcrEngine(
-  OcrEngineConfig engineConfig,
+  OcrEngineConfig ocrEngineConfig,
 ) {
   OcrEngine ocrEngine;
-  if (engineConfig.option == null) {
-    ocrEngine = ProOcrEngine(engineConfig);
+  if (sharedLocalDb.proOcrEngine(ocrEngineConfig.identifier).exists()) {
+    ocrEngine = ProOcrEngine(ocrEngineConfig);
   } else {
-    switch (engineConfig.type) {
+    switch (ocrEngineConfig.type) {
       case kOcrEngineTypeYoudao:
-        ocrEngine = YoudaoOcrEngine(engineConfig);
+        ocrEngine = YoudaoOcrEngine(ocrEngineConfig);
         break;
     }
   }

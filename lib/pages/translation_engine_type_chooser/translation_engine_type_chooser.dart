@@ -22,6 +22,10 @@ class _TranslationEngineTypeChooserPageState
     extends State<TranslationEngineTypeChooserPage> {
   String _type;
 
+  String t(String key, {List<String> args}) {
+    return 'page_translation_engine_type_chooser.$key'.tr(args: args);
+  }
+
   void initState() {
     _type = widget.engineType;
     super.initState();
@@ -37,10 +41,10 @@ class _TranslationEngineTypeChooserPageState
 
   Widget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      title: Text('引擎类型'),
+      title: Text(t('title')),
       actions: [
         CustomAppBarActionItem(
-          text: '确定',
+          text: 'ok'.tr(),
           onPressed: _handleClickOk,
         ),
       ],
@@ -57,7 +61,7 @@ class _TranslationEngineTypeChooserPageState
                 icon: TranslationEngineIcon(
                   TranslationEngineConfig(type: engineType),
                 ),
-                title: Text(R.string('common.engine.$engineType')),
+                title: Text('engine.$engineType'.tr()),
                 value: engineType,
                 groupValue: _type,
                 onChanged: (newGroupValue) {

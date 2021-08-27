@@ -36,7 +36,8 @@ class NewVersionFoundBanner extends StatelessWidget {
           children: [
             Text.rich(
               TextSpan(
-                text: '发现新版本：${latestVersion.version}',
+                text: 'page_home.newversion_banner_text_found_new_version'
+                    .tr(args: [latestVersion?.version ?? '']),
               ),
               style: Theme.of(context).textTheme.bodyText2.copyWith(
                     color: Colors.white,
@@ -49,7 +50,7 @@ class NewVersionFoundBanner extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: '立即更新',
+                    text: 'page_home.newversion_banner_btn_update'.tr(),
                     style: TextStyle(
                       color: Colors.white,
                       height: 1.3,

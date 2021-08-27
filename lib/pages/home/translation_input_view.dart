@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:ui';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +43,9 @@ class TranslationInputView extends StatelessWidget {
     return Row(
       children: [
         Tooltip(
-          message:
-              '当前翻译模式：${this.translationMode == kTranslationModeAuto ? '自动' : '手动'}',
+          message: 'page_home.tip_translation_mode'.tr(args: [
+            'translation_mode.${this.translationMode}'.tr(),
+          ]),
           child: SizedBox(
             width: 30,
             height: 26,
@@ -124,7 +123,7 @@ class TranslationInputView extends StatelessWidget {
           ),
         ),
         Tooltip(
-          message: '截取屏幕区域',
+          message: 'page_home.tip_extract_text_from_screen_capture'.tr(),
           child: SizedBox(
             width: 30,
             height: 26,
@@ -140,7 +139,7 @@ class TranslationInputView extends StatelessWidget {
           ),
         ),
         Tooltip(
-          message: '翻译剪切板内容',
+          message: 'page_home.tip_extract_text_from_clipboard'.tr(),
           child: SizedBox(
             width: 30,
             height: 26,
@@ -162,29 +161,39 @@ class TranslationInputView extends StatelessWidget {
   Widget _buildActionButtons(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
-          width: 56,
+        Container(
           height: 24,
+          constraints: BoxConstraints(
+            minWidth: 56,
+          ),
           child: CustomButton.outlined(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.only(
+              left: 12,
+              right: 12,
+            ),
             border: Border.all(color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(2),
             child: Text(
-              '清空',
+              'page_home.btn_clear'.tr(),
               style: TextStyle(fontSize: 12),
             ),
             onPressed: this.onButtonTappedClear,
           ),
         ),
         SizedBox(width: 10),
-        SizedBox(
-          width: 56,
+        Container(
           height: 24,
+          constraints: BoxConstraints(
+            minWidth: 56,
+          ),
           child: CustomButton.filled(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.only(
+              left: 12,
+              right: 12,
+            ),
             borderRadius: BorderRadius.circular(2),
             child: Text(
-              '翻译',
+              'page_home.btn_trans'.tr(),
               style: TextStyle(fontSize: 12),
             ),
             onPressed: this.onButtonTappedTrans,
@@ -241,7 +250,7 @@ class TranslationInputView extends StatelessWidget {
                               fontSize: 14,
                               height: 1.2,
                             ),
-                    placeholder: '在此输入要翻译的单词或文字',
+                    placeholder: 'page_home.input_hint'.tr(),
                     maxLines:
                         inputSetting == kInputSettingSubmitWithEnter ? 1 : 6,
                     minLines: 1,

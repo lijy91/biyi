@@ -21,6 +21,10 @@ class OcrEngineTypeChooserPage extends StatefulWidget {
 class _OcrEngineTypeChooserPageState extends State<OcrEngineTypeChooserPage> {
   String _type;
 
+  String t(String key, {List<String> args}) {
+    return 'page_ocr_engine_type_chooser.$key'.tr(args: args);
+  }
+
   void initState() {
     _type = widget.engineType;
     super.initState();
@@ -36,10 +40,10 @@ class _OcrEngineTypeChooserPageState extends State<OcrEngineTypeChooserPage> {
 
   Widget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      title: Text('引擎类型'),
+      title: Text(t('title')),
       actions: [
         CustomAppBarActionItem(
-          text: '确定',
+          text: 'ok'.tr(),
           onPressed: _handleClickOk,
         ),
       ],
@@ -56,7 +60,7 @@ class _OcrEngineTypeChooserPageState extends State<OcrEngineTypeChooserPage> {
                 icon: OcrEngineIcon(
                   OcrEngineConfig(type: engineType),
                 ),
-                title: Text(R.string('common.ocr_engine.$engineType')),
+                title: Text('ocr_engine.$engineType'.tr()),
                 value: engineType,
                 groupValue: _type,
                 onChanged: (newGroupValue) {

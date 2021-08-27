@@ -34,7 +34,7 @@ class _AllowAccessListItem extends StatelessWidget {
           TextSpan(text: '      '),
           if (onTappedTryAllow != null)
             TextSpan(
-              text: '授权',
+              text: 'page_home.limited_banner_btn_allow'.tr(),
               style: TextStyle(
                 decoration: TextDecoration.underline,
                 decorationColor: Colors.white,
@@ -44,7 +44,7 @@ class _AllowAccessListItem extends StatelessWidget {
           if (onTappedTryAllow != null) TextSpan(text: ' / '),
           if (onTappedGoSettings != null)
             TextSpan(
-              text: '前往设置',
+              text: 'page_home.limited_banner_btn_go_settings'.tr(),
               style: TextStyle(
                 decoration: TextDecoration.underline,
                 decorationColor: Colors.white,
@@ -100,7 +100,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
           children: [
             Text.rich(
               TextSpan(
-                text: '当前功能受限，请根据以下提示进行检查及设置。',
+                text: 'page_home.limited_banner_title'.tr(),
               ),
               style: Theme.of(context).textTheme.bodyText2.copyWith(
                     color: Colors.white,
@@ -115,12 +115,12 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                 children: [
                   if (kIsMacOS)
                     _AllowAccessListItem(
-                      title: '授予屏幕录制权限',
+                      title: 'page_home.limited_banner_text_screen_capture'.tr(),
                       allowed: isAllowedScreenCaptureAccess,
                       onTappedTryAllow: () {
                         screenTextExtractor.requestScreenCaptureAccess();
                         BotToast.showText(
-                          text: '点击「授权」后如无任何响应，请点击「前往设置」进行手动设置。',
+                          text: 'page_home.limited_banner_msg_allow_access_tip'.tr(),
                           align: Alignment.center,
                           duration: Duration(seconds: 5),
                         );
@@ -133,12 +133,12 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                     ),
                   if (kIsMacOS)
                     _AllowAccessListItem(
-                      title: '授予辅助功能权限',
+                      title: 'page_home.limited_banner_text_screen_selection'.tr(),
                       allowed: isAllowedScreenSelectionAccess,
                       onTappedTryAllow: () {
                         screenTextExtractor.requestScreenSelectionAccess();
                         BotToast.showText(
-                          text: '点击「授权」后如无任何响应，请点击「前往设置」进行手动设置。',
+                          text: 'page_home.limited_banner_msg_allow_access_tip'.tr(),
                           align: Alignment.center,
                           duration: Duration(seconds: 5),
                         );
@@ -158,7 +158,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                   width: 18,
                   height: 18,
                   child: Tooltip(
-                    message: '查看帮助文档',
+                    message: 'page_home.limited_banner_tip_help'.tr(),
                     child: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: Icon(
@@ -184,7 +184,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: '重新检查',
+                        text: 'page_home.limited_banner_btn_check_again'.tr(),
                         style: TextStyle(
                           color: Colors.white,
                           height: 1.3,

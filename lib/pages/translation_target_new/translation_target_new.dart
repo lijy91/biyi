@@ -20,6 +20,11 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
   String _sourceLanguage;
   String _targetLanguage;
 
+  String t(String key, {List<String> args}) {
+    return 'page_translation_target_new.$key'.tr(args: args);
+  }
+
+  @override
   void initState() {
     if (widget.translationTarget != null) {
       _sourceLanguage = widget.translationTarget.sourceLanguage;
@@ -42,10 +47,10 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
 
   Widget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      title: widget.translationTarget != null ? Text('修改翻译目标') : Text('添加翻译目标'),
+      title: widget.translationTarget != null ? Text(t('title_with_edit')) : Text(t('title')),
       actions: [
         CustomAppBarActionItem(
-          text: '保存',
+          text: 'ok'.tr(),
           onPressed: _handleClickOk,
         ),
       ],
@@ -59,10 +64,10 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
           PreferenceListSection(
             children: [
               PreferenceListItem(
-                title: Text('源语言'),
+                title: Text(t('source_language')),
                 detailText: _sourceLanguage != null
                     ? LanguageLabel(_sourceLanguage)
-                    : Text('请选择'),
+                    : Text('please_choose'.tr()),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -77,10 +82,10 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
                 },
               ),
               PreferenceListItem(
-                title: Text('目标语言'),
+                title: Text(t('target_language')),
                 detailText: _targetLanguage != null
                     ? LanguageLabel(_targetLanguage)
-                    : Text('请选择'),
+                    : Text('please_choose'.tr()),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -103,7 +108,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
                 PreferenceListItem(
                   title: Center(
                     child: Text(
-                      '删除',
+                      'delete'.tr(),
                       style: TextStyle(color: Colors.red),
                     ),
                   ),

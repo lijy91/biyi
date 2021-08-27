@@ -1,11 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:yaml_localizations/yaml_localizations.dart';
 
 import '../includes.dart';
-
-final _window = WidgetsBinding.instance.window;
 
 class AppNavigator extends StatefulWidget {
   final Widget home;
@@ -60,17 +57,9 @@ class _AppNavigatorState extends State<AppNavigator>
       builder: widget.home == null ? BotToastInit() : null,
       navigatorObservers:
           widget.home == null ? [BotToastNavigatorObserver()] : [],
-      localizationsDelegates: [
-        GlobalWidgetsLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        YamlLocalizationsDelegate('assets/languages'),
-      ],
-      supportedLocales: [
-        Locale('en'),
-        Locale('zh', 'CN'),
-      ],
-      locale: languageToLocale(_config.appLanguage),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       home: widget.home == null ? HomePage() : widget.home,
     );
   }

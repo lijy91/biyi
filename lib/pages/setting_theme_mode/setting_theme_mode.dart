@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../includes.dart';
@@ -10,6 +11,10 @@ class SettingThemeModePage extends StatefulWidget {
 
 class _SettingThemeModePageState extends State<SettingThemeModePage> {
   ThemeMode _themeMode = ThemeMode.light;
+
+  String t(String key, {List<String> args}) {
+    return 'page_setting_theme_mode.$key'.tr(args: args);
+  }
 
   @override
   void initState() {
@@ -32,19 +37,25 @@ class _SettingThemeModePageState extends State<SettingThemeModePage> {
                 value: ThemeMode.light,
                 groupValue: _themeMode,
                 onChanged: _handleChanged,
-                title: Text(kKnownThemeModeLabels[ThemeMode.light]),
+                title: Text(
+                  'theme_mode.${describeEnum(ThemeMode.light)}'.tr(),
+                ),
               ),
               PreferenceListRadioItem(
                 value: ThemeMode.dark,
                 groupValue: _themeMode,
                 onChanged: _handleChanged,
-                title: Text(kKnownThemeModeLabels[ThemeMode.dark]),
+                title: Text(
+                  'theme_mode.${describeEnum(ThemeMode.dark)}'.tr(),
+                ),
               ),
               PreferenceListRadioItem(
                 value: ThemeMode.system,
                 groupValue: _themeMode,
                 onChanged: _handleChanged,
-                title: Text(kKnownThemeModeLabels[ThemeMode.system]),
+                title: Text(
+                  'theme_mode.${describeEnum(ThemeMode.system)}'.tr(),
+                ),
               ),
             ],
           ),
@@ -56,7 +67,7 @@ class _SettingThemeModePageState extends State<SettingThemeModePage> {
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('颜色主题'),
+        title: Text(t('title')),
       ),
       body: _buildBody(context),
     );

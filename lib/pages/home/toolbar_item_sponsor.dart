@@ -30,7 +30,7 @@ class _ToolbarItemSponsorState extends State<ToolbarItemSponsor> {
             ),
             SizedBox(width: 4),
             Text(
-              '支持一下',
+              'page_home.btn_sponsor'.tr(),
               style: TextStyle(
                 fontSize: 11,
                 color: Colors.red,

@@ -8,12 +8,16 @@ const kLanguageES = 'es';
 const kLanguageFR = 'fr';
 const kLanguageIT = 'it';
 const kLanguageJA = 'ja';
+const kLanguageKO = 'ko';
 const kLanguagePT = 'pt';
 const kLanguageRU = 'ru';
 const kLanguageZH = 'zh';
 
 final List<String> kAppLanguages = [
   kLanguageEN,
+  // kLanguageJA,
+  // kLanguageKO,
+  // kLanguageRU,
   kLanguageZH,
 ];
 
@@ -24,6 +28,7 @@ final List<String> kSupportedLanguages = [
   kLanguageFR,
   kLanguageIT,
   kLanguageJA,
+  kLanguageKO,
   kLanguagePT,
   kLanguageRU,
   kLanguageZH,
@@ -36,13 +41,14 @@ final Map<String, String> _knownFlagIcons = {
   kLanguageFR: 'fr',
   kLanguageIT: 'in',
   kLanguageJA: 'jp',
+  kLanguageKO: 'kr',
   kLanguagePT: 'pt',
   kLanguageRU: 'ru',
   kLanguageZH: 'cn',
 };
 
 String getLanguageName(String language) {
-  return R.string('common.language.${language.toLowerCase()}');
+  return 'language.$language'.tr();
 }
 
 String getLanguageFlag(String language) {

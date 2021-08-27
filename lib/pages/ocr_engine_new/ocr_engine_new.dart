@@ -34,6 +34,11 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
     return [];
   }
 
+  String t(String key, {List<String> args}) {
+    return 'page_ocr_engine_new.$key'.tr(args: args);
+  }
+
+  @override
   void initState() {
     if (widget.ocrEngineConfig != null) {
       _identifier = widget.ocrEngineConfig.identifier;
@@ -64,8 +69,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
       title: widget.ocrEngineConfig != null
           ? Text.rich(
               TextSpan(
-                text: R
-                    .string('common.ocr_engine.${widget.ocrEngineConfig.type}'),
+                text: widget.ocrEngineConfig.typeName,
                 children: [
                   TextSpan(
                     text: ' (${widget.ocrEngineConfig.shortId})',
@@ -74,11 +78,11 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
                 ],
               ),
             )
-          : Text('添加文字识别引擎'),
+          : Text(t('title')),
       actions: [
         if (widget.editable)
           CustomAppBarActionItem(
-            text: '保存',
+            text: 'ok'.tr(),
             onPressed: _handleClickOk,
           ),
       ],
@@ -89,7 +93,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
     return PreferenceList(
       children: [
         PreferenceListSection(
-          title: Text('引擎类型'),
+          title: Text(t('pref_section_title_engine_type')),
           children: [
             PreferenceListItem(
               icon: _type == null
@@ -98,8 +102,8 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
                       OcrEngineConfig(type: _type),
                     ),
               title: _type == null
-                  ? Text('请选择')
-                  : Text(R.string('common.ocr_engine.$_type')),
+                  ? Text('please_choose'.tr())
+                  : Text('ocr_engine.$_type'.tr()),
               accessoryView: widget.editable ? null : Container(),
               onTap: widget.editable
                   ? () {
@@ -122,7 +126,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
         ),
         if (widget.editable && _type != null)
           PreferenceListSection(
-            title: Text('选项'),
+            title: Text(t('pref_section_title_option')),
             children: [
               for (var optionKey in _engineOptionKeys)
                 PreferenceListTextFieldItem(
@@ -136,7 +140,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
                 ),
               if (_engineOptionKeys.isEmpty)
                 PreferenceListItem(
-                  title: Text('无选项'),
+                  title: Text('No options'),
                   accessoryView: Container(),
                 ),
             ],
@@ -148,7 +152,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
               PreferenceListItem(
                 title: Center(
                   child: Text(
-                    '删除',
+                    'delete'.tr(),
                     style: TextStyle(color: Colors.red),
                   ),
                 ),

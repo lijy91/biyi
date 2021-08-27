@@ -4,6 +4,6 @@ import '../includes.dart';
 
 extension ExtWordPronunciation on WordPronunciation {
   String get localType {
-    return R.string('common.pronunciation.${this.type}');
+    return 'word_pronunciation.${this.type}'.tr();
   }
 }

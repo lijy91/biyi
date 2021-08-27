@@ -32,17 +32,6 @@ const Map<String, ThemeMode> kKnownThemeModes = <String, ThemeMode>{
   'system': ThemeMode.system,
 };
 
-const Map<ThemeMode, String> kKnownThemeModeLabels = <ThemeMode, String>{
-  ThemeMode.light: '浅色',
-  ThemeMode.dark: '深色',
-  ThemeMode.system: '跟随系统',
-};
-
-const Map<String, String> kKnownTranslationModeLabels = <String, String>{
-  kTranslationModeAuto: '自动',
-  kTranslationModeManual: '手动',
-};
-
 class UserPreference {
   String id;
   String key;

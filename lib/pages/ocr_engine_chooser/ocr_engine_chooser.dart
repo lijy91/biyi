@@ -20,7 +20,12 @@ class OcrEngineChooserPage extends StatefulWidget {
 class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
   String _identifier;
 
-  initState() {
+  String t(String key, {List<String> args}) {
+    return 'page_ocr_engine_chooser.$key'.tr(args: args);
+  }
+
+  @override
+  void initState() {
     super.initState();
     setState(() {
       _identifier = widget.initialOcrEngineConfig?.identifier;
@@ -73,7 +78,7 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
             ],
           ),
           PreferenceListSection(
-            title: Text('私有'),
+            title: Text(t('pref_section_title_private')),
             children: [
               for (OcrEngineConfig ocrEngineConfig
                   in dbData.privateOcrEngineList ?? [])
@@ -104,7 +109,7 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
                 ),
               if ((dbData.privateOcrEngineList ?? []).isEmpty)
                 PreferenceListItem(
-                  title: Text('无'),
+                  title: Text('Nothing'),
                   accessoryView: Container(),
                 ),
             ],
@@ -117,10 +122,10 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('文字识别引擎'),
+        title: Text(t('title')),
         actions: [
           CustomAppBarActionItem(
-            text: '确定',
+            text: 'ok'.tr(),
             onPressed: _handleClickOk,
           ),
         ],

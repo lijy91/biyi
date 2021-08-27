@@ -8,6 +8,6 @@ extension ExtTranslationEngineConfig on TranslationEngineConfig {
   }
 
   String get typeName {
-    return R.string('common.engine.${this.type}');
+    return 'engine.${this.type}'.tr();
   }
 }

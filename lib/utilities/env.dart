@@ -17,16 +17,12 @@ class Env {
 
   void parse(Map json) {
     this.env = json['env'];
-    this.appName = json['appName'];
     this.webUrl = json['webUrl'];
     this.apiUrl = json['apiUrl'];
-    this.h5Url = json['h5Url'];
   }
 
   String env;
-  String appName;
 
   String webUrl;
   String apiUrl;
-  String h5Url;
 }

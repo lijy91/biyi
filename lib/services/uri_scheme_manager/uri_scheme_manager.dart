@@ -53,7 +53,7 @@ class UriSchemeManager {
     }
   }
 
-  void _init() {
+  void _init() async {
     if (_inited) return;
     if (kIsWeb || kIsLinux || kIsWindows) return;
     _sub = uriLinkStream.listen(

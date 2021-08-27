@@ -21,7 +21,12 @@ class _TranslationEngineChooserPageState
     extends State<TranslationEngineChooserPage> {
   String _identifier;
 
-  initState() {
+  String t(String key, {List<String> args}) {
+    return 'page_translation_engine_chooser.$key'.tr(args: args);
+  }
+
+  @override
+  void initState() {
     super.initState();
     setState(() {
       _identifier = widget.initialEngineConfig?.identifier;
@@ -74,7 +79,7 @@ class _TranslationEngineChooserPageState
             ],
           ),
           PreferenceListSection(
-            title: Text('私有'),
+            title: Text(t('pref_section_title_private')),
             children: [
               for (TranslationEngineConfig engineConfig
                   in dbData.privateEngineList ?? [])
@@ -105,7 +110,7 @@ class _TranslationEngineChooserPageState
                 ),
               if ((dbData.privateEngineList ?? []).isEmpty)
                 PreferenceListItem(
-                  title: Text('无'),
+                  title: Text('Nothing'),
                   accessoryView: Container(),
                 ),
             ],
@@ -118,10 +123,10 @@ class _TranslationEngineChooserPageState
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('文本翻译引擎'),
+        title: Text(t('title')),
         actions: [
           CustomAppBarActionItem(
-            text: '确定',
+            text: 'ok'.tr(),
             onPressed: _handleClickOk,
           ),
         ],

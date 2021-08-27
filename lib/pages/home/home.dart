@@ -15,6 +15,8 @@ import 'package:window_manager/window_manager.dart';
 
 import '../../../includes.dart';
 
+export './limited_functionality_banner.dart';
+export './new_version_found_banner.dart';
 import './toolbar_item_always_on_top.dart';
 import './toolbar_item_settings.dart';
 import './toolbar_item_sponsor.dart';
@@ -169,7 +171,7 @@ class _HomePageState extends State<HomePage>
     }
   }
 
-  void _windowShow() async {
+  Future<void> _windowShow() async {
     if (!kIsMacOS) return;
 
     Size windowSize = await windowManager.getSize();
@@ -286,6 +288,7 @@ class _HomePageState extends State<HomePage>
         TranslationResult translationResult = TranslationResult(
           translationTarget: translationTarget,
           translationResultRecordList: [],
+          unsupportedEngineIdList: [],
         );
         _translationResultList.add(translationResult);
       }
@@ -296,16 +299,43 @@ class _HomePageState extends State<HomePage>
     for (int i = 0; i < _translationResultList.length; i++) {
       TranslationTarget translationTarget =
           _translationResultList[i].translationTarget;
-      List<String> translationEngineIdList = _translationEngineList
-          .where((e) => !e.disabled)
-          .map((e) => e.identifier)
-          .toList();
 
-      for (int j = 0; j < translationEngineIdList.length; j++) {
-        String identifier = translationEngineIdList[j];
-        TranslationEngine engine = sharedTranslateClient.use(identifier);
+      List<String> engineIdList = [];
+      List<String> unsupportedEngineIdList = [];
 
-        if (engine == null) continue;
+      for (int j = 0; j < _translationEngineList.length; j++) {
+        String identifier = _translationEngineList[j].identifier;
+
+        if (_translationEngineList[j].disabled) continue;
+
+        try {
+          List<LanguagePair> supportedLanguagePairList = [];
+          supportedLanguagePairList = await sharedTranslateClient
+              .use(identifier)
+              .getSupportedLanguagePairs();
+
+          LanguagePair languagePair = supportedLanguagePairList.firstWhere(
+            (e) {
+              return e.sourceLanguage == translationTarget.sourceLanguage &&
+                  e.targetLanguage == translationTarget.targetLanguage;
+            },
+            orElse: () => null,
+          );
+          if (languagePair == null) {
+            unsupportedEngineIdList.add(identifier);
+          } else {
+            engineIdList.add(identifier);
+          }
+        } catch (error) {
+          engineIdList.add(identifier);
+        }
+      }
+
+      _translationResultList[i].unsupportedEngineIdList =
+          unsupportedEngineIdList;
+
+      for (int j = 0; j < engineIdList.length; j++) {
+        String identifier = engineIdList[j];
 
         TranslationResultRecord translationResultRecord =
             TranslationResultRecord(
@@ -318,20 +348,22 @@ class _HomePageState extends State<HomePage>
             .add(translationResultRecord);
 
         Future<bool> future = Future<bool>.sync(() async {
-          TranslationEngine engine = sharedTranslateClient.use(identifier);
-          if (engine == null) return false;
-
           LookUpRequest lookUpRequest;
           LookUpResponse lookUpResponse;
           UniTranslateClientError lookUpError;
-          if (engine.supportedScopes.contains(kScopeLookUp)) {
+          if (sharedTranslateClient
+              .use(identifier)
+              .supportedScopes
+              .contains(kScopeLookUp)) {
             try {
               lookUpRequest = LookUpRequest(
                 sourceLanguage: translationTarget.sourceLanguage,
                 targetLanguage: translationTarget.targetLanguage,
                 word: _text,
               );
-              lookUpResponse = await engine.lookUp(lookUpRequest);
+              lookUpResponse = await sharedTranslateClient
+                  .use(identifier)
+                  .lookUp(lookUpRequest);
             } catch (error) {
               print(error);
               lookUpError = error;
@@ -341,14 +373,19 @@ class _HomePageState extends State<HomePage>
           TranslateRequest translateRequest;
           TranslateResponse translateResponse;
           UniTranslateClientError translateError;
-          if (engine.supportedScopes.contains(kScopeTranslate)) {
+          if (sharedTranslateClient
+              .use(identifier)
+              .supportedScopes
+              .contains(kScopeTranslate)) {
             try {
               translateRequest = TranslateRequest(
                 sourceLanguage: translationTarget.sourceLanguage,
                 targetLanguage: translationTarget.targetLanguage,
                 text: _text,
               );
-              translateResponse = await engine.translate(translateRequest);
+              translateResponse = await sharedTranslateClient
+                  .use(identifier)
+                  .translate(translateRequest);
             } catch (error) {
               print(error);
               translateError = error;
@@ -416,9 +453,9 @@ class _HomePageState extends State<HomePage>
       mode: ExtractMode.screenSelection,
     );
 
+    await _windowShow();
+    await Future.delayed(Duration(milliseconds: 200));
     _handleTextChanged(extractedData.text, isRequery: true);
-
-    _windowShow();
   }
 
   void _handleExtractTextFromScreenCapture() async {
@@ -444,6 +481,8 @@ class _HomePageState extends State<HomePage>
       imagePath: imagePath,
     );
 
+    await _windowShow();
+    await Future.delayed(Duration(milliseconds: 200));
     if (extractedData.text == null) {
       _extractedData = extractedData;
       setState(() {});
@@ -459,8 +498,6 @@ class _HomePageState extends State<HomePage>
     } else {
       _handleTextChanged(extractedData.text, isRequery: true);
     }
-
-    _windowShow();
   }
 
   void _handleExtractTextFromClipboard() async {
@@ -532,12 +569,14 @@ class _HomePageState extends State<HomePage>
                 if (_isAllowedScreenCaptureAccess &&
                     _isAllowedScreenSelectionAccess) {
                   BotToast.showText(
-                    text: "屏幕取词功能已启用",
+                    text:
+                        "page_home.limited_banner_msg_all_access_allowed".tr(),
                     align: Alignment.center,
                   );
                 } else {
                   BotToast.showText(
-                    text: "未获得所需权限，\n请重新检查并进行设置。",
+                    text: "page_home.limited_banner_msg_all_access_not_allowed"
+                        .tr(),
                     align: Alignment.center,
                   );
                 }
@@ -666,21 +705,16 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  void onUriSchemeLaunch(Uri uri) {
+  void onUriSchemeLaunch(Uri uri) async {
     if (uri.scheme != 'biyiapp') return;
 
-    if (uri.authority.isEmpty) {
-      windowManager.show();
-    } else if (uri.authority == 'translate') {
-      if (_text.isNotEmpty) {
-        _handleButtonTappedClear();
-      }
+    await _windowShow();
+    await Future.delayed(Duration(milliseconds: 200));
+    if (uri.authority == 'translate') {
+      if (_text.isNotEmpty) _handleButtonTappedClear();
       String text = uri.queryParameters['text'];
       if (text != null && text.isNotEmpty) {
-        Future.delayed(Duration(milliseconds: 100)).then((value) {
-          _handleTextChanged(text, isRequery: true);
-          windowManager.show();
-        });
+        _handleTextChanged(text, isRequery: true);
       }
     }
   }

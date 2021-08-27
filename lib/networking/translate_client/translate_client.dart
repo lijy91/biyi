@@ -32,7 +32,7 @@ TranslationEngine createTranslationEngine(
   TranslationEngineConfig engineConfig,
 ) {
   TranslationEngine translationEngine;
-  if (engineConfig.option == null) {
+  if (sharedLocalDb.proEngine(engineConfig.identifier).exists()) {
     translationEngine = ProTranslationEngine(engineConfig);
   } else {
     switch (engineConfig.type) {

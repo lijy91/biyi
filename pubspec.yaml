@@ -30,51 +30,52 @@ dependencies:
   bot_toast: ^4.0.1
   dart_vlc: ^0.1.4
   dio: ^4.0.0
+  easy_localization: ^3.0.0
+  easy_localization_loader: ^1.0.0
   flutter_spinkit: ^5.0.0
   flutter_svg: ^0.22.0
   hotkey_manager:
     git:
-      url: https://github.com/leanflutter/hotkey_manager.git
       ref: main
+      url: https://github.com/leanflutter/hotkey_manager.git
   package_info_plus: ^1.0.4
   photo_view: ^0.12.0
   screen_text_extractor:
     git:
-      url: https://github.com/leanflutter/screen_text_extractor.git
       ref: main
+      url: https://github.com/leanflutter/screen_text_extractor.git
   sticky_headers: ^0.1.8
   tray_manager:
     git:
-      url: https://github.com/leanflutter/tray_manager.git
       ref: main
+      url: https://github.com/leanflutter/tray_manager.git
   uni_links: ^0.5.1
   uni_links_macos:
     git:
-      url: https://github.com/biyidev/dart_pkgs.git
-      ref: master
       path: packages/uni_links_macos
+      ref: master
+      url: https://github.com/biyidev/dart_pkgs.git
   uni_ocr:
     git:
-      url: https://github.com/biyidev/uni_ocr.git
-      ref: master
       path: packages/uni_ocr
+      ref: master
+      url: https://github.com/biyidev/uni_ocr.git
   uni_ocr_client:
     git:
-      url: https://github.com/biyidev/uni_ocr.git
-      ref: master
       path: packages/uni_ocr_client
+      ref: master
+      url: https://github.com/biyidev/uni_ocr.git
   uni_translate:
     git:
-      url: https://github.com/biyidev/uni_translate.git
-      ref: master
       path: packages/uni_translate
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
   url_launcher: ^6.0.6
   uuid: ^3.0.4
   window_manager:
     git:
-      url: https://github.com/leanflutter/window_manager.git
       ref: main
-  yaml_localizations: ^1.0.0
+      url: https://github.com/leanflutter/window_manager.git
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -111,7 +112,7 @@ flutter:
     - assets/images/flag_icons/
     - assets/images/ocr_engine_icons/
     - assets/images/translation_engine_icons/
-    - assets/languages/
+    - assets/translations/
     - packages/hotkey_manager/js/
     - packages/screen_text_extractor/js/
     - packages/window_manager/js/

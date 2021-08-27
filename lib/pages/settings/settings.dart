@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -14,8 +15,12 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String _appVersion = 'Unknown';
+  PackageInfo _packageInfo;
   String _inputSetting = kInputSettingSubmitWithEnter;
+
+  String t(String key, {List<String> args}) {
+    return 'page_settings.$key'.tr(args: args);
+  }
 
   @override
   void initState() {
@@ -26,12 +31,9 @@ class _SettingsPageState extends State<SettingsPage> {
   void _init() async {
     final PackageInfo info = await PackageInfo.fromPlatform();
 
-    String version = info.version;
-    String buildNumber = info.buildNumber;
-
     setState(() {
+      _packageInfo = info;
       _inputSetting = sharedConfig.inputSetting;
-      _appVersion = "版本 $version BUILD $buildNumber";
     });
   }
 
@@ -40,14 +42,10 @@ class _SettingsPageState extends State<SettingsPage> {
       return PreferenceList(
         children: [
           PreferenceListSection(
-            title: Text('常规'),
+            title: Text(t('pref_section_title_general')),
             children: [
-              // PreferenceListItem(
-              //   title: Text('查词'),
-              //   onTap: () {},
-              // ),
               PreferenceListItem(
-                title: Text('翻译'),
+                title: Text(t('pref_item_title_translate')),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -57,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               PreferenceListItem(
-                title: Text('屏幕取词'),
+                title: Text(t('pref_item_title_screen_extract_text')),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -69,27 +67,26 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
           PreferenceListSection(
-            title: Text('外观'),
+            title: Text(t('pref_section_title_appearance')),
             children: [
-              // PreferenceListItem(
-              //   title: Text('显示语言'),
-              //   detailText: Text(getLanguageName(sharedConfig.appLanguage)),
-              //   onTap: () {
-              //     Navigator.of(context).push(
-              //       MaterialPageRoute(
-              //         builder: (_) => SettingAppLanguagePage(
-              //           initialLanguage: sharedConfig.appLanguage,
-              //           onChoosed: (newAppLanguage) {
-              //             sharedConfigManager.setAppLanguage(newAppLanguage);
-              //           },
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // ),
               PreferenceListItem(
-                title: Text('主题模式'),
-                detailText: Text(kKnownThemeModeLabels[sharedConfig.themeMode]),
+                title: Text(t('pref_item_title_app_language')),
+                detailText: Text(getLanguageName(sharedConfig.appLanguage)),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => SettingAppLanguagePage(
+                        initialLanguage: sharedConfig.appLanguage,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              PreferenceListItem(
+                title: Text(t('pref_item_title_theme_mode')),
+                detailText: Text(
+                  'theme_mode.${describeEnum(ThemeMode.light)}'.tr(),
+                ),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -101,10 +98,10 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
           PreferenceListSection(
-            title: Text('快捷键'),
+            title: Text(t('pref_section_title_shortcuts')),
             children: [
               PreferenceListItem(
-                title: Text('键盘快捷键'),
+                title: Text(t('pref_item_title_keyboard_shortcuts')),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -116,12 +113,12 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
           PreferenceListSection(
-            title: Text('输入设置'),
+            title: Text(t('pref_section_title_input_settings')),
             children: [
               PreferenceListRadioItem(
                 value: kInputSettingSubmitWithEnter,
                 groupValue: _inputSetting,
-                title: Text('用 Enter 提交'),
+                title: Text(t('pref_item_title_submit_with_enter')),
                 onChanged: (newValue) {
                   _inputSetting = newValue;
                   sharedConfigManager.setInputSetting(newValue);
@@ -131,7 +128,7 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListRadioItem(
                 value: kInputSettingSubmitWithMetaEnter,
                 groupValue: _inputSetting,
-                title: Text('用 ⌘ + Enter 提交'),
+                title: Text(t('pref_item_title_submit_with_meta_enter')),
                 onChanged: (newValue) {
                   _inputSetting = newValue;
                   sharedConfigManager.setInputSetting(newValue);
@@ -141,10 +138,10 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
           PreferenceListSection(
-            title: Text('服务接入'),
+            title: Text(t('pref_section_title_service_integration')),
             children: [
               PreferenceListItem(
-                title: Text('文本翻译'),
+                title: Text(t('pref_item_title_engines')),
                 detailText: Row(
                   children: [
                     for (var item
@@ -167,7 +164,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               PreferenceListItem(
-                title: Text('文字识别'),
+                title: Text(t('pref_item_title_ocr_engines')),
                 detailText: Row(
                   children: [
                     for (var item in dbData.ocrEngineList
@@ -200,7 +197,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   bottom: 20,
                 ),
                 child: Text(
-                  _appVersion,
+                  t('text_version', args: [
+                    _packageInfo?.version ?? '',
+                    _packageInfo?.buildNumber?.toString() ?? '',
+                  ]),
                   style: Theme.of(context).textTheme.caption,
                 ),
               ),
@@ -214,7 +214,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('设置'),
+        title: Text(t('title')),
         leading: widget.onDismiss != null
             ? CustomAppBarCloseButton(
                 onPressed: widget.onDismiss,

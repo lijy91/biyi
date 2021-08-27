@@ -12,6 +12,10 @@ class _SettingScreenExtractTextPageState
     extends State<SettingScreenExtractTextPage> {
   OcrEngineConfig _defaultOcrEngineConfig;
 
+  String t(String key, {List<String> args}) {
+    return 'page_setting_screen_extract_text.$key'.tr(args: args);
+  }
+
   @override
   void initState() {
     _defaultOcrEngineConfig =
@@ -24,10 +28,7 @@ class _SettingScreenExtractTextPageState
       return PreferenceList(
         children: [
           PreferenceListSection(
-            title: Text('默认文字识别引擎'),
-            description: Text(
-              '当你载取屏幕某区域后，将使用该引擎进行文字识别',
-            ),
+            title: Text(t('pref_section_title_default_detect_text_engine')),
             children: [
               PreferenceListItem(
                 icon: _defaultOcrEngineConfig == null
@@ -36,7 +37,8 @@ class _SettingScreenExtractTextPageState
                         _defaultOcrEngineConfig,
                       ),
                 title: Builder(builder: (_) {
-                  if (_defaultOcrEngineConfig == null) return Text('请选择');
+                  if (_defaultOcrEngineConfig == null)
+                    return Text('please_choose'.tr());
                   return Text.rich(
                     TextSpan(
                       text: _defaultOcrEngineConfig.typeName,
@@ -77,7 +79,7 @@ class _SettingScreenExtractTextPageState
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('屏幕取词'),
+        title: Text(t('title')),
       ),
       body: _buildBody(context),
     );

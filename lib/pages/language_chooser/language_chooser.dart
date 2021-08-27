@@ -20,6 +20,11 @@ class LanguageChooserPage extends StatefulWidget {
 class _LanguageChooserPageState extends State<LanguageChooserPage> {
   String _language;
 
+  String t(String key, {List<String> args}) {
+    return 'page_language_chooser.$key'.tr(args: args);
+  }
+
+  @override
   void initState() {
     _language = widget.initialLanguage;
     super.initState();
@@ -35,10 +40,10 @@ class _LanguageChooserPageState extends State<LanguageChooserPage> {
 
   Widget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      title: Text('选择语言'),
+      title: Text(t('title')),
       actions: [
         CustomAppBarActionItem(
-          text: '确定',
+          text: 'ok'.tr(),
           onPressed: _handleClickOk,
         ),
       ],
@@ -50,7 +55,7 @@ class _LanguageChooserPageState extends State<LanguageChooserPage> {
       child: PreferenceList(
         children: [
           PreferenceListSection(
-            title: Text('全部'),
+            title: Text(t('pref_section_title_all')),
             children: [
               for (var supportedLanguage in kSupportedLanguages)
                 PreferenceListRadioItem(

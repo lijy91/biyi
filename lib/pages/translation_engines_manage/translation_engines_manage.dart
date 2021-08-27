@@ -10,6 +10,10 @@ class TranslationEnginesManagePage extends StatefulWidget {
 
 class _TranslationEnginesManagePageState
     extends State<TranslationEnginesManagePage> {
+  String t(String key, {List<String> args}) {
+    return 'page_translation_engines_manage.$key'.tr(args: args);
+  }
+
   Widget _buildBody(BuildContext context) {
     return LocalDbBuilder(builder: (context, dbData) {
       return PreferenceList(
@@ -24,9 +28,7 @@ class _TranslationEnginesManagePageState
                   ),
                   value: !engineConfig.disabled,
                   onChanged: (newValue) {
-                    sharedLocalDb
-                        .proEngine(engineConfig.identifier)
-                        .update(
+                    sharedLocalDb.proEngine(engineConfig.identifier).update(
                           disabled: !engineConfig.disabled,
                         );
                     sharedLocalDb.write();
@@ -58,7 +60,7 @@ class _TranslationEnginesManagePageState
             ],
           ),
           PreferenceListSection(
-            title: Text('私有'),
+            title: Text(t('pref_section_title_private')),
             children: [
               for (TranslationEngineConfig engineConfig
                   in dbData.privateEngineList ?? [])
@@ -98,7 +100,7 @@ class _TranslationEnginesManagePageState
                 ),
               PreferenceListItem(
                 title: Text(
-                  '添加',
+                  'add'.tr(),
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                   ),
@@ -122,7 +124,7 @@ class _TranslationEnginesManagePageState
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('文本翻译引擎'),
+        title: Text(t('title')),
       ),
       body: _buildBody(context),
     );

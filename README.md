@@ -32,6 +32,14 @@
 - https://github.com/leanflutter/tray_manager
 - https://github.com/leanflutter/window_manager
 
+## Contribution
+
+Please make sure to read the [Contributing Guide](https://github.com/biyidev/biyi_app/blob/main/.github/CONTRIBUTING.md) before making a pull request.
+
+Thank you to all the people who already contributed to Biyi!
+
+<a href="https://github.com/biyidev/biyi_app/graphs/contributors"><img src="https://opencollective.com/biyidev/contributors.svg?width=890" /></a>
+
 ## License
 
 ```text

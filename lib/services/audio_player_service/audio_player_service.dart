@@ -58,7 +58,7 @@ class AudioPlayerService {
 
   void _init() {
     if (_inited) return;
-    if (kIsWeb || kIsMacOS) {
+    if (kIsWeb) {
       _audioPlayer.onPlayerStateChanged.listen(_listenPlayerStateChanged);
     } else {
       _vlcPlayer = vlc.Player(id: 69420);
@@ -89,7 +89,7 @@ class AudioPlayerService {
 
     _lastPlayAudioUrl = audioUrl;
 
-    if (kIsMacOS || kIsWeb) {
+    if (kIsWeb) {
       await _audioPlayer.play(audioUrl);
       Future.delayed(Duration(seconds: 3)).then((_) {
         _listenPlayerStateChanged(PlayerState.COMPLETED);
@@ -107,7 +107,7 @@ class AudioPlayerService {
   Future<void> pause() async {
     if (!_inited) _init();
 
-    if (kIsMacOS || kIsWeb) {
+    if (kIsWeb) {
       await _audioPlayer.pause();
     } else {
       _vlcPlayer.pause();
@@ -116,7 +116,7 @@ class AudioPlayerService {
 
   Future<void> stop() async {
     if (!_inited) _init();
-    if (kIsMacOS || kIsWeb) {
+    if (kIsWeb) {
       await _audioPlayer.stop();
     } else {
       _vlcPlayer.stop();

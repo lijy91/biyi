@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
 
   @override
   void initState() {
+    ShortcutService.instance.stop();
     sharedConfigManager.addListener(_configListen);
 
     super.initState();
@@ -24,6 +26,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
 
   @override
   void dispose() {
+    ShortcutService.instance.start();
     sharedConfigManager.removeListener(_configListen);
     super.dispose();
   }
@@ -31,6 +34,22 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
   void _configListen() {
     _config = sharedConfigManager.getConfig();
     setState(() {});
+  }
+
+  Future<void> _handleClickRegisterNewHotKey(
+    BuildContext context, {
+    String shortcutKey,
+  }) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext ctx) {
+        return RecordHotKeyDialog(
+          onHotKeyRecorded: (newHotKey) {
+            sharedConfigManager.setShortcut(shortcutKey, newHotKey);
+          },
+        );
+      },
+    );
   }
 
   Widget _buildBody(BuildContext context) {
@@ -44,26 +63,53 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
                 detailText: Text(
                   _config.shortcutShowOrHide.toString(),
                 ),
-                onTap: () {},
+                onTap: () {
+                  _handleClickRegisterNewHotKey(
+                    context,
+                    shortcutKey: kShortcutShowOrHide,
+                  );
+                },
               ),
             ],
           ),
           PreferenceListSection(
-            title: Text(t('pref_section_title_screen_extract_text')),
+            title: Text(t('pref_section_title_extract_text')),
             children: [
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_selection')),
                 detailText: Text(
                   _config.shortcutExtractFromScreenSelection.toString(),
                 ),
-                onTap: () {},
+                onTap: () {
+                  _handleClickRegisterNewHotKey(
+                    context,
+                    shortcutKey: kShortcutExtractFromScreenSelection,
+                  );
+                },
               ),
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_capture')),
                 detailText: Text(
                   _config.shortcutExtractFromScreenCapture.toString(),
                 ),
-                onTap: () {},
+                onTap: () {
+                  _handleClickRegisterNewHotKey(
+                    context,
+                    shortcutKey: kShortcutExtractFromScreenCapture,
+                  );
+                },
+              ),
+              PreferenceListItem(
+                title: Text(t('pref_item_title_extract_text_from_clipboard')),
+                detailText: Text(
+                  _config.shortcutExtractFromClipboard.toString(),
+                ),
+                onTap: () {
+                  _handleClickRegisterNewHotKey(
+                    context,
+                    shortcutKey: kShortcutExtractFromClipboard,
+                  );
+                },
               ),
             ],
           ),

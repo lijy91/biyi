@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -7,6 +8,13 @@ import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../includes.dart';
+
+const kShortcutShowOrHide = 'shortcut_show_or_hide';
+const kShortcutExtractFromScreenSelection =
+    'shortcut_extract_from_screen_selection';
+const kShortcutExtractFromScreenCapture =
+    'shortcut_extract_from_screen_capture';
+const kShortcutExtractFromClipboard = 'shortcut_extract_from_clipboard';
 
 Future<void> initConfig() async {
   await ConfigManager.instance.reload();
@@ -103,18 +111,10 @@ class Config {
   String appLanguage;
   ThemeMode themeMode;
   String inputSetting;
-  HotKey shortcutShowOrHide = HotKey(
-    KeyCode.tab,
-    modifiers: [KeyModifier.alt],
-  );
-  HotKey shortcutExtractFromScreenSelection = HotKey(
-    KeyCode.keyQ,
-    modifiers: [KeyModifier.alt],
-  );
-  HotKey shortcutExtractFromScreenCapture = HotKey(
-    KeyCode.keyW,
-    modifiers: [KeyModifier.alt],
-  );
+  HotKey shortcutShowOrHide;
+  HotKey shortcutExtractFromScreenSelection;
+  HotKey shortcutExtractFromScreenCapture;
+  HotKey shortcutExtractFromClipboard;
   HotKey get shortcutInputSettingSubmitWithMetaEnter {
     return HotKey(
       KeyCode.enter,
@@ -156,6 +156,38 @@ class ConfigManager extends _ConfigChangeNotifier {
       kPrefInputSetting,
       defaultValue: kInputSettingSubmitWithEnter,
     );
+    Config.instance.shortcutShowOrHide = await getShortcut(
+      kShortcutShowOrHide,
+      defaultValue: HotKey(
+        KeyCode.digit1,
+        modifiers: [KeyModifier.alt],
+        identifier: kShortcutShowOrHide,
+      ),
+    );
+    Config.instance.shortcutExtractFromScreenSelection = await getShortcut(
+      kShortcutExtractFromScreenSelection,
+      defaultValue: HotKey(
+        KeyCode.keyQ,
+        modifiers: [KeyModifier.alt],
+        identifier: kShortcutExtractFromScreenSelection,
+      ),
+    );
+    Config.instance.shortcutExtractFromScreenCapture = await getShortcut(
+      kShortcutExtractFromScreenCapture,
+      defaultValue: HotKey(
+        KeyCode.keyW,
+        modifiers: [KeyModifier.alt],
+        identifier: kShortcutExtractFromScreenCapture,
+      ),
+    );
+    Config.instance.shortcutExtractFromClipboard = await getShortcut(
+      kShortcutExtractFromClipboard,
+      defaultValue: HotKey(
+        KeyCode.keyE,
+        modifiers: [KeyModifier.alt],
+        identifier: kShortcutExtractFromClipboard,
+      ),
+    );
   }
 
   Future<void> setTranslationMode(String value) {
@@ -180,6 +212,22 @@ class ConfigManager extends _ConfigChangeNotifier {
 
   Future<void> setInputSetting(String value) {
     return _setString(kPrefInputSetting, value);
+  }
+
+  Future<void> setShortcut(String key, HotKey hotKey) async {
+    return _setString(
+      key,
+      json.encode(hotKey.toJson()),
+    );
+  }
+
+  Future<HotKey> getShortcut(String key, {HotKey defaultValue}) async {
+    HotKey hotKey;
+    String jsonString = await _getString(key);
+    if (jsonString != null && jsonString.isNotEmpty) {
+      hotKey = HotKey.fromJson(json.decode(jsonString));
+    }
+    return hotKey ?? defaultValue;
   }
 
   Future<void> _setString(String key, String value) async {

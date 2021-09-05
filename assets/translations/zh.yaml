@@ -161,13 +161,15 @@ page_home:
   limited_banner_msg_allow_access_tip: 点击「授权」后如无任何响应，请点击「前往设置」进行手动设置。
   limited_banner_msg_all_access_allowed: 屏幕取词功能已启用
   limited_banner_msg_all_access_not_allowed: 未获得所需权限，\n请重新检查并进行设置。
-  input_hint: 在此输入要翻译的单词或文字
+  input_hint: 在此处输入单词或文本
+  text_extracting_text: 正在提取文字...
   tip_translation_mode: 当前翻译模式：{}
   tip_extract_text_from_screen_capture: 截取屏幕区域并识别文字
   tip_extract_text_from_clipboard: 读取剪切板内容
   btn_sponsor: 支持一下
   btn_clear: 清空
   btn_trans: 翻译
+  msg_please_enter_word_or_text: 请输入单词或文本
 page_language_chooser:
   title: 选择语言
   pref_section_title_all: 全部
@@ -190,10 +192,11 @@ page_setting_screen_extract_text:
   pref_section_title_default_detect_text_engine: 默认文字识别引擎
 page_setting_shortcuts:
   title: 快捷键
-  pref_section_title_screen_extract_text: 屏幕取词
+  pref_section_title_extract_text: 屏幕/剪切板取词
   pref_item_title_show_or_hide: 显示/隐藏
   pref_item_title_extract_text_from_selection: 选中文字
   pref_item_title_extract_text_from_capture: 截取区域
+  pref_item_title_extract_text_from_clipboard: 剪切板
 page_setting_theme_mode:
   title: 主题模式
 page_setting_translate:
@@ -236,3 +239,5 @@ page_translation_target_new:
   title_with_edit: 编辑翻译目标
   source_language: 源语言
   target_language: 目标语言
+widget_record_shortcut_dialog:
+  title: 自定义快捷键

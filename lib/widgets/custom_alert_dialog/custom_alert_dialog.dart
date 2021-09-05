@@ -27,8 +27,9 @@ class CustomDialogAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 38,
       child: CustomButton.filled(
+        borderRadius: const BorderRadius.all(Radius.circular(2.0)),
         padding: EdgeInsets.zero,
         processing: processing,
         child: this.child,
@@ -52,24 +53,20 @@ class CustomAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double minHeight = this.content == null ? 140 : 172;
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: DefaultTextStyle(
-        style: TextStyle(
-          color: Color(0xff262626),
-          fontSize: 14,
-        ),
+        style: Theme.of(context).textTheme.bodyText2,
         child: Container(
           constraints: BoxConstraints(
-            minHeight: minHeight,
+            minHeight: 100,
           ),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(2),
           ),
           margin: EdgeInsets.only(left: 40, right: 40),
           padding: EdgeInsets.only(top: 20, bottom: 16),
@@ -80,11 +77,9 @@ class CustomAlertDialog extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: DefaultTextStyle(
-                  style: TextStyle(
-                    color: Color(0xff262626),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        fontSize: 16,
+                      ),
                   child: this.title ?? Container(),
                 ),
               ),

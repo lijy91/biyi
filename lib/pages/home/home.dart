@@ -33,7 +33,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with TrayListener, WindowListener, UriSchemeListener {
+    with TrayListener, WindowListener, ShortcutListener, UriSchemeListener {
   FocusNode _focusNode = FocusNode();
   TextEditingController _textEditingController = TextEditingController();
   ScrollController _scrollController = ScrollController();
@@ -85,6 +85,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     UriSchemeManager.instance.addListener(this);
+    ShortcutService.instance.setListener(this);
     trayManager.addListener(this);
     windowManager.addListener(this);
     sharedConfigManager.addListener(_configListen);
@@ -96,9 +97,11 @@ class _HomePageState extends State<HomePage>
   @override
   void dispose() {
     UriSchemeManager.instance.removeListener(this);
+    ShortcutService.instance.setListener(null);
     trayManager.removeListener(this);
     windowManager.removeListener(this);
     sharedConfigManager.removeListener(_configListen);
+    _uninit();
     super.dispose();
   }
 
@@ -117,6 +120,8 @@ class _HomePageState extends State<HomePage>
           await screenTextExtractor.isAllowedScreenSelectionAccess();
     }
 
+    ShortcutService.instance.start();
+
     // 初始化托盘图标
     if (kIsMacOS) {
       trayManager.setIcon(R.image('tray_icon.png'));
@@ -132,43 +137,10 @@ class _HomePageState extends State<HomePage>
         ),
       ]);
     }
+  }
 
-    // 初始化快捷键
-    if (!kIsLinux) {
-      hotKeyManager.unregisterAll();
-      hotKeyManager.register(
-        _config.shortcutInputSettingSubmitWithMetaEnter,
-        keyDownHandler: (_) {
-          if (_config.inputSetting != kInputSettingSubmitWithMetaEnter) {
-            return;
-          }
-          _handleButtonTappedTrans();
-        },
-      );
-      hotKeyManager.register(
-        _config.shortcutShowOrHide,
-        keyDownHandler: (_) async {
-          bool isVisible = await windowManager.isVisible();
-          if (isVisible) {
-            _windowHide();
-          } else {
-            _windowShow();
-          }
-        },
-      );
-      hotKeyManager.register(
-        _config.shortcutExtractFromScreenSelection,
-        keyDownHandler: (_) {
-          _handleExtractTextFromScreenSelection();
-        },
-      );
-      hotKeyManager.register(
-        _config.shortcutExtractFromScreenCapture,
-        keyDownHandler: (_) {
-          _handleExtractTextFromScreenCapture();
-        },
-      );
-    }
+  void _uninit() {
+    ShortcutService.instance.stop();
   }
 
   Future<void> _windowShow() async {
@@ -196,7 +168,7 @@ class _HomePageState extends State<HomePage>
     windowManager.hide();
   }
 
-  void _resizeWindow() {
+  void _windowResize() {
     if (Navigator.of(context).canPop()) return;
 
     if (_resizeTimer != null && _resizeTimer.isActive) {
@@ -453,8 +425,11 @@ class _HomePageState extends State<HomePage>
       mode: ExtractMode.screenSelection,
     );
 
-    await _windowShow();
-    await Future.delayed(Duration(milliseconds: 200));
+    bool windowIsVisible = await windowManager.isVisible();
+    if (!windowIsVisible) {
+      await _windowShow();
+      await Future.delayed(Duration(milliseconds: 200));
+    }
     _handleTextChanged(extractedData.text, isRequery: true);
   }
 
@@ -481,8 +456,11 @@ class _HomePageState extends State<HomePage>
       imagePath: imagePath,
     );
 
-    await _windowShow();
-    await Future.delayed(Duration(milliseconds: 200));
+    bool windowIsVisible = await windowManager.isVisible();
+    if (!windowIsVisible) {
+      await _windowShow();
+      await Future.delayed(Duration(milliseconds: 200));
+    }
     if (extractedData.text == null) {
       _extractedData = extractedData;
       setState(() {});
@@ -501,6 +479,12 @@ class _HomePageState extends State<HomePage>
   }
 
   void _handleExtractTextFromClipboard() async {
+    bool windowIsVisible = await windowManager.isVisible();
+    if (!windowIsVisible) {
+      await _windowShow();
+      await Future.delayed(Duration(milliseconds: 200));
+    }
+
     ExtractedData extractedData = await screenTextExtractor.extract(
       mode: ExtractMode.clipboard,
     );
@@ -522,7 +506,7 @@ class _HomePageState extends State<HomePage>
   void _handleButtonTappedTrans() {
     if (_text.isEmpty) {
       BotToast.showText(
-        text: '请输入要翻译的单词或文字',
+        text: 'page_home.msg_please_enter_word_or_text'.tr(),
         align: Alignment.center,
       );
       _focusNode.requestFocus();
@@ -697,11 +681,44 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _resizeWindow());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _windowResize());
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _buildBody(context),
     );
+  }
+
+  @override
+  void onShortcutKeyDownShowOrHide() async {
+    bool isVisible = await windowManager.isVisible();
+    if (isVisible) {
+      _windowHide();
+    } else {
+      _windowShow();
+    }
+  }
+
+  @override
+  void onShortcutKeyDownExtractFromScreenSelection() {
+    _handleExtractTextFromScreenSelection();
+  }
+
+  @override
+  void onShortcutKeyDownExtractFromScreenCapture() {
+    _handleExtractTextFromScreenCapture();
+  }
+
+  @override
+  void onShortcutKeyDownExtractFromClipboard() {
+    _handleExtractTextFromClipboard();
+  }
+
+  @override
+  void onShortcutKeyDownSubmitWithMateEnter() {
+    if (_config.inputSetting != kInputSettingSubmitWithMetaEnter) {
+      return;
+    }
+    _handleButtonTappedTrans();
   }
 
   @override

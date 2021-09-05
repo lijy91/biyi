@@ -280,7 +280,7 @@ class TranslationInputView extends StatelessWidget {
                                 ),
                                 SizedBox(width: 6),
                                 Text(
-                                  '正在提取文字...',
+                                  'home_page.text_extracting_text'.tr(),
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .textTheme
@@ -292,36 +292,6 @@ class TranslationInputView extends StatelessWidget {
                               ],
                             ),
                             Expanded(child: Container()),
-                            if (extractedData?.imagePath != null)
-                              Container(
-                                width: 20,
-                                height: 20,
-                                child: CustomButton(
-                                  padding: EdgeInsets.zero,
-                                  child: Tooltip(
-                                    message: '查看正在识别的图片',
-                                    child: Icon(
-                                      IcoMoonIcons.image,
-                                      size: 16,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .caption
-                                          .color,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      FadeInPageRoute(
-                                        builder: (context) => ImageViewerPage(
-                                          [extractedData.imagePath],
-                                          initialIndex: 0,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
                           ],
                         ),
                       ),

@@ -144,7 +144,7 @@ theme_mode:
   light: Light
   dark: Dark
   system: System
-word_pronunciation: 
+word_pronunciation:
   us: US
   uk: UK
 # Pages
@@ -161,13 +161,15 @@ page_home:
   limited_banner_msg_allow_access_tip: If there is no response after clicking "Allow", please click "Go Settings" to set it manually.
   limited_banner_msg_all_access_allowed: The Screen extract text is enabled
   limited_banner_msg_all_access_not_allowed: The required access are not allowed.\nPlease check and set again.
-  input_hint: Enter the word or text to be translated here
+  input_hint: Enter the word or text here
+  text_extracting_text: Extracting text...
   tip_translation_mode: "Current translation mode: {}"
   tip_extract_text_from_screen_capture: Capture screen area and recognize text
   tip_extract_text_from_clipboard: Read clipboard content
   btn_sponsor: Sponsor
   btn_clear: Clear
   btn_trans: Translate
+  msg_please_enter_word_or_text: Please enter a word or text
 page_language_chooser:
   title: Choose language
   pref_section_title_all: All
@@ -184,16 +186,17 @@ page_ocr_engines_manage:
   title: Text Detection Engine
   pref_section_title_private: Private
 page_setting_app_language:
-  title: Display language
+  title: Display Language
 page_setting_screen_extract_text:
   title: Screen extract text
   pref_section_title_default_detect_text_engine: Default detect text engine
 page_setting_shortcuts:
   title: Shortcuts
-  pref_section_title_screen_extract_text: Screen extract text
+  pref_section_title_extract_text: Screen / Clipboard extract text
   pref_item_title_show_or_hide: Show/Hide
   pref_item_title_extract_text_from_selection: Selection
   pref_item_title_extract_text_from_capture: Capture Area
+  pref_item_title_extract_text_from_clipboard: Clipboard
 page_setting_theme_mode:
   title: Theme Mode
 page_setting_translate:
@@ -211,7 +214,7 @@ page_settings:
   pref_section_title_service_integration: Service Integration
   pref_item_title_translate: Translate
   pref_item_title_screen_extract_text: Screen extract text
-  pref_item_title_app_language: Display language
+  pref_item_title_app_language: Display Language
   pref_item_title_theme_mode: Theme Mode
   pref_item_title_keyboard_shortcuts: Keyboard Shortcuts
   pref_item_title_submit_with_enter: Submit with Enter
@@ -236,3 +239,6 @@ page_translation_target_new:
   title_with_edit: Edit Translation Target
   source_language: Source language
   target_language: Target language
+
+widget_record_shortcut_dialog:
+  title: Customize your shortcut

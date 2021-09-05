@@ -7,7 +7,6 @@ import 'pro_translation_engine.dart';
 const kSupportedEngineTypes = [
   kEngineTypeBaidu,
   kEngineTypeCaiyun,
-  kEngineTypeCloudoptAI,
   kEngineTypeDeepL,
   kEngineTypeGoogle,
   kEngineTypeIciba,
@@ -19,7 +18,6 @@ const kSupportedEngineTypes = [
 final Map<String, List<String>> kKnownSupportedEngineOptionKeys = {
   kEngineTypeBaidu: BaiduTranslationEngine.optionKeys,
   kEngineTypeCaiyun: CaiyunTranslationEngine.optionKeys,
-  kEngineTypeCloudoptAI: [],
   kEngineTypeDeepL: DeepLTranslationEngine.optionKeys,
   kEngineTypeGoogle: GoogleTranslationEngine.optionKeys,
   kEngineTypeIciba: IcibaTranslationEngine.optionKeys,
@@ -41,9 +39,6 @@ TranslationEngine createTranslationEngine(
         break;
       case kEngineTypeCaiyun:
         translationEngine = CaiyunTranslationEngine(engineConfig);
-        break;
-      case kEngineTypeCloudoptAI:
-        translationEngine = CloudoptAITranslationEngine(engineConfig);
         break;
       case kEngineTypeDeepL:
         translationEngine = DeepLTranslationEngine(engineConfig);

@@ -70,7 +70,7 @@ class _AppNavigatorState extends State<AppNavigator>
       themeMode: _config.themeMode,
       builder: (context, child) {
         if (isRootPage) {
-          if (kIsWindows || kIsLinux) {
+          if (kIsLinux || kIsWindows) {
             child = virtualWindowFrameBuilder(context, child);
           }
           child = botToastBuilder(context, child);

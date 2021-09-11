@@ -6,7 +6,7 @@ import 'package:window_manager/window_manager.dart';
 
 import '../../../includes.dart';
 
-double get kVirtualWindowFrameMargin => (kIsWindows || kIsLinux) ? 20.0 : 0;
+double get kVirtualWindowFrameMargin => (kIsLinux || kIsWindows) ? 20.0 : 0;
 
 class VirtualWindowFrame extends StatefulWidget {
   final Widget child;

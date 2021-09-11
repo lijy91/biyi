@@ -128,8 +128,10 @@ class _HomePageState extends State<HomePage>
         185 + (kVirtualWindowFrameMargin * 2),
       ),
     );
-    windowManager.setCustomFrame(isFrameless: true);
-    windowManager.setBackgroundColor(Colors.transparent);
+    if (kIsLinux || kIsWindows) {
+      windowManager.setCustomFrame(isFrameless: true);
+      windowManager.setBackgroundColor(Colors.transparent);
+    }
     windowManager.show();
     await Future.delayed(Duration(milliseconds: 200));
     windowManager.focus();

@@ -116,9 +116,16 @@ class Config {
   HotKey shortcutExtractFromScreenCapture;
   HotKey shortcutExtractFromClipboard;
   HotKey get shortcutInputSettingSubmitWithMetaEnter {
+    if (kIsMacOS) {
+      return HotKey(
+        KeyCode.enter,
+        modifiers: [KeyModifier.meta],
+        scope: HotKeyScope.inapp,
+      );
+    }
     return HotKey(
       KeyCode.enter,
-      modifiers: [KeyModifier.meta],
+      modifiers: [KeyModifier.control],
       scope: HotKeyScope.inapp,
     );
   }

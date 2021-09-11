@@ -218,7 +218,8 @@ page_settings:
   pref_item_title_theme_mode: 主题模式
   pref_item_title_keyboard_shortcuts: 键盘快捷键
   pref_item_title_submit_with_enter: 用 Enter 提交
-  pref_item_title_submit_with_meta_enter: 用 ⌘ + Enter 提交
+  pref_item_title_submit_with_meta_enter: 用 Ctrl + Enter 提交
+  pref_item_title_submit_with_meta_enter_mac: 用 ⌘ + Enter 提交
   pref_item_title_engines: 文本翻译
   pref_item_title_ocr_engines: 文字识别
 page_translation_engine_chooser:

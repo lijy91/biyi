@@ -218,7 +218,8 @@ page_settings:
   pref_item_title_theme_mode: Theme Mode
   pref_item_title_keyboard_shortcuts: Keyboard Shortcuts
   pref_item_title_submit_with_enter: Submit with Enter
-  pref_item_title_submit_with_meta_enter: Submit with ⌘ + Enter
+  pref_item_title_submit_with_meta_enter: Submit with Ctrl + Enter
+  pref_item_title_submit_with_meta_enter_mac: Submit with ⌘ + Enter
   pref_item_title_engines: Text Translation
   pref_item_title_ocr_engines: Text Detection
 page_translation_engine_chooser:

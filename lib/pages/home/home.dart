@@ -130,11 +130,16 @@ class _HomePageState extends State<HomePage>
     );
     windowManager.setCustomFrame(isFrameless: true);
     windowManager.setBackgroundColor(Colors.transparent);
+    windowManager.show();
+    await Future.delayed(Duration(milliseconds: 200));
+    windowManager.focus();
+    await Future.delayed(Duration(milliseconds: 200));
 
     // 初始化托盘图标
     trayManager.setIcon(R.image(
       kIsWindows ? 'tray_icon.ico' : 'tray_icon.png',
     ));
+    await Future.delayed(Duration(milliseconds: 200));
     trayManager.setContextMenu([
       MenuItem(
         identifier: kMenuItemIdShowOrHideMainWindow,
@@ -465,6 +470,11 @@ class _HomePageState extends State<HomePage>
       mode: ExtractMode.screenCapture,
       imagePath: imagePath,
     );
+
+    File imageFile = File(extractedData.imagePath);
+    if (extractedData.base64Image == null && !imageFile.existsSync()) {
+      return;
+    }
 
     bool windowIsVisible = await windowManager.isVisible();
     if (!windowIsVisible) {

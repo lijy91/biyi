@@ -280,7 +280,7 @@ class TranslationInputView extends StatelessWidget {
                                 ),
                                 SizedBox(width: 6),
                                 Text(
-                                  'home_page.text_extracting_text'.tr(),
+                                  'page_home.text_extracting_text'.tr(),
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .textTheme

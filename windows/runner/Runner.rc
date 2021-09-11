@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "LiJianying" "\0"
-            VALUE "FileDescription", "A new Flutter project." "\0"
+            VALUE "FileDescription", "A convenient translation and dictionary app written in dart / Flutter." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "biyi_app" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2020 LiJianying. All rights reserved." "\0"
-            VALUE "OriginalFilename", "biyi_app.exe" "\0"
-            VALUE "ProductName", "biyi_app" "\0"
+            VALUE "InternalName", "biyi" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2021 LiJianying. All rights reserved." "\0"
+            VALUE "OriginalFilename", "biyi.exe" "\0"
+            VALUE "ProductName", "biyi" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

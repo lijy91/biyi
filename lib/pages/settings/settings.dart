@@ -118,7 +118,9 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListRadioItem(
                 value: kInputSettingSubmitWithEnter,
                 groupValue: _inputSetting,
-                title: Text(t('pref_item_title_submit_with_enter')),
+                title: Text(t(kIsMacOS
+                    ? 'pref_item_title_submit_with_enter_mac'
+                    : 'pref_item_title_submit_with_enter')),
                 onChanged: (newValue) {
                   _inputSetting = newValue;
                   sharedConfigManager.setInputSetting(newValue);

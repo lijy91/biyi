@@ -122,21 +122,30 @@ class _HomePageState extends State<HomePage>
 
     ShortcutService.instance.start();
 
+    windowManager.setSize(
+      Size(
+        380 + (kVirtualWindowFrameMargin * 2),
+        185 + (kVirtualWindowFrameMargin * 2),
+      ),
+    );
+    windowManager.setCustomFrame(isFrameless: true);
+    windowManager.setBackgroundColor(Colors.transparent);
+
     // 初始化托盘图标
-    if (kIsMacOS) {
-      trayManager.setIcon(R.image('tray_icon.png'));
-      trayManager.setContextMenu([
-        MenuItem(
-          identifier: kMenuItemIdShowOrHideMainWindow,
-          title: '显示主窗口',
-        ),
-        MenuItem.separator,
-        MenuItem(
-          identifier: kMenuItemIdExitApp,
-          title: '退出',
-        ),
-      ]);
-    }
+    trayManager.setIcon(R.image(
+      kIsWindows ? 'tray_icon.ico' : 'tray_icon.png',
+    ));
+    trayManager.setContextMenu([
+      MenuItem(
+        identifier: kMenuItemIdShowOrHideMainWindow,
+        title: '显示主窗口',
+      ),
+      MenuItem.separator,
+      MenuItem(
+        identifier: kMenuItemIdExitApp,
+        title: '退出',
+      ),
+    ]);
   }
 
   void _uninit() {
@@ -144,22 +153,22 @@ class _HomePageState extends State<HomePage>
   }
 
   Future<void> _windowShow() async {
-    if (!kIsMacOS) return;
+    if (kIsMacOS) {
+      Size windowSize = await windowManager.getSize();
+      Rect trayIconBounds = await trayManager.getBounds();
+      Size trayIconSize = trayIconBounds.size;
+      Offset trayIconnewPosition = trayIconBounds.topLeft;
 
-    Size windowSize = await windowManager.getSize();
-    Rect trayIconBounds = await trayManager.getBounds();
-    Size trayIconSize = trayIconBounds.size;
-    Offset trayIconnewPosition = trayIconBounds.topLeft;
+      Offset newPosition = Offset(
+        trayIconnewPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
+        trayIconnewPosition.dy,
+      );
 
-    Offset newPosition = Offset(
-      trayIconnewPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
-      trayIconnewPosition.dy,
-    );
-
-    bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    if (!isAlwaysOnTop) {
-      windowManager.setPosition(newPosition);
-      await Future.delayed(Duration(milliseconds: 100));
+      bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
+      if (!isAlwaysOnTop) {
+        windowManager.setPosition(newPosition);
+        await Future.delayed(Duration(milliseconds: 100));
+      }
     }
     windowManager.show();
   }
@@ -179,7 +188,7 @@ class _HomePageState extends State<HomePage>
       RenderBox rb2 = _inputViewKey?.currentContext?.findRenderObject();
       RenderBox rb3 = _resultsViewKey?.currentContext?.findRenderObject();
 
-      double toolbarViewHeight = 36.0 + (kIsWindows ? 34 : 0);
+      double toolbarViewHeight = 36.0;
       double bannersViewHeight = rb1?.size?.height ?? 0;
       double inputViewHeight = rb2?.size?.height ?? 0;
       double resultsViewHeight = rb3?.size?.height ?? 0;
@@ -191,7 +200,8 @@ class _HomePageState extends State<HomePage>
           toolbarViewHeight +
               bannersViewHeight +
               inputViewHeight +
-              resultsViewHeight,
+              resultsViewHeight +
+              ((kVirtualWindowFrameMargin * 2) + 2),
         );
         if (oldSize.width != newSize.width ||
             oldSize.height != newSize.height) {
@@ -408,7 +418,7 @@ class _HomePageState extends State<HomePage>
     bool isRequery = false,
   }) {
     setState(() {
-      _text = newValue;
+      _text = newValue ?? '';
     });
     if (isRequery) {
       _textEditingController.text = _text;
@@ -659,20 +669,22 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildAppBar(BuildContext context) {
     return PreferredSize(
-      child: Container(
-        padding: EdgeInsets.only(left: 8, right: 8, top: 0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ToolbarItemAlwaysOnTop(),
-            Expanded(child: Container()),
-            ToolbarItemSponsor(),
-            ToolbarItemSettings(
-              onSettingsPageDismiss: () {
-                setState(() {});
-              },
-            ),
-          ],
+      child: DragToMoveArea(
+        child: Container(
+          padding: EdgeInsets.only(left: 8, right: 8, top: 0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ToolbarItemAlwaysOnTop(),
+              Expanded(child: Container()),
+              ToolbarItemSponsor(),
+              ToolbarItemSettings(
+                onSettingsPageDismiss: () {
+                  setState(() {});
+                },
+              ),
+            ],
+          ),
         ),
       ),
       preferredSize: Size.fromHeight(34),
@@ -737,12 +749,12 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  void onTrayIconMouseUp() async {
+  void onTrayIconMouseDown() async {
     _windowShow();
   }
 
   @override
-  void onTrayIconRightMouseUp() {
+  void onTrayIconRightMouseDown() {
     trayManager.popUpContextMenu();
   }
 

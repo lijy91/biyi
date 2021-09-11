@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   dart_vlc
   hotkey_manager
+  screen_text_extractor
   tray_manager
   url_launcher_windows
   window_manager

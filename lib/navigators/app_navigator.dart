@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../includes.dart';
 
+// ignore: non_constant_identifier_names
+TransitionBuilder VirtualWindowFrameInit() {
+  return (_, Widget child) {
+    return VirtualWindowFrame(child: child);
+  };
+}
+
 class AppNavigator extends StatefulWidget {
   final Widget home;
 
@@ -47,20 +54,34 @@ class _AppNavigatorState extends State<AppNavigator>
     setState(() {});
   }
 
+  bool get isRootPage {
+    return widget.home == null;
+  }
+
   Widget _build(BuildContext context) {
+    final virtualWindowFrameBuilder = VirtualWindowFrameInit();
+    final botToastBuilder = BotToastInit();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      navigatorKey: widget.home == null ? _navigatorKey : null,
+      navigatorKey: isRootPage ? _navigatorKey : null,
       theme: lightThemeData,
       darkTheme: darkThemeData,
       themeMode: _config.themeMode,
-      builder: widget.home == null ? BotToastInit() : null,
-      navigatorObservers:
-          widget.home == null ? [BotToastNavigatorObserver()] : [],
+      builder: (context, child) {
+        if (isRootPage) {
+          if (kIsWindows || kIsLinux) {
+            child = virtualWindowFrameBuilder(context, child);
+          }
+          child = botToastBuilder(context, child);
+        }
+        return child;
+      },
+      navigatorObservers: isRootPage ? [BotToastNavigatorObserver()] : [],
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: widget.home == null ? HomePage() : widget.home,
+      home: isRootPage ? HomePage() : widget.home,
     );
   }
 

@@ -26,9 +26,12 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  audio_player:
+    git:
+      ref: main
+      url: https://github.com/leanflutter/audio_player.git
   audioplayers: ^0.19.1
   bot_toast: ^4.0.1
-  dart_vlc: ^0.1.4
   dio: ^4.0.0
   easy_localization: ^3.0.0
   easy_localization_loader: ^1.0.0

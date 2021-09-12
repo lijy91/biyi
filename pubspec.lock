@@ -22,13 +22,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.1"
-  audio_video_progress_bar:
-    dependency: transitive
+  audio_player:
+    dependency: "direct main"
     description:
-      name: audio_video_progress_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.0"
+      path: "."
+      ref: main
+      resolved-ref: "091a110331752d8e631dbee835b1bc36f034451e"
+      url: "https://github.com/leanflutter/audio_player.git"
+    source: git
+    version: "0.0.1"
   audioplayers:
     dependency: "direct main"
     description:
@@ -99,20 +101,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
-  dart_vlc:
-    dependency: "direct main"
-    description:
-      name: dart_vlc
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.7"
-  dart_vlc_ffi:
-    dependency: transitive
-    description:
-      name: dart_vlc_ffi
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   dio:
     dependency: "direct main"
     description:
@@ -238,6 +226,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  libwinmedia:
+    dependency: transitive
+    description:
+      name: libwinmedia
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2+2"
   matcher:
     dependency: transitive
     description:

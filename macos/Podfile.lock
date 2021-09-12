@@ -1,9 +1,6 @@
 PODS:
   - audioplayers (0.0.1):
     - FlutterMacOS
-  - dart_vlc (0.0.1):
-    - FlutterMacOS
-    - VLCKit (~> 3.3)
   - FlutterMacOS (1.0.0)
   - HotKey (0.1.2)
   - hotkey_manager (0.0.1):
@@ -23,13 +20,11 @@ PODS:
     - FlutterMacOS
   - url_launcher_macos (0.0.1):
     - FlutterMacOS
-  - VLCKit (3.3.17)
   - window_manager (0.0.1):
     - FlutterMacOS
 
 DEPENDENCIES:
   - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
-  - dart_vlc (from `Flutter/ephemeral/.symlinks/plugins/dart_vlc/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - hotkey_manager (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager/macos`)
   - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
@@ -44,13 +39,10 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - HotKey
-    - VLCKit
 
 EXTERNAL SOURCES:
   audioplayers:
     :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
-  dart_vlc:
-    :path: Flutter/ephemeral/.symlinks/plugins/dart_vlc/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   hotkey_manager:
@@ -74,7 +66,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
-  dart_vlc: de4ba59a6ded5a914a14fb026f7bcbe74c471dee
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
   HotKey: ad59450195936c10992438c4210f673de5aee43e
   hotkey_manager: ad673457691f4d39e481be04a61da2ae07d81c62
@@ -85,7 +76,6 @@ SPEC CHECKSUMS:
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   uni_links_macos: 5ff105932e9f8e12b9f24fd5656188ca9184cc5b
   url_launcher_macos: 45af3d61de06997666568a7149c1be98b41c95d4
-  VLCKit: 21651e881f19774ecf9a86ca2c2010859fe68a08
   window_manager: f5fa14814635f059571527ddd5e676f688af552c
 
 PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c

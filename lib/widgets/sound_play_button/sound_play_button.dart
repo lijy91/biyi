@@ -131,9 +131,12 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
   }
 
   @override
-  void onPlayerStateChanged(String audioUrl, PlayerState playerState) {
-    if (audioUrl == widget.audioUrl) {
-      _playing = playerState == PlayerState.PLAYING;
+  void onAudioPlayerBufferingUpdate(AudioPlayer ap, bool isBuffered) {}
+
+  @override
+  void onAudioPlayerStateChanged(AudioPlayer ap, AudioPlayerState state) {
+    if (AudioPlayerService.instance.lastPlayAudioUrl == widget.audioUrl) {
+      _playing = state == AudioPlayerState.playing;
     } else {
       _playing = false;
     }
@@ -144,4 +147,10 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
     }
     if (mounted) setState(() {});
   }
+
+  @override
+  void onAudioPlayerPositionChanged(AudioPlayer ap) {}
+
+  @override
+  void onAudioPlayerCompleted(AudioPlayer ap) {}
 }

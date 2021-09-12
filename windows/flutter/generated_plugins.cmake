@@ -3,8 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  dart_vlc
+  audio_player
   hotkey_manager
+  libwinmedia
   screen_text_extractor
   tray_manager
   url_launcher_windows

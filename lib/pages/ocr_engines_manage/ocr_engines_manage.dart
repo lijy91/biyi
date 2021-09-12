@@ -27,7 +27,9 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
                   ),
                   value: !ocrEngineConfig.disabled,
                   onChanged: (newValue) {
-                    sharedLocalDb.proEngine(ocrEngineConfig.identifier).update(
+                    sharedLocalDb
+                        .proOcrEngine(ocrEngineConfig.identifier)
+                        .update(
                           disabled: !ocrEngineConfig.disabled,
                         );
                     sharedLocalDb.write();

@@ -53,7 +53,7 @@ class PreferencesModifier {
     String type,
     String value,
   }) async {
-    if (value != null) _preferenceList[_preferenceIndex].value = value;
+    if (type != null) _preferenceList[_preferenceIndex].type = type;
     if (value != null) _preferenceList[_preferenceIndex].value = value;
   }
 

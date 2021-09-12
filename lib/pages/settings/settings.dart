@@ -45,21 +45,21 @@ class _SettingsPageState extends State<SettingsPage> {
             title: Text(t('pref_section_title_general')),
             children: [
               PreferenceListItem(
-                title: Text(t('pref_item_title_translate')),
+                title: Text(t('pref_item_title_extract_text')),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => SettingTranslatePage(),
+                      builder: (_) => SettingExtractTextPage(),
                     ),
                   );
                 },
               ),
               PreferenceListItem(
-                title: Text(t('pref_item_title_screen_extract_text')),
+                title: Text(t('pref_item_title_translate')),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => SettingScreenExtractTextPage(),
+                      builder: (_) => SettingTranslatePage(),
                     ),
                   );
                 },
@@ -118,9 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListRadioItem(
                 value: kInputSettingSubmitWithEnter,
                 groupValue: _inputSetting,
-                title: Text(t(kIsMacOS
-                    ? 'pref_item_title_submit_with_enter_mac'
-                    : 'pref_item_title_submit_with_enter')),
+                title: Text(t('pref_item_title_submit_with_enter')),
                 onChanged: (newValue) {
                   _inputSetting = newValue;
                   sharedConfigManager.setInputSetting(newValue);
@@ -130,7 +128,9 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListRadioItem(
                 value: kInputSettingSubmitWithMetaEnter,
                 groupValue: _inputSetting,
-                title: Text(t('pref_item_title_submit_with_meta_enter')),
+                title: Text(t(kIsMacOS
+                    ? 'pref_item_title_submit_with_meta_enter_mac'
+                    : 'pref_item_title_submit_with_meta_enter')),
                 onChanged: (newValue) {
                   _inputSetting = newValue;
                   sharedConfigManager.setInputSetting(newValue);

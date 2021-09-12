@@ -187,8 +187,9 @@ page_ocr_engines_manage:
   pref_section_title_private: 私有
 page_setting_app_language:
   title: 显示语言
-page_setting_screen_extract_text:
-  title: 屏幕取词
+page_setting_extract_text:
+  title: 取词
+  pref_section_title_use_local_detect_text_engine: 使用本地文字识别引擎
   pref_section_title_default_detect_text_engine: 默认文字识别引擎
 page_setting_shortcuts:
   title: 快捷键
@@ -212,8 +213,8 @@ page_settings:
   pref_section_title_shortcuts: 快捷键
   pref_section_title_input_settings: 输入设置
   pref_section_title_service_integration: 服务接入
+  pref_item_title_extract_text: 取词
   pref_item_title_translate: 翻译
-  pref_item_title_screen_extract_text: 屏幕取词
   pref_item_title_app_language: 显示语言
   pref_item_title_theme_mode: 主题模式
   pref_item_title_keyboard_shortcuts: 键盘快捷键

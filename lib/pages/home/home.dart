@@ -438,8 +438,9 @@ class _HomePageState extends State<HomePage>
   }
 
   void _handleExtractTextFromScreenSelection() async {
-    ExtractedData extractedData = await screenTextExtractor.extract(
-      mode: ExtractMode.screenSelection,
+    ExtractedData extractedData =
+        await screenTextExtractor.extractFromScreenSelection(
+      simulateCopyShortcut: true,
     );
 
     bool windowIsVisible = await windowManager.isVisible();
@@ -468,9 +469,10 @@ class _HomePageState extends State<HomePage>
           'Screenshot-${DateTime.now().millisecondsSinceEpoch}.png';
       imagePath = '${appDir.path}/Screenshots/$fileName';
     }
-    ExtractedData extractedData = await screenTextExtractor.extract(
-      mode: ExtractMode.screenCapture,
+    ExtractedData extractedData =
+        await screenTextExtractor.extractFromScreenCapture(
       imagePath: imagePath,
+      useTesseract: sharedConfig.useLocalOcrEngine,
     );
 
     File imageFile = File(extractedData.imagePath);
@@ -507,9 +509,8 @@ class _HomePageState extends State<HomePage>
       await Future.delayed(Duration(milliseconds: 200));
     }
 
-    ExtractedData extractedData = await screenTextExtractor.extract(
-      mode: ExtractMode.clipboard,
-    );
+    ExtractedData extractedData =
+        await screenTextExtractor.extractFromClipboard();
     _handleTextChanged(extractedData.text, isRequery: true);
   }
 

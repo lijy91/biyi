@@ -6,6 +6,10 @@ extension ExtOcrEngineConfig on OcrEngineConfig {
   }
 
   String get typeName {
-    return 'ocr_engine.${this.type}'.tr();
+    String key = 'ocr_engine.${this.type}';
+    if (key.tr() == key) {
+      return this.name;
+    }
+    return key.tr();
   }
 }

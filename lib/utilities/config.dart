@@ -107,6 +107,7 @@ class Config {
 
   String translationMode;
   String defaultEngineId;
+  bool useLocalOcrEngine;
   String defaultOcrEngineId;
   String appLanguage;
   ThemeMode themeMode;
@@ -146,6 +147,10 @@ class ConfigManager extends _ConfigChangeNotifier {
     );
     Config.instance.defaultEngineId = await _getString(
       kPrefDefaultEngineId,
+    );
+    Config.instance.useLocalOcrEngine = await _getBool(
+      kPrefUseLocalOcrEngine,
+      defaultValue: false,
     );
     Config.instance.defaultOcrEngineId = await _getString(
       kPrefDefaultOcrEngineId,
@@ -205,6 +210,10 @@ class ConfigManager extends _ConfigChangeNotifier {
     return _setString(kPrefDefaultEngineId, value);
   }
 
+  Future<void> setUseLocalOcrEngine(bool value) {
+    return _setBool(kPrefUseLocalOcrEngine, value);
+  }
+
   Future<void> setDefaultOcrEngineId(String value) {
     return _setString(kPrefDefaultOcrEngineId, value);
   }
@@ -259,9 +268,16 @@ class ConfigManager extends _ConfigChangeNotifier {
   Future<void> _setBool(String key, bool value) async {
     UserPreference pref = sharedLocalDb.preference(key).get();
     if (pref == null) {
-      sharedLocalDb.preferences.create(key: key, value: '$value');
+      sharedLocalDb.preferences.create(
+        key: key,
+        type: kPreferenceTypeBool,
+        value: '$value',
+      );
     } else {
-      sharedLocalDb.preference(key).update(value: '$value');
+      sharedLocalDb.preference(key).update(
+            type: kPreferenceTypeBool,
+            value: '$value',
+          );
     }
 
     sharedLocalDb.write();

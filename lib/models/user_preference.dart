@@ -7,6 +7,7 @@ const kPreferenceTypeBool = 'bool';
 const kPrefTranslationMode = 'translation_mode';
 const kPrefDefaultEngineId = 'default_engine_id';
 // 取词
+const kPrefUseLocalOcrEngine = 'use_local_ocr_engine';
 const kPrefDefaultOcrEngineId = 'default_ocr_engine_id';
 // 主题模式
 const kPrefAppLanguage = 'app_language';

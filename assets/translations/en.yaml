@@ -187,8 +187,9 @@ page_ocr_engines_manage:
   pref_section_title_private: Private
 page_setting_app_language:
   title: Display Language
-page_setting_screen_extract_text:
+page_setting_extract_text:
   title: Screen extract text
+  pref_section_title_use_local_detect_text_engine: Use local detect text engine
   pref_section_title_default_detect_text_engine: Default detect text engine
 page_setting_shortcuts:
   title: Shortcuts
@@ -212,8 +213,8 @@ page_settings:
   pref_section_title_shortcuts: Shortcuts
   pref_section_title_input_settings: Input Settings
   pref_section_title_service_integration: Service Integration
+  pref_item_title_extract_text: Extract text
   pref_item_title_translate: Translate
-  pref_item_title_screen_extract_text: Screen extract text
   pref_item_title_app_language: Display Language
   pref_item_title_theme_mode: Theme Mode
   pref_item_title_keyboard_shortcuts: Keyboard Shortcuts
@@ -240,6 +241,5 @@ page_translation_target_new:
   title_with_edit: Edit Translation Target
   source_language: Source language
   target_language: Target language
-
 widget_record_shortcut_dialog:
   title: Customize your shortcut

@@ -8,6 +8,10 @@ extension ExtTranslationEngineConfig on TranslationEngineConfig {
   }
 
   String get typeName {
-    return 'engine.${this.type}'.tr();
+    String key = 'engine.${this.type}';
+    if (key.tr() == key) {
+      return this.name;
+    }
+    return key.tr();
   }
 }

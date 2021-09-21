@@ -7,16 +7,16 @@ class ProTranslationEngine extends TranslationEngine {
 
   @override
   Future<DetectLanguageResponse> detectLanguage(DetectLanguageRequest request) {
-    return sharedApiClient.engine(identifier).detectLanguage(request);
+    return proAccount.engine(identifier).detectLanguage(request);
   }
 
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) {
-    return sharedApiClient.engine(identifier).lookUp(request);
+    return proAccount.engine(identifier).lookUp(request);
   }
 
   @override
   Future<TranslateResponse> translate(TranslateRequest request) {
-    return sharedApiClient.engine(identifier).translate(request);
+    return proAccount.engine(identifier).translate(request);
   }
 }

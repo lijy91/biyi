@@ -5,5 +5,3 @@ export './translation_result_record.dart';
 export './translation_result.dart';
 export './translation_target.dart';
 export './user_preference.dart';
-export './user.dart';
-export './version.dart';

@@ -122,20 +122,10 @@ class _HomePageState extends State<HomePage>
 
     ShortcutService.instance.start();
 
-    windowManager.setSize(
-      Size(
-        380 + (kVirtualWindowFrameMargin * 2),
-        185 + (kVirtualWindowFrameMargin * 2),
-      ),
-    );
-    if (kIsLinux || kIsWindows) {
-      windowManager.setCustomFrame(isFrameless: true);
-      windowManager.setBackgroundColor(Colors.transparent);
-    }
-    windowManager.show();
-    await Future.delayed(Duration(milliseconds: 200));
-    windowManager.focus();
-    await Future.delayed(Duration(milliseconds: 200));
+    windowManager.waitUntilReadyToShow().then((_) async {
+      await Future.delayed(Duration(seconds: 1));
+      _windowShow();
+    });
 
     // 初始化托盘图标
     trayManager.setIcon(R.image(
@@ -227,9 +217,19 @@ class _HomePageState extends State<HomePage>
 
   void _loadData() async {
     try {
-      await sharedLocalDb.loadPro();
-      _latestVersion = await sharedApiClient.version('latest').get();
+      _latestVersion = await proAccount.version('latest').get();
       setState(() {});
+    } catch (error) {}
+
+    try {
+      await sharedLocalDb.loadPro();
+    } catch (error) {}
+
+    try {
+      if (proAccount.loggedInGuest == null && proAccount.loggedInUser == null) {
+        Session session = await proAccount.loginAsGuest();
+        print(session.toJson());
+      }
     } catch (error) {
       print(error);
     }
@@ -440,7 +440,7 @@ class _HomePageState extends State<HomePage>
   void _handleExtractTextFromScreenSelection() async {
     ExtractedData extractedData =
         await screenTextExtractor.extractFromScreenSelection(
-      simulateCopyShortcut: true,
+      useAccessibilityAPIFirst: true,
     );
 
     bool windowIsVisible = await windowManager.isVisible();

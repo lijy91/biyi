@@ -20,7 +20,7 @@ export 'modifiers/ocr_engines_modifier.dart';
 export 'modifiers/preferences_modifier.dart';
 export 'modifiers/translation_targets_modifier.dart';
 
-const _kLocalUser = 'local-user';
+const _kLocalUser = -1;
 
 class _ListenerEntry extends LinkedListEntry<_ListenerEntry> {
   _ListenerEntry(this.listener);
@@ -154,7 +154,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
     try {
       List<TranslationEngineConfig> newProEngineList =
-          await sharedApiClient.engines.list();
+          await proAccount.engines.list();
       this.dbData.proEngineList = newProEngineList.map((engine) {
         var oldEngine = oldProEngineList.firstWhere(
           (e) => e.identifier == engine.identifier,
@@ -169,7 +169,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
     try {
       List<OcrEngineConfig> newProOcrEngineList =
-          await sharedApiClient.ocrEngines.list();
+          await proAccount.ocrEngines.list();
       this.dbData.proOcrEngineList = newProOcrEngineList.map((engine) {
         var oldOrcEngine = oldProOcrEngineList.firstWhere(
           (e) => e.identifier == engine.identifier,
@@ -303,8 +303,6 @@ class LocalDb extends _ConfigChangeNotifier {
 }
 
 class DbData {
-  String currentUserId = _kLocalUser;
-  User currentUser;
   List<TranslationEngineConfig> proEngineList;
   List<OcrEngineConfig> proOcrEngineList;
   List<TranslationEngineConfig> privateEngineList;
@@ -318,8 +316,6 @@ class DbData {
       []..addAll(proOcrEngineList ?? [])..addAll(privateOcrEngineList ?? []);
 
   DbData({
-    this.currentUserId,
-    this.currentUser,
     this.proEngineList,
     this.proOcrEngineList,
     this.privateEngineList,
@@ -369,8 +365,6 @@ class DbData {
     }
 
     return DbData(
-      currentUserId: json['currentUserId'],
-      currentUser: User.fromJson(json['currentUser']),
       proEngineList: proEngineList,
       proOcrEngineList: proOcrEngineList,
       privateEngineList: privateEngineList,
@@ -382,8 +376,6 @@ class DbData {
 
   Map<String, dynamic> toJson() {
     return {
-      'currentUserId': currentUserId,
-      'currentUser': currentUser?.toJson(),
       'proEngineList': (proEngineList ?? []).map((e) => e.toJson()).toList(),
       'proOcrEngineList':
           (proOcrEngineList ?? []).map((e) => e.toJson()).toList(),
@@ -400,11 +392,6 @@ class DbData {
 
 LocalDb sharedLocalDb = LocalDb(
   defaultDbData: DbData(
-    currentUserId: _kLocalUser,
-    currentUser: User(
-      id: _kLocalUser,
-      name: '默认账户',
-    ),
     privateEngineList: [],
     privateOcrEngineList: [],
     translationTargetList: [

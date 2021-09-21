@@ -97,12 +97,7 @@ class Config {
   static final Config instance = Config._();
 
   Future<Directory> getAppDirectory() async {
-    final docDir = await getApplicationDocumentsDirectory();
-    final appDir = Directory('${docDir.parent.path}/biyiapp');
-    if (!appDir.existsSync()) {
-      appDir.createSync(recursive: true);
-    }
-    return appDir;
+    return proAccount.dataDirectory;
   }
 
   String translationMode;

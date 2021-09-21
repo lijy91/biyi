@@ -5,6 +5,6 @@ class ProOcrEngine extends OcrEngine {
 
   @override
   Future<DetectTextResponse> detectText(DetectTextRequest request) {
-    return sharedApiClient.ocrEngine(identifier).detectText(request);
+    return proAccount.ocrEngine(identifier).detectText(request);
   }
 }

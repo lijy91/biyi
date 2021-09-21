@@ -1,5 +1,9 @@
 PODS:
+  - audio_player (0.0.1):
+    - FlutterMacOS
   - audioplayers (0.0.1):
+    - FlutterMacOS
+  - device_info_plus_macos (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - HotKey (0.1.2)
@@ -24,7 +28,9 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
+  - audio_player (from `Flutter/ephemeral/.symlinks/plugins/audio_player/macos`)
   - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
+  - device_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - hotkey_manager (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager/macos`)
   - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
@@ -41,8 +47,12 @@ SPEC REPOS:
     - HotKey
 
 EXTERNAL SOURCES:
+  audio_player:
+    :path: Flutter/ephemeral/.symlinks/plugins/audio_player/macos
   audioplayers:
     :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
+  device_info_plus_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   hotkey_manager:
@@ -65,19 +75,21 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
+  audio_player: d9813303797320cb18a5f87f1d3585f9c7f68598
   audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
+  device_info_plus_macos: 1ad388a1ef433505c4038e7dd9605aadd1e2e9c7
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
   HotKey: ad59450195936c10992438c4210f673de5aee43e
   hotkey_manager: ad673457691f4d39e481be04a61da2ae07d81c62
   package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
-  screen_text_extractor: 0d039de2617da50e7da4b484e64e861632f920bb
+  screen_text_extractor: b144efcf2e445a5892d540c5b8b83d5039994957
   shared_preferences_macos: 480ce071d0666e37cef23fe6c702293a3d21799e
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   uni_links_macos: 5ff105932e9f8e12b9f24fd5656188ca9184cc5b
   url_launcher_macos: 45af3d61de06997666568a7149c1be98b41c95d4
   window_manager: f5fa14814635f059571527ddd5e676f688af552c
 
-PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
+PODFILE CHECKSUM: 0d3963a09fc94f580682bd88480486da345dc3f0
 
 COCOAPODS: 1.10.1

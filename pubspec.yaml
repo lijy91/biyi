@@ -26,10 +26,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  audio_player:
-    git:
-      ref: main
-      url: https://github.com/leanflutter/audio_player.git
   audioplayers: ^0.19.1
   bot_toast: ^4.0.1
   dio: ^4.0.0
@@ -38,17 +34,14 @@ dependencies:
   flutter_spinkit: ^5.0.0
   flutter_svg: ^0.22.0
   hotkey_manager: ^0.1.0
+  libwinmedia: ^0.0.5
   package_info_plus: ^1.0.4
   photo_view: ^0.12.0
-  screen_text_extractor:
-    git:
-      ref: main
-      url: https://github.com/leanflutter/screen_text_extractor.git
+  pro_account:
+    path: ../pro_account
+  screen_text_extractor: ^0.0.1
   sticky_headers: ^0.1.8
-  tray_manager:
-    git:
-      ref: main
-      url: https://github.com/leanflutter/tray_manager.git
+  tray_manager: ^0.0.2
   uni_links: ^0.5.1
   uni_links_macos:
     git:
@@ -70,12 +63,14 @@ dependencies:
       path: packages/uni_translate
       ref: master
       url: https://github.com/biyidev/uni_translate.git
+  uni_translate_client:
+    git:
+      path: packages/uni_translate_client
+      ref: master
+      url: https://github.com/biyidev/uni_translate_client.git
   url_launcher: ^6.0.6
   uuid: ^3.0.4
-  window_manager:
-    git:
-      ref: main
-      url: https://github.com/leanflutter/window_manager.git
+  window_manager: ^0.0.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -114,9 +109,6 @@ flutter:
     - assets/images/ocr_engine_icons/
     - assets/images/translation_engine_icons/
     - assets/translations/
-    # - packages/hotkey_manager/web/
-    # - packages/screen_text_extractor/web/
-    # - packages/window_manager/web/
 
   fonts:
     - family: icomoon

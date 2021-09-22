@@ -26,13 +26,13 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
 
   @override
   void initState() {
-    AudioPlayerService.instance.addListener(this);
+    AudioPlayer.instance.addListener(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    AudioPlayerService.instance.removeListener(this);
+    AudioPlayer.instance.removeListener(this);
     _stopPlayingAnimTimer();
     super.dispose();
   }
@@ -68,12 +68,14 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
   }
 
   void _handleClickPlay() {
-    AudioPlayerService.instance.play(widget.audioUrl);
+    AudioPlayer.instance.setSource(Uri.parse(widget.audioUrl));
+    AudioPlayer.instance.prepare();
+    AudioPlayer.instance.start();
     _startPlayingAnimTimer();
   }
 
   void _handleClickStop() {
-    AudioPlayerService.instance.stop();
+    AudioPlayer.instance.stop();
     _stopPlayingAnimTimer();
   }
 
@@ -135,7 +137,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
 
   @override
   void onAudioPlayerStateChanged(AudioPlayer ap, AudioPlayerState state) {
-    if (AudioPlayerService.instance.lastPlayAudioUrl == widget.audioUrl) {
+    if (ap.getSource().toString() == widget.audioUrl) {
       _playing = state == AudioPlayerState.playing;
     } else {
       _playing = false;

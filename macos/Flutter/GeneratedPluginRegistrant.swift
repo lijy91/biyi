@@ -5,7 +5,6 @@
 import FlutterMacOS
 import Foundation
 
-import audio_player
 import audioplayers
 import device_info_plus_macos
 import hotkey_manager
@@ -19,7 +18,6 @@ import url_launcher_macos
 import window_manager
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  AudioPlayerPlugin.register(with: registry.registrar(forPlugin: "AudioPlayerPlugin"))
   AudioplayersPlugin.register(with: registry.registrar(forPlugin: "AudioplayersPlugin"))
   DeviceInfoPlusMacosPlugin.register(with: registry.registrar(forPlugin: "DeviceInfoPlusMacosPlugin"))
   HotkeyManagerPlugin.register(with: registry.registrar(forPlugin: "HotkeyManagerPlugin"))

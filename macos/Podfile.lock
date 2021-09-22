@@ -1,6 +1,4 @@
 PODS:
-  - audio_player (0.0.1):
-    - FlutterMacOS
   - audioplayers (0.0.1):
     - FlutterMacOS
   - device_info_plus_macos (0.0.1):
@@ -28,7 +26,6 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
-  - audio_player (from `Flutter/ephemeral/.symlinks/plugins/audio_player/macos`)
   - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
   - device_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
@@ -47,8 +44,6 @@ SPEC REPOS:
     - HotKey
 
 EXTERNAL SOURCES:
-  audio_player:
-    :path: Flutter/ephemeral/.symlinks/plugins/audio_player/macos
   audioplayers:
     :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
   device_info_plus_macos:
@@ -75,7 +70,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
-  audio_player: d9813303797320cb18a5f87f1d3585f9c7f68598
   audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
   device_info_plus_macos: 1ad388a1ef433505c4038e7dd9605aadd1e2e9c7
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424

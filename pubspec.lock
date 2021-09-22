@@ -22,15 +22,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.1"
-  audio_player:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: main
-      resolved-ref: "091a110331752d8e631dbee835b1bc36f034451e"
-      url: "https://github.com/leanflutter/audio_player.git"
-    source: git
-    version: "0.0.1"
   audioplayers:
     dependency: "direct main"
     description:
@@ -101,6 +92,48 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  device_info_plus:
+    dependency: transitive
+    description:
+      name: device_info_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  device_info_plus_linux:
+    dependency: transitive
+    description:
+      name: device_info_plus_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  device_info_plus_macos:
+    dependency: transitive
+    description:
+      name: device_info_plus_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  device_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_plus_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  device_info_plus_web:
+    dependency: transitive
+    description:
+      name: device_info_plus_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  device_info_plus_windows:
+    dependency: transitive
+    description:
+      name: device_info_plus_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   dio:
     dependency: "direct main"
     description:
@@ -190,7 +223,7 @@ packages:
       path: "../../leanflutter/hotkey_manager"
       relative: true
     source: path
-    version: "0.1.1"
+    version: "0.1.2"
   http:
     dependency: transitive
     description:
@@ -227,12 +260,12 @@ packages:
     source: hosted
     version: "0.6.3"
   libwinmedia:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: libwinmedia
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2+2"
+    version: "0.0.5"
   matcher:
     dependency: transitive
     description:
@@ -337,7 +370,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
   path_provider_linux:
     dependency: transitive
     description:
@@ -401,6 +434,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  pro_account:
+    dependency: "direct main"
+    description:
+      path: "../pro_account"
+      relative: true
+    source: path
+    version: "0.0.1"
   process:
     dependency: transitive
     description:
@@ -640,7 +680,7 @@ packages:
     source: path
     version: "0.0.1"
   uni_translate_client:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       path: "../uni_translate/packages/uni_translate_client"
       relative: true
@@ -715,7 +755,7 @@ packages:
       path: "../../leanflutter/window_manager"
       relative: true
     source: path
-    version: "0.0.3"
+    version: "0.0.4"
   xdg_directories:
     dependency: transitive
     description:

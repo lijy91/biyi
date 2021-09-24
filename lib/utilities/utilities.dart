@@ -1,4 +1,5 @@
 import 'package:hotkey_manager/hotkey_manager.dart';
+import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
@@ -20,6 +21,7 @@ final sharedConfig = Config.instance;
 final sharedConfigManager = ConfigManager.instance;
 
 final HotKeyManager hotKeyManager = HotKeyManager.instance;
+final ScreenRetriever screenRetriever = ScreenRetriever.instance;
 final ScreenTextExtractor screenTextExtractor = ScreenTextExtractor.instance;
 final TrayManager trayManager = TrayManager.instance;
 final WindowManager windowManager = WindowManager.instance;

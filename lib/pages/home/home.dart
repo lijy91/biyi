@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:uuid/uuid.dart';
@@ -123,6 +124,8 @@ class _HomePageState extends State<HomePage>
     ShortcutService.instance.start();
 
     windowManager.waitUntilReadyToShow().then((_) async {
+      await windowManager.setAsFrameless();
+      await windowManager.setSkipTaskbar(true);
       await Future.delayed(Duration(seconds: 1));
       _windowShow();
     });
@@ -150,17 +153,27 @@ class _HomePageState extends State<HomePage>
   }
 
   Future<void> _windowShow() async {
+    Size windowSize = await windowManager.getSize();
+    Offset newPosition;
     if (kIsMacOS) {
-      Size windowSize = await windowManager.getSize();
       Rect trayIconBounds = await trayManager.getBounds();
       Size trayIconSize = trayIconBounds.size;
       Offset trayIconnewPosition = trayIconBounds.topLeft;
 
-      Offset newPosition = Offset(
+      newPosition = Offset(
         trayIconnewPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
         trayIconnewPosition.dy,
       );
-
+    } else if (kIsWindows) {
+      Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
+      double displayWidth =
+          primaryDisplay.size.width / primaryDisplay.scaleFactor;
+      newPosition = Offset(
+        (displayWidth) - windowSize.width - 50,
+        50,
+      );
+    }
+    if (newPosition != null) {
       bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
       if (!isAlwaysOnTop) {
         windowManager.setPosition(newPosition);
@@ -181,6 +194,7 @@ class _HomePageState extends State<HomePage>
       _resizeTimer.cancel();
     }
     _resizeTimer = Timer.periodic(Duration(milliseconds: 10), (_) async {
+      await Future.delayed(Duration(milliseconds: 200));
       RenderBox rb1 = _bannersViewKey?.currentContext?.findRenderObject();
       RenderBox rb2 = _inputViewKey?.currentContext?.findRenderObject();
       RenderBox rb3 = _resultsViewKey?.currentContext?.findRenderObject();
@@ -772,12 +786,13 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  void onTrayMenuItemClick(MenuItem menuItem) {
+  void onTrayMenuItemClick(MenuItem menuItem) async {
     switch (menuItem.identifier) {
       case kMenuItemIdShowOrHideMainWindow:
         _windowShow();
         break;
       case kMenuItemIdExitApp:
+        await trayManager.destroy();
         windowManager.terminate();
         break;
     }

@@ -3,9 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  audio_player
   hotkey_manager
   libwinmedia
+  screen_retriever
   screen_text_extractor
   tray_manager
   url_launcher_windows

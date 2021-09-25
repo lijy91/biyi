@@ -266,6 +266,14 @@ class _HomePageState extends State<HomePage>
       setState(() {});
     } catch (error) {}
     try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+      ProAccountInterceptor.appBuildNumber =
+          (packageInfo?.buildNumber ?? '').isNotEmpty
+              ? packageInfo?.buildNumber
+              : kAppBuildNumber;
+      ProAccountInterceptor.appVersion = packageInfo.appName;
+
       if (proAccount.loggedInGuest == null) {
         await proAccount.loginAsGuest();
       }

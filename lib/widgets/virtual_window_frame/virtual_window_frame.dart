@@ -20,6 +20,7 @@ class VirtualWindowFrame extends StatefulWidget {
 class _VirtualWindowFrameState extends State<VirtualWindowFrame>
     with WindowListener {
   bool _focused = true;
+
   @override
   void initState() {
     windowManager.addListener(this);
@@ -45,9 +46,9 @@ class _VirtualWindowFrameState extends State<VirtualWindowFrame>
             borderRadius: BorderRadius.circular(2),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                offset: Offset(0.0, _focused ? 8.0 : 4),
-                blurRadius: _focused ? 8 : 4,
+                color: Colors.black.withOpacity(0.1),
+                offset: Offset(0.0, _focused ? 6.0 : 4),
+                blurRadius: _focused ? 6 : 4,
               ),
             ],
           ),

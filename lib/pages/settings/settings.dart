@@ -70,6 +70,16 @@ class _SettingsPageState extends State<SettingsPage> {
             title: Text(t('pref_section_title_appearance')),
             children: [
               PreferenceListItem(
+                title: Text(t('pref_item_title_interface')),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => SettingInterfacePage(),
+                    ),
+                  );
+                },
+              ),
+              PreferenceListItem(
                 title: Text(t('pref_item_title_app_language')),
                 detailText: Text(getLanguageName(sharedConfig.appLanguage)),
                 onTap: () {

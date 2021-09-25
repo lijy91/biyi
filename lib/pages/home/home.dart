@@ -45,6 +45,9 @@ class _HomePageState extends State<HomePage>
 
   Config _config = sharedConfigManager.getConfig();
 
+  bool _showTrayIcon = sharedConfigManager.getConfig().showTrayIcon;
+  String _trayIconStyle = sharedConfigManager.getConfig().trayIconStyle;
+
   PackageInfo _packageInfo;
   Version _latestVersion;
   bool _isAllowedScreenCaptureAccess = true;
@@ -107,7 +110,18 @@ class _HomePageState extends State<HomePage>
   }
 
   void _configListen() {
-    _config = sharedConfigManager.getConfig();
+    Config newConfig = sharedConfigManager.getConfig();
+    bool showTrayIcon = newConfig.showTrayIcon;
+    String trayIconStyle = newConfig.trayIconStyle;
+
+    bool trayIconUpdated =
+        _showTrayIcon != showTrayIcon || _trayIconStyle != trayIconStyle;
+
+    _config = newConfig;
+    _showTrayIcon = showTrayIcon;
+    _trayIconStyle = trayIconStyle;
+
+    if (trayIconUpdated) _initTrayIcon();
     setState(() {});
   }
 
@@ -126,6 +140,16 @@ class _HomePageState extends State<HomePage>
     windowManager.waitUntilReadyToShow().then((_) async {
       if (kIsLinux || kIsWindows) {
         await WindowManager.instance.setAsFrameless();
+
+        Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
+        Size windowSize = await windowManager.getSize();
+        Offset newPosition = Offset(
+          (primaryDisplay.size.width / primaryDisplay.scaleFactor) -
+              windowSize.width -
+              50,
+          50,
+        );
+        windowManager.setPosition(newPosition);
       }
       await windowManager.setSkipTaskbar(true);
       await Future.delayed(Duration(milliseconds: 400));
@@ -133,21 +157,32 @@ class _HomePageState extends State<HomePage>
     });
 
     // 初始化托盘图标
-    trayManager.setIcon(R.image(
-      kIsWindows ? 'tray_icon.ico' : 'tray_icon.png',
-    ));
-    await Future.delayed(Duration(milliseconds: 200));
-    trayManager.setContextMenu([
-      MenuItem(
-        identifier: kMenuItemIdShowOrHideMainWindow,
-        title: '显示主窗口',
-      ),
-      MenuItem.separator,
-      MenuItem(
-        identifier: kMenuItemIdExitApp,
-        title: '退出',
-      ),
-    ]);
+    _initTrayIcon();
+  }
+
+  Future<void> _initTrayIcon() async {
+    String trayIconName = kIsWindows ? 'tray_icon.ico' : 'tray_icon.png';
+
+    if (_trayIconStyle == kTrayIconStyleBlack) {
+      trayIconName = kIsWindows ? 'tray_icon_black.ico' : 'tray_icon_black.png';
+    }
+
+    await trayManager.destroy();
+    if (_showTrayIcon) {
+      await trayManager.setIcon(R.image(trayIconName));
+      await Future.delayed(Duration(milliseconds: 200));
+      await trayManager.setContextMenu([
+        MenuItem(
+          identifier: kMenuItemIdShowOrHideMainWindow,
+          title: 'tray_context_menu.item_show'.tr(),
+        ),
+        MenuItem.separator,
+        MenuItem(
+          identifier: kMenuItemIdExitApp,
+          title: 'tray_context_menu.item_exit'.tr(),
+        ),
+      ]);
+    }
   }
 
   void _uninit() {
@@ -165,14 +200,6 @@ class _HomePageState extends State<HomePage>
       newPosition = Offset(
         trayIconnewPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
         trayIconnewPosition.dy,
-      );
-    } else if (kIsWindows) {
-      Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
-      double displayWidth =
-          primaryDisplay.size.width / primaryDisplay.scaleFactor;
-      newPosition = Offset(
-        (displayWidth) - windowSize.width - 50,
-        50,
       );
     }
     if (newPosition != null) {
@@ -369,9 +396,10 @@ class _HomePageState extends State<HomePage>
               lookUpResponse = await sharedTranslateClient
                   .use(identifier)
                   .lookUp(lookUpRequest);
-            } catch (error) {
-              print(error);
+            } on UniTranslateClientError catch (error) {
               lookUpError = error;
+            } catch (error) {
+              lookUpError = UniTranslateClientError(message: error.toString());
             }
           }
 
@@ -391,9 +419,10 @@ class _HomePageState extends State<HomePage>
               translateResponse = await sharedTranslateClient
                   .use(identifier)
                   .translate(translateRequest);
+            } on UniTranslateClientError catch (error) {
+              lookUpError = error;
             } catch (error) {
-              print(error);
-              translateError = error;
+              lookUpError = UniTranslateClientError(message: error.toString());
             }
           }
 

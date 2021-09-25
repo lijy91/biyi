@@ -147,6 +147,9 @@ theme_mode:
 word_pronunciation:
   us: US
   uk: UK
+tray_context_menu:
+  item_show: Show
+  item_exit: Exit
 # Pages
 page_home:
   newversion_banner_text_found_new_version: "New version found: {}"
@@ -191,6 +194,13 @@ page_setting_extract_text:
   title: Screen extract text
   pref_section_title_use_local_detect_text_engine: Use local detect text engine
   pref_section_title_default_detect_text_engine: Default detect text engine
+page_setting_interface:
+  title: Interface
+  pref_section_title_tray_icon: Tray Icon
+  pref_section_title_tray_icon_style: Tray Icon Style
+  pref_item_title_show_tray_icon: Show Tray Icon
+  pref_item_title_tray_icon_style_white: White
+  pref_item_title_tray_icon_style_black: Black
 page_setting_shortcuts:
   title: Shortcuts
   pref_section_title_extract_text: Screen / Clipboard extract text
@@ -214,6 +224,7 @@ page_settings:
   pref_section_title_input_settings: Input Settings
   pref_section_title_service_integration: Service Integration
   pref_item_title_extract_text: Extract text
+  pref_item_title_interface: Interface
   pref_item_title_translate: Translate
   pref_item_title_app_language: Display Language
   pref_item_title_theme_mode: Theme Mode

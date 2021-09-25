@@ -95,6 +95,10 @@ var darkThemeData = ThemeData(
         fontSize: 15,
       ),
     ),
+    titleTextStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 15,
+    ),
     // this.centerTitle,
     // this.titleSpacing,
   ),

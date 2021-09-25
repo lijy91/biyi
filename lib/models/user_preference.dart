@@ -10,6 +10,8 @@ const kPrefDefaultEngineId = 'default_engine_id';
 const kPrefUseLocalOcrEngine = 'use_local_ocr_engine';
 const kPrefDefaultOcrEngineId = 'default_ocr_engine_id';
 // 主题模式
+const kPrefShowTrayIcon = 'show_tray_icon';
+const kPrefTrayIconStyle = 'tray_icon_style';
 const kPrefAppLanguage = 'app_language';
 const kPrefThemeMode = 'theme_mode';
 // 快捷键
@@ -23,6 +25,9 @@ const kPrefInputSetting = 'input_setting';
 
 const kTranslationModeAuto = 'auto';
 const kTranslationModeManual = 'manual';
+
+const kTrayIconStyleWhite = 'white';
+const kTrayIconStyleBlack = 'black';
 
 const kInputSettingSubmitWithEnter = 'submit-with-enter';
 const kInputSettingSubmitWithMetaEnter = 'submit-with-meta+enter';

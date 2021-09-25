@@ -8,6 +8,7 @@ export './ocr_engine_chooser/ocr_engine_chooser.dart';
 export './ocr_engines_manage/ocr_engines_manage.dart';
 export './setting_app_language/setting_app_language.dart';
 export './setting_extract_text/setting_extract_text.dart';
+export './setting_interface/setting_interface.dart';
 export './setting_shortcuts/setting_shortcuts.dart';
 export './setting_theme_mode/setting_theme_mode.dart';
 export './setting_translate/setting_translate.dart';

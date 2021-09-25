@@ -103,6 +103,10 @@ var lightThemeData = ThemeData(
         fontSize: 15,
       ),
     ),
+    titleTextStyle: TextStyle(
+      color: Colors.black,
+      fontSize: 15,
+    ),
     // this.centerTitle,
     // this.titleSpacing,
   ),

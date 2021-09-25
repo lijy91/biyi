@@ -147,6 +147,9 @@ theme_mode:
 word_pronunciation:
   us: 美
   uk: 英
+tray_context_menu:
+  item_show: 显示
+  item_exit: 退出
 # Pages
 page_home:
   newversion_banner_text_found_new_version: "发现新版本：{}"
@@ -191,6 +194,13 @@ page_setting_extract_text:
   title: 取词
   pref_section_title_use_local_detect_text_engine: 使用本地文字识别引擎
   pref_section_title_default_detect_text_engine: 默认文字识别引擎
+page_setting_interface:
+  title: 界面
+  pref_section_title_tray_icon: 托盘图标
+  pref_section_title_tray_icon_style: 托盘图标样式
+  pref_item_title_show_tray_icon: 显示托盘图标
+  pref_item_title_tray_icon_style_white: 白色
+  pref_item_title_tray_icon_style_black: 黑色
 page_setting_shortcuts:
   title: 快捷键
   pref_section_title_extract_text: 屏幕/剪切板取词
@@ -215,6 +225,7 @@ page_settings:
   pref_section_title_service_integration: 服务接入
   pref_item_title_extract_text: 取词
   pref_item_title_translate: 翻译
+  pref_item_title_interface: 界面
   pref_item_title_app_language: 显示语言
   pref_item_title_theme_mode: 主题模式
   pref_item_title_keyboard_shortcuts: 键盘快捷键

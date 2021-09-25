@@ -17,7 +17,7 @@ class _ToolbarItemSponsorState extends State<ToolbarItemSponsor> {
         right: 10,
       ),
       child: CustomButton(
-        color: Theme.of(context).canvasColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         padding: EdgeInsets.only(left: 6, right: 6),
         border: Border.all(color: Colors.red),
         borderRadius: BorderRadius.circular(2),

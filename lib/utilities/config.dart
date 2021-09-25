@@ -104,6 +104,8 @@ class Config {
   String defaultEngineId;
   bool useLocalOcrEngine;
   String defaultOcrEngineId;
+  bool showTrayIcon;
+  String trayIconStyle;
   String appLanguage;
   ThemeMode themeMode;
   String inputSetting;
@@ -149,6 +151,14 @@ class ConfigManager extends _ConfigChangeNotifier {
     );
     Config.instance.defaultOcrEngineId = await _getString(
       kPrefDefaultOcrEngineId,
+    );
+    Config.instance.showTrayIcon = await _getBool(
+      kPrefShowTrayIcon,
+      defaultValue: true,
+    );
+    Config.instance.trayIconStyle = await _getString(
+      kPrefTrayIconStyle,
+      defaultValue: kIsWindows ? kTrayIconStyleBlack : kTrayIconStyleWhite,
     );
     Config.instance.appLanguage = await _getString(
       kPrefAppLanguage,
@@ -211,6 +221,14 @@ class ConfigManager extends _ConfigChangeNotifier {
 
   Future<void> setDefaultOcrEngineId(String value) {
     return _setString(kPrefDefaultOcrEngineId, value);
+  }
+
+  Future<void> setShowTrayIcon(bool value) {
+    return _setBool(kPrefShowTrayIcon, value);
+  }
+
+  Future<void> setTrayIconStyle(String value) {
+    return _setString(kPrefTrayIconStyle, value);
   }
 
   Future<void> setAppLanguage(String value) {

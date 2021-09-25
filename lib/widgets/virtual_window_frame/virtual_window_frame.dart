@@ -42,17 +42,17 @@ class _VirtualWindowFrameState extends State<VirtualWindowFrame>
           decoration: BoxDecoration(
             color: Colors.transparent,
             border: Border.all(color: Theme.of(context).dividerColor, width: 1),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(2),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withOpacity(0.2),
                 offset: Offset(0.0, _focused ? 8.0 : 4),
                 blurRadius: _focused ? 8 : 4,
               ),
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(2),
             child: widget.child,
           ),
         ),

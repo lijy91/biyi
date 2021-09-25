@@ -34,17 +34,17 @@ class _SettingExtractTextPageState
     return LocalDbBuilder(builder: (context, dbData) {
       return PreferenceList(
         children: [
-          PreferenceListSection(
-            children: [
-              PreferenceListSwitchItem(
-                title: Text(
-                  t('pref_section_title_use_local_detect_text_engine'),
-                ),
-                value: _useLocalOcrEngine,
-                onChanged: _handleUseLocalOcrEngineChanged,
-              ),
-            ],
-          ),
+          // PreferenceListSection(
+          //   children: [
+          //     PreferenceListSwitchItem(
+          //       title: Text(
+          //         t('pref_section_title_use_local_detect_text_engine'),
+          //       ),
+          //       value: _useLocalOcrEngine,
+          //       onChanged: _handleUseLocalOcrEngineChanged,
+          //     ),
+          //   ],
+          // ),
           if (!_useLocalOcrEngine)
             PreferenceListSection(
               title: Text(t('pref_section_title_default_detect_text_engine')),

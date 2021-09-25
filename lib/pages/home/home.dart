@@ -223,7 +223,9 @@ class _HomePageState extends State<HomePage>
       _resizeTimer.cancel();
     }
     _resizeTimer = Timer.periodic(Duration(milliseconds: 10), (_) async {
-      await Future.delayed(Duration(milliseconds: 200));
+      if (!kIsMacOS) {
+        await Future.delayed(Duration(milliseconds: 100));
+      }
       RenderBox rb1 = _bannersViewKey?.currentContext?.findRenderObject();
       RenderBox rb2 = _inputViewKey?.currentContext?.findRenderObject();
       RenderBox rb3 = _resultsViewKey?.currentContext?.findRenderObject();
@@ -263,19 +265,12 @@ class _HomePageState extends State<HomePage>
       _latestVersion = await proAccount.version('latest').get();
       setState(() {});
     } catch (error) {}
-
     try {
-      await sharedLocalDb.loadPro();
-    } catch (error) {}
-
-    try {
-      if (proAccount.loggedInGuest == null && proAccount.loggedInUser == null) {
-        Session session = await proAccount.loginAsGuest();
-        print(session.toJson());
+      if (proAccount.loggedInGuest == null) {
+        await proAccount.loginAsGuest();
       }
-    } catch (error) {
-      print(error);
-    }
+      await sharedLocalDb.loadFromProAccount();
+    } catch (error) {}
   }
 
   void _queryData() async {

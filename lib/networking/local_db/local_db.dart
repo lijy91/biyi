@@ -148,7 +148,7 @@ class LocalDb extends _ConfigChangeNotifier {
     await file.writeAsString(jsonString);
   }
 
-  Future<DbData> loadPro() async {
+  Future<DbData> loadFromProAccount() async {
     var oldProEngineList = this.dbData.proEngineList ?? [];
     var oldProOcrEngineList = this.dbData.proOcrEngineList ?? [];
 
@@ -182,26 +182,32 @@ class LocalDb extends _ConfigChangeNotifier {
       }).toList();
     } catch (error) {}
 
-    if (sharedConfig.defaultEngineId == null) {
+    List<String> proEngineIdList =
+        this.dbData.proEngineList.map((e) => e.identifier).toList();
+    if (sharedConfig.defaultEngineId == null ||
+        !proEngineIdList.contains(sharedConfig.defaultEngineId)) {
       sharedConfigManager.setDefaultEngineId(
         this
             .dbData
             .proEngineList
-            .firstWhere((e) => e.type == 'yeekit')
+            .firstWhere((e) => e.type == 'baidu')
             .identifier,
       );
     }
 
-    if (sharedConfig.defaultOcrEngineId == null) {
+    List<String> proOcrEngineIdList =
+        this.dbData.proOcrEngineList.map((e) => e.identifier).toList();
+    if (sharedConfig.defaultOcrEngineId == null ||
+        !proOcrEngineIdList.contains(sharedConfig.defaultOcrEngineId)) {
       sharedConfigManager.setDefaultOcrEngineId(
         this
             .dbData
             .proOcrEngineList
-            .firstWhere((e) => e.type == 'yeekit')
+            .firstWhere((e) => e.type == 'built_in')
             .identifier,
       );
     }
-
+    await this.write();
     return this.dbData;
   }
 

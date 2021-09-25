@@ -128,14 +128,13 @@ engine:
   iciba: 爱词霸
   sogou: 搜狗翻译
   tencent: 腾讯翻译君
-  yeekit: YEEKIT
   youdao: 有道翻译
 engine_scope:
   detectlanguage: 语种识别
   lookup: 查词
   translate: 翻译
 ocr_engine:
-  yeekit: YEEKIT
+  built_in: '内置文字识别'
   youdao: 有道通用文字识别
 translation_mode:
   auto: 自动

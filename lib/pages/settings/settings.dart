@@ -204,7 +204,11 @@ class _SettingsPageState extends State<SettingsPage> {
           PreferenceListSection(
             children: [
               PreferenceListItem(
-                title: Text(t('pref_item_title_exit_app')),
+                title: Text(
+                  t('pref_item_title_exit_app'),
+                  style: TextStyle(color: Colors.red),
+                ),
+                accessoryView: Container(),
                 onTap: () async {
                   return showDialog<void>(
                     context: context,

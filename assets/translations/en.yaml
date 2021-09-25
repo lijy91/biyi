@@ -128,14 +128,13 @@ engine:
   iciba: Iciba
   sogou: Sogou
   tencent: Tencent
-  yeekit: YEEKIT
   youdao: Youda
 engine_scope:
   detectlanguage: detectLanguage
   lookup: LookUp
   translate: Translate
 ocr_engine:
-  yeekit: YEEKIT
+  built_in: 'Built In'
   youdao: Youdao
 translation_mode:
   auto: Auto

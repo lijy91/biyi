@@ -39,8 +39,7 @@ dependencies:
   photo_view: ^0.12.0
   pro_account:
     path: ../pro_account
-  screen_retriever:
-    path: ../../leanflutter/screen_retriever
+  screen_retriever: ^0.0.2
   screen_text_extractor: ^0.0.1
   sticky_headers: ^0.1.8
   tray_manager: ^0.0.2

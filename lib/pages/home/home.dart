@@ -25,7 +25,7 @@ import './translation_input_view.dart';
 import './translation_results_view.dart';
 import './translation_target_select_view.dart';
 
-const kMenuItemIdShowOrHideMainWindow = 'show-or-hide-main-window';
+const kMenuItemIdShow = 'show';
 const kMenuItemIdExitApp = 'exit-app';
 
 class HomePage extends StatefulWidget {
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage>
       await Future.delayed(Duration(milliseconds: 200));
       await trayManager.setContextMenu([
         MenuItem(
-          identifier: kMenuItemIdShowOrHideMainWindow,
+          identifier: kMenuItemIdShow,
           title: 'tray_context_menu.item_show'.tr(),
         ),
         MenuItem.separator,
@@ -587,7 +587,7 @@ class _HomePageState extends State<HomePage>
     bool isFoundNewVersion = _latestVersion != null &&
         _latestVersion.buildNumber >
             int.parse(_packageInfo?.buildNumber?.isEmpty == true
-                ? '9999'
+                ? kAppBuildNumber
                 : _packageInfo?.buildNumber);
 
     bool isNoAllowedAllAccess =
@@ -819,7 +819,7 @@ class _HomePageState extends State<HomePage>
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
     switch (menuItem.identifier) {
-      case kMenuItemIdShowOrHideMainWindow:
+      case kMenuItemIdShow:
         _windowShow();
         break;
       case kMenuItemIdExitApp:

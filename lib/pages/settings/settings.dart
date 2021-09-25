@@ -201,6 +201,38 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ],
           ),
+          PreferenceListSection(
+            children: [
+              PreferenceListItem(
+                title: Text(t('pref_item_title_exit_app')),
+                onTap: () async {
+                  return showDialog<void>(
+                    context: context,
+                    builder: (BuildContext ctx) {
+                      return CustomAlertDialog(
+                        title: Text(t('exit_app_dialog.title')),
+                        actions: <Widget>[
+                          CustomDialogAction(
+                            child: Text('cancel'.tr()),
+                            onPressed: () async {
+                              Navigator.of(ctx).pop();
+                            },
+                          ),
+                          CustomDialogAction(
+                            child: Text('ok'.tr()),
+                            onPressed: () async {
+                              await trayManager.destroy();
+                              windowManager.terminate();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
           Column(
             children: [
               Padding(
@@ -211,7 +243,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Text(
                   t('text_version', args: [
                     _packageInfo?.version ?? '',
-                    _packageInfo?.buildNumber?.toString() ?? '',
+                    (_packageInfo?.buildNumber ?? '').isNotEmpty
+                        ? _packageInfo?.buildNumber
+                        : kAppBuildNumber,
                   ]),
                   style: Theme.of(context).textTheme.caption,
                 ),

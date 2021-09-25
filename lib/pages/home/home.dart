@@ -124,9 +124,11 @@ class _HomePageState extends State<HomePage>
     ShortcutService.instance.start();
 
     windowManager.waitUntilReadyToShow().then((_) async {
-      await windowManager.setAsFrameless();
+      if (kIsLinux || kIsWindows) {
+        await WindowManager.instance.setAsFrameless();
+      }
       await windowManager.setSkipTaskbar(true);
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(milliseconds: 400));
       _windowShow();
     });
 
@@ -454,7 +456,7 @@ class _HomePageState extends State<HomePage>
   void _handleExtractTextFromScreenSelection() async {
     ExtractedData extractedData =
         await screenTextExtractor.extractFromScreenSelection(
-      useAccessibilityAPIFirst: true,
+      useAccessibilityAPIFirst: false,
     );
 
     bool windowIsVisible = await windowManager.isVisible();

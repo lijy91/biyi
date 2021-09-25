@@ -448,6 +448,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.3"
+  screen_retriever:
+    dependency: "direct main"
+    description:
+      path: "../../leanflutter/screen_retriever"
+      relative: true
+    source: path
+    version: "0.0.1"
   screen_text_extractor:
     dependency: "direct main"
     description:

@@ -16,7 +16,7 @@
 
 | Linux | macOS | Windows |
 | :---: | :---: | :-----: |
-|  ➖   |  ✔️   |   ➖    |
+|  ➖   |  ✔️   |   ✔️    |
 
 ## Discussion
 

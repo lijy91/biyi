@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:tray_manager/tray_manager.dart';
@@ -48,7 +47,6 @@ class _HomePageState extends State<HomePage>
   bool _showTrayIcon = sharedConfigManager.getConfig().showTrayIcon;
   String _trayIconStyle = sharedConfigManager.getConfig().trayIconStyle;
 
-  PackageInfo _packageInfo;
   Version _latestVersion;
   bool _isAllowedScreenCaptureAccess = true;
   bool _isAllowedScreenSelectionAccess = true;
@@ -126,8 +124,6 @@ class _HomePageState extends State<HomePage>
   }
 
   void _init() async {
-    _packageInfo = await PackageInfo.fromPlatform();
-
     if (kIsMacOS) {
       _isAllowedScreenCaptureAccess =
           await screenTextExtractor.isAllowedScreenCaptureAccess();
@@ -266,13 +262,8 @@ class _HomePageState extends State<HomePage>
       setState(() {});
     } catch (error) {}
     try {
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-      ProAccountInterceptor.appBuildNumber =
-          (packageInfo?.buildNumber ?? '').isNotEmpty
-              ? packageInfo?.buildNumber
-              : kAppBuildNumber;
-      ProAccountInterceptor.appVersion = packageInfo.appName;
+      ProAccountInterceptor.appBuildNumber = '${sharedEnv.appBuildNumber}';
+      ProAccountInterceptor.appVersion = sharedEnv.appVersion;
 
       if (proAccount.loggedInGuest == null) {
         await proAccount.loginAsGuest();
@@ -588,10 +579,7 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildBannersView(BuildContext context) {
     bool isFoundNewVersion = _latestVersion != null &&
-        _latestVersion.buildNumber >
-            int.parse(_packageInfo?.buildNumber?.isEmpty == true
-                ? kAppBuildNumber
-                : _packageInfo?.buildNumber);
+        _latestVersion.buildNumber > sharedEnv.appBuildNumber;
 
     bool isNoAllowedAllAccess =
         !(_isAllowedScreenCaptureAccess && _isAllowedScreenSelectionAccess);

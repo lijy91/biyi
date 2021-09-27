@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../includes.dart';
 
@@ -15,7 +14,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  PackageInfo _packageInfo;
   String _inputSetting = kInputSettingSubmitWithEnter;
 
   String t(String key, {List<String> args}) {
@@ -29,10 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _init() async {
-    final PackageInfo info = await PackageInfo.fromPlatform();
-
     setState(() {
-      _packageInfo = info;
       _inputSetting = sharedConfig.inputSetting;
     });
   }
@@ -246,10 +241,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 child: Text(
                   t('text_version', args: [
-                    _packageInfo?.version ?? '',
-                    (_packageInfo?.buildNumber ?? '').isNotEmpty
-                        ? _packageInfo?.buildNumber
-                        : kAppBuildNumber,
+                    sharedEnv.appVersion,
+                    '${sharedEnv.appBuildNumber}',
                   ]),
                   style: Theme.of(context).textTheme.caption,
                 ),

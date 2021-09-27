@@ -1,5 +1,8 @@
 import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:yaml/yaml.dart';
+
+const kAppBuildNumber = '3';
 
 Future<void> initEnv(String type) async {
   String jsonString = await rootBundle.loadString(
@@ -7,6 +10,14 @@ Future<void> initEnv(String type) async {
   );
   Map json = loadYaml(jsonString);
   Env.instance.parse(json);
+
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+  Env.instance.appBuildNumber = int.parse(
+      (packageInfo?.buildNumber ?? '').isEmpty
+          ? kAppBuildNumber
+          : packageInfo.buildNumber);
+  Env.instance.appVersion = packageInfo.version;
 }
 
 class Env {
@@ -25,4 +36,7 @@ class Env {
 
   String webUrl;
   String apiUrl;
+
+  int appBuildNumber = 0;
+  String appVersion = '0.0.0';
 }

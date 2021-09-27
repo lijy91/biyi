@@ -18,6 +18,50 @@
 | :---: | :---: | :-----: |
 |  ➖   |  ✔️   |   ✔️    |
 
+## Development
+
+We welcome you to join the development of `Biyi`.
+
+### Before You Start
+
+1. Create working directory
+
+```
+$ mkdir ~/biyidev
+$ cd ~/biyidev
+```
+
+2. Clone dependency repos via git:
+
+```
+$ git clone https://github.com/biyidev/uni_ocr.git
+$ git clone https://github.com/biyidev/uni_translate.git
+```
+
+3. Clone this repo via git:
+
+```
+$ git clone https://github.com/biyidev/biyi_app.git
+```
+
+4. Change to `biyi_app` directory
+
+```
+$ cd ~/biyidev/biyi_app
+```
+
+5. Install dependencies
+
+```
+$ flutter pub get
+```
+
+### Run app
+
+```
+$ flutter run -d linux / macos / windows
+```
+
 ## Discussion
 
 > Welcome to join the discussion group to share your suggestions and ideas with me.

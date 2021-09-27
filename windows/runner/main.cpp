@@ -8,6 +8,13 @@
 
 int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
                       _In_ wchar_t *command_line, _In_ int show_command) {
+  HWND hWnd = ::FindWindow(L"FLUTTER_RUNNER_WIN32_WINDOW", L"biyi");
+  if (hWnd != NULL) {
+    ::ShowWindow(hWnd, SW_NORMAL);
+    ::SetForegroundWindow(hWnd);
+    return EXIT_FAILURE;
+  }
+
   // Attach to console when present (e.g., 'flutter run') or create a
   // new console when running with a debugger.
   if (!::AttachConsole(ATTACH_PARENT_PROCESS) && ::IsDebuggerPresent()) {

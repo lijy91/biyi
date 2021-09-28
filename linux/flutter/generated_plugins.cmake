@@ -4,6 +4,8 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   hotkey_manager
+  libwinmedia
+  screen_retriever
   screen_text_extractor
   tray_manager
   url_launcher_linux

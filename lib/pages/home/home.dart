@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage>
               50,
           50,
         );
-        windowManager.setPosition(newPosition);
+        await windowManager.setPosition(newPosition);
       }
       await windowManager.setSkipTaskbar(true);
       await Future.delayed(Duration(milliseconds: 400));

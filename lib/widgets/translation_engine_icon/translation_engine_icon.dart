@@ -22,15 +22,12 @@ class TranslationEngineIcon extends StatelessWidget {
       width: this.size,
       height: this.size,
       decoration: BoxDecoration(
-        image: kIsLinux
-            ? null
-            : DecorationImage(
-                image: AssetImage(translationEngineConfig.icon),
-                fit: BoxFit.cover,
-                colorFilter: color != null
-                    ? ColorFilter.mode(color, BlendMode.color)
-                    : null,
-              ),
+        image: DecorationImage(
+          image: AssetImage(translationEngineConfig.icon),
+          fit: BoxFit.cover,
+          colorFilter:
+              color != null ? ColorFilter.mode(color, BlendMode.color) : null,
+        ),
         borderRadius: BorderRadius.all(Radius.circular(6)),
         border: border != null
             ? border

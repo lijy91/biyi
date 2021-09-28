@@ -18,12 +18,10 @@ class OcrEngineIcon extends StatelessWidget {
       width: this.size,
       height: this.size,
       decoration: BoxDecoration(
-        image: kIsLinux
-            ? null
-            : DecorationImage(
-                image: AssetImage(ocrEngineConfig.icon),
-                fit: BoxFit.cover,
-              ),
+        image: DecorationImage(
+          image: AssetImage(ocrEngineConfig.icon),
+          fit: BoxFit.cover,
+        ),
         borderRadius: BorderRadius.all(Radius.circular(6)),
         border: Border.all(
           color: Colors.black.withOpacity(0.2),

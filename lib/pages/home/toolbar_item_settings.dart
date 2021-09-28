@@ -35,9 +35,6 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
           color: Theme.of(context).iconTheme.color,
         ),
         onPressed: () async {
-          Size size = await windowManager.getSize();
-          windowManager.setSize(Size(size.width, 680));
-
           Future<void> future = showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -62,6 +59,10 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
             },
           );
           future.whenComplete(() => _handleDismiss());
+
+          await Future.delayed(Duration(milliseconds: 120));
+          Size size = await windowManager.getSize();
+          await windowManager.setSize(Size(size.width, 680.0));
         },
       ),
     );

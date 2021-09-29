@@ -224,6 +224,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  hotkey_manager_web:
+    dependency: "direct main"
+    description:
+      path: "packages/hotkey_manager_web"
+      ref: main
+      resolved-ref: "86aa860b990d11ed492279e3f301928e6e609e7e"
+      url: "https://github.com/leanflutter/embed_web_pkgs.git"
+    source: git
+    version: "0.1.1"
   http:
     dependency: transitive
     description:
@@ -439,7 +448,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "94a19b385a73d748a311dbfe6bc8debc5404ff0c"
+      resolved-ref: fab236f13a00def8fbdf80eeb7613c743b82e6e7
       url: "https://github.com/biyidev/pro_account_noop.git"
     source: git
     version: "0.0.1"
@@ -463,6 +472,15 @@ packages:
       name: screen_text_extractor
       url: "https://pub.dartlang.org"
     source: hosted
+    version: "0.0.1"
+  screen_text_extractor_web:
+    dependency: "direct main"
+    description:
+      path: "packages/screen_text_extractor_web"
+      ref: main
+      resolved-ref: "86aa860b990d11ed492279e3f301928e6e609e7e"
+      url: "https://github.com/leanflutter/embed_web_pkgs.git"
+    source: git
     version: "0.0.1"
   shared_preferences:
     dependency: transitive
@@ -763,8 +781,17 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "45ae5d5352a9e5dec85f275fd3848cd7d7598eb3"
+      resolved-ref: c37cd5516408f15dcc67e00b118aa741c41189cd
       url: "https://github.com/leanflutter/window_manager.git"
+    source: git
+    version: "0.0.4"
+  window_manager_web:
+    dependency: "direct main"
+    description:
+      path: "packages/window_manager_web"
+      ref: main
+      resolved-ref: "4d46f1dcd883fcc867548d29461377d25c3487b7"
+      url: "https://github.com/leanflutter/embed_web_pkgs.git"
     source: git
     version: "0.0.4"
   xdg_directories:

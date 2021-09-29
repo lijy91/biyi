@@ -35,6 +35,11 @@ dependencies:
   flutter_spinkit: ^5.0.0
   flutter_svg: ^0.22.0
   hotkey_manager: ^0.1.0
+  hotkey_manager_web:
+    git:
+      path: packages/hotkey_manager_web
+      ref: main
+      url: https://github.com/leanflutter/embed_web_pkgs.git
   libwinmedia: ^0.0.5
   package_info_plus: ^1.0.4
   photo_view: ^0.12.0
@@ -44,6 +49,11 @@ dependencies:
       url: https://github.com/biyidev/pro_account_noop.git
   screen_retriever: ^0.0.2
   screen_text_extractor: ^0.0.1
+  screen_text_extractor_web:
+    git:
+      path: packages/screen_text_extractor_web
+      ref: main
+      url: https://github.com/leanflutter/embed_web_pkgs.git
   sticky_headers: ^0.1.8
   tray_manager: ^0.0.2
   uni_links: ^0.5.1
@@ -79,6 +89,11 @@ dependencies:
     git:
       ref: main
       url: https://github.com/leanflutter/window_manager.git
+  window_manager_web:
+    git:
+      path: packages/window_manager_web
+      ref: main
+      url: https://github.com/leanflutter/embed_web_pkgs.git
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

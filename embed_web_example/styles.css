@@ -1,0 +1,31 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
+
+#embed-flutter-app {
+  z-index: 9999;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px 2px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  min-width: 380px;
+  right: calc(((100% - 980px) / 2));
+}
+#embed-flutter-app #embed-flutter-app-header {
+  width: 210px;
+  height: 34px;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 40;
+}
+#embed-flutter-app iframe {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  border: none;
+}

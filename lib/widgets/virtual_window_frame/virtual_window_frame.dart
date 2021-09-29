@@ -57,6 +57,23 @@ class _VirtualWindowFrameState extends State<VirtualWindowFrame>
             child: widget.child,
           ),
         ),
+        Positioned(
+          top: 0,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(
+              left: kVirtualWindowFrameMargin,
+              right: kVirtualWindowFrameMargin,
+              top: kVirtualWindowFrameMargin,
+            ),
+            child: DragToMoveArea(
+              child: Container(
+                height: 34,
+                // color: Colors.red.withOpacity(0.1),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

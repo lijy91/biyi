@@ -245,7 +245,7 @@ class _HomePageState extends State<HomePage>
         );
         if (oldSize.width != newSize.width ||
             oldSize.height != newSize.height) {
-          windowManager.setSize(newSize, animate: true);
+          await windowManager.setSize(newSize, animate: true);
         }
       } catch (error) {
         print(error);
@@ -720,22 +720,20 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildAppBar(BuildContext context) {
     return PreferredSize(
-      child: DragToMoveArea(
-        child: Container(
-          padding: EdgeInsets.only(left: 8, right: 8, top: 0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ToolbarItemAlwaysOnTop(),
-              Expanded(child: Container()),
-              ToolbarItemSponsor(),
-              ToolbarItemSettings(
-                onSettingsPageDismiss: () {
-                  setState(() {});
-                },
-              ),
-            ],
-          ),
+      child: Container(
+        padding: EdgeInsets.only(left: 8, right: 8, top: 0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ToolbarItemAlwaysOnTop(),
+            Expanded(child: Container()),
+            ToolbarItemSponsor(),
+            ToolbarItemSettings(
+              onSettingsPageDismiss: () {
+                setState(() {});
+              },
+            ),
+          ],
         ),
       ),
       preferredSize: Size.fromHeight(34),

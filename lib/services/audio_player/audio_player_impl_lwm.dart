@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:libwinmedia/libwinmedia.dart' as lwm;
+// ignore: unused_import
+import 'package:libwinmedia/libwinmedia.dart'
+    if (dart.library.html) 'libwinmedia_noop.dart' as lwm;
 
 import 'audio_player.dart';
 

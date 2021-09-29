@@ -157,6 +157,8 @@ class _HomePageState extends State<HomePage>
   }
 
   Future<void> _initTrayIcon() async {
+    if (kIsWeb) return;
+
     String trayIconName = kIsWindows ? 'tray_icon.ico' : 'tray_icon.png';
 
     if (_trayIconStyle == kTrayIconStyleBlack) {

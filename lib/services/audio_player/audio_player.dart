@@ -18,14 +18,14 @@ enum AudioPlayerState {
 
 class AudioPlayer {
   static Future<void> ensureInitialized() {
-    if (Platform.isWindows || Platform.isLinux) {
+    if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
       AudioPlayerImplLWM.initialize();
     }
     return Future.value();
   }
 
   static AudioPlayer create(int id) {
-    if (Platform.isWindows || Platform.isLinux) {
+    if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
       return AudioPlayerImplLWM(id);
     } else {
       return AudioPlayerImplAPS(id);

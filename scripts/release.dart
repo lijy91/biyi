@@ -43,6 +43,8 @@ class ReleaseInfo {
 
   String get buildSubcommand {
     switch (platform) {
+      case kMacOS:
+        return 'macos';
       case kWindows:
         return 'windows';
       default:
@@ -52,6 +54,8 @@ class ReleaseInfo {
 
   Directory get buildOutputDir {
     switch (platform) {
+      case kMacOS:
+        return Directory('${workDir.path}/build/macos/Build/Products/Release');
       case kWindows:
         return Directory('${workDir.path}/build/windows/runner/Release');
       default:
@@ -83,6 +87,7 @@ void main(List<String> args) async {
 
   final ReleaseInfo releaseInfo = ReleaseInfo.fromPlatform(platform);
 
+  await Process.run('flutter', ['clean'], runInShell: true);
   Process progress = await Process.start(
     'flutter',
     ['build', releaseInfo.buildSubcommand],
@@ -98,16 +103,30 @@ void main(List<String> args) async {
   }
 
   File binaryFile = releaseInfo.binaryFile;
-
   if (releaseInfo.binaryArchiveDir.existsSync()) {
     releaseInfo.binaryArchiveDir.deleteSync(recursive: true);
   }
   releaseInfo.binaryArchiveDir.createSync(recursive: true);
 
-  if (platform == kWindows) {
-    String buildOutputPath = releaseInfo.buildOutputDir.path;
-    String binaryArchivePath = releaseInfo.binaryArchiveDir.path;
+  String buildOutputPath = releaseInfo.buildOutputDir.path;
+  String binaryArchivePath = releaseInfo.binaryArchiveDir.path;
 
+  if (platform == kMacOS) {
+    String dmgFilename =
+        '${releaseInfo.name} ${releaseInfo.version.split('-').first}.dmg';
+    await Process.run(
+      'create-dmg',
+      [
+        '$buildOutputPath/${releaseInfo.name}.app',
+        binaryFile.parent.path,
+      ],
+      runInShell: true,
+    );
+    await Process.run(
+      'mv',
+      ['${binaryFile.parent.path}/$dmgFilename', binaryFile.path],
+    );
+  } else if (platform == kWindows) {
     await Process.run('cp', ['-R', buildOutputPath, binaryArchivePath]);
     await Process.run('mv', [buildOutputPath, binaryArchivePath]);
     await Process.run('mv', [

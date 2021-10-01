@@ -8,13 +8,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  archive:
+    dependency: "direct dev"
+    description:
+      name: archive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.5"
   args:
     dependency: transitive
     description:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   async:
     dependency: transitive
     description:
@@ -265,7 +272,7 @@ packages:
       name: libwinmedia
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
   matcher:
     dependency: transitive
     description:
@@ -300,7 +307,7 @@ packages:
       name: package_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.2"
   package_info_plus:
     dependency: "direct main"
     description:
@@ -377,7 +384,7 @@ packages:
       name: path_provider_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.1.0"
   path_provider_macos:
     dependency: transitive
     description:
@@ -433,13 +440,13 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   pro_account:
     dependency: "direct main"
     description:
       path: "."
       ref: main
-      resolved-ref: "94a19b385a73d748a311dbfe6bc8debc5404ff0c"
+      resolved-ref: fab236f13a00def8fbdf80eeb7613c743b82e6e7
       url: "https://github.com/biyidev/pro_account_noop.git"
     source: git
     version: "0.0.1"
@@ -757,13 +764,13 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.8"
+    version: "2.2.9"
   window_manager:
     dependency: "direct main"
     description:
       path: "."
       ref: main
-      resolved-ref: "45ae5d5352a9e5dec85f275fd3848cd7d7598eb3"
+      resolved-ref: aa972adb9cd2bd72847c1df151fb420fc9521b9b
       url: "https://github.com/leanflutter/window_manager.git"
     source: git
     version: "0.0.4"

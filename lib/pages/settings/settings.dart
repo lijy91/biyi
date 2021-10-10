@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../includes.dart';
 
@@ -197,11 +198,38 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
           PreferenceListSection(
+            title: Text(t('pref_section_title_others')),
             children: [
               PreferenceListItem(
-                title: Text(
-                  t('pref_item_title_exit_app'),
-                  style: TextStyle(color: Colors.red),
+                title: Text(t('pref_item_title_sponsor')),
+                onTap: () async {
+                  String url = '${sharedEnv.webUrl}/sponsor';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  }
+                },
+              ),
+              PreferenceListItem(
+                title: Text(t('pref_item_title_about')),
+                onTap: () async {
+                  String url = 'https://github.com/biyidev/biyi_app';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  }
+                },
+              ),
+            ],
+          ),
+          PreferenceListSection(
+            children: [
+              PreferenceListItem(
+                title: Container(
+                  width: double.infinity,
+                  child: Text(
+                    t('pref_item_title_exit_app'),
+                    style: TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 accessoryView: Container(),
                 onTap: () async {

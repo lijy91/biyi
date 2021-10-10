@@ -234,14 +234,17 @@ class _HomePageState extends State<HomePage>
       double resultsViewHeight = rb3?.size?.height ?? 0;
 
       try {
+        double newWindowHeight = toolbarViewHeight +
+            bannersViewHeight +
+            inputViewHeight +
+            resultsViewHeight +
+            ((kVirtualWindowFrameMargin * 2) + 2);
         Size oldSize = await windowManager.getSize();
         Size newSize = Size(
           oldSize.width,
-          toolbarViewHeight +
-              bannersViewHeight +
-              inputViewHeight +
-              resultsViewHeight +
-              ((kVirtualWindowFrameMargin * 2) + 2),
+          newWindowHeight < _config.maxWindowHeight
+              ? newWindowHeight
+              : _config.maxWindowHeight,
         );
         if (oldSize.width != newSize.width ||
             oldSize.height != newSize.height) {

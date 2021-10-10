@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../includes.dart';
 
@@ -106,6 +105,7 @@ class Config {
   String defaultOcrEngineId;
   bool showTrayIcon;
   String trayIconStyle;
+  double maxWindowHeight;
   String appLanguage;
   ThemeMode themeMode;
   String inputSetting;
@@ -160,6 +160,10 @@ class ConfigManager extends _ConfigChangeNotifier {
       kPrefTrayIconStyle,
       defaultValue: kIsWindows ? kTrayIconStyleBlack : kTrayIconStyleWhite,
     );
+    Config.instance.maxWindowHeight = double.parse(await _getString(
+      kPrefMaxWindowHeight,
+      defaultValue: '600',
+    ));
     Config.instance.appLanguage = await _getString(
       kPrefAppLanguage,
       defaultValue: kLanguageZH,
@@ -229,6 +233,10 @@ class ConfigManager extends _ConfigChangeNotifier {
 
   Future<void> setTrayIconStyle(String value) {
     return _setString(kPrefTrayIconStyle, value);
+  }
+
+  Future<void> setMaxWindowHeight(double value) {
+    return _setString(kPrefMaxWindowHeight, value.toString());
   }
 
   Future<void> setAppLanguage(String value) {

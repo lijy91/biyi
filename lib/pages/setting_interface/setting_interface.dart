@@ -9,8 +9,11 @@ class SettingInterfacePage extends StatefulWidget {
 }
 
 class _SettingInterfacePageState extends State<SettingInterfacePage> {
+  List<double> _maxWindowHeightOptions = [600, 700, 800, 900];
+
   bool _showTrayIcon = false;
   String _trayIconStyle;
+  double _maxWindowHeight = 0;
 
   String t(String key, {List<String> args}) {
     return 'page_setting_interface.$key'.tr(args: args);
@@ -20,6 +23,7 @@ class _SettingInterfacePageState extends State<SettingInterfacePage> {
   void initState() {
     _showTrayIcon = sharedConfig.showTrayIcon;
     _trayIconStyle = sharedConfig.trayIconStyle;
+    _maxWindowHeight = sharedConfig.maxWindowHeight;
     super.initState();
   }
 
@@ -68,6 +72,22 @@ class _SettingInterfacePageState extends State<SettingInterfacePage> {
                 ),
               ],
             ),
+          PreferenceListSection(
+            title: Text(t('pref_section_title_max_window_height')),
+            children: [
+              for (var option in _maxWindowHeightOptions)
+                PreferenceListRadioItem<double>(
+                  title: Text('${option.toInt()}'),
+                  value: option,
+                  groupValue: _maxWindowHeight,
+                  onChanged: (newValue) {
+                    _maxWindowHeight = newValue;
+                    sharedConfigManager.setMaxWindowHeight(newValue);
+                    setState(() {});
+                  },
+                ),
+            ],
+          ),
         ],
       );
     });

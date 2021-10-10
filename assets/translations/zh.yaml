@@ -171,7 +171,7 @@ page_home:
   btn_sponsor: 支持一下
   btn_clear: 清空
   btn_trans: 翻译
-  msg_please_enter_word_or_text: 请输入单词或文本
+  msg_please_enter_word_or_text: 未输入文本或未提取到文本
 page_language_chooser:
   title: 选择语言
   pref_section_title_all: 全部

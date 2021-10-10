@@ -482,7 +482,7 @@ class _HomePageState extends State<HomePage>
         baseOffset: _text.length,
         extentOffset: _text.length,
       );
-      _queryData();
+      _handleButtonTappedTrans();
     }
   }
 

@@ -171,7 +171,7 @@ page_home:
   btn_sponsor: Sponsor
   btn_clear: Clear
   btn_trans: Translate
-  msg_please_enter_word_or_text: Please enter a word or text
+  msg_please_enter_word_or_text: No text entered or text not extracted
 page_language_chooser:
   title: Choose language
   pref_section_title_all: All

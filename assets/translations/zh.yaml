@@ -162,7 +162,7 @@ page_home:
   limited_banner_tip_help: 查看帮助文档
   limited_banner_msg_allow_access_tip: 点击「授权」后如无任何响应，请点击「前往设置」进行手动设置。
   limited_banner_msg_all_access_allowed: 屏幕取词功能已启用
-  limited_banner_msg_all_access_not_allowed: 未获得所需权限，\n请重新检查并进行设置。
+  limited_banner_msg_all_access_not_allowed: "未获得所需权限，\n请重新检查并进行设置。"
   input_hint: 在此处输入单词或文本
   text_extracting_text: 正在提取文字...
   tip_translation_mode: 当前翻译模式：{}

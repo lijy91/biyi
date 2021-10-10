@@ -469,7 +469,12 @@ class _HomePageState extends State<HomePage>
     bool isRequery = false,
   }) {
     setState(() {
-      _text = newValue ?? '';
+      // 移除前后多余的空格
+      _text = (newValue ?? '').trim();
+      // 当使用 Enter 键触发翻译时用空格替换换行符
+      if (_config.inputSetting == kInputSettingSubmitWithEnter) {
+        _text = _text.replaceAll('\n', ' ');
+      }
     });
     if (isRequery) {
       _textEditingController.text = _text;
@@ -730,7 +735,7 @@ class _HomePageState extends State<HomePage>
           children: [
             ToolbarItemAlwaysOnTop(),
             Expanded(child: Container()),
-            ToolbarItemSponsor(),
+            // ToolbarItemSponsor(),
             ToolbarItemSettings(
               onSettingsPageDismiss: () {
                 setState(() {});

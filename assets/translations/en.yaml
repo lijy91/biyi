@@ -162,7 +162,7 @@ page_home:
   limited_banner_tip_help: View the help document
   limited_banner_msg_allow_access_tip: If there is no response after clicking "Allow", please click "Go Settings" to set it manually.
   limited_banner_msg_all_access_allowed: The Screen extract text is enabled
-  limited_banner_msg_all_access_not_allowed: The required access are not allowed.\nPlease check and set again.
+  limited_banner_msg_all_access_not_allowed: "The required access are not allowed.\nPlease check and set again."
   input_hint: Enter the word or text here
   text_extracting_text: Extracting text...
   tip_translation_mode: "Current translation mode: {}"

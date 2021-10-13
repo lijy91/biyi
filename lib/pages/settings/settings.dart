@@ -91,7 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListItem(
                 title: Text(t('pref_item_title_theme_mode')),
                 detailText: Text(
-                  'theme_mode.${describeEnum(ThemeMode.light)}'.tr(),
+                  'theme_mode.${describeEnum(sharedConfig.themeMode)}'.tr(),
                 ),
                 onTap: () {
                   Navigator.of(context).push(

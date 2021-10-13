@@ -24,8 +24,8 @@ import './translation_input_view.dart';
 import './translation_results_view.dart';
 import './translation_target_select_view.dart';
 
-const kMenuItemIdShow = 'show';
-const kMenuItemIdExitApp = 'exit-app';
+const kMenuItemKeyShow = 'show';
+const kMenuItemKeyExitApp = 'exit-app';
 
 class HomePage extends StatefulWidget {
   @override
@@ -171,12 +171,12 @@ class _HomePageState extends State<HomePage>
       await Future.delayed(Duration(milliseconds: 200));
       await trayManager.setContextMenu([
         MenuItem(
-          identifier: kMenuItemIdShow,
+          key: kMenuItemKeyShow,
           title: 'tray_context_menu.item_show'.tr(),
         ),
         MenuItem.separator,
         MenuItem(
-          identifier: kMenuItemIdExitApp,
+          key: kMenuItemKeyExitApp,
           title: 'tray_context_menu.item_exit'.tr(),
         ),
       ]);
@@ -817,11 +817,11 @@ class _HomePageState extends State<HomePage>
 
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
-    switch (menuItem.identifier) {
-      case kMenuItemIdShow:
+    switch (menuItem.key) {
+      case kMenuItemKeyShow:
         _windowShow();
         break;
-      case kMenuItemIdExitApp:
+      case kMenuItemKeyExitApp:
         await trayManager.destroy();
         windowManager.terminate();
         break;

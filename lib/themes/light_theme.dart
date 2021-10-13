@@ -51,7 +51,7 @@ var lightThemeData = ThemeData(
   // ToggleButtonsThemeData? toggleButtonsTheme,
   // Color? secondaryHeaderColor,
   // Color? backgroundColor,
-  // Color? dialogBackgroundColor,
+  dialogBackgroundColor: _kCanvasColor,
   // Color? indicatorColor,
   // Color? hintColor,
   // Color? errorColor,

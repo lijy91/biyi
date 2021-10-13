@@ -65,7 +65,7 @@ class CustomAlertDialog extends StatelessWidget {
             minHeight: 100,
           ),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).dialogBackgroundColor,
             borderRadius: BorderRadius.circular(2),
           ),
           margin: EdgeInsets.only(left: 40, right: 40),

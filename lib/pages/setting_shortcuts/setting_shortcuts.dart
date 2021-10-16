@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hotkey_manager/hotkey_manager.dart';
 
 import '../../../includes.dart';
 
@@ -59,8 +60,8 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
             children: [
               PreferenceListItem(
                 title: Text(t('pref_item_title_show_or_hide')),
-                detailText: Text(
-                  _config.shortcutShowOrHide.toString(),
+                detailText: HotKeyVirtualView(
+                  hotKey: _config.shortcutShowOrHide,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(
@@ -76,8 +77,8 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
             children: [
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_selection')),
-                detailText: Text(
-                  _config.shortcutExtractFromScreenSelection.toString(),
+                detailText: HotKeyVirtualView(
+                  hotKey: _config.shortcutExtractFromScreenSelection,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(
@@ -88,8 +89,8 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
               ),
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_capture')),
-                detailText: Text(
-                  _config.shortcutExtractFromScreenCapture.toString(),
+                detailText: HotKeyVirtualView(
+                  hotKey: _config.shortcutExtractFromScreenCapture,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(
@@ -100,8 +101,8 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
               ),
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_clipboard')),
-                detailText: Text(
-                  _config.shortcutExtractFromClipboard.toString(),
+                detailText: HotKeyVirtualView(
+                  hotKey: _config.shortcutExtractFromClipboard,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(

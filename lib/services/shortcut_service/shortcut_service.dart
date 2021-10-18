@@ -1,3 +1,5 @@
+import 'package:hotkey_manager/hotkey_manager.dart';
+
 import '../../includes.dart';
 
 abstract class ShortcutListener {
@@ -40,12 +42,14 @@ class ShortcutService {
         _listener.onShortcutKeyDownExtractFromScreenSelection();
       },
     );
-    await hotKeyManager.register(
-      sharedConfig.shortcutExtractFromScreenCapture,
-      keyDownHandler: (_) {
-        _listener.onShortcutKeyDownExtractFromScreenCapture();
-      },
-    );
+    if (!kIsLinux) {
+      await hotKeyManager.register(
+        sharedConfig.shortcutExtractFromScreenCapture,
+        keyDownHandler: (_) {
+          _listener.onShortcutKeyDownExtractFromScreenCapture();
+        },
+      );
+    }
     await hotKeyManager.register(
       sharedConfig.shortcutExtractFromClipboard,
       keyDownHandler: (_) {

@@ -87,18 +87,19 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
                   );
                 },
               ),
-              PreferenceListItem(
-                title: Text(t('pref_item_title_extract_text_from_capture')),
-                detailText: HotKeyVirtualView(
-                  hotKey: _config.shortcutExtractFromScreenCapture,
+              if (!kIsLinux)
+                PreferenceListItem(
+                  title: Text(t('pref_item_title_extract_text_from_capture')),
+                  detailText: HotKeyVirtualView(
+                    hotKey: _config.shortcutExtractFromScreenCapture,
+                  ),
+                  onTap: () {
+                    _handleClickRegisterNewHotKey(
+                      context,
+                      shortcutKey: kShortcutExtractFromScreenCapture,
+                    );
+                  },
                 ),
-                onTap: () {
-                  _handleClickRegisterNewHotKey(
-                    context,
-                    shortcutKey: kShortcutExtractFromScreenCapture,
-                  );
-                },
-              ),
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_clipboard')),
                 detailText: HotKeyVirtualView(

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=0.3.2
+Type=Application
+Name=Biyi
+Icon=biyi
+Exec=biyi %U
+Categories=Utility;
+Keywords=Translator;

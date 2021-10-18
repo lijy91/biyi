@@ -19,7 +19,6 @@ export './limited_functionality_banner.dart';
 export './new_version_found_banner.dart';
 import './toolbar_item_always_on_top.dart';
 import './toolbar_item_settings.dart';
-import './toolbar_item_sponsor.dart';
 import './translation_input_view.dart';
 import './translation_results_view.dart';
 import './translation_target_select_view.dart';
@@ -200,18 +199,31 @@ class _HomePageState extends State<HomePage>
         trayIconnewPosition.dy,
       );
     }
-    if (newPosition != null) {
-      bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
-      if (!isAlwaysOnTop) {
-        windowManager.setPosition(newPosition);
-        await Future.delayed(Duration(milliseconds: 100));
-      }
+
+    bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
+    if (newPosition != null && !isAlwaysOnTop) {
+      await windowManager.setPosition(newPosition);
     }
-    windowManager.show();
+
+    bool isVisible = await windowManager.isVisible();
+    if (!isVisible) {
+      await windowManager.show();
+    } else {
+      await windowManager.focus();
+    }
+
+    // Linux 下无法激活窗口临时解决方案
+    if (kIsLinux && !isAlwaysOnTop) {
+      await windowManager.setAlwaysOnTop(true);
+      await Future.delayed(Duration(milliseconds: 100));
+      await windowManager.setAlwaysOnTop(false);
+      await Future.delayed(Duration(milliseconds: 100));
+      await windowManager.focus();
+    }
   }
 
-  void _windowHide() {
-    windowManager.hide();
+  Future<void> _windowHide() async {
+    await windowManager.hide();
   }
 
   void _windowResize() {
@@ -492,11 +504,9 @@ class _HomePageState extends State<HomePage>
       useAccessibilityAPIFirst: false,
     );
 
-    bool windowIsVisible = await windowManager.isVisible();
-    if (!windowIsVisible) {
-      await _windowShow();
-      await Future.delayed(Duration(milliseconds: 200));
-    }
+    await _windowShow();
+    await Future.delayed(Duration(milliseconds: 100));
+
     _handleTextChanged(extractedData.text, isRequery: true);
   }
 
@@ -510,6 +520,8 @@ class _HomePageState extends State<HomePage>
     });
     _textEditingController.clear();
     _focusNode.unfocus();
+
+    await _windowHide();
 
     String imagePath;
     if (!kIsWeb) {
@@ -529,25 +541,32 @@ class _HomePageState extends State<HomePage>
       return;
     }
 
-    bool windowIsVisible = await windowManager.isVisible();
-    if (!windowIsVisible) {
-      await _windowShow();
-      await Future.delayed(Duration(milliseconds: 200));
-    }
-    if (extractedData.text == null) {
-      _extractedData = extractedData;
-      setState(() {});
-      DetectTextResponse detectTextResponse =
-          await sharedOcrClient.use(sharedConfig.defaultOcrEngineId).detectText(
-                DetectTextRequest(
-                  imagePath: extractedData.imagePath,
-                  base64Image: extractedData.base64Image,
-                ),
-              );
-      _extractedData.text = detectTextResponse.text;
-      _handleTextChanged(detectTextResponse.text, isRequery: true);
-    } else {
-      _handleTextChanged(extractedData.text, isRequery: true);
+    await _windowShow();
+    await Future.delayed(Duration(milliseconds: 100));
+
+    try {
+      if (extractedData.text == null) {
+        _extractedData = extractedData;
+        setState(() {});
+        DetectTextResponse detectTextResponse = await sharedOcrClient
+            .use(sharedConfig.defaultOcrEngineId)
+            .detectText(
+              DetectTextRequest(
+                imagePath: extractedData.imagePath,
+                base64Image: extractedData.base64Image,
+              ),
+            );
+        print(detectTextResponse.toJson());
+        _extractedData.text = detectTextResponse.text;
+        _handleTextChanged(detectTextResponse.text, isRequery: true);
+      } else {
+        _handleTextChanged(extractedData.text, isRequery: true);
+      }
+    } catch (error) {
+      BotToast.showText(
+        text: error.toString(),
+        align: Alignment.center,
+      );
     }
   }
 
@@ -555,7 +574,7 @@ class _HomePageState extends State<HomePage>
     bool windowIsVisible = await windowManager.isVisible();
     if (!windowIsVisible) {
       await _windowShow();
-      await Future.delayed(Duration(milliseconds: 200));
+      await Future.delayed(Duration(milliseconds: 100));
     }
 
     ExtractedData extractedData =

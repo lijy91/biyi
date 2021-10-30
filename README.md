@@ -2,7 +2,7 @@
 
 [![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi_app/all.svg?style=flat-square)](https://github.com/biyidev/biyi_app/releases)
 
-`Biyi` is a convenient translation and dictionary app written in `dart` / `Flutter`. [View document](https://biyidev.com/docs/)
+`Biyi` is a convenient translation and dictionary app written in `Flutter`. [View document](https://biyidev.com/docs/)
 
 > "Biyi" (比译) is the Chinese word for "Comparison + translation".
 
@@ -16,7 +16,7 @@
 
 | Linux | macOS | Windows |
 | :---: | :---: | :-----: |
-|  ➖   |  ✔️   |   ✔️    |
+|  ✔️   |  ✔️   |   ✔️    |
 
 ## Installation
 

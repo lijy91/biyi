@@ -178,6 +178,7 @@ page_language_chooser:
 page_ocr_engine_chooser:
   title: 文字识别引擎
   pref_section_title_private: 私有
+  pref_item_title_no_available_engines: 无可用的引擎
 page_ocr_engine_new:
   title: 添加文字识别引擎
   pref_section_title_engine_type: 引擎类型
@@ -243,6 +244,7 @@ page_settings:
 page_translation_engine_chooser:
   title: 文本翻译引擎
   pref_section_title_private: 私有
+  pref_item_title_no_available_engines: 无可用的引擎
 page_translation_engine_new:
   title: 添加文本翻译引擎
   pref_section_title_engine_type: 引擎类型

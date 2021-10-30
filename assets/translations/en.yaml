@@ -178,6 +178,7 @@ page_language_chooser:
 page_ocr_engine_chooser:
   title: Text Detection Engine
   pref_section_title_private: Private
+  pref_item_title_no_available_engines: No available engines
 page_ocr_engine_new:
   title: Add Text Detection Engine
   pref_section_title_engine_type: Engine type
@@ -243,6 +244,7 @@ page_settings:
 page_translation_engine_chooser:
   title: Text Translation Engine
   pref_section_title_private: Private
+  pref_item_title_no_available_engines: No available engines
 page_translation_engine_new:
   title: Add Text Translation Engine
   pref_section_title_engine_type: Engine type

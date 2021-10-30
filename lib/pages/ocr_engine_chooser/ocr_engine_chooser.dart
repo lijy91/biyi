@@ -44,44 +44,49 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
 
   Widget _buildBody(BuildContext context) {
     return LocalDbBuilder(builder: (context, dbData) {
+      final proOcrEngineList =
+          (dbData.proOcrEngineList ?? []).where((e) => !e.disabled).toList();
+      final privateOcrEngineList = (dbData.privateOcrEngineList ?? [])
+          .where((e) => !e.disabled)
+          .toList();
       return PreferenceList(
         children: [
-          PreferenceListSection(
-            children: [
-              for (OcrEngineConfig ocrEngineConfig
-                  in dbData.proOcrEngineList ?? [])
-                PreferenceListRadioItem(
-                  icon: OcrEngineIcon(
-                    ocrEngineConfig,
+          if (proOcrEngineList.isNotEmpty)
+            PreferenceListSection(
+              children: [
+                for (var ocrEngineConfig in proOcrEngineList)
+                  PreferenceListRadioItem(
+                    icon: OcrEngineIcon(
+                      ocrEngineConfig,
+                    ),
+                    value: ocrEngineConfig.identifier,
+                    groupValue: _identifier,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _identifier = newValue;
+                      });
+                    },
+                    title: Builder(builder: (_) {
+                      return Text.rich(
+                        TextSpan(
+                          text: ocrEngineConfig.typeName,
+                          children: [
+                            TextSpan(
+                              text: ' (${ocrEngineConfig.shortId})',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
                   ),
-                  value: ocrEngineConfig.identifier,
-                  groupValue: _identifier,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _identifier = newValue;
-                    });
-                  },
-                  title: Builder(builder: (_) {
-                    return Text.rich(
-                      TextSpan(
-                        text: ocrEngineConfig.typeName,
-                        children: [
-                          TextSpan(
-                            text: ' (${ocrEngineConfig.shortId})',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-            ],
-          ),
+              ],
+            ),
           PreferenceListSection(
             title: Text(t('pref_section_title_private')),
             children: [
-              for (OcrEngineConfig ocrEngineConfig
-                  in dbData.privateOcrEngineList ?? [])
+              for (var ocrEngineConfig in privateOcrEngineList)
                 PreferenceListRadioItem(
                   icon: OcrEngineIcon(
                     ocrEngineConfig,
@@ -107,9 +112,9 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
                     );
                   }),
                 ),
-              if ((dbData.privateOcrEngineList ?? []).isEmpty)
+              if (privateOcrEngineList.isEmpty)
                 PreferenceListItem(
-                  title: Text('Nothing'),
+                  title: Text(t('pref_item_title_no_available_engines')),
                   accessoryView: Container(),
                 ),
             ],

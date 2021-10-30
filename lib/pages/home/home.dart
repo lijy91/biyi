@@ -394,9 +394,7 @@ class _HomePageState extends State<HomePage>
           LookUpRequest lookUpRequest;
           LookUpResponse lookUpResponse;
           UniTranslateClientError lookUpError;
-          if (sharedTranslateClient
-              .use(identifier)
-              .supportedScopes
+          if ((sharedTranslateClient.use(identifier).supportedScopes ?? [])
               .contains(kScopeLookUp)) {
             try {
               lookUpRequest = LookUpRequest(

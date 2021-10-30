@@ -28,7 +28,7 @@ dependencies:
 
   audioplayers: ^0.19.1
   bot_toast: ^4.0.1
-  device_info_plus: ^2.1.0
+  device_info_plus: ^3.1.0
   dio: ^4.0.0
   easy_localization: ^3.0.0
   easy_localization_loader: ^1.0.0

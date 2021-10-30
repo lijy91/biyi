@@ -61,9 +61,11 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
           );
           future.whenComplete(() => _handleDismiss());
 
-          await Future.delayed(Duration(milliseconds: 120));
-          Size size = await windowManager.getSize();
-          await windowManager.setSize(Size(size.width, 680.0));
+          if (kIsLinux || kIsMacOS || kIsWindows) {
+            await Future.delayed(Duration(milliseconds: 120));
+            Size size = await windowManager.getSize();
+            await windowManager.setSize(Size(size.width, 680.0));
+          }
         },
       ),
     );

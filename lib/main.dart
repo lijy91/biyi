@@ -12,11 +12,14 @@ void main() async {
 
   await AudioPlayer.ensureInitialized();
   await ProAccount.instance.ensureInitialized();
-  await WindowManager.instance.ensureInitialized();
+  if (kIsLinux || kIsMacOS || kIsWindows) {
+    await WindowManager.instance.ensureInitialized();
+  }
 
   await initEnv('dev');
   await initLocalDb();
   await initConfig();
+
   runApp(
     EasyLocalization(
       supportedLocales: [

@@ -45,44 +45,48 @@ class _TranslationEngineChooserPageState
 
   Widget _buildBody(BuildContext context) {
     return LocalDbBuilder(builder: (context, dbData) {
+      final proEngineList =
+          (dbData.proEngineList ?? []).where((e) => !e.disabled).toList();
+      final privateEngineList =
+          (dbData.privateEngineList ?? []).where((e) => !e.disabled).toList();
       return PreferenceList(
         children: [
-          PreferenceListSection(
-            children: [
-              for (TranslationEngineConfig engineConfig
-                  in dbData.proEngineList ?? [])
-                PreferenceListRadioItem(
-                  icon: TranslationEngineIcon(
-                    engineConfig,
+          if (proEngineList.isNotEmpty)
+            PreferenceListSection(
+              children: [
+                for (var engineConfig in proEngineList)
+                  PreferenceListRadioItem(
+                    icon: TranslationEngineIcon(
+                      engineConfig,
+                    ),
+                    value: engineConfig.identifier,
+                    groupValue: _identifier,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _identifier = newValue;
+                      });
+                    },
+                    title: Builder(builder: (_) {
+                      return Text.rich(
+                        TextSpan(
+                          text: engineConfig.typeName,
+                          children: [
+                            TextSpan(
+                              text: ' (${engineConfig.shortId})',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
                   ),
-                  value: engineConfig.identifier,
-                  groupValue: _identifier,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _identifier = newValue;
-                    });
-                  },
-                  title: Builder(builder: (_) {
-                    return Text.rich(
-                      TextSpan(
-                        text: engineConfig.typeName,
-                        children: [
-                          TextSpan(
-                            text: ' (${engineConfig.shortId})',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-            ],
-          ),
+              ],
+            ),
           PreferenceListSection(
             title: Text(t('pref_section_title_private')),
             children: [
-              for (TranslationEngineConfig engineConfig
-                  in dbData.privateEngineList ?? [])
+              for (var engineConfig in privateEngineList)
                 PreferenceListRadioItem(
                   icon: TranslationEngineIcon(
                     engineConfig,
@@ -108,9 +112,9 @@ class _TranslationEngineChooserPageState
                     );
                   }),
                 ),
-              if ((dbData.privateEngineList ?? []).isEmpty)
+              if (privateEngineList.isEmpty)
                 PreferenceListItem(
-                  title: Text('Nothing'),
+                  title: Text(t('pref_item_title_no_available_engines')),
                   accessoryView: Container(),
                 ),
             ],

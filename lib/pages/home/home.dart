@@ -531,7 +531,6 @@ class _HomePageState extends State<HomePage>
     ExtractedData extractedData =
         await screenTextExtractor.extractFromScreenCapture(
       imagePath: imagePath,
-      useTesseract: sharedConfig.useLocalOcrEngine,
     );
 
     File imageFile = File(extractedData.imagePath);

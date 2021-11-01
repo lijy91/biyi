@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Biyi"
-#define MyAppVersion "0.3.2"
+#define MyAppVersion "0.3.3"
 #define MyAppPublisher "LiJianying"
 #define MyAppURL "https://github.com/biyidev/biyi_app"
 #define MyAppExeName "biyi.exe"

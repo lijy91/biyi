@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:yaml/yaml.dart';
 
-const kAppBuildNumber = '5';
+const kAppBuildNumber = '6';
 
 Future<void> initEnv(String type) async {
   String jsonString = await rootBundle.loadString(

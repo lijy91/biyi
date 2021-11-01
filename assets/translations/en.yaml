@@ -192,7 +192,6 @@ page_setting_app_language:
   title: Display Language
 page_setting_extract_text:
   title: Screen extract text
-  pref_section_title_use_local_detect_text_engine: Use local detect text engine
   pref_section_title_default_detect_text_engine: Default detect text engine
 page_setting_interface:
   title: Interface

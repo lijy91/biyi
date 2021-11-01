@@ -192,7 +192,6 @@ page_setting_app_language:
   title: 显示语言
 page_setting_extract_text:
   title: 取词
-  pref_section_title_use_local_detect_text_engine: 使用本地文字识别引擎
   pref_section_title_default_detect_text_engine: 默认文字识别引擎
 page_setting_interface:
   title: 界面

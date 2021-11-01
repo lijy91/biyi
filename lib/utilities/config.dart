@@ -101,7 +101,6 @@ class Config {
 
   String translationMode;
   String defaultEngineId;
-  bool useLocalOcrEngine;
   String defaultOcrEngineId;
   bool showTrayIcon;
   String trayIconStyle;
@@ -144,10 +143,6 @@ class ConfigManager extends _ConfigChangeNotifier {
     );
     Config.instance.defaultEngineId = await _getString(
       kPrefDefaultEngineId,
-    );
-    Config.instance.useLocalOcrEngine = await _getBool(
-      kPrefUseLocalOcrEngine,
-      defaultValue: false,
     );
     Config.instance.defaultOcrEngineId = await _getString(
       kPrefDefaultOcrEngineId,
@@ -217,10 +212,6 @@ class ConfigManager extends _ConfigChangeNotifier {
 
   Future<void> setDefaultEngineId(String value) {
     return _setString(kPrefDefaultEngineId, value);
-  }
-
-  Future<void> setUseLocalOcrEngine(bool value) {
-    return _setBool(kPrefUseLocalOcrEngine, value);
   }
 
   Future<void> setDefaultOcrEngineId(String value) {

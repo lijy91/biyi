@@ -2,8 +2,8 @@ name: biyi_app
 description: A convenient translation and dictionary app written in dart / Flutter.
 
 # The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.3.2+5
+version: 0.3.3+6
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -43,7 +43,11 @@ dependencies:
       ref: main
       url: https://github.com/biyidev/pro_account_noop.git
   screen_retriever: ^0.0.2
-  screen_text_extractor: ^0.0.1
+  # screen_text_extractor: ^0.0.1
+  screen_text_extractor:
+    git:
+      ref: main
+      url: https://github.com/leanflutter/screen_text_extractor.git
   sticky_headers: ^0.1.8
   tray_manager: ^0.1.0
   uni_links: ^0.5.1
@@ -78,11 +82,19 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^1.0.0
+
   archive: ^3.1.5
   msix: ^2.1.3
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -250,7 +252,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             child: Text('ok'.tr()),
                             onPressed: () async {
                               await trayManager.destroy();
-                              windowManager.terminate();
+                              exit(0);
                             },
                           ),
                         ],

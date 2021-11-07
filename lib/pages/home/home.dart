@@ -839,7 +839,7 @@ class _HomePageState extends State<HomePage>
         break;
       case kMenuItemKeyExitApp:
         await trayManager.destroy();
-        windowManager.terminate();
+        exit(0);
         break;
     }
   }

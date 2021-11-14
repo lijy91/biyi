@@ -86,6 +86,8 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
         );
     await sharedLocalDb.write();
 
+    (sharedTranslateClient.adapter as AutoloadTranslateClientAdapter).renew(id);
+
     Navigator.of(context).pop();
   }
 
@@ -98,7 +100,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                 children: [
                   TextSpan(
                     text: ' (${widget.engineConfig.shortId})',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
                   )
                 ],
               ),
@@ -155,7 +157,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
             children: [
               for (var scope in _kAllScopes)
                 PreferenceListItem(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 10,
                     bottom: 10,
                     left: 12,
@@ -191,20 +193,20 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                 ),
               if (_engineOptionKeys.isEmpty)
                 PreferenceListItem(
-                  title: Text('No options'),
+                  title: const Text('No options'),
                   accessoryView: Container(),
                 ),
             ],
           ),
         if (widget.editable && widget.engineConfig != null)
           PreferenceListSection(
-            title: Text(''),
+            title: const Text(''),
             children: [
               PreferenceListItem(
                 title: Center(
                   child: Text(
                     'delete'.tr(),
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
                 accessoryView: Container(),

@@ -26,7 +26,7 @@ OcrEngine createOcrEngine(
 }
 
 class AutoloadOcrClientAdapter extends UniOcrClientAdapter {
-  Map<String, OcrEngine> _ocrEngineMap = {};
+  final Map<String, OcrEngine> _ocrEngineMap = {};
 
   @override
   OcrEngine get first {
@@ -55,6 +55,10 @@ class AutoloadOcrClientAdapter extends UniOcrClientAdapter {
     }
 
     return ocrEngine;
+  }
+
+  void renew(String identifier) {
+    _ocrEngineMap.remove(identifier);
   }
 }
 

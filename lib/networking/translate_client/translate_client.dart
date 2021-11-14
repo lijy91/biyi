@@ -64,7 +64,7 @@ TranslationEngine createTranslationEngine(
 }
 
 class AutoloadTranslateClientAdapter extends UniTranslateClientAdapter {
-  Map<String, TranslationEngine> _translationEngineMap = {};
+  final Map<String, TranslationEngine> _translationEngineMap = {};
 
   @override
   TranslationEngine get first {
@@ -95,6 +95,10 @@ class AutoloadTranslateClientAdapter extends UniTranslateClientAdapter {
     }
 
     return translationEngine;
+  }
+
+  void renew(String identifier) {
+    _translationEngineMap.remove(identifier);
   }
 }
 

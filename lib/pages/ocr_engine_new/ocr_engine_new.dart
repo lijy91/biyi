@@ -61,6 +61,8 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
         );
     await sharedLocalDb.write();
 
+    (sharedOcrClient.adapter as AutoloadOcrClientAdapter).renew(_identifier);
+
     Navigator.of(context).pop();
   }
 

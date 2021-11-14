@@ -62,19 +62,19 @@ class TranslationResultRecordView extends StatelessWidget {
         translationResultRecord.translateError;
 
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 40,
       ),
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 12,
         right: 12,
+        top: 7,
+        bottom: 7,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(error?.message ?? 'Unknown Error'),
-        ],
+      alignment: Alignment.centerLeft,
+      child: SelectableText(
+        error?.message ?? 'Unknown Error',
+        style: const TextStyle(color: Colors.red),
       ),
     );
   }

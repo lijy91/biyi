@@ -26,6 +26,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  anyinspect: ^0.1.1
+  anyinspect_plugin_network: ^0.1.0
+  anyinspect_plugin_shared_preferences: ^0.1.0
   audioplayers: ^0.19.1
   bot_toast: ^4.0.1
   device_info_plus: ^3.1.0
@@ -79,6 +82,7 @@ dependencies:
   url_launcher: ^6.0.6
   uuid: ^3.0.4
   window_manager: ^0.0.5
+  launch_at_startup: ^0.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

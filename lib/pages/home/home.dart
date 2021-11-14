@@ -10,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:tray_manager/tray_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -23,28 +24,37 @@ import './translation_input_view.dart';
 import './translation_results_view.dart';
 import './translation_target_select_view.dart';
 
-const kMenuItemKeyShow = 'show';
-const kMenuItemKeyExitApp = 'exit-app';
+const kMenuItemKeyWebSite = 'website';
+const kMenuItemKeyQuickStartGuide = 'quick-start-guide';
+const kMenuItemKeySponsor = 'sponsor';
+const kMenuItemKeyQuitApp = 'quit-app';
+
+const kMenuSubItemKeyJoinDiscord = 'subitem-join-discord';
+const kMenuSubItemKeyJoinQQGroup = 'subitem-join-qq';
+const kMenuSubItemKeyJoinWeChatGroup = 'subitem-join-wechat';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage>
     with TrayListener, WindowListener, ShortcutListener, UriSchemeListener {
-  FocusNode _focusNode = FocusNode();
-  TextEditingController _textEditingController = TextEditingController();
-  ScrollController _scrollController = ScrollController();
+  final FocusNode _focusNode = FocusNode();
+  final TextEditingController _textEditingController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
-  GlobalKey _bannersViewKey = GlobalKey();
-  GlobalKey _inputViewKey = GlobalKey();
-  GlobalKey _resultsViewKey = GlobalKey();
+  final GlobalKey _bannersViewKey = GlobalKey();
+  final GlobalKey _inputViewKey = GlobalKey();
+  final GlobalKey _resultsViewKey = GlobalKey();
 
   Config _config = sharedConfigManager.getConfig();
 
   bool _showTrayIcon = sharedConfigManager.getConfig().showTrayIcon;
   String _trayIconStyle = sharedConfigManager.getConfig().trayIconStyle;
+  String _appLanguage = sharedConfigManager.getConfig().appLanguage;
 
   Version _latestVersion;
   bool _isAllowedScreenCaptureAccess = true;
@@ -110,13 +120,16 @@ class _HomePageState extends State<HomePage>
     Config newConfig = sharedConfigManager.getConfig();
     bool showTrayIcon = newConfig.showTrayIcon;
     String trayIconStyle = newConfig.trayIconStyle;
+    String appLanguage = newConfig.appLanguage;
 
-    bool trayIconUpdated =
-        _showTrayIcon != showTrayIcon || _trayIconStyle != trayIconStyle;
+    bool trayIconUpdated = _showTrayIcon != showTrayIcon ||
+        _trayIconStyle != trayIconStyle ||
+        _appLanguage != appLanguage;
 
     _config = newConfig;
     _showTrayIcon = showTrayIcon;
     _trayIconStyle = trayIconStyle;
+    _appLanguage = appLanguage;
 
     if (trayIconUpdated) _initTrayIcon();
     setState(() {});
@@ -147,7 +160,7 @@ class _HomePageState extends State<HomePage>
         await windowManager.setPosition(newPosition);
       }
       await windowManager.setSkipTaskbar(true);
-      await Future.delayed(Duration(milliseconds: 400));
+      await Future.delayed(const Duration(milliseconds: 400));
       _windowShow();
     });
 
@@ -167,16 +180,50 @@ class _HomePageState extends State<HomePage>
     await trayManager.destroy();
     if (_showTrayIcon) {
       await trayManager.setIcon(R.image(trayIconName));
-      await Future.delayed(Duration(milliseconds: 200));
+      await Future.delayed(const Duration(milliseconds: 200));
       await trayManager.setContextMenu([
         MenuItem(
-          key: kMenuItemKeyShow,
-          title: 'tray_context_menu.item_show'.tr(),
+          title:
+              '${'app_name'.tr()} v${sharedEnv.appVersion} (BUILD ${sharedEnv.appBuildNumber})',
+          isEnabled: false,
         ),
         MenuItem.separator,
         MenuItem(
-          key: kMenuItemKeyExitApp,
-          title: 'tray_context_menu.item_exit'.tr(),
+          key: kMenuItemKeyWebSite,
+          title: 'tray_context_menu.item_website'.tr(),
+        ),
+        MenuItem(
+          key: kMenuItemKeyQuickStartGuide,
+          title: 'tray_context_menu.item_quick_start_guide'.tr(),
+        ),
+        MenuItem.separator,
+        MenuItem(
+          key: kMenuItemKeySponsor,
+          title: 'tray_context_menu.item_sponsor'.tr(),
+        ),
+        MenuItem(
+          title: 'tray_context_menu.item_discussion'.tr(),
+          items: [
+            MenuItem(
+              key: kMenuSubItemKeyJoinDiscord,
+              title: 'tray_context_menu.item_discussion_subitem_discord_server'
+                  .tr(),
+            ),
+            MenuItem(
+              key: kMenuSubItemKeyJoinQQGroup,
+              title: 'tray_context_menu.item_discussion_subitem_qq_group'.tr(),
+            ),
+            MenuItem(
+              key: kMenuSubItemKeyJoinWeChatGroup,
+              title:
+                  'tray_context_menu.item_discussion_subitem_wechat_group'.tr(),
+            ),
+          ],
+        ),
+        MenuItem.separator,
+        MenuItem(
+          key: kMenuItemKeyQuitApp,
+          title: 'tray_context_menu.item_quit_app'.tr(),
         ),
       ]);
     }
@@ -215,9 +262,9 @@ class _HomePageState extends State<HomePage>
     // Linux 下无法激活窗口临时解决方案
     if (kIsLinux && !isAlwaysOnTop) {
       await windowManager.setAlwaysOnTop(true);
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
       await windowManager.setAlwaysOnTop(false);
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
       await windowManager.focus();
     }
   }
@@ -232,9 +279,9 @@ class _HomePageState extends State<HomePage>
     if (_resizeTimer != null && _resizeTimer.isActive) {
       _resizeTimer.cancel();
     }
-    _resizeTimer = Timer.periodic(Duration(milliseconds: 10), (_) async {
+    _resizeTimer = Timer.periodic(const Duration(milliseconds: 10), (_) async {
       if (!kIsMacOS) {
-        await Future.delayed(Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
       }
       RenderBox rb1 = _bannersViewKey?.currentContext?.findRenderObject();
       RenderBox rb2 = _inputViewKey?.currentContext?.findRenderObject();
@@ -503,7 +550,7 @@ class _HomePageState extends State<HomePage>
     );
 
     await _windowShow();
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 100));
 
     _handleTextChanged(extractedData.text, isRequery: true);
   }
@@ -760,7 +807,7 @@ class _HomePageState extends State<HomePage>
           ],
         ),
       ),
-      preferredSize: Size.fromHeight(34),
+      preferredSize: const Size.fromHeight(34),
     );
   }
 
@@ -811,7 +858,7 @@ class _HomePageState extends State<HomePage>
     if (uri.scheme != 'biyiapp') return;
 
     await _windowShow();
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 200));
     if (uri.authority == 'translate') {
       if (_text.isNotEmpty) _handleButtonTappedClear();
       String text = uri.queryParameters['text'];
@@ -834,10 +881,25 @@ class _HomePageState extends State<HomePage>
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
     switch (menuItem.key) {
-      case kMenuItemKeyShow:
-        _windowShow();
+      case kMenuItemKeyWebSite:
+        await launch(sharedEnv.webUrl);
         break;
-      case kMenuItemKeyExitApp:
+      case kMenuItemKeyQuickStartGuide:
+        await launch('${sharedEnv.webUrl}/docs');
+        break;
+      case kMenuItemKeySponsor:
+        await launch('${sharedEnv.webUrl}/sponsor');
+        break;
+      case kMenuSubItemKeyJoinDiscord:
+        await launch('https://discord.gg/zKN3Qjan');
+        break;
+      case kMenuSubItemKeyJoinQQGroup:
+        await launch('https://jq.qq.com/?_wv=1027&k=vYQ5jW7y');
+        break;
+      case kMenuSubItemKeyJoinWeChatGroup:
+        await launch('${sharedEnv.webUrl}/discussion/wechat-group');
+        break;
+      case kMenuItemKeyQuitApp:
         await trayManager.destroy();
         exit(0);
         break;

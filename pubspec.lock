@@ -8,6 +8,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  anyinspect:
+    dependency: "direct main"
+    description:
+      name: anyinspect
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
+  anyinspect_client:
+    dependency: transitive
+    description:
+      name: anyinspect_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
+  anyinspect_plugin_network:
+    dependency: "direct main"
+    description:
+      name: anyinspect_plugin_network
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
+  anyinspect_plugin_shared_preferences:
+    dependency: "direct main"
+    description:
+      name: anyinspect_plugin_shared_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   archive:
     dependency: "direct dev"
     description:
@@ -28,7 +56,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.2"
+    version: "2.8.1"
   audioplayers:
     dependency: "direct main"
     description:
@@ -56,7 +84,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.1.0"
   charcode:
     dependency: transitive
     description:
@@ -98,14 +126,21 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4"
+  dbus:
+    dependency: transitive
+    description:
+      name: dbus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.6"
   device_info_plus:
     dependency: "direct main"
     description:
       name: device_info_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   device_info_plus_linux:
     dependency: transitive
     description:
@@ -126,7 +161,7 @@ packages:
       name: device_info_plus_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   device_info_plus_web:
     dependency: transitive
     description:
@@ -147,7 +182,14 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
+  draggable_float_widget:
+    dependency: transitive
+    description:
+      name: draggable_float_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   easy_localization:
     dependency: "direct main"
     description:
@@ -169,6 +211,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.2"
+  event_bus:
+    dependency: transitive
+    description:
+      name: event_bus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -273,6 +322,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  launch_at_startup:
+    dependency: "direct main"
+    description:
+      name: launch_at_startup
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   libwinmedia:
     dependency: "direct main"
     description:
@@ -293,7 +349,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.11"
+    version: "0.12.10"
   meta:
     dependency: transitive
     description:
@@ -308,6 +364,55 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.2"
+  network_info_plus:
+    dependency: transitive
+    description:
+      name: network_info_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  network_info_plus_linux:
+    dependency: transitive
+    description:
+      name: network_info_plus_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  network_info_plus_macos:
+    dependency: transitive
+    description:
+      name: network_info_plus_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
+  network_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: network_info_plus_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  network_info_plus_web:
+    dependency: transitive
+    description:
+      name: network_info_plus_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  network_info_plus_windows:
+    dependency: transitive
+    description:
+      name: network_info_plus_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
+  nm:
+    dependency: transitive
+    description:
+      name: nm
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   ocr_engine_tesseract:
     dependency: transitive
     description:
@@ -405,7 +510,7 @@ packages:
       name: path_provider_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   path_provider_macos:
     dependency: transitive
     description:
@@ -426,7 +531,14 @@ packages:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.11.1"
   petitparser:
     dependency: transitive
     description:
@@ -460,7 +572,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: fab236f13a00def8fbdf80eeb7613c743b82e6e7
+      resolved-ref: "117073ce1563000b4101eb8438a034be8a786c9d"
       url: "https://github.com/biyidev/pro_account_noop.git"
     source: git
     version: "0.0.1"
@@ -500,7 +612,7 @@ packages:
       name: shared_preferences_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.3"
   shared_preferences_macos:
     dependency: transitive
     description:
@@ -528,7 +640,21 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.3"
+  shelf:
+    dependency: transitive
+    description:
+      name: shelf
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
+  shelf_web_socket:
+    dependency: transitive
+    description:
+      name: shelf_web_socket
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -582,7 +708,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.2"
   translation_engine_baidu:
     dependency: transitive
     description:
@@ -672,7 +798,7 @@ packages:
     description:
       path: "packages/uni_links_macos"
       ref: master
-      resolved-ref: dd03f6268f5e917abe620bfde58c12cfa1f20197
+      resolved-ref: dc979318e1f12c5306c9d30ff49d3b724febe02d
       url: "https://github.com/biyidev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -773,14 +899,21 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.0"
+  web_socket_channel:
+    dependency: transitive
+    description:
+      name: web_socket_channel
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   win32:
     dependency: transitive
     description:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.10"
+    version: "2.3.0"
   window_manager:
     dependency: "direct main"
     description:

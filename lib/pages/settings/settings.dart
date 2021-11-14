@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -19,6 +20,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   String _inputSetting = kInputSettingSubmitWithEnter;
+  bool _launchAtStartupIsEnabled = false;
 
   String t(String key, {List<String> args}) {
     return 'page_settings.$key'.tr(args: args);
@@ -31,9 +33,11 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _init() async {
-    setState(() {
-      _inputSetting = sharedConfig.inputSetting;
-    });
+    _inputSetting = sharedConfig.inputSetting;
+    if (kIsMacOS || kIsWindows) {
+      _launchAtStartupIsEnabled = await LaunchAtStartup.instance.isEnabled();
+    }
+    setState(() {});
   }
 
   Widget _buildBody(BuildContext context) {
@@ -148,6 +152,26 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ],
           ),
+          if (kIsMacOS || kIsWindows)
+            PreferenceListSection(
+              title: Text(t('pref_section_title_advanced')),
+              children: [
+                PreferenceListSwitchItem(
+                  value: _launchAtStartupIsEnabled,
+                  title: Text(t('pref_item_title_launch_at_startup')),
+                  onChanged: (newValue) async {
+                    if (newValue) {
+                      LaunchAtStartup.instance.enable();
+                    } else {
+                      LaunchAtStartup.instance.disable();
+                    }
+                    _launchAtStartupIsEnabled =
+                        await LaunchAtStartup.instance.isEnabled();
+                    setState(() {});
+                  },
+                ),
+              ],
+            ),
           PreferenceListSection(
             title: Text(t('pref_section_title_service_integration')),
             children: [

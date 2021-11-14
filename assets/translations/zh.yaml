@@ -148,7 +148,14 @@ word_pronunciation:
   uk: 英
 tray_context_menu:
   item_show: 显示
-  item_exit: 退出
+  item_website: 官网
+  item_quick_start_guide: 快速入门指南
+  item_sponsor: 支持一下
+  item_discussion: 加入讨论
+  item_quit_app: 退出比译
+  item_discussion_subitem_discord_server: 加入 Discord
+  item_discussion_subitem_qq_group: 加入 QQ 群
+  item_discussion_subitem_wechat_group: 加入微信群
 # Pages
 page_home:
   newversion_banner_text_found_new_version: "发现新版本：{}"
@@ -222,6 +229,7 @@ page_settings:
   pref_section_title_appearance: 外观
   pref_section_title_shortcuts: 快捷键
   pref_section_title_input_settings: 输入设置
+  pref_section_title_advanced: 高级
   pref_section_title_service_integration: 服务接入
   pref_section_title_others: 其他
   pref_item_title_extract_text: 取词
@@ -233,6 +241,7 @@ page_settings:
   pref_item_title_submit_with_enter: 用 Enter 提交
   pref_item_title_submit_with_meta_enter: 用 Ctrl + Enter 提交
   pref_item_title_submit_with_meta_enter_mac: 用 ⌘ + Enter 提交
+  pref_item_title_launch_at_startup: 登录时启动
   pref_item_title_engines: 文本翻译
   pref_item_title_ocr_engines: 文字识别
   pref_item_title_sponsor: 支持一下

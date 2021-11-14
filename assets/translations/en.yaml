@@ -148,7 +148,14 @@ word_pronunciation:
   uk: UK
 tray_context_menu:
   item_show: Show
-  item_exit: Exit
+  item_website: Website
+  item_quick_start_guide: Quick Start Guide
+  item_sponsor: Sponsor
+  item_discussion: Join Discussion
+  item_quit_app: Quit Biyi
+  item_discussion_subitem_discord_server: Join Discord
+  item_discussion_subitem_qq_group: Join QQ Group
+  item_discussion_subitem_wechat_group: Join WeChat Group
 # Pages
 page_home:
   newversion_banner_text_found_new_version: "New version found: {}"
@@ -222,6 +229,7 @@ page_settings:
   pref_section_title_appearance: Appearance
   pref_section_title_shortcuts: Shortcuts
   pref_section_title_input_settings: Input Settings
+  pref_section_title_advanced: Advanced
   pref_section_title_service_integration: Service Integration
   pref_section_title_others: Others
   pref_item_title_extract_text: Extract text
@@ -233,6 +241,7 @@ page_settings:
   pref_item_title_submit_with_enter: Submit with Enter
   pref_item_title_submit_with_meta_enter: Submit with Ctrl + Enter
   pref_item_title_submit_with_meta_enter_mac: Submit with ⌘ + Enter
+  pref_item_title_launch_at_startup: Launch when you log in
   pref_item_title_engines: Text Translation
   pref_item_title_ocr_engines: Text Detection
   pref_item_title_sponsor: Sponsor

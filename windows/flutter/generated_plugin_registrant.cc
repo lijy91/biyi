@@ -7,7 +7,9 @@
 #include "generated_plugin_registrant.h"
 
 #include <hotkey_manager/hotkey_manager_plugin.h>
+#include <launch_at_startup/launch_at_startup_plugin.h>
 #include <libwinmedia/libwinmedia_plugin.h>
+#include <network_info_plus_windows/network_info_plus_windows_plugin.h>
 #include <screen_retriever/screen_retriever_plugin.h>
 #include <screen_text_extractor/screen_text_extractor_plugin.h>
 #include <tray_manager/tray_manager_plugin.h>
@@ -17,8 +19,12 @@
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   HotkeyManagerPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("HotkeyManagerPlugin"));
+  LaunchAtStartupPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("LaunchAtStartupPlugin"));
   LibwinmediaPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("LibwinmediaPlugin"));
+  NetworkInfoPlusWindowsPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("NetworkInfoPlusWindowsPlugin"));
   ScreenRetrieverPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ScreenRetrieverPlugin"));
   ScreenTextExtractorPluginRegisterWithRegistrar(

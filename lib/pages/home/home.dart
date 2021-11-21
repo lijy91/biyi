@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:screen_capturer/screen_capturer.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:tray_manager/tray_manager.dart';
@@ -68,6 +69,8 @@ class _HomePageState extends State<HomePage>
   bool _querySubmitted = false;
   String _text = '';
   String _textDetectedLanguage;
+  CapturedData _capturedData;
+  bool _isTextDetecting = false;
   ExtractedData _extractedData;
   List<TranslationResult> _translationResultList = [];
 
@@ -560,6 +563,8 @@ class _HomePageState extends State<HomePage>
       _querySubmitted = false;
       _text = '';
       _textDetectedLanguage = null;
+      _capturedData = null;
+      _isTextDetecting = false;
       _extractedData = null;
       _translationResultList = [];
     });
@@ -575,42 +580,39 @@ class _HomePageState extends State<HomePage>
           'Screenshot-${DateTime.now().millisecondsSinceEpoch}.png';
       imagePath = '${appDir.path}/Screenshots/$fileName';
     }
-    ExtractedData extractedData =
-        await screenTextExtractor.extractFromScreenCapture(
+    _capturedData = await ScreenCapturer.instance.capture(
       imagePath: imagePath,
     );
 
-    File imageFile = File(extractedData.imagePath);
-    if (extractedData.base64Image == null && !imageFile.existsSync()) {
-      return;
-    }
-
+    await Future.delayed(const Duration(milliseconds: 300));
     await _windowShow();
-    await Future.delayed(Duration(milliseconds: 100));
 
-    try {
-      if (extractedData.text == null) {
-        _extractedData = extractedData;
+    if (_capturedData == null) {
+      setState(() {});
+      return;
+    } else {
+      try {
+        _isTextDetecting = true;
         setState(() {});
         DetectTextResponse detectTextResponse = await sharedOcrClient
             .use(sharedConfig.defaultOcrEngineId)
             .detectText(
               DetectTextRequest(
-                imagePath: extractedData.imagePath,
-                base64Image: extractedData.base64Image,
+                imagePath: _capturedData.imagePath,
+                base64Image: _capturedData.base64Image,
               ),
             );
-        print(detectTextResponse.toJson());
-        _extractedData.text = detectTextResponse.text;
+        _isTextDetecting = false;
+        setState(() {});
         _handleTextChanged(detectTextResponse.text, isRequery: true);
-      } else {
-        _handleTextChanged(extractedData.text, isRequery: true);
+      } catch (error) {
+        _isTextDetecting = false;
+        setState(() {});
+        BotToast.showText(
+          text: error.toString(),
+          align: Alignment.center,
+        );
       }
-    } catch (error) {
-      BotToast.showText(
-        text: error.toString(),
-        align: Alignment.center,
-      );
     }
   }
 
@@ -618,7 +620,7 @@ class _HomePageState extends State<HomePage>
     bool windowIsVisible = await windowManager.isVisible();
     if (!windowIsVisible) {
       await _windowShow();
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
     }
 
     ExtractedData extractedData =
@@ -631,6 +633,8 @@ class _HomePageState extends State<HomePage>
       _querySubmitted = false;
       _text = '';
       _textDetectedLanguage = null;
+      _capturedData = null;
+      _isTextDetecting = false;
       _extractedData = null;
       _translationResultList = [];
     });
@@ -714,7 +718,8 @@ class _HomePageState extends State<HomePage>
             focusNode: _focusNode,
             controller: _textEditingController,
             onChanged: (newValue) => this._handleTextChanged(newValue),
-            extractedData: _extractedData,
+            capturedData: _capturedData,
+            isTextDetecting: _isTextDetecting,
             translationMode: _config.translationMode,
             onTranslationModeChanged: (newTranslationMode) {
               sharedConfigManager.setTranslationMode(newTranslationMode);

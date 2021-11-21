@@ -10,6 +10,7 @@
 #include <launch_at_startup/launch_at_startup_plugin.h>
 #include <libwinmedia/libwinmedia_plugin.h>
 #include <network_info_plus_windows/network_info_plus_windows_plugin.h>
+#include <screen_capturer/screen_capturer_plugin.h>
 #include <screen_retriever/screen_retriever_plugin.h>
 #include <screen_text_extractor/screen_text_extractor_plugin.h>
 #include <tray_manager/tray_manager_plugin.h>
@@ -25,6 +26,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("LibwinmediaPlugin"));
   NetworkInfoPlusWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("NetworkInfoPlusWindowsPlugin"));
+  ScreenCapturerPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("ScreenCapturerPlugin"));
   ScreenRetrieverPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ScreenRetrieverPlugin"));
   ScreenTextExtractorPluginRegisterWithRegistrar(

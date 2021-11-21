@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   launch_at_startup
   libwinmedia
   network_info_plus_windows
+  screen_capturer
   screen_retriever
   screen_text_extractor
   tray_manager

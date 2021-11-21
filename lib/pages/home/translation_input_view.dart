@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:screen_capturer/screen_capturer.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 
 import '../../../includes.dart';
@@ -12,7 +13,8 @@ class TranslationInputView extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
 
-  final ExtractedData extractedData;
+  final CapturedData capturedData;
+  final bool isTextDetecting;
 
   final String translationMode;
   final ValueChanged<String> onTranslationModeChanged;
@@ -29,7 +31,8 @@ class TranslationInputView extends StatelessWidget {
     this.focusNode,
     this.controller,
     this.onChanged,
-    this.extractedData,
+    this.capturedData,
+    this.isTextDetecting,
     this.translationMode,
     this.onTranslationModeChanged,
     this.inputSetting,
@@ -116,7 +119,7 @@ class TranslationInputView extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
           child: VerticalDivider(
             width: 8,
@@ -163,11 +166,11 @@ class TranslationInputView extends StatelessWidget {
       children: [
         Container(
           height: 24,
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             minWidth: 56,
           ),
           child: CustomButton.outlined(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 12,
               right: 12,
             ),
@@ -175,26 +178,26 @@ class TranslationInputView extends StatelessWidget {
             borderRadius: BorderRadius.circular(2),
             child: Text(
               'page_home.btn_clear'.tr(),
-              style: TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 12),
             ),
             onPressed: this.onButtonTappedClear,
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Container(
           height: 24,
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             minWidth: 56,
           ),
           child: CustomButton.filled(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 12,
               right: 12,
             ),
             borderRadius: BorderRadius.circular(2),
             child: Text(
               'page_home.btn_trans'.tr(),
-              style: TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 12),
             ),
             onPressed: this.onButtonTappedTrans,
           ),
@@ -205,11 +208,8 @@ class TranslationInputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isTextDetecting =
-        (extractedData?.base64Image != null && extractedData?.text == null);
-
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: 12,
         right: 12,
         top: 0,

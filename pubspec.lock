@@ -583,6 +583,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+  screen_capturer:
+    dependency: "direct main"
+    description:
+      name: screen_capturer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   screen_retriever:
     dependency: "direct main"
     description:

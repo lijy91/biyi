@@ -38,6 +38,7 @@ dependencies:
   flutter_spinkit: ^5.0.0
   flutter_svg: ^0.22.0
   hotkey_manager: ^0.1.4
+  launch_at_startup: ^0.1.0
   libwinmedia: ^0.0.5
   package_info_plus: ^1.0.4
   photo_view: ^0.12.0
@@ -45,8 +46,8 @@ dependencies:
     git:
       ref: main
       url: https://github.com/biyidev/pro_account_noop.git
+  screen_capturer: ^0.1.0
   screen_retriever: ^0.0.2
-  # screen_text_extractor: ^0.0.1
   screen_text_extractor:
     git:
       ref: main
@@ -82,7 +83,6 @@ dependencies:
   url_launcher: ^6.0.6
   uuid: ^3.0.4
   window_manager: ^0.0.5
-  launch_at_startup: ^0.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

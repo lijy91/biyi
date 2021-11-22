@@ -8,13 +8,13 @@ PODS:
   - hotkey_manager (0.0.1):
     - FlutterMacOS
     - HotKey
-  - launch_at_startup (0.0.1):
-    - FlutterMacOS
   - network_info_plus_macos (0.0.1):
     - FlutterMacOS
   - package_info_plus_macos (0.0.1):
     - FlutterMacOS
   - path_provider_macos (0.0.1):
+    - FlutterMacOS
+  - screen_capturer (0.1.0):
     - FlutterMacOS
   - screen_retriever (0.0.1):
     - FlutterMacOS
@@ -36,10 +36,10 @@ DEPENDENCIES:
   - device_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - hotkey_manager (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager/macos`)
-  - launch_at_startup (from `Flutter/ephemeral/.symlinks/plugins/launch_at_startup/macos`)
   - network_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/network_info_plus_macos/macos`)
   - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
+  - screen_capturer (from `Flutter/ephemeral/.symlinks/plugins/screen_capturer/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
   - screen_text_extractor (from `Flutter/ephemeral/.symlinks/plugins/screen_text_extractor/macos`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
@@ -61,14 +61,14 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
   hotkey_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/hotkey_manager/macos
-  launch_at_startup:
-    :path: Flutter/ephemeral/.symlinks/plugins/launch_at_startup/macos
   network_info_plus_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/network_info_plus_macos/macos
   package_info_plus_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos
   path_provider_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
+  screen_capturer:
+    :path: Flutter/ephemeral/.symlinks/plugins/screen_capturer/macos
   screen_retriever:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
   screen_text_extractor:
@@ -90,10 +90,10 @@ SPEC CHECKSUMS:
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
   HotKey: ad59450195936c10992438c4210f673de5aee43e
   hotkey_manager: ad673457691f4d39e481be04a61da2ae07d81c62
-  launch_at_startup: f6d29e6019ad0dbee68c83432764bfa5deb999b4
   network_info_plus_macos: d2b9e6c01c291449b91a584217aa53b113847dbd
   package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
+  screen_capturer: 696de78ce7beff63eecf8aa709f839985a7836d7
   screen_retriever: d6f298ba1597d1afe486277b4068cd46045339ed
   screen_text_extractor: b144efcf2e445a5892d540c5b8b83d5039994957
   shared_preferences_macos: 480ce071d0666e37cef23fe6c702293a3d21799e

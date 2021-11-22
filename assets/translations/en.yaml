@@ -212,6 +212,7 @@ page_setting_shortcuts:
   title: Shortcuts
   pref_section_title_extract_text: Screen / Clipboard extract text
   pref_item_title_show_or_hide: Show/Hide
+  pref_item_title_hide: Hide
   pref_item_title_extract_text_from_selection: Selection
   pref_item_title_extract_text_from_capture: Capture Area
   pref_item_title_extract_text_from_clipboard: Clipboard

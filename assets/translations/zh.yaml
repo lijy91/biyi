@@ -212,6 +212,7 @@ page_setting_shortcuts:
   title: 快捷键
   pref_section_title_extract_text: 屏幕/剪切板取词
   pref_item_title_show_or_hide: 显示/隐藏
+  pref_item_title_hide: 隐藏
   pref_item_title_extract_text_from_selection: 选中文字
   pref_item_title_extract_text_from_capture: 截取区域
   pref_item_title_extract_text_from_clipboard: 剪切板

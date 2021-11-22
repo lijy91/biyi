@@ -9,6 +9,7 @@ import 'package:hotkey_manager/hotkey_manager.dart';
 import '../includes.dart';
 
 const kShortcutShowOrHide = 'shortcut_show_or_hide';
+const kShortcutHide = 'shortcut_hide';
 const kShortcutExtractFromScreenSelection =
     'shortcut_extract_from_screen_selection';
 const kShortcutExtractFromScreenCapture =
@@ -109,6 +110,7 @@ class Config {
   ThemeMode themeMode;
   String inputSetting;
   HotKey shortcutShowOrHide;
+  HotKey shortcutHide;
   HotKey shortcutExtractFromScreenSelection;
   HotKey shortcutExtractFromScreenCapture;
   HotKey shortcutExtractFromClipboard;
@@ -171,6 +173,14 @@ class ConfigManager extends _ConfigChangeNotifier {
     Config.instance.inputSetting = await _getString(
       kPrefInputSetting,
       defaultValue: kInputSettingSubmitWithEnter,
+    );
+    Config.instance.shortcutHide = await getShortcut(
+      kShortcutHide,
+      defaultValue: HotKey(
+        KeyCode.escape,
+        modifiers: [],
+        identifier: kShortcutHide,
+      ),
     );
     Config.instance.shortcutShowOrHide = await getShortcut(
       kShortcutShowOrHide,

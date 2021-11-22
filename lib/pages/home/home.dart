@@ -836,6 +836,11 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
+  void onShortcutKeyDownHide() async {
+    _windowHide();
+  }
+
+  @override
   void onShortcutKeyDownExtractFromScreenSelection() {
     _handleExtractTextFromScreenSelection();
   }

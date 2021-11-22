@@ -4,6 +4,7 @@ import '../../includes.dart';
 
 abstract class ShortcutListener {
   void onShortcutKeyDownShowOrHide();
+  void onShortcutKeyDownHide();
   void onShortcutKeyDownExtractFromScreenSelection();
   void onShortcutKeyDownExtractFromScreenCapture();
   void onShortcutKeyDownExtractFromClipboard();
@@ -34,6 +35,12 @@ class ShortcutService {
       sharedConfig.shortcutShowOrHide,
       keyDownHandler: (_) {
         _listener.onShortcutKeyDownShowOrHide();
+      },
+    );
+    await hotKeyManager.register(
+      sharedConfig.shortcutHide,
+      keyDownHandler: (_) {
+        _listener.onShortcutKeyDownHide();
       },
     );
     await hotKeyManager.register(

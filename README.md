@@ -26,6 +26,18 @@ Downloads are available on the [Releases](https://github.com/biyidev/biyi_app/re
 
 We welcome you to join the development of `Biyi`.
 
+### ⚠️ Linux requirements
+
+- `appindicator3-0.1`
+- [`keybinder-3.0`](https://github.com/kupferlauncher/keybinder)
+
+Run the following command
+
+```
+sudo apt-get install appindicator3-0.1 libappindicator3-dev
+sudo apt-get install keybinder-3.0
+```
+
 ### Before You Start
 
 1. Create working directory

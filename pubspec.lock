@@ -596,7 +596,7 @@ packages:
       name: screen_retriever
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.1.0"
   screen_text_extractor:
     dependency: "direct main"
     description:

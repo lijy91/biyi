@@ -47,7 +47,7 @@ dependencies:
       ref: main
       url: https://github.com/biyidev/pro_account_noop.git
   screen_capturer: ^0.1.0
-  screen_retriever: ^0.0.2
+  screen_retriever: ^0.1.0
   screen_text_extractor:
     git:
       ref: main

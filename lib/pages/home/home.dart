@@ -236,10 +236,12 @@ class _HomePageState extends State<HomePage>
     ShortcutService.instance.stop();
   }
 
-  Future<void> _windowShow() async {
+  Future<void> _windowShow({
+    bool isShowBelowTray = false,
+  }) async {
     Size windowSize = await windowManager.getSize();
     Offset newPosition;
-    if (kIsMacOS) {
+    if (isShowBelowTray) {
       Rect trayIconBounds = await trayManager.getBounds();
       Size trayIconSize = trayIconBounds.size;
       Offset trayIconnewPosition = trayIconBounds.topLeft;
@@ -584,10 +586,14 @@ class _HomePageState extends State<HomePage>
       imagePath: imagePath,
     );
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 200));
     await _windowShow();
 
     if (_capturedData == null) {
+      BotToast.showText(
+        text: 'page_home.msg_capture_screen_area_canceled'.tr(),
+        align: Alignment.center,
+      );
       setState(() {});
       return;
     } else {
@@ -880,7 +886,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void onTrayIconMouseDown() async {
-    _windowShow();
+    _windowShow(isShowBelowTray: true);
   }
 
   @override

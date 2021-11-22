@@ -179,6 +179,7 @@ page_home:
   btn_clear: 清空
   btn_trans: 翻译
   msg_please_enter_word_or_text: 未输入文本或未提取到文本
+  msg_capture_screen_area_canceled: 截取屏幕区域已取消
 page_language_chooser:
   title: 选择语言
   pref_section_title_all: 全部

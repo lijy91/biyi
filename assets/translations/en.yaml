@@ -179,6 +179,7 @@ page_home:
   btn_clear: Clear
   btn_trans: Translate
   msg_please_enter_word_or_text: No text entered or text not extracted
+  msg_capture_screen_area_canceled: Capture screen area has been canceled
 page_language_chooser:
   title: Choose language
   pref_section_title_all: All

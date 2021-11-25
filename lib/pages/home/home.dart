@@ -768,6 +768,9 @@ class _HomePageState extends State<HomePage>
                 _sourceLanguage = newSourceLanguage;
                 _targetLanguage = newTargetLanguage;
               });
+              if (_text.isNotEmpty) {
+                _handleButtonTappedTrans();
+              }
             },
           ),
         ],

@@ -19,7 +19,7 @@ class _AvailableLanguageSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 12, top: 12, bottom: 12),
+      margin: const EdgeInsets.only(left: 12, top: 12, bottom: 12),
       width: double.infinity,
       child: Wrap(
         alignment: WrapAlignment.start,
@@ -32,7 +32,7 @@ class _AvailableLanguageSelector extends StatelessWidget {
               height: 28,
               child: Builder(builder: (_) {
                 bool isSelected = value == supportedLanguage;
-                EdgeInsets padding = EdgeInsets.only(left: 6, right: 6);
+                EdgeInsets padding = const EdgeInsets.only(left: 6, right: 6);
                 Widget child = LanguageLabel(
                   supportedLanguage,
                   flagSize: 18,

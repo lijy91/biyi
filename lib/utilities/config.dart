@@ -103,6 +103,7 @@ class Config {
   String translationMode;
   String defaultEngineId;
   String defaultOcrEngineId;
+  bool autoCopyDetectedText;
   bool showTrayIcon;
   String trayIconStyle;
   double maxWindowHeight;
@@ -148,6 +149,10 @@ class ConfigManager extends _ConfigChangeNotifier {
     );
     Config.instance.defaultOcrEngineId = await _getString(
       kPrefDefaultOcrEngineId,
+    );
+    Config.instance.autoCopyDetectedText = await _getBool(
+      kPrefAutoCopyDetectedText,
+      defaultValue: true,
     );
     Config.instance.showTrayIcon = await _getBool(
       kPrefShowTrayIcon,
@@ -226,6 +231,10 @@ class ConfigManager extends _ConfigChangeNotifier {
 
   Future<void> setDefaultOcrEngineId(String value) {
     return _setString(kPrefDefaultOcrEngineId, value);
+  }
+
+  Future<void> setAutoCopyDetectedText(bool value) {
+    return _setBool(kPrefAutoCopyDetectedText, value);
   }
 
   Future<void> setShowTrayIcon(bool value) {

@@ -201,6 +201,7 @@ page_setting_app_language:
 page_setting_extract_text:
   title: Screen extract text
   pref_section_title_default_detect_text_engine: Default detect text engine
+  pref_item_auto_copy_detected_text: Auto copy the detected text
 page_setting_interface:
   title: Interface
   pref_section_title_tray_icon: Tray Icon

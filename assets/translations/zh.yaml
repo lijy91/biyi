@@ -201,6 +201,7 @@ page_setting_app_language:
 page_setting_extract_text:
   title: 取词
   pref_section_title_default_detect_text_engine: 默认文字识别引擎
+  pref_item_auto_copy_detected_text: 自动复制检测到的文本
 page_setting_interface:
   title: 界面
   pref_section_title_tray_icon: 托盘图标

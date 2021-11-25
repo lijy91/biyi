@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:screen_capturer/screen_capturer.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
@@ -141,9 +142,9 @@ class _HomePageState extends State<HomePage>
   void _init() async {
     if (kIsMacOS) {
       _isAllowedScreenCaptureAccess =
-          await screenTextExtractor.isAllowedScreenCaptureAccess();
+          await ScreenCapturer.instance.isAccessAllowed();
       _isAllowedScreenSelectionAccess =
-          await screenTextExtractor.isAllowedScreenSelectionAccess();
+          await screenTextExtractor.isAccessAllowed();
     }
 
     ShortcutService.instance.start();
@@ -610,6 +611,9 @@ class _HomePageState extends State<HomePage>
             );
         _isTextDetecting = false;
         setState(() {});
+        if (sharedConfig.autoCopyDetectedText) {
+          Clipboard.setData(ClipboardData(text: detectTextResponse.text));
+        }
         _handleTextChanged(detectTextResponse.text, isRequery: true);
       } catch (error) {
         _isTextDetecting = false;
@@ -686,9 +690,9 @@ class _HomePageState extends State<HomePage>
               isAllowedScreenSelectionAccess: _isAllowedScreenSelectionAccess,
               onTappedRecheckIsAllowedAllAccess: () async {
                 _isAllowedScreenCaptureAccess =
-                    await screenTextExtractor.isAllowedScreenCaptureAccess();
+                    await ScreenCapturer.instance.isAccessAllowed();
                 _isAllowedScreenSelectionAccess =
-                    await screenTextExtractor.isAllowedScreenSelectionAccess();
+                    await screenTextExtractor.isAccessAllowed();
 
                 setState(() {});
 

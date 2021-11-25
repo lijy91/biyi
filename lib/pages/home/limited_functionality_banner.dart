@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:screen_capturer/screen_capturer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../includes.dart';
@@ -115,36 +114,40 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                 children: [
                   if (kIsMacOS)
                     _AllowAccessListItem(
-                      title: 'page_home.limited_banner_text_screen_capture'.tr(),
+                      title:
+                          'page_home.limited_banner_text_screen_capture'.tr(),
                       allowed: isAllowedScreenCaptureAccess,
                       onTappedTryAllow: () {
-                        screenTextExtractor.requestScreenCaptureAccess();
+                        ScreenCapturer.instance.requestAccess();
                         BotToast.showText(
-                          text: 'page_home.limited_banner_msg_allow_access_tip'.tr(),
+                          text: 'page_home.limited_banner_msg_allow_access_tip'
+                              .tr(),
                           align: Alignment.center,
                           duration: Duration(seconds: 5),
                         );
                       },
                       onTappedGoSettings: () {
-                        screenTextExtractor.requestScreenCaptureAccess(
+                        ScreenCapturer.instance.requestAccess(
                           onlyOpenPrefPane: true,
                         );
                       },
                     ),
                   if (kIsMacOS)
                     _AllowAccessListItem(
-                      title: 'page_home.limited_banner_text_screen_selection'.tr(),
+                      title:
+                          'page_home.limited_banner_text_screen_selection'.tr(),
                       allowed: isAllowedScreenSelectionAccess,
                       onTappedTryAllow: () {
-                        screenTextExtractor.requestScreenSelectionAccess();
+                        screenTextExtractor.requestAccess();
                         BotToast.showText(
-                          text: 'page_home.limited_banner_msg_allow_access_tip'.tr(),
+                          text: 'page_home.limited_banner_msg_allow_access_tip'
+                              .tr(),
                           align: Alignment.center,
                           duration: Duration(seconds: 5),
                         );
                       },
                       onTappedGoSettings: () {
-                        screenTextExtractor.requestScreenSelectionAccess(
+                        screenTextExtractor.requestAccess(
                           onlyOpenPrefPane: true,
                         );
                       },

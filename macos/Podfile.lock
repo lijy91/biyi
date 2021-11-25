@@ -18,7 +18,7 @@ PODS:
     - FlutterMacOS
   - screen_retriever (0.0.1):
     - FlutterMacOS
-  - screen_text_extractor (0.0.1):
+  - screen_text_extractor (0.1.0):
     - FlutterMacOS
   - shared_preferences_macos (0.0.1):
     - FlutterMacOS
@@ -95,7 +95,7 @@ SPEC CHECKSUMS:
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
   screen_capturer: 696de78ce7beff63eecf8aa709f839985a7836d7
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
-  screen_text_extractor: b144efcf2e445a5892d540c5b8b83d5039994957
+  screen_text_extractor: 2c310f54af1dee881522e2b76bec9a668ebfe0cf
   shared_preferences_macos: 480ce071d0666e37cef23fe6c702293a3d21799e
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   uni_links_macos: 5ff105932e9f8e12b9f24fd5656188ca9184cc5b

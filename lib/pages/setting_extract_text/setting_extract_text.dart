@@ -10,6 +10,7 @@ class SettingExtractTextPage extends StatefulWidget {
 
 class _SettingExtractTextPageState extends State<SettingExtractTextPage> {
   OcrEngineConfig _defaultOcrEngineConfig;
+  bool _autoCopyDetectedText;
 
   String t(String key, {List<String> args}) {
     return 'page_setting_extract_text.$key'.tr(args: args);
@@ -17,6 +18,7 @@ class _SettingExtractTextPageState extends State<SettingExtractTextPage> {
 
   @override
   void initState() {
+    _autoCopyDetectedText = sharedConfig.autoCopyDetectedText;
     _defaultOcrEngineConfig =
         sharedLocalDb.ocrEngine(sharedConfig.defaultOcrEngineId).get();
     super.initState();
@@ -66,6 +68,20 @@ class _SettingExtractTextPageState extends State<SettingExtractTextPage> {
                       ),
                     ),
                   );
+                },
+              ),
+            ],
+          ),
+          PreferenceListSection(
+            children: [
+              PreferenceListSwitchItem(
+                value: _autoCopyDetectedText,
+                title: Text(t('pref_item_auto_copy_detected_text')),
+                onChanged: (newValue) async {
+                  sharedConfigManager.setAutoCopyDetectedText(newValue);
+
+                  _autoCopyDetectedText = newValue;
+                  setState(() {});
                 },
               ),
             ],

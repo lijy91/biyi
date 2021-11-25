@@ -8,6 +8,7 @@ const kPrefTranslationMode = 'translation_mode';
 const kPrefDefaultEngineId = 'default_engine_id';
 // 取词
 const kPrefDefaultOcrEngineId = 'default_ocr_engine_id';
+const kPrefAutoCopyDetectedText = 'auto_copy_detected_text';
 // 界面
 const kPrefShowTrayIcon = 'show_tray_icon';
 const kPrefTrayIconStyle = 'tray_icon_style';

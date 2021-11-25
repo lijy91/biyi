@@ -758,13 +758,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  translation_engine_cloudoptai:
-    dependency: transitive
-    description:
-      path: "../uni_translate/packages/translation_engine_cloudoptai"
-      relative: true
-    source: path
-    version: "0.0.1"
   translation_engine_deepl:
     dependency: transitive
     description:

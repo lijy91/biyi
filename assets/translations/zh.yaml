@@ -121,7 +121,6 @@ language:
 engine:
   baidu: 百度翻译
   caiyun: 彩云小译
-  cloudoptai: CloudoptAI
   deepl: DeepL
   google: 谷歌翻译
   ibmwatson: IBMWatson

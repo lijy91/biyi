@@ -121,7 +121,6 @@ language:
 engine:
   baidu: Baidu
   caiyun: Caiyun
-  cloudoptai: CloudoptAI
   deepl: DeepL
   google: Google
   ibmwatson: IBMWatson

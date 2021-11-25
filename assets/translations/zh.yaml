@@ -4,6 +4,7 @@ ok: 确定
 cancel: 取消
 add: 添加
 delete: 删除
+copied: 已复制
 please_choose: 请选择
 
 language:
@@ -224,6 +225,7 @@ page_setting_translate:
   pref_section_title_translation_mode: 翻译模式
   pref_section_title_default_detect_language_engine: 默认语种识别引擎
   pref_section_title_translation_target: 翻译目标
+  pref_item_title_double_click_copy_result: 双击复制翻译结果
 page_settings:
   title: 设置
   text_version: 版本 {} BUILD {}

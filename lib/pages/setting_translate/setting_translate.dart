@@ -11,6 +11,7 @@ class SettingTranslatePage extends StatefulWidget {
 class _SettingTranslatePageState extends State<SettingTranslatePage> {
   String _translationMode = kTranslationModeManual;
   TranslationEngineConfig _defaultEngineConfig;
+  bool _doubleClickCopyResult;
 
   String t(String key, {List<String> args}) {
     return 'page_setting_translate.$key'.tr(args: args);
@@ -21,6 +22,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
     _translationMode = sharedConfig.translationMode;
     _defaultEngineConfig =
         sharedLocalDb.engine(sharedConfig.defaultEngineId).get();
+    _doubleClickCopyResult = sharedConfig.doubleClickCopyResult;
     super.initState();
   }
 
@@ -61,7 +63,8 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                       ? null
                       : TranslationEngineIcon(_defaultEngineConfig),
                   title: Builder(builder: (_) {
-                    if (_defaultEngineConfig == null) return Text('please_choose'.tr());
+                    if (_defaultEngineConfig == null)
+                      return Text('please_choose'.tr());
                     return Text.rich(
                       TextSpan(
                         text: _defaultEngineConfig.typeName,
@@ -150,6 +153,19 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                 )
               ],
             ),
+          PreferenceListSection(
+            children: [
+              PreferenceListSwitchItem(
+                value: _doubleClickCopyResult,
+                title: Text(t('pref_item_title_double_click_copy_result')),
+                onChanged: (newValue) async {
+                  sharedConfigManager.setDoubleClickCopyResult(newValue);
+                  _doubleClickCopyResult = newValue;
+                  setState(() {});
+                },
+              ),
+            ],
+          ),
         ],
       );
     });

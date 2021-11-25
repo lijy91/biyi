@@ -4,6 +4,7 @@ ok: OK
 cancel: Cancel
 add: Add
 delete: Delete
+copied: Copied
 please_choose: Please Choose
 
 language:
@@ -224,6 +225,7 @@ page_setting_translate:
   pref_section_title_translation_mode: Translation mode
   pref_section_title_default_detect_language_engine: Default detect language engine
   pref_section_title_translation_target: Translation target
+  pref_item_title_double_click_copy_result: Double-click to copy translation result
 page_settings:
   title: Settings
   text_version: Version {} BUILD {}

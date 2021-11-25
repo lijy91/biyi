@@ -102,6 +102,7 @@ class Config {
 
   String translationMode;
   String defaultEngineId;
+  bool doubleClickCopyResult;
   String defaultOcrEngineId;
   bool autoCopyDetectedText;
   bool showTrayIcon;
@@ -146,6 +147,10 @@ class ConfigManager extends _ConfigChangeNotifier {
     );
     Config.instance.defaultEngineId = await _getString(
       kPrefDefaultEngineId,
+    );
+    Config.instance.doubleClickCopyResult = await _getBool(
+      kPrefDoubleClickCopyResult,
+      defaultValue: true,
     );
     Config.instance.defaultOcrEngineId = await _getString(
       kPrefDefaultOcrEngineId,
@@ -227,6 +232,10 @@ class ConfigManager extends _ConfigChangeNotifier {
 
   Future<void> setDefaultEngineId(String value) {
     return _setString(kPrefDefaultEngineId, value);
+  }
+
+  Future<void> setDoubleClickCopyResult(bool value) {
+    return _setBool(kPrefDoubleClickCopyResult, value);
   }
 
   Future<void> setDefaultOcrEngineId(String value) {

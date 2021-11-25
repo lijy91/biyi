@@ -1,5 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../includes.dart';
@@ -112,27 +114,37 @@ class TranslationResultRecordView extends StatelessWidget {
         (images ?? []).isNotEmpty;
 
     if (!isShowAsLookUpResult) {
-      return Container(
-        constraints: BoxConstraints(
-          minHeight: 40,
-        ),
-        padding: EdgeInsets.only(
-          left: 12,
-          right: 12,
-          top: 7,
-          bottom: 7,
-        ),
-        alignment: Alignment.centerLeft,
-        child: SelectableText.rich(
-          TextSpan(
-            children: [
-              for (var translation in (translations ?? []))
-                TextSpan(text: translation.text)
-            ],
+      TextTranslation textTranslation = translations.first;
+      return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onDoubleTap: () {
+          if (sharedConfig.doubleClickCopyResult) {
+            Clipboard.setData(ClipboardData(text: textTranslation.text));
+            BotToast.showText(
+              text: 'copied'.tr(),
+              align: Alignment.center,
+            );
+          }
+        },
+        child: Container(
+          constraints: const BoxConstraints(
+            minHeight: 40,
           ),
-          style: Theme.of(context).textTheme.bodyText2.copyWith(
-                height: 1.4,
-              ),
+          padding: const EdgeInsets.only(
+            left: 12,
+            right: 12,
+            top: 7,
+            bottom: 7,
+          ),
+          alignment: Alignment.centerLeft,
+          child: SelectableText.rich(
+            TextSpan(
+              children: [TextSpan(text: textTranslation.text)],
+            ),
+            style: Theme.of(context).textTheme.bodyText2.copyWith(
+                  height: 1.4,
+                ),
+          ),
         ),
       );
     }

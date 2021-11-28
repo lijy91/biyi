@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   hotkey_manager
-  launch_at_startup
   libwinmedia
   network_info_plus_windows
   screen_capturer

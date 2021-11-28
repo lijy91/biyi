@@ -7,7 +7,6 @@
 #include "generated_plugin_registrant.h"
 
 #include <hotkey_manager/hotkey_manager_plugin.h>
-#include <launch_at_startup/launch_at_startup_plugin.h>
 #include <libwinmedia/libwinmedia_plugin.h>
 #include <network_info_plus_windows/network_info_plus_windows_plugin.h>
 #include <screen_capturer/screen_capturer_plugin.h>
@@ -20,8 +19,6 @@
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   HotkeyManagerPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("HotkeyManagerPlugin"));
-  LaunchAtStartupPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("LaunchAtStartupPlugin"));
   LibwinmediaPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("LibwinmediaPlugin"));
   NetworkInfoPlusWindowsPluginRegisterWithRegistrar(

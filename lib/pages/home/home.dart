@@ -249,7 +249,7 @@ class _HomePageState extends State<HomePage>
       await windowManager.setPosition(_lastShownPosition);
     }
 
-    if (isShowBelowTray) {
+    if (kIsMacOS && isShowBelowTray) {
       Rect trayIconBounds = await trayManager.getBounds();
       Size trayIconSize = trayIconBounds.size;
       Offset trayIconnewPosition = trayIconBounds.topLeft;

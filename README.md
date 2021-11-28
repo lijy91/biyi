@@ -6,7 +6,7 @@
 
 > "Biyi" (比译) is the Chinese word for "Comparison + translation".
 
-[![Discord](https://img.shields.io/badge/discord-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/9CaArkhC)
+[![Discord](https://img.shields.io/badge/discord-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/yRF62CKza8)
 
 ---
 

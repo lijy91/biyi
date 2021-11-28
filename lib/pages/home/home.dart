@@ -914,7 +914,7 @@ class _HomePageState extends State<HomePage>
         await launch('${sharedEnv.webUrl}/sponsor');
         break;
       case kMenuSubItemKeyJoinDiscord:
-        await launch('https://discord.gg/zKN3Qjan');
+        await launch('https://discord.gg/yRF62CKza8');
         break;
       case kMenuSubItemKeyJoinQQGroup:
         await launch('https://jq.qq.com/?_wv=1027&k=vYQ5jW7y');

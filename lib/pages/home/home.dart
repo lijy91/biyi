@@ -58,6 +58,8 @@ class _HomePageState extends State<HomePage>
   String _trayIconStyle = sharedConfigManager.getConfig().trayIconStyle;
   String _appLanguage = sharedConfigManager.getConfig().appLanguage;
 
+  Offset _lastShownPosition;
+
   Version _latestVersion;
   bool _isAllowedScreenCaptureAccess = true;
   bool _isAllowedScreenSelectionAccess = true;
@@ -155,13 +157,13 @@ class _HomePageState extends State<HomePage>
 
         Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
         Size windowSize = await windowManager.getSize();
-        Offset newPosition = Offset(
+        _lastShownPosition = Offset(
           (primaryDisplay.size.width / primaryDisplay.scaleFactor) -
               windowSize.width -
               50,
           50,
         );
-        await windowManager.setPosition(newPosition);
+        await windowManager.setPosition(_lastShownPosition);
       }
       await windowManager.setSkipTaskbar(true);
       await Future.delayed(const Duration(milliseconds: 400));
@@ -240,22 +242,26 @@ class _HomePageState extends State<HomePage>
   Future<void> _windowShow({
     bool isShowBelowTray = false,
   }) async {
+    bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
     Size windowSize = await windowManager.getSize();
-    Offset newPosition;
+
+    if (kIsLinux) {
+      await windowManager.setPosition(_lastShownPosition);
+    }
+
     if (isShowBelowTray) {
       Rect trayIconBounds = await trayManager.getBounds();
       Size trayIconSize = trayIconBounds.size;
       Offset trayIconnewPosition = trayIconBounds.topLeft;
 
-      newPosition = Offset(
+      Offset newPosition = Offset(
         trayIconnewPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
         trayIconnewPosition.dy,
       );
-    }
 
-    bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    if (newPosition != null && !isAlwaysOnTop) {
-      await windowManager.setPosition(newPosition);
+      if (newPosition != null && !isAlwaysOnTop) {
+        await windowManager.setPosition(newPosition);
+      }
     }
 
     bool isVisible = await windowManager.isVisible();
@@ -941,5 +947,10 @@ class _HomePageState extends State<HomePage>
     if (!isAlwaysOnTop) {
       windowManager.hide();
     }
+  }
+
+  @override
+  void onWindowMove() async {
+    _lastShownPosition = await windowManager.getPosition();
   }
 }

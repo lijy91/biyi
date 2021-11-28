@@ -37,7 +37,7 @@ dependencies:
   easy_localization_loader: ^1.0.0
   flutter_spinkit: ^5.0.0
   flutter_svg: ^0.22.0
-  hotkey_manager: ^0.1.4
+  hotkey_manager: ^0.1.5
   launch_at_startup: ^0.1.0
   libwinmedia: ^0.0.5
   package_info_plus: ^1.0.4

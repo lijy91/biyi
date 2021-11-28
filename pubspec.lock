@@ -616,7 +616,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: c320cdeeba23c581e6e8fc41f9f03523644cff7f
+      resolved-ref: "58cb91a47dfd571c0ec33905acb7619354e8f0a4"
       url: "https://github.com/leanflutter/screen_text_extractor.git"
     source: git
     version: "0.1.0"

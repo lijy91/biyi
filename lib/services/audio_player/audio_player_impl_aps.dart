@@ -5,7 +5,7 @@ import 'package:audioplayers/audioplayers.dart' as aps;
 import 'audio_player.dart';
 
 class AudioPlayerImplAPS extends AudioPlayer {
-  aps.AudioPlayer _apsPlayer = aps.AudioPlayer();
+  final aps.AudioPlayer _apsPlayer = aps.AudioPlayer();
 
   Uri _audioUrl;
   Duration _currentPosition = Duration.zero;
@@ -21,73 +21,86 @@ class AudioPlayerImplAPS extends AudioPlayer {
         case aps.PlayerState.PAUSED:
           _state = AudioPlayerState.paused;
           break;
+        case aps.PlayerState.COMPLETED:
+          _state = AudioPlayerState.completed;
+          break;
         default:
       }
-      listeners.forEach((listener) {
+      for (var listener in listeners) {
         listener.onAudioPlayerStateChanged(this, _state);
-      });
+      }
     });
     _apsPlayer.onPlayerCompletion.listen((_) {
       _state = AudioPlayerState.completed;
-      listeners.forEach((listener) {
+      for (var listener in listeners) {
         listener.onAudioPlayerCompleted(this);
-      });
+      }
     });
     _apsPlayer.onAudioPositionChanged.listen((Duration position) {
       _currentPosition = position;
       _state = AudioPlayerState.playing;
-      listeners.forEach((listener) {
+      for (var listener in listeners) {
         listener.onAudioPlayerPositionChanged(this);
-      });
+      }
     });
     _apsPlayer.onDurationChanged.listen((Duration duration) {
       _duration = duration;
     });
   }
 
+  @override
   Uri getSource() {
     return _audioUrl;
   }
 
+  @override
   Future<void> setSource(Uri url) {
     _audioUrl = url;
     return Future.value();
   }
 
+  @override
   Future<void> prepare() {
     return Future.value();
   }
 
+  @override
   Future<void> start() {
     _apsPlayer.play(_audioUrl.toString());
     return Future.value();
   }
 
+  @override
   Future<void> stop() {
-    _apsPlayer.seek(Duration(milliseconds: 0));
+    _apsPlayer.seek(const Duration(milliseconds: 0));
     _apsPlayer.stop();
     return Future.value();
   }
 
+  @override
   Future<void> pause() {
     _apsPlayer.pause();
     return Future.value();
   }
 
+  @override
   Future<void> seekTo(Duration duration) {
     _apsPlayer.seek(duration);
     return Future.value();
   }
 
+  @override
   Future<void> release() {
     _apsPlayer.dispose();
     return Future.value();
   }
 
+  @override
   Duration getCurrentPosition() {
     return _currentPosition;
   }
 
+  @override
   Duration getDuration() {
     return _duration;
   }

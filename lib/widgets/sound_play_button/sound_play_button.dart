@@ -10,9 +10,7 @@ const _kIconSize = 18.0;
 class SoundPlayButton extends StatefulWidget {
   final String audioUrl;
 
-  const SoundPlayButton({
-    this.audioUrl,
-  });
+  const SoundPlayButton({Key key, this.audioUrl}) : super(key: key);
 
   @override
   _SoundPlayButtonState createState() => _SoundPlayButtonState();
@@ -40,7 +38,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
   void _startPlayingAnimTimer() {
     _stopPlayingAnimTimer();
     _playingAnimTimer = Timer.periodic(
-      new Duration(milliseconds: 300),
+      const Duration(milliseconds: 300),
       (Timer timer) {
         setState(() {
           _playingAnimImageIndex =
@@ -48,11 +46,9 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
         });
       },
     );
-    if (mounted) {
-      setState(() {
-        _playingAnimImageIndex = 2;
-      });
-    }
+    _playingAnimImageIndex = 2;
+
+    if (mounted) setState(() {});
   }
 
   void _stopPlayingAnimTimer() {
@@ -60,11 +56,9 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
       _playingAnimTimer.cancel();
     }
     _playingAnimTimer = null;
-    if (mounted) {
-      setState(() {
-        _playingAnimImageIndex = 0;
-      });
-    }
+    _playingAnimImageIndex = 0;
+
+    if (mounted) setState(() {});
   }
 
   void _handleClickPlay() {
@@ -81,7 +75,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 20,
       height: 20,
       child: CupertinoButton(

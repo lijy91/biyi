@@ -18,8 +18,8 @@ import 'package:window_manager/window_manager.dart';
 
 import '../../../includes.dart';
 
-export './limited_functionality_banner.dart';
-export './new_version_found_banner.dart';
+import './limited_functionality_banner.dart';
+import './new_version_found_banner.dart';
 import './toolbar_item_always_on_top.dart';
 import './toolbar_item_settings.dart';
 import './translation_input_view.dart';
@@ -101,24 +101,28 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    UriSchemeManager.instance.addListener(this);
-    ShortcutService.instance.setListener(this);
-    trayManager.addListener(this);
-    windowManager.addListener(this);
     sharedConfigManager.addListener(_configListen);
-    _init();
+    if (kIsLinux || kIsMacOS || kIsWindows) {
+      UriSchemeManager.instance.addListener(this);
+      ShortcutService.instance.setListener(this);
+      trayManager.addListener(this);
+      windowManager.addListener(this);
+      _init();
+    }
     _loadData();
     super.initState();
   }
 
   @override
   void dispose() {
-    UriSchemeManager.instance.removeListener(this);
-    ShortcutService.instance.setListener(null);
-    trayManager.removeListener(this);
-    windowManager.removeListener(this);
     sharedConfigManager.removeListener(_configListen);
-    _uninit();
+    if (kIsLinux || kIsMacOS || kIsWindows) {
+      UriSchemeManager.instance.removeListener(this);
+      ShortcutService.instance.setListener(null);
+      trayManager.removeListener(this);
+      windowManager.removeListener(this);
+      _uninit();
+    }
     super.dispose();
   }
 
@@ -167,7 +171,7 @@ class _HomePageState extends State<HomePage>
       }
       await windowManager.setSkipTaskbar(true);
       await Future.delayed(const Duration(milliseconds: 400));
-      _windowShow();
+      await _windowShow();
     });
 
     // 初始化托盘图标
@@ -185,7 +189,10 @@ class _HomePageState extends State<HomePage>
 
     await trayManager.destroy();
     if (_showTrayIcon) {
-      await trayManager.setIcon(R.image(trayIconName));
+      await trayManager.setIcon(
+        R.image(trayIconName),
+        isTemplate: kIsMacOS ? true : false,
+      );
       await Future.delayed(const Duration(milliseconds: 200));
       await trayManager.setContextMenu([
         MenuItem(
@@ -800,7 +807,7 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _buildBody(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -816,13 +823,12 @@ class _HomePageState extends State<HomePage>
   Widget _buildAppBar(BuildContext context) {
     return PreferredSize(
       child: Container(
-        padding: EdgeInsets.only(left: 8, right: 8, top: 0),
+        padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ToolbarItemAlwaysOnTop(),
             Expanded(child: Container()),
-            // ToolbarItemSponsor(),
             ToolbarItemSettings(
               onSettingsPageDismiss: () {
                 setState(() {});

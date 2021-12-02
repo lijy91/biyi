@@ -46,7 +46,7 @@ class _SettingInterfacePageState extends State<SettingInterfacePage> {
               ),
             ],
           ),
-          if (_showTrayIcon)
+          if (!kIsMacOS && _showTrayIcon)
             PreferenceListSection(
               title: Text(t('pref_section_title_tray_icon_style')),
               children: [

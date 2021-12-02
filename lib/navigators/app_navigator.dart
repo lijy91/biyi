@@ -25,7 +25,7 @@ class AppNavigator extends StatefulWidget {
 
 class _AppNavigatorState extends State<AppNavigator>
     with WidgetsBindingObserver {
-  GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   Config _config = sharedConfigManager.getConfig();
 
   @override
@@ -50,6 +50,7 @@ class _AppNavigatorState extends State<AppNavigator>
     setState(() {});
   }
 
+  @override
   void didChangePlatformBrightness() {
     setState(() {});
   }

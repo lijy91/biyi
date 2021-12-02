@@ -63,7 +63,7 @@ packages:
       name: audioplayers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.19.1"
+    version: "0.20.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -269,7 +269,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.0"
+    version: "0.23.0+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -363,7 +363,7 @@ packages:
       name: msix
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.6.3"
+    version: "2.6.5"
   network_info_plus:
     dependency: transitive
     description:
@@ -413,10 +413,10 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
-  ocr_engine_tesseract:
+  ocr_engine_builtin:
     dependency: transitive
     description:
-      path: "../uni_ocr/packages/ocr_engine_tesseract"
+      path: "../uni_ocr/packages/ocr_engine_builtin"
       relative: true
     source: path
     version: "0.0.1"
@@ -566,7 +566,7 @@ packages:
       name: photo_view
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0"
+    version: "0.13.0"
   platform:
     dependency: transitive
     description:
@@ -715,7 +715,7 @@ packages:
       name: sticky_headers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.8+1"
+    version: "0.2.0"
   stream_channel:
     dependency: transitive
     description:
@@ -806,7 +806,7 @@ packages:
       name: tray_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.2"
   typed_data:
     dependency: transitive
     description:
@@ -878,7 +878,21 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.15"
+    version: "6.0.17"
+  url_launcher_android:
+    dependency: transitive
+    description:
+      name: url_launcher_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.13"
+  url_launcher_ios:
+    dependency: transitive
+    description:
+      name: url_launcher_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.13"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -906,7 +920,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   url_launcher_windows:
     dependency: transitive
     description:
@@ -948,7 +962,7 @@ packages:
       name: window_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.1"
   xdg_directories:
     dependency: transitive
     description:

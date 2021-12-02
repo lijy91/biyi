@@ -46,7 +46,7 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [
+      supportedLocales: const [
         Locale(kLanguageEN),
         // Locale(kLanguageJA),
         // Locale(kLanguageKO),
@@ -55,8 +55,8 @@ void main() async {
       ],
       path: 'assets/translations',
       assetLoader: YamlAssetLoader(),
-      fallbackLocale: Locale(kLanguageEN),
-      child: AppNavigator(),
+      fallbackLocale: const Locale(kLanguageEN),
+      child: const AppNavigator(),
     ),
   );
 }

@@ -115,8 +115,8 @@ language:
   xh: Xhosa
   yi: Yiddish
   yo: Yoruba
-  zh: Chinese (Simplified)
-  zh-CN: Chinese (Simplified)
+  zh: Chinese
+  zh-CN: Chinese
   zh-TW: Chinese (Traditional)
   zu: Zulu
 engine:

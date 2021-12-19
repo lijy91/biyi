@@ -600,7 +600,6 @@ class _HomePageState extends State<HomePage>
       imagePath: imagePath,
     );
 
-    await Future.delayed(const Duration(milliseconds: 200));
     await _windowShow();
 
     if (_capturedData == null) {
@@ -614,6 +613,7 @@ class _HomePageState extends State<HomePage>
       try {
         _isTextDetecting = true;
         setState(() {});
+        await Future.delayed(const Duration(milliseconds: 60));
         DetectTextResponse detectTextResponse = await sharedOcrClient
             .use(sharedConfig.defaultOcrEngineId)
             .detectText(

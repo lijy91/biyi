@@ -5,6 +5,15 @@ import 'package:uni_ocr/uni_ocr.dart';
 import '../../includes.dart';
 import 'pro_ocr_engine.dart';
 
+final kDefaultBuiltInOcrEngine = BuiltInOcrEngine(
+  OcrEngineConfig(
+    identifier: 'cb838bdd-5dbd-4939-b7cb-a054b1ee1769',
+    type: kOcrEngineTypeBuiltIn,
+  ),
+);
+
+bool kDefaultBuiltInOcrEngineIsSupportedOnCurrentPlatform = false;
+
 const kSupportedOcrEngineTypes = [
   kOcrEngineTypeYoudao,
 ];
@@ -15,6 +24,9 @@ OcrEngine createOcrEngine(
   OcrEngine ocrEngine;
   if (sharedLocalDb.proOcrEngine(ocrEngineConfig.identifier).exists()) {
     ocrEngine = ProOcrEngine(ocrEngineConfig);
+    if (ocrEngineConfig.identifier == kDefaultBuiltInOcrEngine.identifier) {
+      ocrEngine = kDefaultBuiltInOcrEngine;
+    }
   } else {
     switch (ocrEngineConfig.type) {
       case kOcrEngineTypeYoudao:

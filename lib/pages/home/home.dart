@@ -26,7 +26,6 @@ import './translation_input_view.dart';
 import './translation_results_view.dart';
 import './translation_target_select_view.dart';
 
-const kMenuItemKeyWebSite = 'website';
 const kMenuItemKeyQuickStartGuide = 'quick-start-guide';
 const kMenuItemKeySponsor = 'sponsor';
 const kMenuItemKeyQuitApp = 'quit-app';
@@ -202,14 +201,9 @@ class _HomePageState extends State<HomePage>
         ),
         MenuItem.separator,
         MenuItem(
-          key: kMenuItemKeyWebSite,
-          title: 'tray_context_menu.item_website'.tr(),
-        ),
-        MenuItem(
           key: kMenuItemKeyQuickStartGuide,
           title: 'tray_context_menu.item_quick_start_guide'.tr(),
         ),
-        MenuItem.separator,
         MenuItem(
           key: kMenuItemKeySponsor,
           title: 'tray_context_menu.item_sponsor'.tr(),
@@ -916,9 +910,6 @@ class _HomePageState extends State<HomePage>
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
     switch (menuItem.key) {
-      case kMenuItemKeyWebSite:
-        await launch(sharedEnv.webUrl);
-        break;
       case kMenuItemKeyQuickStartGuide:
         await launch('${sharedEnv.webUrl}/docs');
         break;

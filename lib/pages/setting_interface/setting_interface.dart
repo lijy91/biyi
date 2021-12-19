@@ -9,7 +9,7 @@ class SettingInterfacePage extends StatefulWidget {
 }
 
 class _SettingInterfacePageState extends State<SettingInterfacePage> {
-  List<double> _maxWindowHeightOptions = [600, 700, 800, 900];
+  List<double> _maxWindowHeightOptions = [700, 800, 900, 1000];
 
   bool _showTrayIcon = false;
   String _trayIconStyle;

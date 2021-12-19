@@ -41,13 +41,18 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
   Future<void> _handleClickRegisterNewHotKey(
     BuildContext context, {
     String shortcutKey,
+    HotKeyScope shortcutScope = HotKeyScope.system,
   }) async {
     return showDialog<void>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext ctx) {
         return RecordHotKeyDialog(
           onHotKeyRecorded: (newHotKey) {
-            sharedConfigManager.setShortcut(shortcutKey, newHotKey);
+            sharedConfigManager.setShortcut(
+              shortcutKey,
+              newHotKey..scope = shortcutScope,
+            );
           },
         );
       },
@@ -81,6 +86,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
                   _handleClickRegisterNewHotKey(
                     context,
                     shortcutKey: kShortcutHide,
+                    shortcutScope: HotKeyScope.inapp,
                   );
                 },
               ),

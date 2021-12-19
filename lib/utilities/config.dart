@@ -169,7 +169,7 @@ class ConfigManager extends _ConfigChangeNotifier {
     );
     Config.instance.maxWindowHeight = double.parse(await _getString(
       kPrefMaxWindowHeight,
-      defaultValue: '600',
+      defaultValue: '800',
     ));
     Config.instance.appLanguage = await _getString(
       kPrefAppLanguage,
@@ -190,6 +190,7 @@ class ConfigManager extends _ConfigChangeNotifier {
         KeyCode.escape,
         modifiers: [],
         identifier: kShortcutHide,
+        scope: HotKeyScope.inapp,
       ),
     );
     Config.instance.shortcutShowOrHide = await getShortcut(

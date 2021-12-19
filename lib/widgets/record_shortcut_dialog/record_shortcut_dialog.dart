@@ -52,6 +52,12 @@ class _RecordHotKeyDialogState extends State<RecordHotKeyDialog> {
       ),
       actions: <Widget>[
         CustomDialogAction(
+          child: Text('cancel'.tr()),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        CustomDialogAction(
           child: Text('ok'.tr()),
           onPressed: !_hotKey.isSetted
               ? null

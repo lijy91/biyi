@@ -857,7 +857,7 @@ packages:
       path: "../uni_ocr/packages/uni_ocr_client"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.3"
   uni_translate:
     dependency: "direct main"
     description:

@@ -22,6 +22,13 @@
 
 Downloads are available on the [Releases](https://github.com/biyidev/biyi_app/releases/latest) page. Also check out the [website](https://biyidev.com/release-notes) for other installation methods.
 
+**To install with Homebrew, run:**
+
+```bash
+brew tap biyidev/biyi
+brew install biyi
+```
+
 ## Development
 
 We welcome you to join the development of `Biyi`.

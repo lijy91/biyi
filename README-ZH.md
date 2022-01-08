@@ -1,6 +1,6 @@
 # biyi_app
 
-[![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi_app/all.svg?style=flat-square)](https://github.com/biyidev/biyi_app/releases)
+[![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi_app/all.svg?style=flat-square)](https://github.com/biyidev/biyi_app/releases) [![GitHub (pre-)release](https://img.shields.io/badge/distribute%20with-flutter__distributor-green?style=flat-square)](https://github.com/leanflutter/flutter_distributor)
 
 **比译** 是一个用 Flutter 编写的便捷翻译和词典应用。[查看文档](https://biyidev.com/docs/)
 

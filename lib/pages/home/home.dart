@@ -156,8 +156,11 @@ class _HomePageState extends State<HomePage>
 
     windowManager.waitUntilReadyToShow().then((_) async {
       if (kIsLinux || kIsWindows) {
-        await WindowManager.instance.setAsFrameless();
-
+        if (kIsLinux) {
+          await windowManager.setAsFrameless();
+        } else {
+          await windowManager.setTitleBarStyle('hidden');
+        }
         Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
         Size windowSize = await windowManager.getSize();
         _lastShownPosition = Offset(
@@ -310,7 +313,7 @@ class _HomePageState extends State<HomePage>
             bannersViewHeight +
             inputViewHeight +
             resultsViewHeight +
-            ((kVirtualWindowFrameMargin * 2) + 2);
+            ((kVirtualWindowFrameMargin * 2) + 4);
         Size oldSize = await windowManager.getSize();
         Size newSize = Size(
           oldSize.width,

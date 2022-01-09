@@ -237,7 +237,7 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListItem(
                 title: Text(t('pref_item_title_about')),
                 onTap: () async {
-                  String url = 'https://github.com/biyidev/biyi_app';
+                  String url = 'https://github.com/biyidev/biyi';
                   if (await canLaunch(url)) {
                     await launch(url);
                   }

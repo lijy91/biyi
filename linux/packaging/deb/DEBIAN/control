@@ -2,7 +2,7 @@ Section: x11
 Priority: optional
 Maintainer: LiJianying <lijy91@foxmail.com>
 Version: 0.3.3
-Homepage: https://github.com/biyidev/biyi_app
+Homepage: https://github.com/biyidev/biyi
 Package: biyi
 Architecture: amd64
 Description: A convenient translation and dictionary app written in dart / Flutter.

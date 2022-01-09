@@ -1,5 +1,5 @@
-name: biyi_app
-description: A convenient translation and dictionary app written in dart / Flutter.
+name: biyi
+description: A convenient translation and dictionary app written in Flutter.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

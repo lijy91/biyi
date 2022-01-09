@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(biyi_app LANGUAGES CXX)
+project(biyi LANGUAGES CXX)
 
 set(BINARY_NAME "biyi")
 

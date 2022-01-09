@@ -1,6 +1,6 @@
-# biyi_app
+# biyi
 
-[![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi_app/all.svg?style=flat-square)](https://github.com/biyidev/biyi_app/releases) [![GitHub (pre-)release](https://img.shields.io/badge/distribute%20with-flutter__distributor-green?style=flat-square)](https://github.com/leanflutter/flutter_distributor)
+[![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi/all.svg?style=flat-square)](https://github.com/biyidev/biyi/releases) [![GitHub (pre-)release](https://img.shields.io/badge/distribute%20with-flutter__distributor-green?style=flat-square)](https://github.com/leanflutter/flutter_distributor)
 
 **比译** 是一个用 Flutter 编写的便捷翻译和词典应用。[查看文档](https://biyidev.com/docs/)
 
@@ -12,7 +12,7 @@
 
 ---
 
-![](https://biyidev.com/images/screenshots/biyi_app_extract_text_from_screen_selection.gif)
+![](https://biyidev.com/images/screenshots/biyi_extract_text_from_screen_selection.gif)
 
 ## 平台支持
 
@@ -22,7 +22,7 @@
 
 ## 安装
 
-下载可以在[发布版本](https://github.com/biyidev/biyi_app/releases/latest)页面上找到，也可以在[网站](https://biyidev.com/release-notes)上找到其他安装方法。
+下载可以在[发布版本](https://github.com/biyidev/biyi/releases/latest)页面上找到，也可以在[网站](https://biyidev.com/release-notes)上找到其他安装方法。
 
 **要用 Homebrew 安装，请运行：**
 
@@ -35,7 +35,7 @@ brew install biyi
 
 我们欢迎您加入比译的开发。
 
-> 在提出 Pull Request 之前，请务必阅读[贡献指南](https://github.com/biyidev/biyi_app/blob/main/.github/CONTRIBUTING.md)。
+> 在提出 Pull Request 之前，请务必阅读[贡献指南](https://github.com/biyidev/biyi/blob/main/.github/CONTRIBUTING.md)。
 
 ### ⚠️ Linux requirements
 
@@ -68,13 +68,13 @@ $ git clone https://github.com/biyidev/uni_translate.git
 3. 通过 git 克隆代码库：
 
 ```
-$ git clone https://github.com/biyidev/biyi_app.git
+$ git clone https://github.com/biyidev/biyi.git
 ```
 
-4. 切换到 `biyi_app` 目录
+4. 切换到 `biyi` 目录
 
 ```
-$ cd ~/biyidev/biyi_app
+$ cd ~/biyidev/biyi
 ```
 
 5. 安装依赖项
@@ -99,7 +99,7 @@ $ flutter run -d linux / macos / windows
 
 ## Related Links
 
-- https://github.com/biyidev/biyi_app
+- https://github.com/biyidev/biyi
 - https://github.com/biyidev/uni_ocr
 - https://github.com/biyidev/uni_translate
 - https://github.com/leanflutter/hotkey_manager

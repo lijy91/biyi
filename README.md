@@ -1,6 +1,6 @@
-# biyi_app
+# biyi
 
-[![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi_app/all.svg?style=flat-square)](https://github.com/biyidev/biyi_app/releases) [![GitHub (pre-)release](https://img.shields.io/badge/distribute%20with-flutter__distributor-green?style=flat-square)](https://github.com/leanflutter/flutter_distributor)
+[![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi/all.svg?style=flat-square)](https://github.com/biyidev/biyi/releases) [![GitHub (pre-)release](https://img.shields.io/badge/distribute%20with-flutter__distributor-green?style=flat-square)](https://github.com/leanflutter/flutter_distributor)
 
 **Biyi** is a convenient translation and dictionary app written in `Flutter`. [View document](https://biyidev.com/docs/)
 
@@ -12,7 +12,7 @@ English | [简体中文](./README-ZH.md)
 
 ---
 
-![](https://biyidev.com/images/screenshots/biyi_app_extract_text_from_screen_selection.gif)
+![](https://biyidev.com/images/screenshots/biyi_extract_text_from_screen_selection.gif)
 
 ## Platform Support
 
@@ -22,7 +22,7 @@ English | [简体中文](./README-ZH.md)
 
 ## Installation
 
-Downloads are available on the [Releases](https://github.com/biyidev/biyi_app/releases/latest) page. Also check out the [website](https://biyidev.com/release-notes) for other installation methods.
+Downloads are available on the [Releases](https://github.com/biyidev/biyi/releases/latest) page. Also check out the [website](https://biyidev.com/release-notes) for other installation methods.
 
 **To install with Homebrew, run:**
 
@@ -35,7 +35,7 @@ brew install biyi
 
 We welcome you to join the development of `Biyi`.
 
-> Please make sure to read the [Contributing Guide](https://github.com/biyidev/biyi_app/blob/main/.github/CONTRIBUTING.md) before making a pull request.
+> Please make sure to read the [Contributing Guide](https://github.com/biyidev/biyi/blob/main/.github/CONTRIBUTING.md) before making a pull request.
 
 ### ⚠️ Linux requirements
 
@@ -68,13 +68,13 @@ $ git clone https://github.com/biyidev/uni_translate.git
 3. Clone this repo via git:
 
 ```
-$ git clone https://github.com/biyidev/biyi_app.git
+$ git clone https://github.com/biyidev/biyi.git
 ```
 
-4. Change to `biyi_app` directory
+4. Change to `biyi` directory
 
 ```
-$ cd ~/biyidev/biyi_app
+$ cd ~/biyidev/biyi
 ```
 
 5. Install dependencies
@@ -99,7 +99,7 @@ $ flutter run -d linux / macos / windows
 
 ## Related Links
 
-- https://github.com/biyidev/biyi_app
+- https://github.com/biyidev/biyi
 - https://github.com/biyidev/uni_ocr
 - https://github.com/biyidev/uni_translate
 - https://github.com/leanflutter/hotkey_manager

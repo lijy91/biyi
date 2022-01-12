@@ -106,7 +106,6 @@ class Config {
   String defaultOcrEngineId;
   bool autoCopyDetectedText;
   bool showTrayIcon;
-  String trayIconStyle;
   double maxWindowHeight;
   String appLanguage;
   ThemeMode themeMode;
@@ -162,10 +161,6 @@ class ConfigManager extends _ConfigChangeNotifier {
     Config.instance.showTrayIcon = await _getBool(
       kPrefShowTrayIcon,
       defaultValue: true,
-    );
-    Config.instance.trayIconStyle = await _getString(
-      kPrefTrayIconStyle,
-      defaultValue: kIsWindows ? kTrayIconStyleBlack : kTrayIconStyleWhite,
     );
     Config.instance.maxWindowHeight = double.parse(await _getString(
       kPrefMaxWindowHeight,
@@ -249,10 +244,6 @@ class ConfigManager extends _ConfigChangeNotifier {
 
   Future<void> setShowTrayIcon(bool value) {
     return _setBool(kPrefShowTrayIcon, value);
-  }
-
-  Future<void> setTrayIconStyle(String value) {
-    return _setString(kPrefTrayIconStyle, value);
   }
 
   Future<void> setMaxWindowHeight(double value) {

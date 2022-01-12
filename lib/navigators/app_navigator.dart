@@ -23,14 +23,12 @@ class AppNavigator extends StatefulWidget {
   _AppNavigatorState createState() => _AppNavigatorState();
 }
 
-class _AppNavigatorState extends State<AppNavigator>
-    with WidgetsBindingObserver {
+class _AppNavigatorState extends State<AppNavigator> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   Config _config = sharedConfigManager.getConfig();
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     sharedConfigManager.addListener(_configListen);
     if (widget.home == null) {
       R.setNavigatorKey(_navigatorKey);
@@ -40,18 +38,12 @@ class _AppNavigatorState extends State<AppNavigator>
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     sharedConfigManager.removeListener(_configListen);
     super.dispose();
   }
 
   void _configListen() {
     _config = sharedConfigManager.getConfig();
-    setState(() {});
-  }
-
-  @override
-  void didChangePlatformBrightness() {
     setState(() {});
   }
 

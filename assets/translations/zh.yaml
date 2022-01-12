@@ -207,8 +207,6 @@ page_setting_interface:
   pref_section_title_tray_icon_style: 托盘图标样式
   pref_section_title_max_window_height: 最大窗口高度（逻辑像素）
   pref_item_title_show_tray_icon: 显示托盘图标
-  pref_item_title_tray_icon_style_white: 白色
-  pref_item_title_tray_icon_style_black: 黑色
 page_setting_shortcuts:
   title: 快捷键
   pref_section_title_extract_text: 屏幕/剪切板取词

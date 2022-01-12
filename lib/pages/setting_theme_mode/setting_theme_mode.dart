@@ -49,15 +49,14 @@ class _SettingThemeModePageState extends State<SettingThemeModePage> {
                   'theme_mode.${describeEnum(ThemeMode.dark)}'.tr(),
                 ),
               ),
-              if (!kIsWindows)
-                PreferenceListRadioItem(
-                  value: ThemeMode.system,
-                  groupValue: _themeMode,
-                  onChanged: _handleChanged,
-                  title: Text(
-                    'theme_mode.${describeEnum(ThemeMode.system)}'.tr(),
-                  ),
+              PreferenceListRadioItem(
+                value: ThemeMode.system,
+                groupValue: _themeMode,
+                onChanged: _handleChanged,
+                title: Text(
+                  'theme_mode.${describeEnum(ThemeMode.system)}'.tr(),
                 ),
+              ),
             ],
           ),
         ],

@@ -42,7 +42,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with TrayListener, WindowListener, ShortcutListener, UriSchemeListener {
+    with
+        WidgetsBindingObserver,
+        TrayListener,
+        WindowListener,
+        ShortcutListener,
+        UriSchemeListener {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -51,10 +56,10 @@ class _HomePageState extends State<HomePage>
   final GlobalKey _inputViewKey = GlobalKey();
   final GlobalKey _resultsViewKey = GlobalKey();
 
+  Brightness _brightness;
   Config _config = sharedConfigManager.getConfig();
 
   bool _showTrayIcon = sharedConfigManager.getConfig().showTrayIcon;
-  String _trayIconStyle = sharedConfigManager.getConfig().trayIconStyle;
   String _appLanguage = sharedConfigManager.getConfig().appLanguage;
 
   Offset _lastShownPosition;
@@ -100,6 +105,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     sharedConfigManager.addListener(_configListen);
     if (kIsLinux || kIsMacOS || kIsWindows) {
       UriSchemeManager.instance.addListener(this);
@@ -114,6 +120,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     sharedConfigManager.removeListener(_configListen);
     if (kIsLinux || kIsMacOS || kIsWindows) {
       UriSchemeManager.instance.removeListener(this);
@@ -125,19 +132,30 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
+  @override
+  void didChangePlatformBrightness() {
+    Brightness newBrightness =
+        WidgetsBinding.instance.window.platformBrightness;
+
+    if (newBrightness != _brightness) {
+      _brightness = newBrightness;
+      if (kIsWindows && _config.showTrayIcon) {
+        _initTrayIcon();
+      }
+      setState(() {});
+    }
+  }
+
   void _configListen() {
     Config newConfig = sharedConfigManager.getConfig();
     bool showTrayIcon = newConfig.showTrayIcon;
-    String trayIconStyle = newConfig.trayIconStyle;
     String appLanguage = newConfig.appLanguage;
 
-    bool trayIconUpdated = _showTrayIcon != showTrayIcon ||
-        _trayIconStyle != trayIconStyle ||
-        _appLanguage != appLanguage;
+    bool trayIconUpdated =
+        _showTrayIcon != showTrayIcon || _appLanguage != appLanguage;
 
     _config = newConfig;
     _showTrayIcon = showTrayIcon;
-    _trayIconStyle = trayIconStyle;
     _appLanguage = appLanguage;
 
     if (trayIconUpdated) _initTrayIcon();
@@ -183,10 +201,10 @@ class _HomePageState extends State<HomePage>
   Future<void> _initTrayIcon() async {
     if (kIsWeb) return;
 
-    String trayIconName = kIsWindows ? 'tray_icon.ico' : 'tray_icon.png';
-
-    if (_trayIconStyle == kTrayIconStyleBlack) {
-      trayIconName = kIsWindows ? 'tray_icon_black.ico' : 'tray_icon_black.png';
+    String trayIconName =
+        kIsWindows ? 'tray_icon_black.ico' : 'tray_icon_black.png';
+    if (_brightness == Brightness.dark) {
+      trayIconName = kIsWindows ? 'tray_icon.ico' : 'tray_icon.png';
     }
 
     await trayManager.destroy();

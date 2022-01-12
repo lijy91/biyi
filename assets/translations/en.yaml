@@ -207,8 +207,6 @@ page_setting_interface:
   pref_section_title_tray_icon_style: Tray Icon Style
   pref_section_title_max_window_height: Maximum window height (logical pixels)
   pref_item_title_show_tray_icon: Show Tray Icon
-  pref_item_title_tray_icon_style_white: White
-  pref_item_title_tray_icon_style_black: Black
 page_setting_shortcuts:
   title: Shortcuts
   pref_section_title_extract_text: Screen / Clipboard extract text

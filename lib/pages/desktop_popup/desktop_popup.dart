@@ -34,14 +34,14 @@ const kMenuSubItemKeyJoinDiscord = 'subitem-join-discord';
 const kMenuSubItemKeyJoinQQGroup = 'subitem-join-qq';
 const kMenuSubItemKeyJoinWeChatGroup = 'subitem-join-wechat';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+class DesktopPopupPage extends StatefulWidget {
+  const DesktopPopupPage({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  State<StatefulWidget> createState() => _DesktopPopupPageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _DesktopPopupPageState extends State<DesktopPopupPage>
     with
         WidgetsBindingObserver,
         TrayListener,

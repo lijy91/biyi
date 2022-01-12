@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -93,4 +91,11 @@ class _VirtualWindowFrameState extends State<VirtualWindowFrame>
       _focused = false;
     });
   }
+}
+
+// ignore: non_constant_identifier_names
+TransitionBuilder VirtualWindowFrameInit() {
+  return (_, Widget child) {
+    return VirtualWindowFrame(child: child);
+  };
 }

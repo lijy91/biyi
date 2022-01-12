@@ -249,7 +249,7 @@ class TranslationResultRecordView extends StatelessWidget {
           // 图片
           if ((images ?? []).isNotEmpty)
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               width: double.infinity,
               height: kWordImageSize,
               child: ListView(

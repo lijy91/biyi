@@ -1,5 +1,5 @@
 // 请按文件名排序放置
-export './home/home.dart';
+export './desktop_popup/desktop_popup.dart';
 export './image_viewer/image_viewer.dart';
 export './language_chooser/language_chooser.dart';
 export './ocr_engine_type_chooser/ocr_engine_type_chooser.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -18,7 +17,7 @@ class ToolbarItemSettings extends StatefulWidget {
 
 class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
   void _handleDismiss() async {
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 100));
     widget.onSettingsPageDismiss();
   }
 
@@ -39,14 +38,14 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
           Future<void> future = showModalBottomSheet(
             context: context,
             isScrollControlled: true,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 top: Radius.circular(8),
               ),
             ),
             clipBehavior: Clip.antiAliasWithSaveLayer,
             builder: (ctx) {
-              return Container(
+              return SizedBox(
                 height: 600,
                 child: AppNavigator(
                   home: SettingsPage(
@@ -62,7 +61,7 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
           future.whenComplete(() => _handleDismiss());
 
           if (kIsLinux || kIsMacOS || kIsWindows) {
-            await Future.delayed(Duration(milliseconds: 120));
+            await Future.delayed(const Duration(milliseconds: 120));
             Size size = await windowManager.getSize();
             await windowManager.setSize(Size(size.width, 680.0));
           }

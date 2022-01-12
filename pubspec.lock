@@ -750,56 +750,56 @@ packages:
       path: "../uni_translate/packages/translation_engine_baidu"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   translation_engine_caiyun:
     dependency: transitive
     description:
       path: "../uni_translate/packages/translation_engine_caiyun"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   translation_engine_deepl:
     dependency: transitive
     description:
       path: "../uni_translate/packages/translation_engine_deepl"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   translation_engine_google:
     dependency: transitive
     description:
       path: "../uni_translate/packages/translation_engine_google"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   translation_engine_iciba:
     dependency: transitive
     description:
       path: "../uni_translate/packages/translation_engine_iciba"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   translation_engine_sogou:
     dependency: transitive
     description:
       path: "../uni_translate/packages/translation_engine_sogou"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   translation_engine_tencent:
     dependency: transitive
     description:
       path: "../uni_translate/packages/translation_engine_tencent"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   translation_engine_youdao:
     dependency: transitive
     description:
       path: "../uni_translate/packages/translation_engine_youdao"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   tray_manager:
     dependency: "direct main"
     description:
@@ -864,14 +864,14 @@ packages:
       path: "../uni_translate/packages/uni_translate"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   uni_translate_client:
     dependency: "direct main"
     description:
       path: "../uni_translate/packages/uni_translate_client"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   url_launcher:
     dependency: "direct main"
     description:

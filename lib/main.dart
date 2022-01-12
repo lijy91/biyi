@@ -33,7 +33,7 @@ void main() async {
 
   await ProAccount.instance.ensureInitialized();
 
-  await initEnv('dev');
+  await initEnv();
   await initLocalDb();
   await initConfig();
 

@@ -20,4 +20,3 @@ final sharedConfigManager = ConfigManager.instance;
 
 final ScreenRetriever screenRetriever = ScreenRetriever.instance;
 final ScreenTextExtractor screenTextExtractor = ScreenTextExtractor.instance;
-final TrayManager trayManager = TrayManager.instance;

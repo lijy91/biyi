@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -89,7 +90,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
                 width: _kIconSize,
                 height: _kIconSize,
                 child: Icon(
-                  IcoMoonIcons.volume_up,
+                  FluentIcons.speaker_2_20_regular,
                   size: _kIconSize,
                   color: Theme.of(context).textTheme.caption.color,
                 ),
@@ -98,7 +99,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
                 width: _kIconSize,
                 height: _kIconSize,
                 child: Icon(
-                  IcoMoonIcons.volume_down,
+                  FluentIcons.speaker_1_20_regular,
                   size: _kIconSize,
                   color: Theme.of(context).textTheme.caption.color,
                 ),
@@ -107,7 +108,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
                 width: _kIconSize,
                 height: _kIconSize,
                 child: Icon(
-                  IcoMoonIcons.volume_off,
+                  FluentIcons.speaker_0_20_regular,
                   size: _kIconSize,
                   color: Theme.of(context).textTheme.caption.color,
                 ),

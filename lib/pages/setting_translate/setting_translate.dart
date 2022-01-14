@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../includes.dart';
@@ -114,8 +114,8 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                               Container(
                                 padding: EdgeInsets.only(left: 8, right: 8),
                                 child: Icon(
-                                  IcoMoonIcons.arrow_right,
-                                  size: 17,
+                                  FluentIcons.arrow_right_20_regular,
+                                  size: 16,
                                   color: Theme.of(context).iconTheme.color,
                                 ),
                               ),

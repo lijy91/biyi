@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:screen_capturer/screen_capturer.dart';
@@ -165,7 +165,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                     child: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: Icon(
-                        CupertinoIcons.question_circle,
+                        FluentIcons.question_circle_20_regular,
                         color: Colors.white,
                         size: 18,
                       ),

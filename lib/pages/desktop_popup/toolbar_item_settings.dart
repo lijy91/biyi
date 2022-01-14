@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -30,8 +31,8 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
         padding: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
         child: Icon(
-          IcoMoonIcons.gear_fill,
-          size: 16,
+          FluentIcons.settings_20_regular,
+          size: 20,
           color: Theme.of(context).iconTheme.color,
         ),
         onPressed: () async {

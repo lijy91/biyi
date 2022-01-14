@@ -3,7 +3,6 @@ export './custom_alert_dialog/custom_alert_dialog.dart';
 export './custom_app_bar/custom_app_bar.dart';
 export './custom_button/custom_button.dart';
 export './custom_image/custom_image.dart';
-export './icomoon_icons/icomoon_icons.dart';
 export './language_label/language_label.dart';
 export './language_flag_view/language_flag_view.dart';
 export './local_db_builder/local_db_builder.dart';

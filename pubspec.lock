@@ -239,6 +239,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  fluentui_system_icons:
+    dependency: "direct main"
+    description:
+      name: fluentui_system_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.153"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -614,11 +621,9 @@ packages:
   screen_text_extractor:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "58cb91a47dfd571c0ec33905acb7619354e8f0a4"
-      url: "https://github.com/leanflutter/screen_text_extractor.git"
-    source: git
+      name: screen_text_extractor
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.1.0"
   shared_preferences:
     dependency: transitive

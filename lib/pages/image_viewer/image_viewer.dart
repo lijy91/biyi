@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -111,7 +112,7 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
                     child: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: Icon(
-                        IcoMoonIcons.x,
+                        FluentIcons.dismiss_20_regular,
                         size: 30,
                         color: Colors.white,
                       ),

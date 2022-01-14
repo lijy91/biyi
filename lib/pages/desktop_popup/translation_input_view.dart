@@ -1,10 +1,10 @@
 import 'dart:ui';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:screen_capturer/screen_capturer.dart';
-import 'package:screen_text_extractor/screen_text_extractor.dart';
 
 import '../../../includes.dart';
 
@@ -61,8 +61,8 @@ class TranslationInputView extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Icon(
-                      IcoMoonIcons.bullseye,
-                      size: 16,
+                      FluentIcons.target_20_regular,
+                      size: 22,
                       color: this.translationMode == kTranslationModeAuto
                           ? Theme.of(context).primaryColor
                           : Theme.of(context).iconTheme.color,
@@ -114,7 +114,7 @@ class TranslationInputView extends StatelessWidget {
                   );
                 }
                 sharedLocalDb.write();
-                this.onTranslationModeChanged(newTranslationMode);
+                onTranslationModeChanged(newTranslationMode);
               },
             ),
           ),
@@ -133,8 +133,8 @@ class TranslationInputView extends StatelessWidget {
             child: CustomButton(
               padding: EdgeInsets.zero,
               child: Icon(
-                IcoMoonIcons.crop,
-                size: 17,
+                FluentIcons.crop_20_regular,
+                size: 22,
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: onClickExtractTextFromScreenCapture,
@@ -149,8 +149,8 @@ class TranslationInputView extends StatelessWidget {
             child: CustomButton(
               padding: EdgeInsets.zero,
               child: Icon(
-                IcoMoonIcons.clipboard,
-                size: 16,
+                FluentIcons.clipboard_text_ltr_20_regular,
+                size: 20,
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: onClickExtractTextFromClipboard,

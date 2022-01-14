@@ -1,7 +1,6 @@
-import 'dart:ui';
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../includes.dart';
@@ -168,7 +167,7 @@ class _TranslationTargetSelectViewState
                           ),
                           child: Container(
                             child: Icon(
-                              IcoMoonIcons.chevron_down,
+                              FluentIcons.chevron_down_20_regular,
                               size: 14,
                               color: widget.isShowSourceLanguageSelector
                                   ? Theme.of(context).primaryColor
@@ -196,8 +195,8 @@ class _TranslationTargetSelectViewState
                           _isRotated ? math.pi / 1 : 0,
                         ),
                         child: Icon(
-                          IcoMoonIcons.arrow_left_right,
-                          size: 17,
+                          FluentIcons.arrow_swap_20_regular,
+                          size: 20,
                           color: Theme.of(context).iconTheme.color,
                         ),
                       ),
@@ -240,7 +239,7 @@ class _TranslationTargetSelectViewState
                           ),
                           child: Container(
                             child: Icon(
-                              IcoMoonIcons.chevron_down,
+                              FluentIcons.chevron_down_20_regular,
                               size: 14,
                               color: widget.isShowTargetLanguageSelector
                                   ? Theme.of(context).primaryColor

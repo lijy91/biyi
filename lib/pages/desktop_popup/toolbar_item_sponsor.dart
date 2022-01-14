@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,8 +25,8 @@ class _ToolbarItemSponsorState extends State<ToolbarItemSponsor> {
         child: Row(
           children: [
             Icon(
-              IcoMoonIcons.heart,
-              size: 14,
+              FluentIcons.heart_20_regular,
+              size: 16,
               color: Colors.red,
             ),
             SizedBox(width: 4),

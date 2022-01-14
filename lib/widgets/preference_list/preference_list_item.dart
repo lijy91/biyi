@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,7 @@ class PreferenceListItem extends StatelessWidget {
       return Padding(
         padding: EdgeInsets.only(left: 4),
         child: Icon(
-          CupertinoIcons.chevron_forward,
+          FluentIcons.chevron_right_20_regular,
           size: 14,
           color: Theme.of(context).textTheme.caption.color,
         ),
@@ -156,7 +157,7 @@ class PreferenceListRadioItem<T> extends PreferenceListItem {
     if (value != null && value == groupValue) {
       return Container(
         child: Icon(
-          CupertinoIcons.checkmark_alt_circle_fill,
+          FluentIcons.checkmark_circle_20_filled,
           size: 22,
           color: Theme.of(context).primaryColor,
         ),

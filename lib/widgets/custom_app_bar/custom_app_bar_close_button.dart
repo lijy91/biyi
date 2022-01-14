@@ -1,7 +1,6 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../includes.dart';
 
 class CustomAppBarCloseButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -16,7 +15,7 @@ class CustomAppBarCloseButton extends StatelessWidget {
     return CupertinoButton(
       padding: EdgeInsets.only(right: 12),
       child: Icon(
-        IcoMoonIcons.x,
+        FluentIcons.dismiss_20_regular,
         color: Theme.of(context).appBarTheme.iconTheme.color,
         size: 26,
       ),

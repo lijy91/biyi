@@ -1,11 +1,14 @@
 import 'dart:math' as math;
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../../includes.dart';
 
 class ToolbarItemAlwaysOnTop extends StatefulWidget {
+  const ToolbarItemAlwaysOnTop({Key key}) : super(key: key);
+
   @override
   _ToolbarItemAlwaysOnTopState createState() => _ToolbarItemAlwaysOnTopState();
 }
@@ -32,15 +35,17 @@ class _ToolbarItemAlwaysOnTopState extends State<ToolbarItemAlwaysOnTop> {
       child: CustomButton(
         padding: EdgeInsets.zero,
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           curve: Curves.fastOutSlowIn,
           transformAlignment: Alignment.center,
           transform: Matrix4.rotationZ(
-            _isAlwaysOnTop ? math.pi / 6 : 0,
+            _isAlwaysOnTop ? 0 : -0.8,
           ),
           child: Icon(
-            _isAlwaysOnTop ? IcoMoonIcons.pin_fill : IcoMoonIcons.pin,
-            size: 17,
+            _isAlwaysOnTop
+                ? FluentIcons.pin_20_filled
+                : FluentIcons.pin_20_regular,
+            size: 20,
             color: _isAlwaysOnTop
                 ? Theme.of(context).primaryColor
                 : Theme.of(context).iconTheme.color,

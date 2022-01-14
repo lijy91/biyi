@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../includes.dart';
@@ -47,7 +46,9 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
 
   Widget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      title: widget.translationTarget != null ? Text(t('title_with_edit')) : Text(t('title')),
+      title: widget.translationTarget != null
+          ? Text(t('title_with_edit'))
+          : Text(t('title')),
       actions: [
         CustomAppBarActionItem(
           text: 'ok'.tr(),

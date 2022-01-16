@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../includes.dart';
 
@@ -261,8 +262,9 @@ class TranslationResultRecordView extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          FadeInPageRoute(
-                            builder: (context) => ImageViewerPage(
+                          PageTransition(
+                            type: PageTransitionType.fade,
+                            child: ImageViewerPage(
                               images.map((e) => e.url).toList(),
                               initialIndex: i,
                             ),

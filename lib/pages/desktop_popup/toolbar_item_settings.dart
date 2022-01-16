@@ -46,15 +46,12 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
             ),
             clipBehavior: Clip.antiAliasWithSaveLayer,
             builder: (ctx) {
-              return SizedBox(
-                height: 600,
-                child: AppNavigator(
-                  home: SettingsPage(
-                    onDismiss: () {
-                      Navigator.of(ctx).pop();
-                      _handleDismiss();
-                    },
-                  ),
+              return ModalBottomSheetWrapped(
+                child: SettingsPage(
+                  onDismiss: () {
+                    Navigator.of(ctx).pop();
+                    _handleDismiss();
+                  },
                 ),
               );
             },

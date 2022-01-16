@@ -48,10 +48,10 @@ class PreferenceListItem extends StatelessWidget {
       return accessoryView;
     } else {
       return Padding(
-        padding: EdgeInsets.only(left: 4),
+        padding: const EdgeInsets.only(left: 4),
         child: Icon(
           FluentIcons.chevron_right_20_regular,
-          size: 14,
+          size: 18,
           color: Theme.of(context).textTheme.caption.color,
         ),
       );

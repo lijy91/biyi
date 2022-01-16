@@ -13,13 +13,13 @@ const _kSuccessColor = _kGreenColor;
 const _kErrorColor = _kRedColor;
 const _kWarningColor = _kGoldColor;
 
-final kTextColor = Color(0xff070708);
-final kTextColorSecondary = Color(0xff4b4d52);
+const kTextColor = Color(0xff070708);
+const kTextColorSecondary = Color(0xff4b4d52);
 const kTextColorWarning = _kGoldColor;
 const kTextColorDanger = _kRedColor;
 const kTextColorInverse = Colors.white;
 
-const _kScaffoldBackgroundColor = const Color(0xffF6F8FA);
+const _kScaffoldBackgroundColor = Color(0xfff2f3f5);
 const _kCanvasColor = Colors.white;
 
 var lightThemeData = ThemeData(

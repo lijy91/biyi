@@ -6,6 +6,7 @@ export './custom_image/custom_image.dart';
 export './language_label/language_label.dart';
 export './language_flag_view/language_flag_view.dart';
 export './local_db_builder/local_db_builder.dart';
+export './modal_bottom_sheet_wrapped/modal_bottom_sheet_wrapped.dart';
 export './ocr_engine_icon/ocr_engine_icon.dart';
 export './preference_list/preference_list.dart';
 export './record_shortcut_dialog/record_shortcut_dialog.dart';

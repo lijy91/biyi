@@ -26,9 +26,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  anyinspect: ^0.1.1
-  anyinspect_plugin_network: ^0.1.0
-  anyinspect_plugin_shared_preferences: ^0.1.0
   audioplayers: ^0.20.1
   bot_toast: ^4.0.1
   device_info_plus: ^3.1.1
@@ -42,6 +39,7 @@ dependencies:
   launch_at_startup: ^0.1.1
   libwinmedia: ^0.0.7
   package_info_plus: ^1.3.0
+  page_transition: ^2.0.4
   photo_view: ^0.13.0
   pro_account:
     git:

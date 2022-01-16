@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../includes.dart';
 
-const _kIconSize = 18.0;
+const _kIconSize = 16.0;
 
 class SoundPlayButton extends StatefulWidget {
   final String audioUrl;
@@ -41,14 +41,15 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
     _playingAnimTimer = Timer.periodic(
       const Duration(milliseconds: 300),
       (Timer timer) {
-        setState(() {
-          _playingAnimImageIndex =
-              _playingAnimImageIndex + 1 > 2 ? 0 : _playingAnimImageIndex + 1;
-        });
+        int nextIndex = _playingAnimImageIndex - 1;
+        if (nextIndex < 0) {
+          nextIndex = 2;
+        }
+        _playingAnimImageIndex = nextIndex;
+        setState(() {});
       },
     );
     _playingAnimImageIndex = 2;
-
     if (mounted) setState(() {});
   }
 

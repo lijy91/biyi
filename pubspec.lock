@@ -286,7 +286,7 @@ packages:
       name: launch_at_startup
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.6"
+    version: "0.1.7"
   libwinmedia:
     dependency: "direct main"
     description:
@@ -386,11 +386,13 @@ packages:
     source: hosted
     version: "1.0.4"
   package_info_plus_windows:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: package_info_plus_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/package_info_plus/package_info_plus_windows"
+      ref: main
+      resolved-ref: a4a521829dabde15225dab42368aa5b1d2d57e3b
+      url: "https://github.com/fluttercommunity/plus_plugins.git"
+    source: git
     version: "1.0.4"
   page_transition:
     dependency: "direct main"

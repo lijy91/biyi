@@ -868,8 +868,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     Uri uri = Uri.parse(url);
     if (uri.scheme != 'biyiapp') return;
 
-    await _windowShow();
-    await Future.delayed(const Duration(milliseconds: 200));
     if (uri.authority == 'translate') {
       if (_text.isNotEmpty) _handleButtonTappedClear();
       String text = uri.queryParameters['text'];
@@ -877,6 +875,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         _handleTextChanged(text, isRequery: true);
       }
     }
+    await _windowShow();
   }
 
   @override

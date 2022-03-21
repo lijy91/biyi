@@ -5,6 +5,7 @@ import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:protocol_handler/protocol_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
 import './includes.dart';
@@ -14,7 +15,7 @@ Future<void> _ensureInitialized() async {
   await EasyLocalization.ensureInitialized();
   await AudioPlayer.ensureInitialized();
   if (kIsLinux || kIsMacOS || kIsWindows) {
-    await WindowManager.instance.ensureInitialized();
+    await windowManager.ensureInitialized();
   }
 
   if (kIsMacOS || kIsWindows) {
@@ -23,6 +24,7 @@ Future<void> _ensureInitialized() async {
       appName: packageInfo.appName,
       appPath: Platform.resolvedExecutable,
     );
+    await protocolHandler.register('biyiapp');
   }
 
   await ProAccount.instance.ensureInitialized();

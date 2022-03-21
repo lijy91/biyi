@@ -14,4 +14,3 @@ export './sound_play_button/sound_play_button.dart';
 export './translation_engine_icon/translation_engine_icon.dart';
 export './translation_result_record_view/translation_result_record_view.dart';
 export './translation_result_view/translation_result_view.dart';
-export './virtual_window_frame/virtual_window_frame.dart';

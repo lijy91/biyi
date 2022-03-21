@@ -14,6 +14,8 @@ PODS:
     - FlutterMacOS
   - path_provider_macos (0.0.1):
     - FlutterMacOS
+  - protocol_handler (0.0.1):
+    - FlutterMacOS
   - screen_capturer (0.1.0):
     - FlutterMacOS
   - screen_retriever (0.0.1):
@@ -24,11 +26,9 @@ PODS:
     - FlutterMacOS
   - tray_manager (0.0.1):
     - FlutterMacOS
-  - uni_links_macos (0.0.1):
-    - FlutterMacOS
   - url_launcher_macos (0.0.1):
     - FlutterMacOS
-  - window_manager (0.1.2):
+  - window_manager (0.2.0):
     - FlutterMacOS
 
 DEPENDENCIES:
@@ -39,12 +39,12 @@ DEPENDENCIES:
   - ocr_engine_builtin (from `Flutter/ephemeral/.symlinks/plugins/ocr_engine_builtin/macos`)
   - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
+  - protocol_handler (from `Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos`)
   - screen_capturer (from `Flutter/ephemeral/.symlinks/plugins/screen_capturer/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
   - screen_text_extractor (from `Flutter/ephemeral/.symlinks/plugins/screen_text_extractor/macos`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
-  - uni_links_macos (from `Flutter/ephemeral/.symlinks/plugins/uni_links_macos/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
 
@@ -67,6 +67,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos
   path_provider_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
+  protocol_handler:
+    :path: Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos
   screen_capturer:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_capturer/macos
   screen_retriever:
@@ -77,8 +79,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos
   tray_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/tray_manager/macos
-  uni_links_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/uni_links_macos/macos
   url_launcher_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
   window_manager:
@@ -93,14 +93,14 @@ SPEC CHECKSUMS:
   ocr_engine_builtin: 99c65f8f4a156830ceaf0da86940610fefe50f50
   package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
+  protocol_handler: 587e1caf6c0b92ce351ab14081968dae49cb8cc6
   screen_capturer: 696de78ce7beff63eecf8aa709f839985a7836d7
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   screen_text_extractor: 2c310f54af1dee881522e2b76bec9a668ebfe0cf
-  shared_preferences_macos: 480ce071d0666e37cef23fe6c702293a3d21799e
+  shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
-  uni_links_macos: 5ff105932e9f8e12b9f24fd5656188ca9184cc5b
-  url_launcher_macos: 45af3d61de06997666568a7149c1be98b41c95d4
-  window_manager: 8c227608c115dbd132510c023d3644274aaec8a8
+  url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
+  window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
 
 PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
 

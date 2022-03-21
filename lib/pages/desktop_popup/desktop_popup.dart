@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:protocol_handler/protocol_handler.dart';
 import 'package:screen_capturer/screen_capturer.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
@@ -41,10 +42,10 @@ class DesktopPopupPage extends StatefulWidget {
 class _DesktopPopupPageState extends State<DesktopPopupPage>
     with
         WidgetsBindingObserver,
-        TrayListener,
-        WindowListener,
+        ProtocolListener,
         ShortcutListener,
-        UriSchemeListener {
+        TrayListener,
+        WindowListener {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -105,7 +106,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     WidgetsBinding.instance.addObserver(this);
     sharedConfigManager.addListener(_configListen);
     if (kIsLinux || kIsMacOS || kIsWindows) {
-      UriSchemeManager.instance.addListener(this);
+      protocolHandler.addListener(this);
       ShortcutService.instance.setListener(this);
       trayManager.addListener(this);
       windowManager.addListener(this);
@@ -120,7 +121,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     WidgetsBinding.instance.removeObserver(this);
     sharedConfigManager.removeListener(_configListen);
     if (kIsLinux || kIsMacOS || kIsWindows) {
-      UriSchemeManager.instance.removeListener(this);
+      protocolHandler.removeListener(this);
       ShortcutService.instance.setListener(null);
       trayManager.removeListener(this);
       windowManager.removeListener(this);
@@ -863,6 +864,22 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   }
 
   @override
+  void onProtocolUrlReceived(String url) async {
+    Uri uri = Uri.parse(url);
+    if (uri.scheme != 'biyiapp') return;
+
+    await _windowShow();
+    await Future.delayed(const Duration(milliseconds: 200));
+    if (uri.authority == 'translate') {
+      if (_text.isNotEmpty) _handleButtonTappedClear();
+      String text = uri.queryParameters['text'];
+      if (text != null && text.isNotEmpty) {
+        _handleTextChanged(text, isRequery: true);
+      }
+    }
+  }
+
+  @override
   void onShortcutKeyDownShowOrHide() async {
     bool isVisible = await windowManager.isVisible();
     if (isVisible) {
@@ -898,21 +915,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
       return;
     }
     _handleButtonTappedTrans();
-  }
-
-  @override
-  void onUriSchemeLaunch(Uri uri) async {
-    if (uri.scheme != 'biyiapp') return;
-
-    await _windowShow();
-    await Future.delayed(const Duration(milliseconds: 200));
-    if (uri.authority == 'translate') {
-      if (_text.isNotEmpty) _handleButtonTappedClear();
-      String text = uri.queryParameters['text'];
-      if (text != null && text.isNotEmpty) {
-        _handleTextChanged(text, isRequery: true);
-      }
-    }
   }
 
   @override

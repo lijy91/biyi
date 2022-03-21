@@ -45,17 +45,12 @@ dependencies:
     git:
       ref: main
       url: https://github.com/biyidev/pro_account_noop.git
+  protocol_handler: ^0.1.1
   screen_capturer: ^0.1.0
   screen_retriever: ^0.1.0
   screen_text_extractor: ^0.1.0
   sticky_headers: ^0.2.0
   tray_manager: ^0.1.3
-  uni_links: ^0.5.1
-  uni_links_macos:
-    git:
-      path: packages/uni_links_macos
-      ref: master
-      url: https://github.com/biyidev/dart_pkgs.git
   uni_ocr:
     git:
       path: packages/uni_ocr
@@ -78,7 +73,7 @@ dependencies:
       url: https://github.com/biyidev/uni_translate_client.git
   url_launcher: ^6.0.17
   uuid: ^3.0.5
-  window_manager: ^0.1.3
+  window_manager: ^0.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

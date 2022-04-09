@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
@@ -368,7 +369,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     } catch (error) {}
   }
 
-  void _queryData() async {
+  Future<void> _queryData() async {
     setState(() {
       _isShowSourceLanguageSelector = false;
       _isShowTargetLanguageSelector = false;
@@ -461,7 +462,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
         TranslationResultRecord translationResultRecord =
             TranslationResultRecord(
-          id: Uuid().v4(),
+          id: const Uuid().v4(),
           translationEngineId: identifier,
           translationTargetId: translationTarget.id,
         );
@@ -473,7 +474,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
           LookUpRequest lookUpRequest;
           LookUpResponse lookUpResponse;
           UniTranslateClientError lookUpError;
-          if ((sharedTranslateClient.use(identifier).supportedScopes ?? [])
+          if ((sharedTranslateClient.use(identifier)?.supportedScopes ?? [])
               .contains(kScopeLookUp)) {
             try {
               lookUpRequest = LookUpRequest(
@@ -494,9 +495,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
           TranslateRequest translateRequest;
           TranslateResponse translateResponse;
           UniTranslateClientError translateError;
-          if (sharedTranslateClient
-              .use(identifier)
-              .supportedScopes
+          if ((sharedTranslateClient.use(identifier)?.supportedScopes ?? [])
               .contains(kScopeTranslate)) {
             try {
               translateRequest = TranslateRequest(
@@ -678,7 +677,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     _focusNode.requestFocus();
   }
 
-  void _handleButtonTappedTrans() {
+  void _handleButtonTappedTrans() async {
     if (_text.isEmpty) {
       BotToast.showText(
         text: 'page_home.msg_please_enter_word_or_text'.tr(),
@@ -687,7 +686,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
       _focusNode.requestFocus();
       return;
     }
-    _queryData();
+    await _queryData();
   }
 
   Widget _buildBannersView(BuildContext context) {
@@ -744,7 +743,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   }
 
   Widget _buildInputView(BuildContext context) {
-    return Container(
+    return SizedBox(
       key: _inputViewKey,
       width: double.infinity,
       child: Column(
@@ -753,7 +752,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
           TranslationInputView(
             focusNode: _focusNode,
             controller: _textEditingController,
-            onChanged: (newValue) => this._handleTextChanged(newValue),
+            onChanged: (newValue) => _handleTextChanged(newValue),
             capturedData: _capturedData,
             isTextDetecting: _isTextDetecting,
             translationMode: _config.translationMode,
@@ -763,11 +762,10 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
             },
             inputSetting: _config.inputSetting,
             onClickExtractTextFromScreenCapture:
-                this._handleExtractTextFromScreenCapture,
-            onClickExtractTextFromClipboard:
-                this._handleExtractTextFromClipboard,
-            onButtonTappedClear: this._handleButtonTappedClear,
-            onButtonTappedTrans: this._handleButtonTappedTrans,
+                _handleExtractTextFromScreenCapture,
+            onClickExtractTextFromClipboard: _handleExtractTextFromClipboard,
+            onButtonTappedClear: _handleButtonTappedClear,
+            onButtonTappedTrans: _handleButtonTappedTrans,
           ),
           TranslationTargetSelectView(
             translationMode: _config.translationMode,
@@ -840,7 +838,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ToolbarItemAlwaysOnTop(),
+            const ToolbarItemAlwaysOnTop(),
             Expanded(child: Container()),
             ToolbarItemSettings(
               onSettingsPageDismiss: () {

@@ -59,20 +59,19 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
     }
     _playingAnimTimer = null;
     _playingAnimImageIndex = 0;
-
-    if (mounted) setState(() {});
   }
 
-  void _handleClickPlay() {
+  void _handleClickPlay() async {
     AudioPlayer.instance.setSource(Uri.parse(widget.audioUrl));
-    AudioPlayer.instance.prepare();
-    AudioPlayer.instance.start();
+    await AudioPlayer.instance.prepare();
+    await AudioPlayer.instance.start();
     _startPlayingAnimTimer();
   }
 
-  void _handleClickStop() {
-    AudioPlayer.instance.stop();
+  void _handleClickStop() async {
+    await AudioPlayer.instance.stop();
     _stopPlayingAnimTimer();
+    if (mounted) setState(() {});
   }
 
   @override

@@ -10,7 +10,6 @@ const kSupportedEngineTypes = [
   kEngineTypeDeepL,
   kEngineTypeGoogle,
   kEngineTypeIciba,
-  kEngineTypeSogou,
   kEngineTypeTencent,
   kEngineTypeYoudao,
 ];
@@ -21,7 +20,6 @@ final Map<String, List<String>> kKnownSupportedEngineOptionKeys = {
   kEngineTypeDeepL: DeepLTranslationEngine.optionKeys,
   kEngineTypeGoogle: GoogleTranslationEngine.optionKeys,
   kEngineTypeIciba: IcibaTranslationEngine.optionKeys,
-  kEngineTypeSogou: SogouTranslationEngine.optionKeys,
   kEngineTypeTencent: TencentTranslationEngine.optionKeys,
   kEngineTypeYoudao: YoudaoTranslationEngine.optionKeys,
 };
@@ -48,9 +46,6 @@ TranslationEngine createTranslationEngine(
         break;
       case kEngineTypeIciba:
         translationEngine = IcibaTranslationEngine(engineConfig);
-        break;
-      case kEngineTypeSogou:
-        translationEngine = SogouTranslationEngine(engineConfig);
         break;
       case kEngineTypeTencent:
         translationEngine = TencentTranslationEngine(engineConfig);

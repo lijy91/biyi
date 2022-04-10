@@ -133,7 +133,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.4"
+    version: "4.0.6"
   easy_localization:
     dependency: "direct main"
     description:
@@ -182,7 +182,7 @@ packages:
       name: fluentui_system_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.162"
+    version: "1.1.165"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -321,14 +321,14 @@ packages:
       name: package_info_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.2"
   package_info_plus_linux:
     dependency: transitive
     description:
       name: package_info_plus_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.5"
   package_info_plus_macos:
     dependency: transitive
     description:
@@ -349,16 +349,16 @@ packages:
       name: package_info_plus_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
   package_info_plus_windows:
     dependency: "direct overridden"
     description:
       path: "packages/package_info_plus/package_info_plus_windows"
       ref: main
-      resolved-ref: a4a521829dabde15225dab42368aa5b1d2d57e3b
+      resolved-ref: a766692cd0385c36b540bacf662027a5a66f2b61
       url: "https://github.com/fluttercommunity/plus_plugins.git"
     source: git
-    version: "1.0.4"
+    version: "1.0.5"
   page_transition:
     dependency: "direct main"
     description:
@@ -469,7 +469,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "117073ce1563000b4101eb8438a034be8a786c9d"
+      resolved-ref: eb5be0f10e43579d914b8d7a563f8b48488695d6
       url: "https://github.com/biyidev/pro_account_noop.git"
     source: git
     version: "0.0.1"
@@ -792,7 +792,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.2"
+    version: "2.5.1"
   win32_registry:
     dependency: transitive
     description:
@@ -806,7 +806,7 @@ packages:
       name: window_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.1"
   xdg_directories:
     dependency: transitive
     description:

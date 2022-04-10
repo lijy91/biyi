@@ -73,7 +73,7 @@ dependencies:
       url: https://github.com/biyidev/uni_translate_client.git
   url_launcher: ^6.0.17
   uuid: ^3.0.5
-  window_manager: ^0.2.0
+  window_manager: ^0.2.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

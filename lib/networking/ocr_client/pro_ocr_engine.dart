@@ -4,7 +4,7 @@ class ProOcrEngine extends OcrEngine {
   ProOcrEngine(OcrEngineConfig config) : super(config);
 
   @override
-  Future<DetectTextResponse> detectText(DetectTextRequest request) {
-    return proAccount.ocrEngine(identifier).detectText(request);
+  Future<RecognizeTextResponse> recognizeText(RecognizeTextRequest request) {
+    return proAccount.ocrEngine(identifier).recognizeText(request);
   }
 }

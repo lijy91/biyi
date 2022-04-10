@@ -176,7 +176,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         if (kIsLinux) {
           await windowManager.setAsFrameless();
         } else {
-          await windowManager.setTitleBarStyle('hidden');
+          await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
         }
         Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
         Size windowSize = await windowManager.getSize();
@@ -626,10 +626,10 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         _isTextDetecting = true;
         setState(() {});
         await Future.delayed(const Duration(milliseconds: 60));
-        DetectTextResponse detectTextResponse = await sharedOcrClient
+        RecognizeTextResponse recognizeTextResponse = await sharedOcrClient
             .use(sharedConfig.defaultOcrEngineId)
-            .detectText(
-              DetectTextRequest(
+            .recognizeText(
+              RecognizeTextRequest(
                 imagePath: _capturedData.imagePath,
                 base64Image: _capturedData.base64Image,
               ),
@@ -637,9 +637,9 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         _isTextDetecting = false;
         setState(() {});
         if (sharedConfig.autoCopyDetectedText) {
-          Clipboard.setData(ClipboardData(text: detectTextResponse.text));
+          Clipboard.setData(ClipboardData(text: recognizeTextResponse.text));
         }
-        _handleTextChanged(detectTextResponse.text, isRequery: true);
+        _handleTextChanged(recognizeTextResponse.text, isRequery: true);
       } catch (error) {
         _isTextDetecting = false;
         setState(() {});

@@ -7,7 +7,7 @@ import 'package:window_manager/window_manager.dart';
 import '../../includes.dart';
 
 class ToolbarItemAlwaysOnTop extends StatefulWidget {
-  const ToolbarItemAlwaysOnTop({Key key}) : super(key: key);
+  const ToolbarItemAlwaysOnTop({Key? key}) : super(key: key);
 
   @override
   _ToolbarItemAlwaysOnTopState createState() => _ToolbarItemAlwaysOnTopState();

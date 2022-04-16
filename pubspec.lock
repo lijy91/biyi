@@ -675,30 +675,30 @@ packages:
   uni_ocr:
     dependency: "direct main"
     description:
-      name: uni_ocr
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_ocr/packages/uni_ocr"
+      relative: true
+    source: path
     version: "0.1.0"
   uni_ocr_client:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: uni_ocr_client
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_ocr/packages/uni_ocr_client"
+      relative: true
+    source: path
     version: "0.1.0"
   uni_translate:
     dependency: "direct main"
     description:
-      name: uni_translate
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/uni_translate"
+      relative: true
+    source: path
     version: "0.1.1"
   uni_translate_client:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: uni_translate_client
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/uni_translate_client"
+      relative: true
+    source: path
     version: "0.1.1"
   url_launcher:
     dependency: "direct main"

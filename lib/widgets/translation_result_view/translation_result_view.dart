@@ -8,19 +8,19 @@ class TranslationResultView extends StatelessWidget {
 
   const TranslationResultView(
     this.translationResult, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   String get sourceLanguage =>
-      translationResult.translationTarget.sourceLanguage;
+      translationResult.translationTarget!.sourceLanguage!;
   String get targetLanguage =>
-      translationResult.translationTarget.targetLanguage;
+      translationResult.translationTarget!.targetLanguage!;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 12,
         right: 12,
         top: 0,

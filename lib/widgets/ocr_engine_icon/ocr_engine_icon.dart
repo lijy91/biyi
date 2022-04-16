@@ -8,7 +8,7 @@ class OcrEngineIcon extends StatelessWidget {
 
   const OcrEngineIcon(
     this.ocrEngineConfig, {
-    Key key,
+    Key? key,
     this.size = 22,
   }) : super(key: key);
 

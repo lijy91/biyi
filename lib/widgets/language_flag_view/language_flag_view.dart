@@ -8,11 +8,11 @@ import '../../includes.dart';
 class LanguageFlagView extends StatelessWidget {
   final String language;
   final double size;
-  final Color borderColor;
+  final Color? borderColor;
 
   const LanguageFlagView(
     this.language, {
-    Key key,
+    Key? key,
     this.size = 22,
     this.borderColor,
   }) : super(key: key);

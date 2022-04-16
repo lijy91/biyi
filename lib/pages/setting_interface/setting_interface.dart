@@ -13,7 +13,7 @@ class _SettingInterfacePageState extends State<SettingInterfacePage> {
   bool _showTrayIcon = false;
   double _maxWindowHeight = 0;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_setting_interface.$key'.tr(args: args);
   }
 

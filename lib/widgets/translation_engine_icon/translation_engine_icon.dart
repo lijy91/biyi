@@ -5,12 +5,12 @@ import '../../includes.dart';
 class TranslationEngineIcon extends StatelessWidget {
   final TranslationEngineConfig translationEngineConfig;
   final double size;
-  final Color color;
-  final Border border;
+  final Color? color;
+  final Border? border;
 
   const TranslationEngineIcon(
     this.translationEngineConfig, {
-    Key key,
+    Key? key,
     this.size = 22,
     this.color,
     this.border,
@@ -26,7 +26,7 @@ class TranslationEngineIcon extends StatelessWidget {
           image: AssetImage(translationEngineConfig.icon),
           fit: BoxFit.cover,
           colorFilter:
-              color != null ? ColorFilter.mode(color, BlendMode.color) : null,
+              color != null ? ColorFilter.mode(color!, BlendMode.color) : null,
         ),
         borderRadius: BorderRadius.all(Radius.circular(6)),
         border: border != null

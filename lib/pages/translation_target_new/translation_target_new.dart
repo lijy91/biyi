@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../includes.dart';
 
 class TranslationTargetNewPage extends StatefulWidget {
-  final TranslationTarget translationTarget;
+  final TranslationTarget? translationTarget;
 
   const TranslationTargetNewPage({
-    Key key,
+    Key? key,
     this.translationTarget,
   }) : super(key: key);
 
@@ -16,18 +16,18 @@ class TranslationTargetNewPage extends StatefulWidget {
 }
 
 class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
-  String _sourceLanguage;
-  String _targetLanguage;
+  String? _sourceLanguage;
+  String? _targetLanguage;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_translation_target_new.$key'.tr(args: args);
   }
 
   @override
   void initState() {
     if (widget.translationTarget != null) {
-      _sourceLanguage = widget.translationTarget.sourceLanguage;
-      _targetLanguage = widget.translationTarget.targetLanguage;
+      _sourceLanguage = widget.translationTarget?.sourceLanguage;
+      _targetLanguage = widget.translationTarget?.targetLanguage;
     }
     super.initState();
   }
@@ -44,7 +44,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
     Navigator.of(context).pop();
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: widget.translationTarget != null
           ? Text(t('title_with_edit'))
@@ -67,7 +67,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
               PreferenceListItem(
                 title: Text(t('source_language')),
                 detailText: _sourceLanguage != null
-                    ? LanguageLabel(_sourceLanguage)
+                    ? LanguageLabel(_sourceLanguage!)
                     : Text('please_choose'.tr()),
                 onTap: () {
                   Navigator.of(context).push(
@@ -85,7 +85,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
               PreferenceListItem(
                 title: Text(t('target_language')),
                 detailText: _targetLanguage != null
-                    ? LanguageLabel(_targetLanguage)
+                    ? LanguageLabel(_targetLanguage!)
                     : Text('please_choose'.tr()),
                 onTap: () {
                   Navigator.of(context).push(
@@ -116,7 +116,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
                   accessoryView: Container(),
                   onTap: () async {
                     await sharedLocalDb
-                        .translationTarget(widget.translationTarget.id)
+                        .translationTarget(widget.translationTarget?.id)
                         .delete();
                     await sharedLocalDb.write();
                     Navigator.of(context).pop();

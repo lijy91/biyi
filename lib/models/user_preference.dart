@@ -39,19 +39,19 @@ const Map<String, ThemeMode> kKnownThemeModes = <String, ThemeMode>{
 };
 
 class UserPreference {
-  String id;
-  String key;
-  String type;
-  String value;
-  String createdAt;
-  String updatedAt;
+  String? id;
+  String? key;
+  String? type;
+  String? value;
+  String? createdAt;
+  String? updatedAt;
 
-  int get intValue {
+  int? get intValue {
     if (type != kPreferenceTypeInt) return null;
-    return int.parse(value);
+    return int.parse(value!);
   }
 
-  bool get boolValue {
+  bool? get boolValue {
     if (type != kPreferenceTypeBool) return null;
     return value == 'true';
   }
@@ -66,8 +66,6 @@ class UserPreference {
   });
 
   factory UserPreference.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return UserPreference(
       id: json['id'],
       key: json['key'],

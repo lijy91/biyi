@@ -8,8 +8,8 @@ class ToolbarItemSettings extends StatefulWidget {
   final VoidCallback onSettingsPageDismiss;
 
   const ToolbarItemSettings({
-    Key key,
-    this.onSettingsPageDismiss,
+    Key? key,
+    required this.onSettingsPageDismiss,
   }) : super(key: key);
 
   @override
@@ -19,6 +19,7 @@ class ToolbarItemSettings extends StatefulWidget {
 class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
   void _handleDismiss() async {
     await Future.delayed(const Duration(milliseconds: 100));
+
     widget.onSettingsPageDismiss();
   }
 

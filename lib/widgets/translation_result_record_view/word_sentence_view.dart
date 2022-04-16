@@ -7,7 +7,7 @@ class WordSentenceView extends StatelessWidget {
 
   const WordSentenceView(
     this.wordSentence, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,13 +27,13 @@ class WordSentenceView extends StatelessWidget {
                 TextSpan(text: '\n'),
                 TextSpan(
                   text: wordSentence.translations.first,
-                  style: Theme.of(context).textTheme.caption.copyWith(
+                  style: Theme.of(context).textTheme.caption!.copyWith(
                         fontSize: 13,
                       ),
                 ),
               ],
             ),
-            style: Theme.of(context).textTheme.bodyText2.copyWith(
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
                   height: 1.4,
                 ),
           ),

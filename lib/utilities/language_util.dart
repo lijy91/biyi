@@ -15,9 +15,6 @@ const kLanguageZH = 'zh';
 
 final List<String> kAppLanguages = [
   kLanguageEN,
-  // kLanguageJA,
-  // kLanguageKO,
-  // kLanguageRU,
   kLanguageZH,
 ];
 

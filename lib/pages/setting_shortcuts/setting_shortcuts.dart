@@ -4,7 +4,9 @@ import 'package:hotkey_manager/hotkey_manager.dart';
 import '../../../includes.dart';
 
 class SettingShortcutsPage extends StatefulWidget {
-  const SettingShortcutsPage({Key key}) : super(key: key);
+  const SettingShortcutsPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SettingShortcutsPageState();
@@ -39,7 +41,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
 
   Future<void> _handleClickRegisterNewHotKey(
     BuildContext context, {
-    String shortcutKey,
+    required String shortcutKey,
     HotKeyScope shortcutScope = HotKeyScope.system,
   }) async {
     return showDialog<void>(

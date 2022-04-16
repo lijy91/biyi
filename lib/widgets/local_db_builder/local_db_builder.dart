@@ -4,10 +4,9 @@ import '../../includes.dart';
 
 class LocalDbBuilder extends StatefulWidget {
   LocalDbBuilder({
-    Key key,
-    this.builder,
-  })  : assert(builder != null),
-        super(key: key);
+    Key? key,
+    required this.builder,
+  }) : super(key: key);
 
   Widget Function(BuildContext context, DbData dbData) builder;
 

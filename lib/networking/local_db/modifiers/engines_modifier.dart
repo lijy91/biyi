@@ -7,9 +7,9 @@ class EnginesModifier {
 
   EnginesModifier(this.dbData);
 
-  String _id;
+  String? _id;
 
-  void setId(String id) {
+  void setId(String? id) {
     _id = id;
   }
 
@@ -22,7 +22,7 @@ class EnginesModifier {
   }
 
   List<TranslationEngineConfig> list({
-    bool where(TranslationEngineConfig element),
+    bool where(TranslationEngineConfig element)?,
   }) {
     if (where != null) {
       return _engineList.where(where).toList();
@@ -30,7 +30,7 @@ class EnginesModifier {
     return _engineList;
   }
 
-  TranslationEngineConfig get() {
+  TranslationEngineConfig? get() {
     if (!exists()) return null;
     return _engineList[_engineIndex];
   }

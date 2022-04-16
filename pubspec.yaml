@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.4.0+10
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -61,6 +61,14 @@ dependency_overrides:
       url: https://github.com/fluttercommunity/plus_plugins.git
       ref: main
       path: packages/package_info_plus/package_info_plus_windows
+  uni_ocr:
+    path: ../uni_ocr/packages/uni_ocr
+  uni_ocr_client:
+    path: ../uni_ocr/packages/uni_ocr_client
+  uni_translate:
+    path: ../uni_translate/packages/uni_translate
+  uni_translate_client:
+    path: ../uni_translate/packages/uni_translate_client
 
 flutter:
   uses-material-design: true

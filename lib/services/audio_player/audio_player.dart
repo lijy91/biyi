@@ -32,16 +32,14 @@ class AudioPlayer {
     }
   }
 
-  static AudioPlayer _instance;
+  static AudioPlayer? _instance;
 
   static AudioPlayer get instance {
-    if (_instance == null) {
-      _instance = AudioPlayer.create(1);
-    }
-    return _instance;
+    _instance ??= AudioPlayer.create(1);
+    return _instance!;
   }
 
-  ObserverList<AudioPlayerListener> _listeners =
+  final ObserverList<AudioPlayerListener> _listeners =
       ObserverList<AudioPlayerListener>();
 
   List<AudioPlayerListener> get listeners {

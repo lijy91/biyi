@@ -25,7 +25,7 @@ class ImageViewerPage extends StatefulWidget {
 }
 
 class _ImageViewerPageState extends State<ImageViewerPage> {
-  int _currentIndex;
+  int _currentIndex = 0;
 
   @override
   void initState() {

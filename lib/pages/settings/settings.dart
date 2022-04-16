@@ -9,9 +9,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../includes.dart';
 
 class SettingsPage extends StatefulWidget {
-  final VoidCallback onDismiss;
+  final VoidCallback? onDismiss;
 
-  const SettingsPage({Key key, this.onDismiss}) : super(key: key);
+  const SettingsPage({Key? key, this.onDismiss}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SettingsPageState();
@@ -21,7 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
   String _inputSetting = kInputSettingSubmitWithEnter;
   bool _launchAtStartupIsEnabled = false;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_settings.$key'.tr(args: args);
   }
 
@@ -127,7 +127,7 @@ class _SettingsPageState extends State<SettingsPage> {
           PreferenceListSection(
             title: Text(t('pref_section_title_input_settings')),
             children: [
-              PreferenceListRadioItem(
+              PreferenceListRadioItem<String>(
                 value: kInputSettingSubmitWithEnter,
                 groupValue: _inputSetting,
                 title: Text(t('pref_item_title_submit_with_enter')),
@@ -137,7 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   setState(() {});
                 },
               ),
-              PreferenceListRadioItem(
+              PreferenceListRadioItem<String>(
                 value: kInputSettingSubmitWithMetaEnter,
                 groupValue: _inputSetting,
                 title: Text(t(kIsMacOS

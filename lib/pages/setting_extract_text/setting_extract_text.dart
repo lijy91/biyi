@@ -8,10 +8,10 @@ class SettingExtractTextPage extends StatefulWidget {
 }
 
 class _SettingExtractTextPageState extends State<SettingExtractTextPage> {
-  OcrEngineConfig _defaultOcrEngineConfig;
-  bool _autoCopyDetectedText;
+  OcrEngineConfig? _defaultOcrEngineConfig;
+  bool _autoCopyDetectedText = true;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_setting_extract_text.$key'.tr(args: args);
   }
 
@@ -34,17 +34,17 @@ class _SettingExtractTextPageState extends State<SettingExtractTextPage> {
                 icon: _defaultOcrEngineConfig == null
                     ? null
                     : OcrEngineIcon(
-                        _defaultOcrEngineConfig,
+                        _defaultOcrEngineConfig!,
                       ),
                 title: Builder(builder: (_) {
                   if (_defaultOcrEngineConfig == null)
                     return Text('please_choose'.tr());
                   return Text.rich(
                     TextSpan(
-                      text: _defaultOcrEngineConfig.typeName,
+                      text: _defaultOcrEngineConfig?.typeName,
                       children: [
                         TextSpan(
-                          text: ' (${_defaultOcrEngineConfig.shortId})',
+                          text: ' (${_defaultOcrEngineConfig?.shortId})',
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         )
                       ],

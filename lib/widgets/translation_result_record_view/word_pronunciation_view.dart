@@ -7,7 +7,7 @@ class WordPronunciationView extends StatelessWidget {
 
   const WordPronunciationView(
     this.wordPronunciation, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class WordPronunciationView extends StatelessWidget {
                 if ((wordPronunciation.type ?? '').isNotEmpty)
                   TextSpan(
                     text: '${wordPronunciation.localType} ',
-                    style: Theme.of(context).textTheme.bodyText2.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 13,
                         ),
                   ),
@@ -35,7 +35,7 @@ class WordPronunciationView extends StatelessWidget {
                   )
               ],
             ),
-            style: Theme.of(context).textTheme.caption.copyWith(
+            style: Theme.of(context).textTheme.caption!.copyWith(
                   fontSize: 13,
                 ),
           ),
@@ -43,7 +43,7 @@ class WordPronunciationView extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(left: 10, top: 2),
               child: SoundPlayButton(
-                audioUrl: wordPronunciation.audioUrl,
+                audioUrl: wordPronunciation.audioUrl!,
               ),
             ),
         ],

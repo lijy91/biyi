@@ -2,10 +2,10 @@ import './translation_result_record.dart';
 import './translation_target.dart';
 
 class TranslationResult {
-  String id;
-  TranslationTarget translationTarget;
-  List<TranslationResultRecord> translationResultRecordList;
-  List<String> unsupportedEngineIdList;
+  String? id;
+  TranslationTarget? translationTarget;
+  List<TranslationResultRecord>? translationResultRecordList;
+  List<String>? unsupportedEngineIdList;
 
   TranslationResult({
     this.id,
@@ -15,8 +15,6 @@ class TranslationResult {
   });
 
   factory TranslationResult.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     List<TranslationResultRecord> translationResultRecordList = [];
 
     if (json['translationResultRecordList'] != null) {
@@ -41,7 +39,7 @@ class TranslationResult {
       'id': id,
       'translationTarget': translationTarget,
       'translationResultRecordList':
-          translationResultRecordList?.map((e) => e.toJson())?.toList(),
+          translationResultRecordList?.map((e) => e.toJson()).toList(),
       'unsupportedEngineIdList': unsupportedEngineIdList,
     };
   }

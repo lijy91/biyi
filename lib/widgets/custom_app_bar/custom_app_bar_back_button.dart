@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarBackButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const CustomAppBarBackButton({
-    Key key,
+    Key? key,
     this.onPressed,
   }) : super(key: key);
 
@@ -16,12 +16,12 @@ class CustomAppBarBackButton extends StatelessWidget {
       padding: EdgeInsets.only(right: 12),
       child: Icon(
         FluentIcons.chevron_left_20_regular,
-        color: Theme.of(context).appBarTheme.iconTheme.color,
+        color: Theme.of(context).appBarTheme.iconTheme!.color,
         size: 26,
       ),
       onPressed: () {
         if (onPressed != null) {
-          onPressed();
+          onPressed!();
           return;
         }
         Navigator.maybePop(context);

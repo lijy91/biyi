@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarCloseButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const CustomAppBarCloseButton({
-    Key key,
+    Key? key,
     this.onPressed,
   }) : super(key: key);
 
@@ -16,12 +16,12 @@ class CustomAppBarCloseButton extends StatelessWidget {
       padding: EdgeInsets.only(right: 12),
       child: Icon(
         FluentIcons.dismiss_20_regular,
-        color: Theme.of(context).appBarTheme.iconTheme.color,
+        color: Theme.of(context).appBarTheme.iconTheme!.color,
         size: 26,
       ),
       onPressed: () {
         if (onPressed != null) {
-          onPressed();
+          onPressed!();
           return;
         }
         Navigator.maybePop(context);

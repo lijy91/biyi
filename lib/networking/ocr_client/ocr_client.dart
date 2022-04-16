@@ -6,6 +6,8 @@ final kDefaultBuiltInOcrEngine = BuiltInOcrEngine(
   OcrEngineConfig(
     identifier: 'cb838bdd-5dbd-4939-b7cb-a054b1ee1769',
     type: kOcrEngineTypeBuiltIn,
+    name: kOcrEngineTypeBuiltIn,
+    option: {},
   ),
 );
 
@@ -15,10 +17,10 @@ const kSupportedOcrEngineTypes = [
   kOcrEngineTypeYoudao,
 ];
 
-OcrEngine createOcrEngine(
+OcrEngine? createOcrEngine(
   OcrEngineConfig ocrEngineConfig,
 ) {
-  OcrEngine ocrEngine;
+  OcrEngine? ocrEngine;
 
   switch (ocrEngineConfig.type) {
     case kOcrEngineTypeYoudao:
@@ -40,25 +42,25 @@ class AutoloadOcrClientAdapter extends UniOcrClientAdapter {
 
   @override
   OcrEngine use(String identifier) {
-    OcrEngineConfig engineConfig = sharedLocalDb.ocrEngine(identifier).get();
+    OcrEngineConfig? engineConfig = sharedLocalDb.ocrEngine(identifier).get();
 
-    OcrEngine ocrEngine;
-    if (_ocrEngineMap.containsKey(engineConfig.identifier)) {
-      ocrEngine = _ocrEngineMap[engineConfig.identifier];
+    OcrEngine? ocrEngine;
+    if (_ocrEngineMap.containsKey(engineConfig?.identifier)) {
+      ocrEngine = _ocrEngineMap[engineConfig?.identifier];
     }
 
     if (ocrEngine == null) {
-      ocrEngine = createOcrEngine(engineConfig);
+      ocrEngine = createOcrEngine(engineConfig!);
       if (ocrEngine != null) {
         _ocrEngineMap.update(
           engineConfig.identifier,
-          (_) => ocrEngine,
-          ifAbsent: () => ocrEngine,
+          (_) => ocrEngine!,
+          ifAbsent: () => ocrEngine!,
         );
       }
     }
 
-    return ocrEngine;
+    return ocrEngine!;
   }
 
   void renew(String identifier) {

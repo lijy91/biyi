@@ -8,8 +8,8 @@ class RecordHotKeyDialog extends StatefulWidget {
   final ValueChanged<HotKey> onHotKeyRecorded;
 
   const RecordHotKeyDialog({
-    Key key,
-    this.onHotKeyRecorded,
+    Key? key,
+    required this.onHotKeyRecorded,
   }) : super(key: key);
 
   @override

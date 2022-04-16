@@ -9,21 +9,21 @@ class TranslationTargetsModifier {
 
   TranslationTargetsModifier(this.dbData);
 
-  String _id;
+  String? _id;
 
-  void setId(String id) {
+  void setId(String? id) {
     _id = id;
   }
 
   int get _translationTargetIndex {
-    return dbData.translationTargetList.indexWhere((e) => e.id == _id);
+    return (dbData.translationTargetList ?? []).indexWhere((e) => e.id == _id);
   }
 
   List<TranslationTarget> get _translationTargetList {
     if (dbData.translationTargetList == null) {
       dbData.translationTargetList = [];
     }
-    return dbData.translationTargetList;
+    return dbData.translationTargetList!;
   }
 
   List<TranslationTarget> list() {
@@ -35,8 +35,8 @@ class TranslationTargetsModifier {
   }
 
   Future<void> create({
-    String sourceLanguage,
-    String targetLanguage,
+    required String sourceLanguage,
+    required String targetLanguage,
   }) async {
     TranslationTarget group = TranslationTarget(
       id: Uuid().v4(),
@@ -47,8 +47,8 @@ class TranslationTargetsModifier {
   }
 
   Future<void> update({
-    String sourceLanguage,
-    String targetLanguage,
+    String? sourceLanguage,
+    String? targetLanguage,
   }) async {
     if (sourceLanguage != null) this.get().sourceLanguage = sourceLanguage;
     if (targetLanguage != null) this.get().targetLanguage = targetLanguage;
@@ -63,8 +63,8 @@ class TranslationTargetsModifier {
   }
 
   Future<void> updateOrCreate({
-    String sourceLanguage,
-    String targetLanguage,
+    String? sourceLanguage,
+    String? targetLanguage,
   }) async {
     if (_id != null && exists()) {
       update(
@@ -73,8 +73,8 @@ class TranslationTargetsModifier {
       );
     } else {
       create(
-        sourceLanguage: sourceLanguage,
-        targetLanguage: targetLanguage,
+        sourceLanguage: sourceLanguage!,
+        targetLanguage: targetLanguage!,
       );
     }
   }

@@ -17,9 +17,9 @@ class ShortcutService {
   /// The shared instance of [ShortcutService].
   static final ShortcutService instance = ShortcutService._();
 
-  ShortcutListener _listener;
+  ShortcutListener? _listener;
 
-  void setListener(ShortcutListener listener) {
+  void setListener(ShortcutListener? listener) {
     _listener = listener;
   }
 
@@ -28,39 +28,39 @@ class ShortcutService {
     await hotKeyManager.register(
       sharedConfig.shortcutInputSettingSubmitWithMetaEnter,
       keyDownHandler: (_) {
-        _listener.onShortcutKeyDownSubmitWithMateEnter();
+        _listener?.onShortcutKeyDownSubmitWithMateEnter();
       },
     );
     await hotKeyManager.register(
       sharedConfig.shortcutShowOrHide,
       keyDownHandler: (_) {
-        _listener.onShortcutKeyDownShowOrHide();
+        _listener?.onShortcutKeyDownShowOrHide();
       },
     );
     await hotKeyManager.register(
       sharedConfig.shortcutHide,
       keyDownHandler: (_) {
-        _listener.onShortcutKeyDownHide();
+        _listener?.onShortcutKeyDownHide();
       },
     );
     await hotKeyManager.register(
       sharedConfig.shortcutExtractFromScreenSelection,
       keyDownHandler: (_) {
-        _listener.onShortcutKeyDownExtractFromScreenSelection();
+        _listener?.onShortcutKeyDownExtractFromScreenSelection();
       },
     );
     if (!kIsLinux) {
       await hotKeyManager.register(
         sharedConfig.shortcutExtractFromScreenCapture,
         keyDownHandler: (_) {
-          _listener.onShortcutKeyDownExtractFromScreenCapture();
+          _listener?.onShortcutKeyDownExtractFromScreenCapture();
         },
       );
     }
     await hotKeyManager.register(
       sharedConfig.shortcutExtractFromClipboard,
       keyDownHandler: (_) {
-        _listener.onShortcutKeyDownExtractFromClipboard();
+        _listener?.onShortcutKeyDownExtractFromClipboard();
       },
     );
   }

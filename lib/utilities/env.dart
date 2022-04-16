@@ -5,10 +5,9 @@ const kAppBuildNumber = '8';
 Future<void> initEnv() async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-  Env.instance.appBuildNumber = int.parse(
-      (packageInfo?.buildNumber ?? '').isEmpty
-          ? kAppBuildNumber
-          : packageInfo.buildNumber);
+  Env.instance.appBuildNumber = int.parse(packageInfo.buildNumber.isEmpty
+      ? kAppBuildNumber
+      : packageInfo.buildNumber);
   Env.instance.appVersion = packageInfo.version;
 }
 

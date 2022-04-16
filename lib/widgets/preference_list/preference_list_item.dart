@@ -3,18 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PreferenceListItem extends StatelessWidget {
-  final EdgeInsets padding;
-  final Widget icon;
-  final Widget title;
-  final Widget summary;
-  final Widget detailText;
-  final Widget accessoryView;
-  final Widget bottomView;
+  final EdgeInsets? padding;
+  final Widget? icon;
+  final Widget? title;
+  final Widget? summary;
+  final Widget? detailText;
+  final Widget? accessoryView;
+  final Widget? bottomView;
   final bool disabled;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const PreferenceListItem({
-    Key key,
+    Key? key,
     this.padding,
     this.icon,
     this.title,
@@ -28,15 +28,15 @@ class PreferenceListItem extends StatelessWidget {
 
   _onTap() {
     if (onTap != null) {
-      onTap();
+      onTap!();
     }
   }
 
   Widget buildDetailText(BuildContext context) {
     if (detailText != null) {
       return DefaultTextStyle(
-        style: Theme.of(context).textTheme.caption,
-        child: detailText,
+        style: Theme.of(context).textTheme.caption!,
+        child: detailText!,
       );
     } else {
       return Container();
@@ -45,14 +45,14 @@ class PreferenceListItem extends StatelessWidget {
 
   Widget buildAccessoryView(BuildContext context) {
     if (accessoryView != null) {
-      return accessoryView;
+      return accessoryView!;
     } else {
       return Padding(
         padding: const EdgeInsets.only(left: 4),
         child: Icon(
           FluentIcons.chevron_right_20_regular,
           size: 18,
-          color: Theme.of(context).textTheme.caption.color,
+          color: Theme.of(context).textTheme.caption!.color,
         ),
       );
     }
@@ -93,12 +93,12 @@ class PreferenceListItem extends StatelessWidget {
                         children: [
                           if (title != null)
                             DefaultTextStyle(
-                              style: Theme.of(context).textTheme.bodyText2,
-                              child: title,
+                              style: Theme.of(context).textTheme.bodyText2!,
+                              child: title!,
                             ),
                           if (summary != null)
                             DefaultTextStyle(
-                              style: Theme.of(context).textTheme.caption,
+                              style: Theme.of(context).textTheme.caption!,
                               child: Padding(
                                 padding: EdgeInsets.only(top: 4, bottom: 4),
                                 child: summary,
@@ -126,16 +126,16 @@ class PreferenceListRadioItem<T> extends PreferenceListItem {
   final ValueChanged<T> onChanged;
 
   const PreferenceListRadioItem({
-    Key key,
-    Widget icon,
-    Widget title,
-    Widget summary,
-    Widget detailText,
-    Widget accessoryView,
-    VoidCallback onTap,
-    @required this.value,
-    @required this.groupValue,
-    @required this.onChanged,
+    Key? key,
+    Widget? icon,
+    Widget? title,
+    Widget? summary,
+    Widget? detailText,
+    Widget? accessoryView,
+    VoidCallback? onTap,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
   }) : super(
           key: key,
           icon: icon,
@@ -172,15 +172,15 @@ class PreferenceListSwitchItem extends PreferenceListItem {
   final ValueChanged<bool> onChanged;
 
   const PreferenceListSwitchItem({
-    Key key,
-    Widget icon,
-    Widget title,
-    Widget summary,
-    Widget detailText,
-    Widget accessoryView,
-    VoidCallback onTap,
-    @required this.value,
-    @required this.onChanged,
+    Key? key,
+    Widget? icon,
+    Widget? title,
+    Widget? summary,
+    Widget? detailText,
+    Widget? accessoryView,
+    VoidCallback? onTap,
+    required this.value,
+    required this.onChanged,
   }) : super(
           key: key,
           icon: icon,
@@ -217,19 +217,19 @@ class PreferenceListSwitchItem extends PreferenceListItem {
 }
 
 class PreferenceListTextFieldItem extends PreferenceListItem {
-  final TextEditingController controller;
-  final String placeholder;
-  final ValueChanged<String> onChanged;
-  final VoidCallback onEditingComplete;
-  final ValueChanged<String> onSubmitted;
+  final TextEditingController? controller;
+  final String? placeholder;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onEditingComplete;
+  final ValueChanged<String>? onSubmitted;
 
   PreferenceListTextFieldItem({
-    Key key,
-    Widget icon,
-    Widget title,
-    Widget summary,
-    Widget accessoryView,
-    VoidCallback onTap,
+    Key? key,
+    Widget? icon,
+    Widget? title,
+    Widget? summary,
+    Widget? accessoryView,
+    VoidCallback? onTap,
     this.controller,
     this.placeholder,
     this.onChanged,

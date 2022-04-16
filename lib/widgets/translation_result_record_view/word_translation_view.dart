@@ -7,7 +7,7 @@ class WordTranslationView extends StatefulWidget {
 
   const WordTranslationView(
     this.wordTranslation, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -48,7 +48,7 @@ class _WordTranslationViewState extends State<WordTranslationView> {
                   TextSpan(text: widget.wordTranslation.text),
                 ],
               ),
-              style: Theme.of(context).textTheme.bodyText2.copyWith(
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(
                     height: 1.4,
                   ),
             ),
@@ -74,7 +74,7 @@ class _WordTranslationViewState extends State<WordTranslationView> {
               Container(
                 margin: EdgeInsets.only(left: 10),
                 child: SoundPlayButton(
-                  audioUrl: widget.wordTranslation.audioUrl,
+                  audioUrl: widget.wordTranslation.audioUrl!,
                 ),
               ),
           ],

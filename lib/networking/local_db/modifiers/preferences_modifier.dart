@@ -9,9 +9,9 @@ class PreferencesModifier {
 
   PreferencesModifier(this.dbData);
 
-  String _key;
+  String? _key;
 
-  void setKey(String key) {
+  void setKey(String? key) {
     _key = key;
   }
 
@@ -19,7 +19,7 @@ class PreferencesModifier {
     if (dbData.preferenceList == null) {
       dbData.preferenceList = [];
     }
-    return dbData.preferenceList;
+    return (dbData.preferenceList ?? []);
   }
 
   int get _preferenceIndex {
@@ -30,18 +30,18 @@ class PreferencesModifier {
     return _preferenceList;
   }
 
-  UserPreference get() {
+  UserPreference? get() {
     if (_preferenceIndex == -1) return null;
     return _preferenceList[_preferenceIndex];
   }
 
   Future<void> create({
-    String key,
-    String type,
-    String value,
+    required String key,
+    String type = 'string',
+    required String value,
   }) async {
     UserPreference userPreference = UserPreference(
-      id: Uuid().v4(),
+      id: const Uuid().v4(),
       key: key,
       type: type,
       value: value,
@@ -50,8 +50,8 @@ class PreferencesModifier {
   }
 
   Future<void> update({
-    String type,
-    String value,
+    String? type,
+    String? value,
   }) async {
     if (type != null) _preferenceList[_preferenceIndex].type = type;
     if (value != null) _preferenceList[_preferenceIndex].value = value;
@@ -63,22 +63,5 @@ class PreferencesModifier {
 
   bool exists() {
     return _preferenceIndex != -1;
-  }
-
-  Future<void> updateOrCreate({
-    String type,
-    String value,
-  }) async {
-    if (_key != null && exists()) {
-      update(
-        type: type,
-        value: value,
-      );
-    } else {
-      create(
-        type: type,
-        value: value,
-      );
-    }
   }
 }

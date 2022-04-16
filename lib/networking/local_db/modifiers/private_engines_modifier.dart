@@ -9,22 +9,23 @@ class PrivateEnginesModifier {
 
   PrivateEnginesModifier(this.dbData);
 
-  String _id;
+  String? _id;
 
-  void setId(String id) {
+  void setId(String? id) {
     _id = id;
   }
 
   int get _engineIndex {
-    return dbData.privateEngineList.indexWhere((e) => e.identifier == _id);
+    return (dbData.privateEngineList ?? [])
+        .indexWhere((e) => e.identifier == _id);
   }
 
   List<TranslationEngineConfig> get _engineList {
-    return dbData.privateEngineList;
+    return dbData.privateEngineList ?? [];
   }
 
   List<TranslationEngineConfig> list({
-    bool where(TranslationEngineConfig element),
+    bool where(TranslationEngineConfig element)?,
   }) {
     if (where != null) {
       return _engineList.where(where).toList();
@@ -32,7 +33,7 @@ class PrivateEnginesModifier {
     return _engineList;
   }
 
-  TranslationEngineConfig get() {
+  TranslationEngineConfig? get() {
     if (exists()) {
       return _engineList[_engineIndex];
     }
@@ -40,13 +41,13 @@ class PrivateEnginesModifier {
   }
 
   Future<void> create({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    List<String> disabledScopes,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
+    required List<String> disabledScopes,
   }) async {
     TranslationEngineConfig engineConfig = TranslationEngineConfig(
-      identifier: Uuid().v4(),
+      identifier: const Uuid().v4(),
       type: type,
       name: name,
       option: option,
@@ -56,11 +57,11 @@ class PrivateEnginesModifier {
   }
 
   Future<void> update({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    List<String> disabledScopes,
-    bool disabled,
+    String? type,
+    String? name,
+    Map<String, dynamic>? option,
+    List<String>? disabledScopes,
+    bool? disabled,
   }) async {
     if (type != null) _engineList[_engineIndex].type = type;
     if (name != null) _engineList[_engineIndex].name = name;
@@ -79,11 +80,11 @@ class PrivateEnginesModifier {
   }
 
   Future<void> updateOrCreate({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    List<String> disabledScopes,
-    bool disabled,
+    String? type,
+    String? name,
+    Map<String, dynamic>? option,
+    List<String>? disabledScopes,
+    bool? disabled,
   }) async {
     if (_id != null && exists()) {
       update(
@@ -95,10 +96,10 @@ class PrivateEnginesModifier {
       );
     } else {
       create(
-        type: type,
-        name: name,
-        option: option,
-        disabledScopes: disabledScopes,
+        type: type!,
+        name: name!,
+        option: option!,
+        disabledScopes: disabledScopes!,
       );
     }
   }

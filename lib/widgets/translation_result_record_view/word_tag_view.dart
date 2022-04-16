@@ -7,7 +7,7 @@ class WordTagView extends StatelessWidget {
 
   const WordTagView(
     this.wordTag, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class WordTagView extends StatelessWidget {
         children: [
           Text(
             wordTag.name,
-            style: Theme.of(context).textTheme.caption.copyWith(
+            style: Theme.of(context).textTheme.caption!.copyWith(
                   fontSize: 13,
                 ),
           ),

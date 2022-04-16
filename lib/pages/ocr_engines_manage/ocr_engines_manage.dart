@@ -8,7 +8,7 @@ class OcrEnginesManagePage extends StatefulWidget {
 }
 
 class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_ocr_engines_manage.$key'.tr(args: args);
   }
 

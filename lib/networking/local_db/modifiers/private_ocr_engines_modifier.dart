@@ -9,9 +9,9 @@ class PrivateOcrEnginesModifier {
 
   PrivateOcrEnginesModifier(this.dbData);
 
-  String _id;
+  String? _id;
 
-  void setId(String id) {
+  void setId(String? id) {
     _id = id;
   }
 
@@ -19,15 +19,16 @@ class PrivateOcrEnginesModifier {
     if (dbData.privateOcrEngineList == null) {
       dbData.privateOcrEngineList = [];
     }
-    return dbData.privateOcrEngineList;
+    return dbData.privateOcrEngineList ?? [];
   }
 
   int get _ocrEngineIndex {
-    return dbData.privateOcrEngineList.indexWhere((e) => e.identifier == _id);
+    return (dbData.privateOcrEngineList ?? [])
+        .indexWhere((e) => e.identifier == _id);
   }
 
   List<OcrEngineConfig> list({
-    bool where(OcrEngineConfig element),
+    bool where(OcrEngineConfig element)?,
   }) {
     if (where != null) {
       return _ocrEngineList.where(where).toList();
@@ -40,12 +41,12 @@ class PrivateOcrEnginesModifier {
   }
 
   Future<void> create({
-    String type,
-    String name,
-    Map<String, dynamic> option,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
   }) async {
     OcrEngineConfig group = OcrEngineConfig(
-      identifier: Uuid().v4(),
+      identifier: const Uuid().v4(),
       type: type,
       name: name,
       option: option,
@@ -54,10 +55,10 @@ class PrivateOcrEnginesModifier {
   }
 
   Future<void> update({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    bool disabled,
+    String? type,
+    String? name,
+    Map<String, dynamic>? option,
+    bool? disabled,
   }) async {
     if (type != null) _ocrEngineList[_ocrEngineIndex].type = type;
     if (name != null) _ocrEngineList[_ocrEngineIndex].name = name;
@@ -74,10 +75,10 @@ class PrivateOcrEnginesModifier {
   }
 
   Future<void> updateOrCreate({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    bool disabled,
+    String? type,
+    String? name,
+    Map<String, dynamic>? option,
+    bool? disabled,
   }) async {
     if (_id != null && exists()) {
       update(
@@ -88,9 +89,9 @@ class PrivateOcrEnginesModifier {
       );
     } else {
       create(
-        type: type,
-        name: name,
-        option: option,
+        type: type!,
+        name: name!,
+        option: option!,
       );
     }
   }

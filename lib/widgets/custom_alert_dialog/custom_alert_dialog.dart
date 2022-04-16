@@ -8,16 +8,16 @@ const kDialogActionTypeSuccess = 'success';
 const kDialogActionTypeDanger = 'danger';
 
 class CustomDialogAction extends StatelessWidget {
-  String type;
+  String? type;
   final bool processing;
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   CustomDialogAction({
-    Key key,
+    Key? key,
     this.type,
     this.processing = false,
-    @required this.child,
+    required this.child,
     this.onPressed,
   }) : super(key: key);
 
@@ -29,20 +29,20 @@ class CustomDialogAction extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
         padding: EdgeInsets.zero,
         processing: processing,
-        child: this.child,
-        onPressed: this.onPressed,
+        child: child,
+        onPressed: onPressed,
       ),
     );
   }
 }
 
 class CustomAlertDialog extends StatelessWidget {
-  final Widget title;
-  final Widget content;
-  final List<Widget> actions;
+  final Widget? title;
+  final Widget? content;
+  final List<Widget>? actions;
 
   const CustomAlertDialog({
-    Key key,
+    Key? key,
     this.title,
     this.content,
     this.actions,
@@ -56,55 +56,55 @@ class CustomAlertDialog extends StatelessWidget {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyText2!,
         child: Container(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             minHeight: 100,
           ),
           decoration: BoxDecoration(
             color: Theme.of(context).dialogBackgroundColor,
             borderRadius: BorderRadius.circular(2),
           ),
-          margin: EdgeInsets.only(left: 40, right: 40),
-          padding: EdgeInsets.only(top: 20, bottom: 16),
+          margin: const EdgeInsets.only(left: 40, right: 40),
+          padding: const EdgeInsets.only(top: 20, bottom: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: 16,
                       ),
-                  child: this.title ?? Container(),
+                  child: title ?? Container(),
                 ),
               ),
-              if (this.content != null)
+              if (content != null)
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 30,
                     right: 30,
                     top: 18,
                     bottom: 30,
                   ),
-                  child: this.content,
+                  child: content,
                 ),
               Container(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Row(
                   children: <Widget>[
-                    for (var i = 0; i < this.actions.length; i++)
+                    for (var i = 0; i < (actions ?? []).length; i++)
                       Builder(
                         builder: (_) {
-                          CustomDialogAction action = this.actions[i];
-                          if (action.type == null &&
-                              i == this.actions.length - 1) {
+                          CustomDialogAction action =
+                              actions![i] as CustomDialogAction;
+                          if (action.type == null && i == actions!.length - 1) {
                             action.type = kDialogActionTypePrimary;
                           }
                           return Expanded(
                             child: Container(
-                              padding: EdgeInsets.only(left: 5, right: 5),
+                              padding: const EdgeInsets.only(left: 5, right: 5),
                               child: action,
                             ),
                           );

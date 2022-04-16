@@ -7,11 +7,11 @@ const kWordImageSize = 74.0;
 
 class WordImageView extends StatelessWidget {
   final WordImage wordImage;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const WordImageView(
     this.wordImage, {
-    Key key,
+    Key? key,
     this.onPressed,
   }) : super(key: key);
 

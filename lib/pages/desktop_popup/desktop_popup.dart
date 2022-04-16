@@ -30,7 +30,7 @@ const kMenuSubItemKeyJoinDiscord = 'subitem-join-discord';
 const kMenuSubItemKeyJoinQQGroup = 'subitem-join-qq';
 
 class DesktopPopupPage extends StatefulWidget {
-  const DesktopPopupPage({Key key}) : super(key: key);
+  const DesktopPopupPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DesktopPopupPageState();
@@ -51,13 +51,13 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   final GlobalKey _inputViewKey = GlobalKey();
   final GlobalKey _resultsViewKey = GlobalKey();
 
-  Brightness _brightness;
+  Brightness _brightness = Brightness.light;
   Config _config = sharedConfigManager.getConfig();
 
   bool _showTrayIcon = sharedConfigManager.getConfig().showTrayIcon;
   String _appLanguage = sharedConfigManager.getConfig().appLanguage;
 
-  Offset _lastShownPosition;
+  Offset _lastShownPosition = Offset.zero;
 
   bool _isAllowedScreenCaptureAccess = true;
   bool _isAllowedScreenSelectionAccess = true;
@@ -69,15 +69,15 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
   bool _querySubmitted = false;
   String _text = '';
-  String _textDetectedLanguage;
-  CapturedData _capturedData;
+  String? _textDetectedLanguage;
+  CapturedData? _capturedData;
   bool _isTextDetecting = false;
-  ExtractedData _extractedData;
+  ExtractedData? _extractedData;
   List<TranslationResult> _translationResultList = [];
 
   List<Future> _futureList = [];
 
-  Timer _resizeTimer;
+  Timer? _resizeTimer;
 
   List<TranslationEngineConfig> get _translationEngineList {
     return sharedLocalDb.engines.list(
@@ -99,7 +99,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
     sharedConfigManager.addListener(_configListen);
     if (kIsLinux || kIsMacOS || kIsWindows) {
       protocolHandler.addListener(this);
@@ -113,7 +113,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     sharedConfigManager.removeListener(_configListen);
     if (kIsLinux || kIsMacOS || kIsWindows) {
       protocolHandler.removeListener(this);
@@ -128,7 +128,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   @override
   void didChangePlatformBrightness() {
     Brightness newBrightness =
-        WidgetsBinding.instance.window.platformBrightness;
+        WidgetsBinding.instance!.window.platformBrightness;
 
     if (newBrightness != _brightness) {
       _brightness = newBrightness;
@@ -175,7 +175,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
         Size windowSize = await windowManager.getSize();
         _lastShownPosition = Offset(
-          (primaryDisplay.size.width / primaryDisplay.scaleFactor) -
+          (primaryDisplay.size.width / (primaryDisplay.scaleFactor ?? 1)) -
               windowSize.width -
               50,
           50,
@@ -294,21 +294,24 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   void _windowResize() {
     if (Navigator.of(context).canPop()) return;
 
-    if (_resizeTimer != null && _resizeTimer.isActive) {
-      _resizeTimer.cancel();
+    if (_resizeTimer != null && _resizeTimer!.isActive) {
+      _resizeTimer?.cancel();
     }
     _resizeTimer = Timer.periodic(const Duration(milliseconds: 10), (_) async {
       if (!kIsMacOS) {
         await Future.delayed(const Duration(milliseconds: 100));
       }
-      RenderBox rb1 = _bannersViewKey?.currentContext?.findRenderObject();
-      RenderBox rb2 = _inputViewKey?.currentContext?.findRenderObject();
-      RenderBox rb3 = _resultsViewKey?.currentContext?.findRenderObject();
+      RenderBox? rb1 =
+          _bannersViewKey.currentContext?.findRenderObject() as RenderBox?;
+      RenderBox? rb2 =
+          _inputViewKey.currentContext?.findRenderObject() as RenderBox?;
+      RenderBox? rb3 =
+          _resultsViewKey.currentContext?.findRenderObject() as RenderBox?;
 
       double toolbarViewHeight = 36.0;
-      double bannersViewHeight = rb1?.size?.height ?? 0;
-      double inputViewHeight = rb2?.size?.height ?? 0;
-      double resultsViewHeight = rb3?.size?.height ?? 0;
+      double bannersViewHeight = rb1?.size.height ?? 0;
+      double inputViewHeight = rb2?.size.height ?? 0;
+      double resultsViewHeight = rb3?.size.height ?? 0;
 
       try {
         double newWindowHeight = toolbarViewHeight +
@@ -332,7 +335,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
       }
 
       if (_resizeTimer != null) {
-        _resizeTimer.cancel();
+        _resizeTimer?.cancel();
         _resizeTimer = null;
       }
     });
@@ -366,7 +369,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
                 .detectLanguage(detectLanguageRequest);
 
         _textDetectedLanguage = detectLanguageResponse
-            .detections.first.detectedLanguage
+            .detections!.first.detectedLanguage
             .split('-')[0];
 
         filteredTranslationTargetList = _translationTargetList
@@ -389,7 +392,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     }
 
     for (int i = 0; i < _translationResultList.length; i++) {
-      TranslationTarget translationTarget =
+      TranslationTarget? translationTarget =
           _translationResultList[i].translationTarget;
 
       List<String> engineIdList = [];
@@ -406,12 +409,11 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
               .use(identifier)
               .getSupportedLanguagePairs();
 
-          LanguagePair languagePair = supportedLanguagePairList.firstWhere(
+          LanguagePair? languagePair = supportedLanguagePairList.firstWhere(
             (e) {
-              return e.sourceLanguage == translationTarget.sourceLanguage &&
-                  e.targetLanguage == translationTarget.targetLanguage;
+              return e.sourceLanguage == translationTarget?.sourceLanguage &&
+                  e.targetLanguage == translationTarget?.targetLanguage;
             },
-            orElse: () => null,
           );
           if (languagePair == null) {
             unsupportedEngineIdList.add(identifier);
@@ -433,22 +435,22 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
             TranslationResultRecord(
           id: const Uuid().v4(),
           translationEngineId: identifier,
-          translationTargetId: translationTarget.id,
+          translationTargetId: translationTarget?.id,
         );
         _translationResultList[i]
-            .translationResultRecordList
+            .translationResultRecordList!
             .add(translationResultRecord);
 
         Future<bool> future = Future<bool>.sync(() async {
-          LookUpRequest lookUpRequest;
-          LookUpResponse lookUpResponse;
-          UniTranslateClientError lookUpError;
-          if ((sharedTranslateClient.use(identifier)?.supportedScopes ?? [])
+          LookUpRequest? lookUpRequest;
+          LookUpResponse? lookUpResponse;
+          UniTranslateClientError? lookUpError;
+          if ((sharedTranslateClient.use(identifier).supportedScopes)
               .contains(kScopeLookUp)) {
             try {
               lookUpRequest = LookUpRequest(
-                sourceLanguage: translationTarget.sourceLanguage,
-                targetLanguage: translationTarget.targetLanguage,
+                sourceLanguage: translationTarget!.sourceLanguage!,
+                targetLanguage: translationTarget.targetLanguage!,
                 word: _text,
               );
               lookUpResponse = await sharedTranslateClient
@@ -461,14 +463,14 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
             }
           }
 
-          TranslateRequest translateRequest;
-          TranslateResponse translateResponse;
-          UniTranslateClientError translateError;
-          if ((sharedTranslateClient.use(identifier)?.supportedScopes ?? [])
+          TranslateRequest? translateRequest;
+          TranslateResponse? translateResponse;
+          UniTranslateClientError? translateError;
+          if ((sharedTranslateClient.use(identifier).supportedScopes)
               .contains(kScopeTranslate)) {
             try {
               translateRequest = TranslateRequest(
-                sourceLanguage: translationTarget.sourceLanguage,
+                sourceLanguage: translationTarget!.sourceLanguage,
                 targetLanguage: translationTarget.targetLanguage,
                 text: _text,
               );
@@ -484,29 +486,29 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
           if (lookUpResponse != null) {
             _translationResultList[i]
-                .translationResultRecordList[j]
+                .translationResultRecordList![j]
                 .lookUpRequest = lookUpRequest;
             _translationResultList[i]
-                .translationResultRecordList[j]
+                .translationResultRecordList![j]
                 .lookUpResponse = lookUpResponse;
           }
           if (lookUpError != null) {
             _translationResultList[i]
-                .translationResultRecordList[j]
+                .translationResultRecordList![j]
                 .lookUpError = lookUpError;
           }
 
           if (translateResponse != null) {
             _translationResultList[i]
-                .translationResultRecordList[j]
+                .translationResultRecordList![j]
                 .translateRequest = translateRequest;
             _translationResultList[i]
-                .translationResultRecordList[j]
+                .translationResultRecordList![j]
                 .translateResponse = translateResponse;
           }
           if (translateError != null) {
             _translationResultList[i]
-                .translationResultRecordList[j]
+                .translationResultRecordList![j]
                 .translateError = translateError;
           }
 
@@ -522,7 +524,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   }
 
   void _handleTextChanged(
-    String newValue, {
+    String? newValue, {
     bool isRequery = false,
   }) {
     setState(() {
@@ -570,7 +572,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
     await _windowHide();
 
-    String imagePath;
+    String? imagePath;
     if (!kIsWeb) {
       Directory appDir = await sharedConfig.getAppDirectory();
       String fileName =
@@ -599,8 +601,8 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
             .use(sharedConfig.defaultOcrEngineId)
             .recognizeText(
               RecognizeTextRequest(
-                imagePath: _capturedData.imagePath,
-                base64Image: _capturedData.base64Image,
+                imagePath: _capturedData?.imagePath,
+                base64Image: _capturedData?.base64Image,
               ),
             );
         _isTextDetecting = false;
@@ -793,7 +795,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     );
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return PreferredSize(
       child: Container(
         padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
@@ -816,7 +818,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _windowResize());
+    WidgetsBinding.instance?.addPostFrameCallback((_) => _windowResize());
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _buildBody(context),
@@ -830,7 +832,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
     if (uri.authority == 'translate') {
       if (_text.isNotEmpty) _handleButtonTappedClear();
-      String text = uri.queryParameters['text'];
+      String? text = uri.queryParameters['text'];
       if (text != null && text.isNotEmpty) {
         _handleTextChanged(text, isRequery: true);
       }

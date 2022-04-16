@@ -5,7 +5,7 @@ class LWM {
 }
 
 class Player {
-  Player({int id});
+  Player({required int id});
 
   _PlayerState state = _PlayerState();
   _PlayerStreams streams = _PlayerStreams();
@@ -18,7 +18,7 @@ class Player {
 }
 
 class Media {
-  Media({String uri, dynamic extras});
+  Media({required String uri, dynamic extras});
 }
 
 class _PlayerState {
@@ -32,13 +32,13 @@ class _PlayerState {
 }
 
 class _PlayerStreams {
-  Stream<List<Media>> medias;
-  Stream<bool> isPlaying;
-  Stream<bool> isBuffering;
-  Stream<bool> isCompleted;
-  Stream<Duration> position;
-  Stream<Duration> duration;
-  Stream<int> index;
+  late Stream<List<Media>> medias;
+  late Stream<bool> isPlaying;
+  late Stream<bool> isBuffering;
+  late Stream<bool> isCompleted;
+  late Stream<Duration> position;
+  late Stream<Duration> duration;
+  late Stream<int> index;
 
   void dispose() {
     mediasController.close();

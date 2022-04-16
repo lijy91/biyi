@@ -5,12 +5,12 @@ import '../../includes.dart';
 class LanguageLabel extends StatelessWidget {
   final String language;
   final double flagSize;
-  final Color flagBorderColor;
-  final TextStyle style;
+  final Color? flagBorderColor;
+  final TextStyle? style;
 
   const LanguageLabel(
     this.language, {
-    Key key,
+    Key? key,
     this.flagSize = 22,
     this.flagBorderColor,
     this.style,
@@ -28,7 +28,7 @@ class LanguageLabel extends StatelessWidget {
         ),
         SizedBox(width: 5),
         DefaultTextStyle(
-          style: Theme.of(context).textTheme.bodyText2,
+          style: Theme.of(context).textTheme.bodyText2!,
           child: Text(
             getLanguageName(language),
             style: style,

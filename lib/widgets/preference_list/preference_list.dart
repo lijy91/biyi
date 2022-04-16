@@ -4,13 +4,13 @@ export './preference_list_item.dart';
 export './preference_list_section.dart';
 
 class PreferenceList extends StatelessWidget {
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final List<Widget> children;
 
   const PreferenceList({
-    Key key,
+    Key? key,
     this.padding,
-    this.children,
+    required this.children,
   }) : super(key: key);
 
   @override

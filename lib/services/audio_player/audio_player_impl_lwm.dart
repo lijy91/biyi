@@ -14,9 +14,9 @@ class AudioPlayerImplLWM extends AudioPlayer {
     }
   }
 
-  lwm.Player _lwmPlayer;
-  Uri _audioUrl;
-  AudioPlayerState _state = AudioPlayerState.initialized;
+  late lwm.Player _lwmPlayer;
+  late Uri _audioUrl;
+  late AudioPlayerState _state = AudioPlayerState.initialized;
 
   AudioPlayerImplLWM(int id) {
     _lwmPlayer = lwm.Player(id: id);

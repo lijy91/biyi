@@ -13,7 +13,7 @@ class TranslationInputView extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
 
-  final CapturedData capturedData;
+  final CapturedData? capturedData;
   final bool isTextDetecting;
 
   final String translationMode;
@@ -27,19 +27,19 @@ class TranslationInputView extends StatelessWidget {
   final VoidCallback onButtonTappedTrans;
 
   const TranslationInputView({
-    Key key,
-    this.focusNode,
-    this.controller,
-    this.onChanged,
+    Key? key,
+    required this.focusNode,
+    required this.controller,
+    required this.onChanged,
     this.capturedData,
-    this.isTextDetecting,
-    this.translationMode,
-    this.onTranslationModeChanged,
-    this.inputSetting,
-    this.onClickExtractTextFromScreenCapture,
-    this.onClickExtractTextFromClipboard,
-    this.onButtonTappedClear,
-    this.onButtonTappedTrans,
+    required this.isTextDetecting,
+    required this.translationMode,
+    required this.onTranslationModeChanged,
+    required this.inputSetting,
+    required this.onClickExtractTextFromScreenCapture,
+    required this.onClickExtractTextFromClipboard,
+    required this.onButtonTappedClear,
+    required this.onButtonTappedTrans,
   }) : super(key: key);
 
   Widget _buildTextGetters(BuildContext context) {
@@ -101,7 +101,7 @@ class TranslationInputView extends StatelessWidget {
                         ? kTranslationModeManual
                         : kTranslationModeAuto;
 
-                UserPreference userPreference =
+                UserPreference? userPreference =
                     sharedLocalDb.preference(kPrefTranslationMode).get();
                 if (userPreference != null) {
                   sharedLocalDb.preference(kPrefTranslationMode).update(
@@ -174,7 +174,6 @@ class TranslationInputView extends StatelessWidget {
               left: 12,
               right: 12,
             ),
-            border: Border.all(color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(2),
             child: Text(
               'page_home.btn_clear'.tr(),
@@ -274,8 +273,10 @@ class TranslationInputView extends StatelessWidget {
                             Row(
                               children: [
                                 SpinKitDoubleBounce(
-                                  color:
-                                      Theme.of(context).textTheme.caption.color,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .color,
                                   size: 18.0,
                                 ),
                                 SizedBox(width: 6),
@@ -284,7 +285,7 @@ class TranslationInputView extends StatelessWidget {
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .textTheme
-                                        .caption
+                                        .caption!
                                         .color,
                                     fontSize: 13,
                                   ),

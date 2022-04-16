@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class PreferenceListSection extends StatelessWidget {
-  final Widget leading;
-  final Widget title;
-  final Widget description;
+  final Widget? leading;
+  final Widget? title;
+  final Widget? description;
   final List<Widget> children;
 
   const PreferenceListSection({
-    Key key,
+    Key? key,
     this.leading,
     this.title,
     this.description,
-    this.children,
+    required this.children,
   }) : super(key: key);
 
   @override
@@ -31,8 +31,8 @@ class PreferenceListSection extends StatelessWidget {
             if (title != null)
               Container(
                 child: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.caption,
-                  child: title,
+                  style: Theme.of(context).textTheme.caption!,
+                  child: title!,
                 ),
                 padding: EdgeInsets.only(
                   top: 0,
@@ -49,7 +49,7 @@ class PreferenceListSection extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      if (leading != null) leading,
+                      if (leading != null) leading!,
                       Expanded(
                         child: Column(
                           children: [
@@ -77,8 +77,8 @@ class PreferenceListSection extends StatelessWidget {
             if (description != null)
               Container(
                 child: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.caption,
-                  child: description,
+                  style: Theme.of(context).textTheme.caption!,
+                  child: description!,
                 ),
                 padding: EdgeInsets.only(
                   top: 6,

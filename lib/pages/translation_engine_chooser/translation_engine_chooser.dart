@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../includes.dart';
 
 class TranslationEngineChooserPage extends StatefulWidget {
-  final TranslationEngineConfig initialEngineConfig;
-  final ValueChanged<TranslationEngineConfig> onChoosed;
+  final TranslationEngineConfig? initialEngineConfig;
+  final ValueChanged<TranslationEngineConfig>? onChoosed;
 
   const TranslationEngineChooserPage({
-    Key key,
+    Key? key,
     this.initialEngineConfig,
     this.onChoosed,
   }) : super(key: key);
@@ -18,9 +18,9 @@ class TranslationEngineChooserPage extends StatefulWidget {
 
 class _TranslationEngineChooserPageState
     extends State<TranslationEngineChooserPage> {
-  String _identifier;
+  String? _identifier;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_translation_engine_chooser.$key'.tr(args: args);
   }
 
@@ -34,9 +34,9 @@ class _TranslationEngineChooserPageState
 
   void _handleClickOk() async {
     if (widget.onChoosed != null) {
-      TranslationEngineConfig engineConfig =
+      TranslationEngineConfig? engineConfig =
           sharedLocalDb.engine(_identifier).get();
-      widget.onChoosed(engineConfig);
+      widget.onChoosed!(engineConfig!);
     }
 
     Navigator.of(context).pop();
@@ -52,12 +52,12 @@ class _TranslationEngineChooserPageState
             title: Text(t('pref_section_title_private')),
             children: [
               for (var engineConfig in privateEngineList)
-                PreferenceListRadioItem(
+                PreferenceListRadioItem<String>(
                   icon: TranslationEngineIcon(
                     engineConfig,
                   ),
                   value: engineConfig.identifier,
-                  groupValue: _identifier,
+                  groupValue: _identifier ?? '',
                   onChanged: (newValue) {
                     setState(() {
                       _identifier = newValue;
@@ -70,7 +70,8 @@ class _TranslationEngineChooserPageState
                         children: [
                           TextSpan(
                             text: ' (${engineConfig.shortId})',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.grey),
                           )
                         ],
                       ),

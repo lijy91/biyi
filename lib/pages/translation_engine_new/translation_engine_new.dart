@@ -10,10 +10,10 @@ const List<String> _kAllScopes = [
 
 class TranslationEngineNewPage extends StatefulWidget {
   final bool editable;
-  final TranslationEngineConfig engineConfig;
+  final TranslationEngineConfig? engineConfig;
 
   const TranslationEngineNewPage({
-    Key key,
+    Key? key,
     this.editable = true,
     this.engineConfig,
   }) : super(key: key);
@@ -26,8 +26,8 @@ class TranslationEngineNewPage extends StatefulWidget {
 class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
   Map<String, TextEditingController> _textEditingControllerMap = {};
 
-  String _identifier;
-  String _type;
+  String? _identifier;
+  String? _type;
   Map<String, dynamic> _option = Map();
   List<String> _disabledScopes = [];
 
@@ -35,35 +35,39 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
     return kKnownSupportedEngineOptionKeys[_type] ?? [];
   }
 
-  TranslationEngine get translationEngine {
+  TranslationEngine? get translationEngine {
     if (_type != null) {
       var engineConfig = TranslationEngineConfig(
-        type: _type,
+        identifier: '',
+        type: _type!,
+        name: _type!,
         option: _option,
       );
-      if (widget.engineConfig != null && widget.engineConfig.option == null) {
+      if (widget.engineConfig != null && widget.engineConfig?.option == null) {
         engineConfig = TranslationEngineConfig(
-          type: _type,
-          option: null,
-          supportedScopes: widget.engineConfig.supportedScopes,
+          identifier: '',
+          type: _type!,
+          name: _type!,
+          option: {},
+          supportedScopes: widget.engineConfig?.supportedScopes ?? [],
         );
       }
-      return createTranslationEngine(engineConfig);
+      return createTranslationEngine(engineConfig)!;
     }
     return null;
   }
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_translation_engine_new.$key'.tr(args: args);
   }
 
   @override
   void initState() {
     if (widget.engineConfig != null) {
-      _identifier = widget.engineConfig.identifier;
-      _type = widget.engineConfig.type;
-      _option = widget.engineConfig.option ?? {};
-      _disabledScopes = widget.engineConfig.disabledScopes ?? [];
+      _identifier = widget.engineConfig?.identifier;
+      _type = widget.engineConfig?.type;
+      _option = widget.engineConfig?.option ?? {};
+      _disabledScopes = widget.engineConfig?.disabledScopes ?? [];
 
       for (var optionKey in _engineOptionKeys) {
         var textEditingController = TextEditingController(
@@ -77,7 +81,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
   }
 
   void _handleClickOk() async {
-    final id = widget.engineConfig?.identifier;
+    final String? id = widget.engineConfig?.identifier;
     await sharedLocalDb.privateEngine(id).updateOrCreate(
           type: _type,
           option: _option,
@@ -85,20 +89,21 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
         );
     await sharedLocalDb.write();
 
-    (sharedTranslateClient.adapter as AutoloadTranslateClientAdapter).renew(id);
+    (sharedTranslateClient.adapter as AutoloadTranslateClientAdapter)
+        .renew(id!);
 
     Navigator.of(context).pop();
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: widget.engineConfig != null
           ? Text.rich(
               TextSpan(
-                text: widget.engineConfig.typeName,
+                text: widget.engineConfig?.typeName,
                 children: [
                   TextSpan(
-                    text: ' (${widget.engineConfig.shortId})',
+                    text: ' (${widget.engineConfig?.shortId})',
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   )
                 ],
@@ -125,7 +130,12 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
               icon: _type == null
                   ? null
                   : TranslationEngineIcon(
-                      TranslationEngineConfig(type: _type),
+                      TranslationEngineConfig(
+                        identifier: '',
+                        type: _type!,
+                        name: _type!,
+                        option: {},
+                      ),
                     ),
               title: _type == null
                   ? Text('please_choose'.tr())
@@ -168,7 +178,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                   summary: Text(scope),
                   accessoryView: Container(
                     child: Text(
-                      translationEngine.supportedScopes.contains(scope)
+                      (translationEngine?.supportedScopes ?? []).contains(scope)
                           ? '✅'
                           : '❌',
                     ),

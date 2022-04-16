@@ -22,10 +22,10 @@ final Map<String, List<String>> kKnownSupportedEngineOptionKeys = {
   kEngineTypeYoudao: YoudaoTranslationEngine.optionKeys,
 };
 
-TranslationEngine createTranslationEngine(
+TranslationEngine? createTranslationEngine(
   TranslationEngineConfig engineConfig,
 ) {
-  TranslationEngine translationEngine;
+  TranslationEngine? translationEngine;
 
   switch (engineConfig.type) {
     case kEngineTypeBaidu:
@@ -50,7 +50,6 @@ TranslationEngine createTranslationEngine(
       translationEngine = YoudaoTranslationEngine(engineConfig);
       break;
   }
-
   return translationEngine;
 }
 
@@ -66,26 +65,26 @@ class AutoloadTranslateClientAdapter extends UniTranslateClientAdapter {
 
   @override
   TranslationEngine use(String identifier) {
-    TranslationEngineConfig engineConfig =
+    TranslationEngineConfig? engineConfig =
         sharedLocalDb.engine(identifier).get();
 
-    TranslationEngine translationEngine;
-    if (_translationEngineMap.containsKey(engineConfig.identifier)) {
-      translationEngine = _translationEngineMap[engineConfig.identifier];
+    TranslationEngine? translationEngine;
+    if (_translationEngineMap.containsKey(engineConfig?.identifier)) {
+      translationEngine = _translationEngineMap[engineConfig?.identifier];
     }
 
     if (translationEngine == null) {
-      translationEngine = createTranslationEngine(engineConfig);
+      translationEngine = createTranslationEngine(engineConfig!);
       if (translationEngine != null) {
         _translationEngineMap.update(
           engineConfig.identifier,
-          (_) => translationEngine,
-          ifAbsent: () => translationEngine,
+          (_) => translationEngine!,
+          ifAbsent: () => translationEngine!,
         );
       }
     }
 
-    return translationEngine;
+    return translationEngine!;
   }
 
   void renew(String identifier) {

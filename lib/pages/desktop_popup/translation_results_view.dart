@@ -9,20 +9,20 @@ class TranslationResultsView extends StatelessWidget {
   final String translationMode;
   final bool querySubmitted;
   final String text;
-  final String textDetectedLanguage;
+  final String? textDetectedLanguage;
   final List<TranslationResult> translationResultList;
   final ValueChanged<String> onTextTapped;
 
   const TranslationResultsView({
-    Key key,
-    this.viewKey,
-    this.controller,
-    this.translationMode,
-    this.querySubmitted,
-    this.text,
-    this.textDetectedLanguage,
-    this.translationResultList,
-    this.onTextTapped,
+    Key? key,
+    required this.viewKey,
+    required this.controller,
+    required this.translationMode,
+    required this.querySubmitted,
+    required this.text,
+    required this.textDetectedLanguage,
+    required this.translationResultList,
+    required this.onTextTapped,
   }) : super(key: key);
 
   Widget _buildNoMatchingTranslationTarget(BuildContext context) {
@@ -60,7 +60,7 @@ class TranslationResultsView extends StatelessWidget {
               children: [
                 const TextSpan(text: '没有与'),
                 TextSpan(
-                  text: getLanguageName(textDetectedLanguage),
+                  text: getLanguageName(textDetectedLanguage!),
                   style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 const TextSpan(text: '匹配的翻译目标，'),

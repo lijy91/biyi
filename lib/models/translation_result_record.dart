@@ -1,15 +1,15 @@
 import 'package:uni_translate/uni_translate.dart';
 
 class TranslationResultRecord {
-  String id;
-  String translationTargetId;
-  String translationEngineId;
-  LookUpRequest lookUpRequest;
-  LookUpResponse lookUpResponse;
-  UniTranslateClientError lookUpError;
-  TranslateRequest translateRequest;
-  TranslateResponse translateResponse;
-  UniTranslateClientError translateError;
+  String? id;
+  String? translationTargetId;
+  String? translationEngineId;
+  LookUpRequest? lookUpRequest;
+  LookUpResponse? lookUpResponse;
+  UniTranslateClientError? lookUpError;
+  TranslateRequest? translateRequest;
+  TranslateResponse? translateResponse;
+  UniTranslateClientError? translateError;
 
   TranslationResultRecord({
     this.id,
@@ -22,8 +22,6 @@ class TranslationResultRecord {
   });
 
   factory TranslationResultRecord.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return TranslationResultRecord(
       id: json['id'],
       translationTargetId: json['translationTargetId'],

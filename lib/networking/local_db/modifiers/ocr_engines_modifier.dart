@@ -9,9 +9,9 @@ class OcrEnginesModifier {
 
   OcrEnginesModifier(this.dbData);
 
-  String _id;
+  String? _id;
 
-  void setId(String id) {
+  void setId(String? id) {
     _id = id;
   }
 
@@ -24,7 +24,7 @@ class OcrEnginesModifier {
   }
 
   List<OcrEngineConfig> list({
-    bool where(OcrEngineConfig element),
+    bool where(OcrEngineConfig element)?,
   }) {
     if (where != null) {
       return _ocrEngineList.where(where).toList();
@@ -32,18 +32,18 @@ class OcrEnginesModifier {
     return _ocrEngineList;
   }
 
-  OcrEngineConfig get() {
+  OcrEngineConfig? get() {
     if (!exists()) return null;
     return _ocrEngineList[_ocrEngineIndex];
   }
 
   Future<void> create({
-    String type,
-    String name,
-    Map<String, dynamic> option,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
   }) async {
     OcrEngineConfig group = OcrEngineConfig(
-      identifier: Uuid().v4(),
+      identifier: const Uuid().v4(),
       type: type,
       name: name,
       option: option,
@@ -52,10 +52,10 @@ class OcrEnginesModifier {
   }
 
   Future<void> update({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    bool disabled,
+    String? type,
+    String? name,
+    Map<String, dynamic>? option,
+    bool? disabled,
   }) async {
     if (type != null) _ocrEngineList[_ocrEngineIndex].type = type;
     if (name != null) _ocrEngineList[_ocrEngineIndex].name = name;
@@ -72,10 +72,10 @@ class OcrEnginesModifier {
   }
 
   Future<void> updateOrCreate({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    bool disabled,
+    String? type,
+    String? name,
+    Map<String, dynamic>? option,
+    bool? disabled,
   }) async {
     if (_id != null && exists()) {
       update(
@@ -86,9 +86,9 @@ class OcrEnginesModifier {
       );
     } else {
       create(
-        type: type,
-        name: name,
-        option: option,
+        type: type!,
+        name: name!,
+        option: option!,
       );
     }
   }

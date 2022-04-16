@@ -7,8 +7,8 @@ class TranslationEngineTag extends StatefulWidget {
   final TranslationResultRecord translationResultRecord;
 
   const TranslationEngineTag({
-    Key key,
-    this.translationResultRecord,
+    Key? key,
+    required this.translationResultRecord,
   }) : super(key: key);
 
   @override
@@ -20,8 +20,8 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
 
   TranslationEngineConfig get _translationEngineConfig {
     return sharedLocalDb
-        .engine(this.widget.translationResultRecord.translationEngineId)
-        .get();
+        .engine(widget.translationResultRecord.translationEngineId!)
+        .get()!;
   }
 
   @override
@@ -45,12 +45,17 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
               color: Theme.of(context).dividerColor,
               width: 0.5,
             ),
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(12),
               bottomLeft: Radius.circular(12),
             ),
           ),
-          padding: EdgeInsets.only(top: 3, bottom: 3, left: 4, right: 2),
+          padding: const EdgeInsets.only(
+            top: 3,
+            bottom: 3,
+            left: 4,
+            right: 2,
+          ),
           child: CupertinoButton(
             minSize: 0,
             padding: EdgeInsets.zero,
@@ -78,10 +83,10 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
                     size: 12,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 4, right: 2),
+                    padding: const EdgeInsets.only(left: 4, right: 2),
                     child: Text(
                       _translationEngineConfig.typeName,
-                      style: Theme.of(context).textTheme.caption.copyWith(
+                      style: Theme.of(context).textTheme.caption!.copyWith(
                             fontSize: 10,
                           ),
                     ),

@@ -10,10 +10,10 @@ class SettingTranslatePage extends StatefulWidget {
 
 class _SettingTranslatePageState extends State<SettingTranslatePage> {
   String _translationMode = kTranslationModeManual;
-  TranslationEngineConfig _defaultEngineConfig;
-  bool _doubleClickCopyResult;
+  TranslationEngineConfig? _defaultEngineConfig;
+  bool _doubleClickCopyResult = true;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_setting_translate.$key'.tr(args: args);
   }
 
@@ -61,16 +61,16 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                 PreferenceListItem(
                   icon: _defaultEngineConfig == null
                       ? null
-                      : TranslationEngineIcon(_defaultEngineConfig),
+                      : TranslationEngineIcon(_defaultEngineConfig!),
                   title: Builder(builder: (_) {
                     if (_defaultEngineConfig == null)
                       return Text('please_choose'.tr());
                     return Text.rich(
                       TextSpan(
-                        text: _defaultEngineConfig.typeName,
+                        text: _defaultEngineConfig!.typeName,
                         children: [
                           TextSpan(
-                            text: ' (${_defaultEngineConfig.shortId})',
+                            text: ' (${_defaultEngineConfig!.shortId})',
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           )
                         ],
@@ -109,7 +109,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                         return Row(
                           children: [
                             if (translationTarget.sourceLanguage != null)
-                              LanguageLabel(translationTarget.sourceLanguage),
+                              LanguageLabel(translationTarget.sourceLanguage!),
                             if (translationTarget.targetLanguage != null)
                               Container(
                                 padding: EdgeInsets.only(left: 8, right: 8),
@@ -120,7 +120,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                                 ),
                               ),
                             if (translationTarget.targetLanguage != null)
-                              LanguageLabel(translationTarget.targetLanguage),
+                              LanguageLabel(translationTarget.targetLanguage!),
                           ],
                         );
                       },

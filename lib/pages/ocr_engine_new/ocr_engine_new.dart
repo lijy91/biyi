@@ -4,10 +4,10 @@ import '../../includes.dart';
 
 class OcrEngineNewPage extends StatefulWidget {
   final bool editable;
-  final OcrEngineConfig ocrEngineConfig;
+  final OcrEngineConfig? ocrEngineConfig;
 
   const OcrEngineNewPage({
-    Key key,
+    Key? key,
     this.editable = true,
     this.ocrEngineConfig,
   }) : super(key: key);
@@ -19,8 +19,8 @@ class OcrEngineNewPage extends StatefulWidget {
 class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
   Map<String, TextEditingController> _textEditingControllerMap = {};
 
-  String _identifier;
-  String _type;
+  String? _identifier;
+  String? _type;
   Map<String, dynamic> _option = Map();
 
   List<String> get _engineOptionKeys {
@@ -31,16 +31,16 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
     return [];
   }
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_ocr_engine_new.$key'.tr(args: args);
   }
 
   @override
   void initState() {
     if (widget.ocrEngineConfig != null) {
-      _identifier = widget.ocrEngineConfig.identifier;
-      _type = widget.ocrEngineConfig.type;
-      _option = widget.ocrEngineConfig.option;
+      _identifier = widget.ocrEngineConfig?.identifier;
+      _type = widget.ocrEngineConfig?.type;
+      _option = widget.ocrEngineConfig?.option ?? {};
 
       for (var optionKey in _engineOptionKeys) {
         var textEditingController =
@@ -58,20 +58,20 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
         );
     await sharedLocalDb.write();
 
-    (sharedOcrClient.adapter as AutoloadOcrClientAdapter).renew(_identifier);
+    (sharedOcrClient.adapter as AutoloadOcrClientAdapter).renew(_identifier!);
 
     Navigator.of(context).pop();
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: widget.ocrEngineConfig != null
           ? Text.rich(
               TextSpan(
-                text: widget.ocrEngineConfig.typeName,
+                text: widget.ocrEngineConfig?.typeName,
                 children: [
                   TextSpan(
-                    text: ' (${widget.ocrEngineConfig.shortId})',
+                    text: ' (${widget.ocrEngineConfig?.shortId})',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   )
                 ],
@@ -98,7 +98,12 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
               icon: _type == null
                   ? null
                   : OcrEngineIcon(
-                      OcrEngineConfig(type: _type),
+                      OcrEngineConfig(
+                        identifier: _identifier!,
+                        type: _type!,
+                        name: _type!,
+                        option: {},
+                      ),
                     ),
               title: _type == null
                   ? Text('please_choose'.tr())
@@ -109,7 +114,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => OcrEngineTypeChooserPage(
-                            engineType: _type,
+                            engineType: _type!,
                             onEngineTypeChanged: (newEngineType) {
                               setState(() {
                                 _type = newEngineType;

@@ -4,13 +4,13 @@ import '../includes.dart';
 
 extension ExtTranslationEngineConfig on TranslationEngineConfig {
   String get icon {
-    return R.image('translation_engine_icons/${this.type}.png');
+    return R.image('translation_engine_icons/$type.png');
   }
 
   String get typeName {
-    String key = 'engine.${this.type}';
+    String key = 'engine.$type';
     if (key.tr() == key) {
-      return this.name;
+      return name ?? type;
     }
     return key.tr();
   }

@@ -6,8 +6,8 @@ class ModalBottomSheetWrapped extends StatefulWidget {
   final Widget child;
 
   const ModalBottomSheetWrapped({
-    Key key,
-    this.child,
+    Key? key,
+    required this.child,
   }) : super(key: key);
 
   @override

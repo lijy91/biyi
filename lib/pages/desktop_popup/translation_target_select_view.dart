@@ -10,9 +10,9 @@ class _AvailableLanguageSelector extends StatelessWidget {
   final ValueChanged<String> onChanged;
 
   const _AvailableLanguageSelector({
-    Key key,
-    this.value,
-    this.onChanged,
+    Key? key,
+    required this.value,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -50,10 +50,7 @@ class _AvailableLanguageSelector extends StatelessWidget {
                     : CustomButton.outlined(
                         child: child,
                         padding: padding,
-                        border: Border.all(
-                          width: 0.8,
-                          color: Theme.of(context).dividerColor,
-                        ),
+                        color: Theme.of(context).dividerColor,
                         borderRadius: BorderRadius.circular(2),
                         onPressed: () => onChanged(supportedLanguage),
                       );
@@ -77,16 +74,16 @@ class TranslationTargetSelectView extends StatefulWidget {
   final Function(String sourceLanguage, String targetLanguage) onChanged;
 
   const TranslationTargetSelectView({
-    Key key,
+    Key? key,
     // this.viewKey,
-    this.translationMode,
-    this.isShowSourceLanguageSelector,
-    this.isShowTargetLanguageSelector,
-    this.onToggleShowSourceLanguageSelector,
-    this.onToggleShowTargetLanguageSelector,
-    this.sourceLanguage,
-    this.targetLanguage,
-    this.onChanged,
+    required this.translationMode,
+    required this.isShowSourceLanguageSelector,
+    required this.isShowTargetLanguageSelector,
+    required this.onToggleShowSourceLanguageSelector,
+    required this.onToggleShowTargetLanguageSelector,
+    required this.sourceLanguage,
+    required this.targetLanguage,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -150,7 +147,7 @@ class _TranslationTargetSelectViewState
                           flagBorderColor: widget.isShowSourceLanguageSelector
                               ? Theme.of(context).primaryColor
                               : null,
-                          style: Theme.of(context).textTheme.bodyText2.copyWith(
+                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
                                 color: widget.isShowSourceLanguageSelector
                                     ? Theme.of(context).primaryColor
                                     : null,
@@ -171,7 +168,7 @@ class _TranslationTargetSelectViewState
                               size: 14,
                               color: widget.isShowSourceLanguageSelector
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).textTheme.bodyText1.color,
+                                  : Theme.of(context).textTheme.bodyText1!.color,
                             ),
                           ),
                         ),
@@ -222,7 +219,7 @@ class _TranslationTargetSelectViewState
                           flagBorderColor: widget.isShowTargetLanguageSelector
                               ? Theme.of(context).primaryColor
                               : null,
-                          style: Theme.of(context).textTheme.bodyText2.copyWith(
+                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
                                 color: widget.isShowTargetLanguageSelector
                                     ? Theme.of(context).primaryColor
                                     : null,
@@ -243,7 +240,7 @@ class _TranslationTargetSelectViewState
                               size: 14,
                               color: widget.isShowTargetLanguageSelector
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).textTheme.bodyText1.color,
+                                  : Theme.of(context).textTheme.bodyText1!.color,
                             ),
                           ),
                         ),

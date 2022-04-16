@@ -2,30 +2,50 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-const EdgeInsets _kButtonPadding = EdgeInsets.all(6.0);
-const EdgeInsets _kBackgroundButtonPadding = EdgeInsets.symmetric(
-  vertical: 6.0,
-  horizontal: 64.0,
-);
+const EdgeInsets _kButtonPadding = EdgeInsets.zero;
 
+const double _kCustomButtonMinHeight = 48;
+
+/// An iOS-style button.
+///
+/// Takes in a text or an icon that fades out and in on touch. May optionally have a
+/// background.
+///
+/// The [padding] defaults to 16.0 pixels. When using a [CustomButton] within
+/// a fixed height parent, like a [CupertinoNavigationBar], a smaller, or even
+/// [EdgeInsets.zero], should be used to prevent clipping larger [child]
+/// widgets.
+///
+/// {@tool dartpad}
+/// This sample shows produces an enabled and disabled [CustomButton] and
+/// [CustomButton.filled].
+///
+/// ** See code in examples/api/lib/cupertino/button/cupertino_button.0.dart **
+/// {@end-tool}
+///
+/// See also:
+///
+///  * <https://developer.apple.com/ios/human-interface-guidelines/controls/buttons/>
 class CustomButton extends StatefulWidget {
-  /// Creates an Custom-style button.
+  /// Creates an iOS-style button.
   const CustomButton({
-    Key key,
-    this.processing,
-    @required this.child,
+    Key? key,
+    this.processing = false,
+    required this.child,
     this.padding,
     this.color,
-    this.disabledColor = const Color(0x4D000000),
-    this.minSize = kMinInteractiveDimensionCupertino,
+    this.disabledColor = CupertinoColors.quaternarySystemFill,
+    this.minSize = _kCustomButtonMinHeight,
     this.pressedOpacity = 0.4,
-    this.border,
-    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    @required this.onPressed,
+    this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
+    this.alignment = Alignment.center,
+    required this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
         assert(disabledColor != null),
+        assert(alignment != null),
         _filled = false,
+        _outlined = false,
         super(key: key);
 
   /// Creates an iOS-style button with a filled background.
@@ -35,47 +55,42 @@ class CustomButton extends StatefulWidget {
   /// To specify a custom background color, use the [color] argument of the
   /// default constructor.
   const CustomButton.filled({
-    Key key,
-    this.processing,
-    @required this.child,
+    Key? key,
+    this.processing = false,
+    required this.child,
     this.padding,
-    this.disabledColor = const Color(0x4D000000),
-    this.minSize = kMinInteractiveDimensionCupertino,
+    this.disabledColor = CupertinoColors.quaternarySystemFill,
+    this.minSize = _kCustomButtonMinHeight,
     this.pressedOpacity = 0.4,
-    this.border,
-    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    @required this.onPressed,
+    this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
+    this.alignment = Alignment.center,
+    required this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
         assert(disabledColor != null),
+        assert(alignment != null),
         color = null,
         _filled = true,
+        _outlined = false,
         super(key: key);
 
-  /// Creates an iOS-style button with a filled background.
-  ///
-  /// The background color is derived from the [CupertinoTheme]'s `primaryColor`.
-  ///
-  /// To specify a custom background color, use the [color] argument of the
-  /// default constructor.
   const CustomButton.outlined({
-    Key key,
-    this.processing,
-    @required this.child,
+    Key? key,
+    this.processing = false,
+    required this.child,
     this.padding,
-    this.disabledColor = const Color(0x4D000000),
+    this.disabledColor = const Color(0x3D1A2B48),
     this.minSize = kMinInteractiveDimensionCupertino,
     this.pressedOpacity = 0.4,
-    this.border = const Border.fromBorderSide(
-      BorderSide(color: Color(0xff939597)),
-    ),
-    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    @required this.onPressed,
+    this.color,
+    this.borderRadius = const BorderRadius.all(Radius.circular(6.0)),
+    this.alignment = Alignment.center,
+    required this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
         assert(disabledColor != null),
-        color = null,
         _filled = false,
+        _outlined = true,
         super(key: key);
 
   final bool processing;
@@ -88,7 +103,7 @@ class CustomButton extends StatefulWidget {
   /// The amount of space to surround the child inside the bounds of the button.
   ///
   /// Defaults to 16.0 pixels.
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// The color of the button's background.
   ///
@@ -96,7 +111,7 @@ class CustomButton extends StatefulWidget {
   ///
   /// Defaults to the [CupertinoTheme]'s `primaryColor` when the
   /// [CustomButton.filled] constructor is used.
-  final Color color;
+  final Color? color;
 
   /// The color of the button's background when the button is disabled.
   ///
@@ -109,36 +124,45 @@ class CustomButton extends StatefulWidget {
   /// The callback that is called when the button is tapped or otherwise activated.
   ///
   /// If this is set to null, the button will be disabled.
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   /// Minimum size of the button.
   ///
-  /// Defaults to kMinInteractiveDimensionCupertino which the iOS Human
+  /// Defaults to _kCustomButtonMinHeight which the iOS Human
   /// Interface Guidelines recommends as the minimum tappable area.
-  final double minSize;
+  final double? minSize;
 
   /// The opacity that the button will fade to when it is pressed.
   /// The button will have an opacity of 1.0 when it is not pressed.
   ///
   /// This defaults to 0.4. If null, opacity will not change on pressed if using
   /// your own custom effects is desired.
-  final double pressedOpacity;
-
-  final Border border;
+  final double? pressedOpacity;
 
   /// The radius of the button's corners when it has a background color.
   ///
   /// Defaults to round corners of 8 logical pixels.
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
+
+  /// The alignment of the button's [child].
+  ///
+  /// Typically buttons are sized to be just big enough to contain the child and its
+  /// [padding]. If the button's size is constrained to a fixed size, for example by
+  /// enclosing it with a [SizedBox], this property defines how the child is aligned
+  /// within the available space.
+  ///
+  /// Always defaults to [Alignment.center].
+  final AlignmentGeometry alignment;
 
   final bool _filled;
+  final bool _outlined;
 
   /// Whether the button is enabled or disabled. Buttons are disabled by default. To
   /// enable a button, set its [onPressed] property to a non-null value.
   bool get enabled => onPressed != null;
 
   @override
-  _CustomButtonState createState() => _CustomButtonState();
+  State<CustomButton> createState() => _CustomButtonState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -151,12 +175,12 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton>
     with SingleTickerProviderStateMixin {
   // Eyeballed values. Feel free to tweak.
-  static const Duration kFadeOutDuration = Duration(milliseconds: 10);
-  static const Duration kFadeInDuration = Duration(milliseconds: 100);
+  static const Duration kFadeOutDuration = Duration(milliseconds: 120);
+  static const Duration kFadeInDuration = Duration(milliseconds: 180);
   final Tween<double> _opacityTween = Tween<double>(begin: 1.0);
 
-  AnimationController _animationController;
-  Animation<double> _opacityAnimation;
+  late AnimationController _animationController;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -185,7 +209,6 @@ class _CustomButtonState extends State<CustomButton>
   @override
   void dispose() {
     _animationController.dispose();
-    _animationController = null;
     super.dispose();
   }
 
@@ -216,8 +239,10 @@ class _CustomButtonState extends State<CustomButton>
     if (_animationController.isAnimating) return;
     final bool wasHeldDown = _buttonHeldDown;
     final TickerFuture ticker = _buttonHeldDown
-        ? _animationController.animateTo(1.0, duration: kFadeOutDuration)
-        : _animationController.animateTo(0.0, duration: kFadeInDuration);
+        ? _animationController.animateTo(1.0,
+            duration: kFadeOutDuration, curve: Curves.easeInOutCubicEmphasized)
+        : _animationController.animateTo(0.0,
+            duration: kFadeInDuration, curve: Curves.easeOutCubic);
     ticker.then<void>((void value) {
       if (mounted && wasHeldDown != _buttonHeldDown) _animate();
     });
@@ -228,19 +253,26 @@ class _CustomButtonState extends State<CustomButton>
     final bool enabled = widget.enabled;
     final CupertinoThemeData themeData = CupertinoTheme.of(context);
     final Color primaryColor = themeData.primaryColor;
-    final Color backgroundColor = widget.color == null
+    Color? backgroundColor = widget.color == null
         ? (widget._filled ? primaryColor : null)
-        : CupertinoDynamicColor.resolve(widget.color, context);
+        : CupertinoDynamicColor.maybeResolve(widget.color, context);
 
-    final Color foregroundColor = backgroundColor != null
+    Color foregroundColor = backgroundColor != null
         ? themeData.primaryContrastingColor
         : enabled
             ? primaryColor
             : CupertinoDynamicColor.resolve(
                 CupertinoColors.placeholderText, context);
 
-    final TextStyle textStyle =
-        themeData.textTheme.textStyle.copyWith(color: foregroundColor);
+    if (widget._outlined && widget.color != null) {
+      backgroundColor = null;
+      foregroundColor = widget.color ?? primaryColor;
+    }
+
+    final TextStyle textStyle = themeData.textTheme.textStyle.copyWith(
+      color: foregroundColor,
+      fontWeight: FontWeight.w500,
+    );
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -254,14 +286,18 @@ class _CustomButtonState extends State<CustomButton>
           constraints: widget.minSize == null
               ? const BoxConstraints()
               : BoxConstraints(
-                  minWidth: widget.minSize,
-                  minHeight: widget.minSize,
+                  minWidth: widget.minSize!,
+                  minHeight: widget.minSize!,
                 ),
           child: FadeTransition(
             opacity: _opacityAnimation,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                border: widget.border,
+                border: widget._outlined
+                    ? Border.fromBorderSide(
+                        BorderSide(color: widget.color ?? primaryColor),
+                      )
+                    : null,
                 borderRadius: widget.borderRadius,
                 color: backgroundColor != null && !enabled
                     ? CupertinoDynamicColor.resolve(
@@ -269,11 +305,9 @@ class _CustomButtonState extends State<CustomButton>
                     : backgroundColor,
               ),
               child: Padding(
-                padding: widget.padding ??
-                    (backgroundColor != null
-                        ? _kBackgroundButtonPadding
-                        : _kButtonPadding),
-                child: Center(
+                padding: widget.padding ?? _kButtonPadding,
+                child: Align(
+                  alignment: widget.alignment,
                   widthFactor: 1.0,
                   heightFactor: 1.0,
                   child: DefaultTextStyle(
@@ -282,7 +316,7 @@ class _CustomButtonState extends State<CustomButton>
                       data: IconThemeData(color: foregroundColor),
                       child: widget.processing == true
                           ? SpinKitThreeBounce(
-                              color: textStyle.color, size: 14.0)
+                              color: foregroundColor, size: 14.0)
                           : widget.child,
                     ),
                   ),

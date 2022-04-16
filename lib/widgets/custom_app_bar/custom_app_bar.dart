@@ -10,13 +10,13 @@ export './custom_app_bar_back_button.dart';
 export './custom_app_bar_close_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final Widget leading;
+  final Widget? leading;
   final bool automaticallyImplyLeading;
-  final Widget title;
-  final List<Widget> actions;
+  final Widget? title;
+  final List<Widget>? actions;
 
   const CustomAppBar({
-    Key key,
+    Key? key,
     this.leading,
     this.automaticallyImplyLeading = true,
     this.title,
@@ -26,22 +26,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScaffoldState scaffold = Scaffold.of(context);
-    final ModalRoute<dynamic> parentRoute = ModalRoute.of(context);
+    final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
 
-    final bool hasDrawer = scaffold?.hasDrawer ?? false;
     final bool canPop = parentRoute?.canPop ?? false;
     final bool useCloseButton =
         parentRoute is PageRoute<dynamic> && parentRoute.fullscreenDialog;
 
-    Widget leading = this.leading;
+    Widget? leading = this.leading;
     if (leading == null && automaticallyImplyLeading) {
-      if (!hasDrawer) {
-        if (canPop) {
-          leading = useCloseButton
-              ? const CustomAppBarCloseButton()
-              : const CustomAppBarBackButton();
-        }
+      if (canPop) {
+        leading = useCloseButton
+            ? const CustomAppBarCloseButton()
+            : const CustomAppBarBackButton();
       }
     }
 

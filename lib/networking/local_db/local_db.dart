@@ -20,34 +20,20 @@ class _ListenerEntry extends LinkedListEntry<_ListenerEntry> {
 }
 
 class _ConfigChangeNotifier implements Listenable {
-  LinkedList<_ListenerEntry> _listeners = LinkedList<_ListenerEntry>();
-
-  bool _debugAssertNotDisposed() {
-    assert(() {
-      if (_listeners == null) {
-        throw FlutterError('A $runtimeType was used after being disposed.\n'
-            'Once you have called dispose() on a $runtimeType, it can no longer be used.');
-      }
-      return true;
-    }());
-    return true;
-  }
+  final LinkedList<_ListenerEntry> _listeners = LinkedList<_ListenerEntry>();
 
   @protected
   bool get hasListeners {
-    assert(_debugAssertNotDisposed());
     return _listeners.isNotEmpty;
   }
 
   @override
   void addListener(VoidCallback listener) {
-    assert(_debugAssertNotDisposed());
     _listeners.add(_ListenerEntry(listener));
   }
 
   @override
   void removeListener(VoidCallback listener) {
-    assert(_debugAssertNotDisposed());
     for (final _ListenerEntry entry in _listeners) {
       if (entry.listener == listener) {
         entry.unlink();
@@ -58,14 +44,12 @@ class _ConfigChangeNotifier implements Listenable {
 
   @mustCallSuper
   void dispose() {
-    assert(_debugAssertNotDisposed());
-    _listeners = null;
+    _listeners.clear();
   }
 
   @protected
   @visibleForTesting
   void notifyListeners() {
-    assert(_debugAssertNotDisposed());
     if (_listeners.isEmpty) return;
 
     final List<_ListenerEntry> localListeners =
@@ -88,18 +72,18 @@ class LocalDb extends _ConfigChangeNotifier {
   final DbData defaultDbData;
 
   LocalDb({
-    this.defaultDbData,
+    required this.defaultDbData,
   });
 
-  DbData dbData;
+  late DbData dbData;
 
-  PrivateEnginesModifier _privateEnginesModifier;
-  PrivateOcrEnginesModifier _privateOcrEnginesModifier;
+  PrivateEnginesModifier? _privateEnginesModifier;
+  PrivateOcrEnginesModifier? _privateOcrEnginesModifier;
 
-  EnginesModifier _enginesModifier;
-  OcrEnginesModifier _ocrEnginesModifier;
-  PreferencesModifier _preferencesModifier;
-  TranslationTargetsModifier _translationTargetsModifier;
+  EnginesModifier? _enginesModifier;
+  OcrEnginesModifier? _ocrEnginesModifier;
+  PreferencesModifier? _preferencesModifier;
+  TranslationTargetsModifier? _translationTargetsModifier;
 
   Future<File> get _localFile async {
     final appDir = await Config.instance.getAppDirectory();
@@ -141,68 +125,68 @@ class LocalDb extends _ConfigChangeNotifier {
     return privateEngine(null);
   }
 
-  PrivateEnginesModifier privateEngine(String id) {
+  PrivateEnginesModifier privateEngine(String? id) {
     _privateEnginesModifier ??= PrivateEnginesModifier(dbData);
-    _privateEnginesModifier.setId(id);
-    return _privateEnginesModifier;
+    _privateEnginesModifier?.setId(id);
+    return _privateEnginesModifier!;
   }
 
   PrivateOcrEnginesModifier get privateOcrEngines {
     return privateOcrEngine(null);
   }
 
-  PrivateOcrEnginesModifier privateOcrEngine(String id) {
+  PrivateOcrEnginesModifier privateOcrEngine(String? id) {
     _privateOcrEnginesModifier ??= PrivateOcrEnginesModifier(dbData);
-    _privateOcrEnginesModifier.setId(id);
-    return _privateOcrEnginesModifier;
+    _privateOcrEnginesModifier?.setId(id);
+    return _privateOcrEnginesModifier!;
   }
 
   EnginesModifier get engines {
     return engine(null);
   }
 
-  EnginesModifier engine(String id) {
+  EnginesModifier engine(String? id) {
     _enginesModifier ??= EnginesModifier(dbData);
-    _enginesModifier.setId(id);
-    return _enginesModifier;
+    _enginesModifier?.setId(id);
+    return _enginesModifier!;
   }
 
   OcrEnginesModifier get ocrEngines {
     return ocrEngine(null);
   }
 
-  OcrEnginesModifier ocrEngine(String id) {
+  OcrEnginesModifier ocrEngine(String? id) {
     _ocrEnginesModifier ??= OcrEnginesModifier(dbData);
-    _ocrEnginesModifier.setId(id);
-    return _ocrEnginesModifier;
+    _ocrEnginesModifier?.setId(id);
+    return _ocrEnginesModifier!;
   }
 
   PreferencesModifier get preferences {
     return preference(null);
   }
 
-  PreferencesModifier preference(String key) {
+  PreferencesModifier preference(String? key) {
     _preferencesModifier ??= PreferencesModifier(dbData);
-    _preferencesModifier.setKey(key);
-    return _preferencesModifier;
+    _preferencesModifier?.setKey(key);
+    return _preferencesModifier!;
   }
 
   TranslationTargetsModifier get translationTargets {
     return translationTarget(null);
   }
 
-  TranslationTargetsModifier translationTarget(String id) {
+  TranslationTargetsModifier translationTarget(String? id) {
     _translationTargetsModifier ??= TranslationTargetsModifier(dbData);
-    _translationTargetsModifier.setId(id);
-    return _translationTargetsModifier;
+    _translationTargetsModifier?.setId(id);
+    return _translationTargetsModifier!;
   }
 }
 
 class DbData {
-  List<TranslationEngineConfig> privateEngineList;
-  List<OcrEngineConfig> privateOcrEngineList;
-  List<UserPreference> preferenceList;
-  List<TranslationTarget> translationTargetList;
+  List<TranslationEngineConfig>? privateEngineList;
+  List<OcrEngineConfig>? privateOcrEngineList;
+  List<UserPreference>? preferenceList;
+  List<TranslationTarget>? translationTargetList;
 
   List<TranslationEngineConfig> get engineList => [...?privateEngineList];
   List<OcrEngineConfig> get ocrEngineList => [...?privateOcrEngineList];
@@ -215,25 +199,11 @@ class DbData {
   });
 
   factory DbData.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
-    List<TranslationEngineConfig> proEngineList = [];
-    List<OcrEngineConfig> proOcrEngineList = [];
     List<TranslationEngineConfig> privateEngineList = [];
     List<OcrEngineConfig> privateOcrEngineList = [];
     List<UserPreference> preferenceList = [];
     List<TranslationTarget> translationTargetList = [];
 
-    if (json['proEngineList'] != null) {
-      Iterable l = json['proEngineList'] as List;
-      proEngineList =
-          l.map((item) => TranslationEngineConfig.fromJson(item)).toList();
-    }
-    if (json['proOcrEngineList'] != null) {
-      Iterable l = json['proOcrEngineList'] as List;
-      proOcrEngineList =
-          l.map((item) => OcrEngineConfig.fromJson(item)).toList();
-    }
     if (json['privateEngineList'] != null) {
       Iterable l = json['privateEngineList'] as List;
       privateEngineList =

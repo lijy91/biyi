@@ -1,7 +1,7 @@
 class TranslationTarget {
-  String id;
-  String sourceLanguage;
-  String targetLanguage;
+  String? id;
+  String? sourceLanguage;
+  String? targetLanguage;
 
   TranslationTarget({
     this.id,
@@ -10,8 +10,6 @@ class TranslationTarget {
   });
 
   factory TranslationTarget.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return TranslationTarget(
       id: json['id'],
       sourceLanguage: json['sourceLanguage'],

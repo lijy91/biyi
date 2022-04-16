@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../includes.dart';
 
 class TranslationEnginesManagePage extends StatefulWidget {
+  const TranslationEnginesManagePage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _TranslationEnginesManagePageState();
 }
 
 class _TranslationEnginesManagePageState
     extends State<TranslationEnginesManagePage> {
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String> args = const []}) {
     return 'page_translation_engines_manage.$key'.tr(args: args);
   }
 

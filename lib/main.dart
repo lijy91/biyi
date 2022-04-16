@@ -54,7 +54,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -90,9 +90,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget _buildHome(BuildContext context) {
-    if (kIsAndroid || kIsIOS) {
-      return const HomePage();
-    }
     return const DesktopPopupPage();
   }
 

@@ -9,8 +9,8 @@ class WordPhraseView extends StatelessWidget {
 
   const WordPhraseView(
     this.wordPhrase, {
-    Key key,
-    this.onTextTapped,
+    Key? key,
+    required this.onTextTapped,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class WordPhraseView extends StatelessWidget {
               children: [
                 TextSpan(
                   text: wordPhrase.text,
-                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w500,
                       ),
@@ -38,13 +38,13 @@ class WordPhraseView extends StatelessWidget {
                 TextSpan(text: ' '),
                 TextSpan(
                   text: wordPhrase.translations.first,
-                  style: Theme.of(context).textTheme.caption.copyWith(
+                  style: Theme.of(context).textTheme.caption!.copyWith(
                         fontSize: 13,
                       ),
                 ),
               ],
             ),
-            style: Theme.of(context).textTheme.bodyText2.copyWith(
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
                   height: 1.4,
                 ),
           ),

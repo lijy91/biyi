@@ -149,12 +149,10 @@ word_pronunciation:
 tray_context_menu:
   item_show: 显示
   item_quick_start_guide: 快速入门
-  item_sponsor: 支持一下
   item_discussion: 加入讨论
   item_quit_app: 退出比译
   item_discussion_subitem_discord_server: 加入 Discord
   item_discussion_subitem_qq_group: 加入 QQ 群
-  item_discussion_subitem_wechat_group: 加入微信群
 # Pages
 page_home:
   newversion_banner_text_found_new_version: "发现新版本：{}"
@@ -174,7 +172,6 @@ page_home:
   tip_translation_mode: 当前翻译模式：{}
   tip_extract_text_from_screen_capture: 截取屏幕区域并识别文字
   tip_extract_text_from_clipboard: 读取剪切板内容
-  btn_sponsor: 支持一下
   btn_clear: 清空
   btn_trans: 翻译
   msg_please_enter_word_or_text: 未输入文本或未提取到文本
@@ -245,7 +242,6 @@ page_settings:
   pref_item_title_launch_at_startup: 登录时启动
   pref_item_title_engines: 文本翻译
   pref_item_title_ocr_engines: 文字识别
-  pref_item_title_sponsor: 支持一下
   pref_item_title_about: 关于比译
   pref_item_title_exit_app: 退出应用
   exit_app_dialog:

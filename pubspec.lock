@@ -304,17 +304,17 @@ packages:
   ocr_engine_builtin:
     dependency: transitive
     description:
-      path: "../uni_ocr/packages/ocr_engine_builtin"
-      relative: true
-    source: path
-    version: "0.0.1"
+      name: ocr_engine_builtin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   ocr_engine_youdao:
     dependency: transitive
     description:
-      path: "../uni_ocr/packages/ocr_engine_youdao"
-      relative: true
-    source: path
-    version: "0.0.1"
+      name: ocr_engine_youdao
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   package_info_plus:
     dependency: "direct main"
     description:
@@ -464,15 +464,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
-  pro_account:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: main
-      resolved-ref: eb5be0f10e43579d914b8d7a563f8b48488695d6
-      url: "https://github.com/biyidev/pro_account_noop.git"
-    source: git
-    version: "0.0.1"
   process:
     dependency: transitive
     description:
@@ -621,59 +612,52 @@ packages:
   translation_engine_baidu:
     dependency: transitive
     description:
-      path: "../uni_translate/packages/translation_engine_baidu"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: translation_engine_baidu
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   translation_engine_caiyun:
     dependency: transitive
     description:
-      path: "../uni_translate/packages/translation_engine_caiyun"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: translation_engine_caiyun
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   translation_engine_deepl:
     dependency: transitive
     description:
-      path: "../uni_translate/packages/translation_engine_deepl"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: translation_engine_deepl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   translation_engine_google:
     dependency: transitive
     description:
-      path: "../uni_translate/packages/translation_engine_google"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: translation_engine_google
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   translation_engine_iciba:
     dependency: transitive
     description:
-      path: "../uni_translate/packages/translation_engine_iciba"
-      relative: true
-    source: path
-    version: "0.1.0"
-  translation_engine_sogou:
-    dependency: transitive
-    description:
-      path: "../uni_translate/packages/translation_engine_sogou"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: translation_engine_iciba
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   translation_engine_tencent:
     dependency: transitive
     description:
-      path: "../uni_translate/packages/translation_engine_tencent"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: translation_engine_tencent
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   translation_engine_youdao:
     dependency: transitive
     description:
-      path: "../uni_translate/packages/translation_engine_youdao"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: translation_engine_youdao
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   tray_manager:
     dependency: "direct main"
     description:
@@ -691,31 +675,31 @@ packages:
   uni_ocr:
     dependency: "direct main"
     description:
-      path: "../uni_ocr/packages/uni_ocr"
-      relative: true
-    source: path
-    version: "0.0.1"
+      name: uni_ocr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   uni_ocr_client:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      path: "../uni_ocr/packages/uni_ocr_client"
-      relative: true
-    source: path
-    version: "0.0.3"
+      name: uni_ocr_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   uni_translate:
     dependency: "direct main"
     description:
-      path: "../uni_translate/packages/uni_translate"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: uni_translate
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   uni_translate_client:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      path: "../uni_translate/packages/uni_translate_client"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: uni_translate_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   url_launcher:
     dependency: "direct main"
     description:

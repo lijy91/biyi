@@ -58,26 +58,19 @@ $ mkdir ~/biyidev
 $ cd ~/biyidev
 ```
 
-2. Clone dependency repos via git:
-
-```
-$ git clone https://github.com/biyidev/uni_ocr.git
-$ git clone https://github.com/biyidev/uni_translate.git
-```
-
-3. Clone this repo via git:
+2. Clone this repo via git:
 
 ```
 $ git clone https://github.com/biyidev/biyi.git
 ```
 
-4. Change to `biyi` directory
+3. Change to `biyi` directory
 
 ```
 $ cd ~/biyidev/biyi
 ```
 
-5. Install dependencies
+4. Install dependencies
 
 ```
 $ flutter pub get
@@ -93,9 +86,7 @@ $ flutter run -d linux / macos / windows
 
 > Welcome to join the discussion group to share your suggestions and ideas with me.
 
-- WeChat Group Please add my personal WeChat `lijy91` and note `Biyi`
 - [QQ Group](https://jq.qq.com/?_wv=1027&k=vYQ5jW7y)
-- [Telegram Group](https://t.me/joinchat/nFrk4KsXFc84ZGNl)
 
 ## Related Links
 

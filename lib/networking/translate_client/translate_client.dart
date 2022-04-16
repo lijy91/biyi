@@ -1,8 +1,6 @@
 export 'package:uni_translate/uni_translate.dart';
-import 'package:uni_translate/uni_translate.dart';
 
 import '../../includes.dart';
-import 'pro_translation_engine.dart';
 
 const kSupportedEngineTypes = [
   kEngineTypeBaidu,
@@ -28,33 +26,31 @@ TranslationEngine createTranslationEngine(
   TranslationEngineConfig engineConfig,
 ) {
   TranslationEngine translationEngine;
-  if (sharedLocalDb.proEngine(engineConfig.identifier).exists()) {
-    translationEngine = ProTranslationEngine(engineConfig);
-  } else {
-    switch (engineConfig.type) {
-      case kEngineTypeBaidu:
-        translationEngine = BaiduTranslationEngine(engineConfig);
-        break;
-      case kEngineTypeCaiyun:
-        translationEngine = CaiyunTranslationEngine(engineConfig);
-        break;
-      case kEngineTypeDeepL:
-        translationEngine = DeepLTranslationEngine(engineConfig);
-        break;
-      case kEngineTypeGoogle:
-        translationEngine = GoogleTranslationEngine(engineConfig);
-        break;
-      case kEngineTypeIciba:
-        translationEngine = IcibaTranslationEngine(engineConfig);
-        break;
-      case kEngineTypeTencent:
-        translationEngine = TencentTranslationEngine(engineConfig);
-        break;
-      case kEngineTypeYoudao:
-        translationEngine = YoudaoTranslationEngine(engineConfig);
-        break;
-    }
+
+  switch (engineConfig.type) {
+    case kEngineTypeBaidu:
+      translationEngine = BaiduTranslationEngine(engineConfig);
+      break;
+    case kEngineTypeCaiyun:
+      translationEngine = CaiyunTranslationEngine(engineConfig);
+      break;
+    case kEngineTypeDeepL:
+      translationEngine = DeepLTranslationEngine(engineConfig);
+      break;
+    case kEngineTypeGoogle:
+      translationEngine = GoogleTranslationEngine(engineConfig);
+      break;
+    case kEngineTypeIciba:
+      translationEngine = IcibaTranslationEngine(engineConfig);
+      break;
+    case kEngineTypeTencent:
+      translationEngine = TencentTranslationEngine(engineConfig);
+      break;
+    case kEngineTypeYoudao:
+      translationEngine = YoudaoTranslationEngine(engineConfig);
+      break;
   }
+
   return translationEngine;
 }
 

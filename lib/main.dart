@@ -27,8 +27,6 @@ Future<void> _ensureInitialized() async {
     await protocolHandler.register('biyiapp');
   }
 
-  await ProAccount.instance.ensureInitialized();
-
   await initEnv();
   await initLocalDb();
   await initConfig();

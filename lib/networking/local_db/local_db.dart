@@ -6,13 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../../includes.dart';
-import 'modifiers/engines_modifier.dart';
-import 'modifiers/ocr_engines_modifier.dart';
-import 'modifiers/preferences_modifier.dart';
-import 'modifiers/translation_targets_modifier.dart';
 
-export 'modifiers/pro_engines_modifier.dart';
-export 'modifiers/pro_ocr_engines_modifier.dart';
 export 'modifiers/private_engines_modifier.dart';
 export 'modifiers/private_ocr_engines_modifier.dart';
 export 'modifiers/engines_modifier.dart';
@@ -99,8 +93,6 @@ class LocalDb extends _ConfigChangeNotifier {
 
   DbData dbData;
 
-  ProEnginesModifier _proEnginesModifier;
-  ProOcrEnginesModifier _proOcrEnginesModifier;
   PrivateEnginesModifier _privateEnginesModifier;
   PrivateOcrEnginesModifier _privateOcrEnginesModifier;
 
@@ -143,93 +135,6 @@ class LocalDb extends _ConfigChangeNotifier {
       dbData.toJson().removeNulls(),
     );
     await file.writeAsString(jsonString);
-  }
-
-  Future<DbData> loadFromProAccount() async {
-    var oldProEngineList = dbData.proEngineList ?? [];
-    var oldProOcrEngineList = dbData.proOcrEngineList ?? [];
-
-    try {
-      List<TranslationEngineConfig> newProEngineList =
-          await proAccount.engines.list();
-      dbData.proEngineList = newProEngineList.map((engine) {
-        var oldEngine = oldProEngineList.firstWhere(
-          (e) => e.identifier == engine.identifier,
-          orElse: () => null,
-        );
-        if (oldEngine != null) {
-          engine.disabled = oldEngine.disabled;
-        }
-        return engine;
-      }).toList();
-    } catch (error) {
-      // skip error
-    }
-
-    try {
-      List<OcrEngineConfig> newProOcrEngineList =
-          await proAccount.ocrEngines.list();
-      dbData.proOcrEngineList = newProOcrEngineList.map((engine) {
-        var oldOrcEngine = oldProOcrEngineList.firstWhere(
-          (e) => e.identifier == engine.identifier,
-          orElse: () => null,
-        );
-        if (oldOrcEngine != null) {
-          engine.disabled = oldOrcEngine.disabled;
-        }
-        return engine;
-      }).toList();
-      if (await kDefaultBuiltInOcrEngine.isSupportedOnCurrentPlatform()) {
-        dbData.proOcrEngineList.removeWhere(
-          (e) => e.type == kOcrEngineTypeBuiltIn,
-        );
-        dbData.proOcrEngineList.insert(0, kDefaultBuiltInOcrEngine.config);
-      }
-    } catch (error) {
-      // skip error
-    }
-
-    List<String> proEngineIdList =
-        dbData.proEngineList.map((e) => e.identifier).toList();
-    if (sharedConfig.defaultEngineId == null ||
-        !proEngineIdList.contains(sharedConfig.defaultEngineId)) {
-      sharedConfigManager.setDefaultEngineId(
-        dbData.proEngineList.firstWhere((e) => e.type == 'baidu').identifier,
-      );
-    }
-
-    List<String> proOcrEngineIdList =
-        dbData.proOcrEngineList.map((e) => e.identifier).toList();
-    if (sharedConfig.defaultOcrEngineId == null ||
-        !proOcrEngineIdList.contains(sharedConfig.defaultOcrEngineId)) {
-      sharedConfigManager.setDefaultOcrEngineId(
-        dbData.proOcrEngineList
-            .firstWhere((e) => e.type == 'built_in')
-            .identifier,
-      );
-    }
-    await write();
-    return dbData;
-  }
-
-  ProEnginesModifier get proEngines {
-    return proEngine(null);
-  }
-
-  ProEnginesModifier proEngine(String id) {
-    _proEnginesModifier ??= ProEnginesModifier(dbData);
-    _proEnginesModifier.setId(id);
-    return _proEnginesModifier;
-  }
-
-  ProOcrEnginesModifier get proOcrEngines {
-    return proOcrEngine(null);
-  }
-
-  ProOcrEnginesModifier proOcrEngine(String id) {
-    _proOcrEnginesModifier ??= ProOcrEnginesModifier(dbData);
-    _proOcrEnginesModifier.setId(id);
-    return _proOcrEnginesModifier;
   }
 
   PrivateEnginesModifier get privateEngines {
@@ -294,23 +199,15 @@ class LocalDb extends _ConfigChangeNotifier {
 }
 
 class DbData {
-  List<TranslationEngineConfig> proEngineList;
-  List<OcrEngineConfig> proOcrEngineList;
   List<TranslationEngineConfig> privateEngineList;
   List<OcrEngineConfig> privateOcrEngineList;
   List<UserPreference> preferenceList;
   List<TranslationTarget> translationTargetList;
 
-  List<TranslationEngineConfig> get engineList => []
-    ..addAll(proEngineList ?? [])
-    ..addAll(privateEngineList ?? []);
-  List<OcrEngineConfig> get ocrEngineList => []
-    ..addAll(proOcrEngineList ?? [])
-    ..addAll(privateOcrEngineList ?? []);
+  List<TranslationEngineConfig> get engineList => [...?privateEngineList];
+  List<OcrEngineConfig> get ocrEngineList => [...?privateOcrEngineList];
 
   DbData({
-    this.proEngineList,
-    this.proOcrEngineList,
     this.privateEngineList,
     this.privateOcrEngineList,
     this.preferenceList,
@@ -358,8 +255,6 @@ class DbData {
     }
 
     return DbData(
-      proEngineList: proEngineList,
-      proOcrEngineList: proOcrEngineList,
       privateEngineList: privateEngineList,
       privateOcrEngineList: privateOcrEngineList,
       preferenceList: preferenceList,
@@ -369,9 +264,6 @@ class DbData {
 
   Map<String, dynamic> toJson() {
     return {
-      'proEngineList': (proEngineList ?? []).map((e) => e.toJson()).toList(),
-      'proOcrEngineList':
-          (proOcrEngineList ?? []).map((e) => e.toJson()).toList(),
       'privateEngineList':
           (privateEngineList ?? []).map((e) => e.toJson()).toList(),
       'privateOcrEngineList':

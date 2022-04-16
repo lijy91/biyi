@@ -149,12 +149,10 @@ word_pronunciation:
 tray_context_menu:
   item_show: Show
   item_quick_start_guide: Quick Start
-  item_sponsor: Sponsor
   item_discussion: Join Discussion
   item_quit_app: Quit Biyi
   item_discussion_subitem_discord_server: Join Discord
   item_discussion_subitem_qq_group: Join QQ Group
-  item_discussion_subitem_wechat_group: Join WeChat Group
 # Pages
 page_home:
   newversion_banner_text_found_new_version: "New version found: {}"
@@ -174,7 +172,6 @@ page_home:
   tip_translation_mode: "Current translation mode: {}"
   tip_extract_text_from_screen_capture: Capture screen area and recognize text
   tip_extract_text_from_clipboard: Read clipboard content
-  btn_sponsor: Sponsor
   btn_clear: Clear
   btn_trans: Translate
   msg_please_enter_word_or_text: No text entered or text not extracted
@@ -245,7 +242,6 @@ page_settings:
   pref_item_title_launch_at_startup: Launch when you log in
   pref_item_title_engines: Text Translation
   pref_item_title_ocr_engines: Text Detection
-  pref_item_title_sponsor: Sponsor
   pref_item_title_about: About Biyi
   pref_item_title_exit_app: Exit App
   exit_app_dialog:

@@ -226,15 +226,6 @@ class _SettingsPageState extends State<SettingsPage> {
             title: Text(t('pref_section_title_others')),
             children: [
               PreferenceListItem(
-                title: Text(t('pref_item_title_sponsor')),
-                onTap: () async {
-                  String url = '${sharedEnv.webUrl}/sponsor';
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  }
-                },
-              ),
-              PreferenceListItem(
                 title: Text(t('pref_item_title_about')),
                 onTap: () async {
                   String url = 'https://github.com/biyidev/biyi';

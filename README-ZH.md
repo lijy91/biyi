@@ -58,26 +58,19 @@ $ mkdir ~/biyidev
 $ cd ~/biyidev
 ```
 
-2. 通过 git 克隆依赖代码库：
-
-```
-$ git clone https://github.com/biyidev/uni_ocr.git
-$ git clone https://github.com/biyidev/uni_translate.git
-```
-
-3. 通过 git 克隆代码库：
+2. 通过 git 克隆代码库：
 
 ```
 $ git clone https://github.com/biyidev/biyi.git
 ```
 
-4. 切换到 `biyi` 目录
+3. 切换到 `biyi` 目录
 
 ```
 $ cd ~/biyidev/biyi
 ```
 
-5. 安装依赖项
+4. 安装依赖项
 
 ```
 $ flutter pub get
@@ -93,9 +86,7 @@ $ flutter run -d linux / macos / windows
 
 > 欢迎加入讨论组，与我分享你的建议和想法。
 
-- WeChat Group 请添加我的微信 lijy91，并备注 比译
 - [QQ Group](https://jq.qq.com/?_wv=1027&k=vYQ5jW7y)
-- [Telegram Group](https://t.me/joinchat/nFrk4KsXFc84ZGNl)
 
 ## Related Links
 

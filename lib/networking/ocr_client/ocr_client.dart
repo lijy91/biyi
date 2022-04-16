@@ -1,9 +1,6 @@
 export 'package:uni_ocr/uni_ocr.dart';
 
-import 'package:uni_ocr/uni_ocr.dart';
-
 import '../../includes.dart';
-import 'pro_ocr_engine.dart';
 
 final kDefaultBuiltInOcrEngine = BuiltInOcrEngine(
   OcrEngineConfig(
@@ -22,18 +19,13 @@ OcrEngine createOcrEngine(
   OcrEngineConfig ocrEngineConfig,
 ) {
   OcrEngine ocrEngine;
-  if (sharedLocalDb.proOcrEngine(ocrEngineConfig.identifier).exists()) {
-    ocrEngine = ProOcrEngine(ocrEngineConfig);
-    if (ocrEngineConfig.identifier == kDefaultBuiltInOcrEngine.identifier) {
-      ocrEngine = kDefaultBuiltInOcrEngine;
-    }
-  } else {
-    switch (ocrEngineConfig.type) {
-      case kOcrEngineTypeYoudao:
-        ocrEngine = YoudaoOcrEngine(ocrEngineConfig);
-        break;
-    }
+
+  switch (ocrEngineConfig.type) {
+    case kOcrEngineTypeYoudao:
+      ocrEngine = YoudaoOcrEngine(ocrEngineConfig);
+      break;
   }
+
   return ocrEngine;
 }
 

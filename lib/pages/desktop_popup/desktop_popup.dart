@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
@@ -18,7 +17,6 @@ import 'package:window_manager/window_manager.dart';
 import '../../../includes.dart';
 
 import './limited_functionality_banner.dart';
-import './new_version_found_banner.dart';
 import './toolbar_item_always_on_top.dart';
 import './toolbar_item_settings.dart';
 import './translation_input_view.dart';
@@ -26,12 +24,10 @@ import './translation_results_view.dart';
 import './translation_target_select_view.dart';
 
 const kMenuItemKeyQuickStartGuide = 'quick-start-guide';
-const kMenuItemKeySponsor = 'sponsor';
 const kMenuItemKeyQuitApp = 'quit-app';
 
 const kMenuSubItemKeyJoinDiscord = 'subitem-join-discord';
 const kMenuSubItemKeyJoinQQGroup = 'subitem-join-qq';
-const kMenuSubItemKeyJoinWeChatGroup = 'subitem-join-wechat';
 
 class DesktopPopupPage extends StatefulWidget {
   const DesktopPopupPage({Key key}) : super(key: key);
@@ -63,7 +59,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
   Offset _lastShownPosition;
 
-  Version _latestVersion;
   bool _isAllowedScreenCaptureAccess = true;
   bool _isAllowedScreenSelectionAccess = true;
 
@@ -113,7 +108,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
       windowManager.addListener(this);
       _init();
     }
-    _loadData();
     super.initState();
   }
 
@@ -225,10 +219,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
           title: 'tray_context_menu.item_quick_start_guide'.tr(),
         ),
         MenuItem(
-          key: kMenuItemKeySponsor,
-          title: 'tray_context_menu.item_sponsor'.tr(),
-        ),
-        MenuItem(
           title: 'tray_context_menu.item_discussion'.tr(),
           items: [
             MenuItem(
@@ -239,11 +229,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
             MenuItem(
               key: kMenuSubItemKeyJoinQQGroup,
               title: 'tray_context_menu.item_discussion_subitem_qq_group'.tr(),
-            ),
-            MenuItem(
-              key: kMenuSubItemKeyJoinWeChatGroup,
-              title:
-                  'tray_context_menu.item_discussion_subitem_wechat_group'.tr(),
             ),
           ],
         ),
@@ -351,22 +336,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         _resizeTimer = null;
       }
     });
-  }
-
-  void _loadData() async {
-    try {
-      _latestVersion = await proAccount.version('latest').get();
-      setState(() {});
-    } catch (error) {}
-    try {
-      ProAccountInterceptor.appBuildNumber = '${sharedEnv.appBuildNumber}';
-      ProAccountInterceptor.appVersion = sharedEnv.appVersion;
-
-      if (proAccount.loggedInGuest == null) {
-        await proAccount.loginAsGuest();
-      }
-      await sharedLocalDb.loadFromProAccount();
-    } catch (error) {}
   }
 
   Future<void> _queryData() async {
@@ -690,9 +659,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   }
 
   Widget _buildBannersView(BuildContext context) {
-    bool isFoundNewVersion = _latestVersion != null &&
-        _latestVersion.buildNumber > sharedEnv.appBuildNumber;
-
     bool isNoAllowedAllAccess =
         !(_isAllowedScreenCaptureAccess && _isAllowedScreenSelectionAccess);
 
@@ -700,15 +666,11 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
       key: _bannersViewKey,
       width: double.infinity,
       margin: EdgeInsets.only(
-        bottom: (isFoundNewVersion || isNoAllowedAllAccess) ? 12 : 0,
+        bottom: (isNoAllowedAllAccess) ? 12 : 0,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (isFoundNewVersion)
-            NewVersionFoundBanner(
-              latestVersion: _latestVersion,
-            ),
           if (isNoAllowedAllAccess)
             LimitedFunctionalityBanner(
               isAllowedScreenCaptureAccess: _isAllowedScreenCaptureAccess,
@@ -930,17 +892,11 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
       case kMenuItemKeyQuickStartGuide:
         await launch('${sharedEnv.webUrl}/docs');
         break;
-      case kMenuItemKeySponsor:
-        await launch('${sharedEnv.webUrl}/sponsor');
-        break;
       case kMenuSubItemKeyJoinDiscord:
         await launch('https://discord.gg/yRF62CKza8');
         break;
       case kMenuSubItemKeyJoinQQGroup:
         await launch('https://jq.qq.com/?_wv=1027&k=vYQ5jW7y');
-        break;
-      case kMenuSubItemKeyJoinWeChatGroup:
-        await launch('${sharedEnv.webUrl}/discussion/wechat-group');
         break;
       case kMenuItemKeyQuitApp:
         await trayManager.destroy();

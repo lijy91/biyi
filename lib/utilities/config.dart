@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 
 import '../includes.dart';
 
@@ -96,8 +98,23 @@ class Config {
   /// The shared instance of [Config].
   static final Config instance = Config._();
 
+  Directory dataDirectory;
+
   Future<Directory> getAppDirectory() async {
-    return proAccount.dataDirectory;
+    if (!kIsWeb && dataDirectory == null) {
+      final docDir = await getApplicationDocumentsDirectory();
+      final homeDir = docDir.parent;
+
+      var oldDataDirectory = Directory(path.join(homeDir.path, 'biyiapp-dev'));
+      dataDirectory = Directory(path.join(homeDir.path, '.biyi-dev'));
+      if (oldDataDirectory.existsSync()) {
+        await oldDataDirectory.rename(dataDirectory.path);
+      }
+      if (!dataDirectory.existsSync()) {
+        dataDirectory.createSync(recursive: true);
+      }
+    }
+    return dataDirectory;
   }
 
   String translationMode;

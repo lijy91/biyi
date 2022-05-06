@@ -27,6 +27,8 @@ class TranslationResultRecordView extends StatelessWidget {
     required this.onTextTapped,
   }) : super(key: key);
 
+  Configuration get _configuration => localDb.configuration;
+
   bool get _isLoading {
     if (_isErrorOccurred) return false;
     return translationResultRecord.lookUpResponse == null &&
@@ -86,7 +88,7 @@ class TranslationResultRecordView extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    String? word;
+    // String? word;
     List<TextTranslation>? translations; // 翻译
     List<WordTag>? tags; // 标签
     List<WordDefinition>? definitions; // 定义（基本释义）
@@ -98,7 +100,7 @@ class TranslationResultRecordView extends StatelessWidget {
 
     if (translationResultRecord.lookUpResponse != null) {
       final resp = translationResultRecord.lookUpResponse;
-      word = resp?.word;
+      // word = resp?.word;
       translations = resp?.translations;
       tags = resp?.tags;
       definitions = resp?.definitions;
@@ -122,7 +124,7 @@ class TranslationResultRecordView extends StatelessWidget {
       return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onDoubleTap: () {
-          if (sharedConfig.doubleClickCopyResult) {
+          if (_configuration.doubleClickCopyResult) {
             Clipboard.setData(ClipboardData(text: textTranslation.text));
             BotToast.showText(
               text: 'copied'.tr(),
@@ -174,7 +176,7 @@ class TranslationResultRecordView extends StatelessWidget {
           if ((pronunciations ?? []).isNotEmpty)
             Container(
               width: double.infinity,
-              margin: EdgeInsets.only(top: 12, bottom: 4),
+              margin: const EdgeInsets.only(top: 12, bottom: 4),
               child: Wrap(
                 spacing: 22,
                 crossAxisAlignment: WrapCrossAlignment.center,

@@ -4,12 +4,12 @@ import '../../includes.dart';
 
 class TranslationEngineTypeChooserPage extends StatefulWidget {
   final String? engineType;
-  final ValueChanged<String>? onEngineTypeChanged;
+  final ValueChanged<String>? onChoosed;
 
   const TranslationEngineTypeChooserPage({
     Key? key,
     this.engineType,
-    this.onEngineTypeChanged,
+    this.onChoosed,
   }) : super(key: key);
 
   @override
@@ -25,17 +25,16 @@ class _TranslationEngineTypeChooserPageState
     return 'page_translation_engine_type_chooser.$key'.tr(args: args);
   }
 
+  @override
   void initState() {
     _type = widget.engineType;
     super.initState();
   }
 
   void _handleClickOk() async {
-    if (widget.onEngineTypeChanged != null) {
-      widget.onEngineTypeChanged!(_type!);
+    if (widget.onChoosed != null) {
+      widget.onChoosed!(_type!);
     }
-
-    Navigator.of(context).pop();
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
@@ -57,14 +56,7 @@ class _TranslationEngineTypeChooserPageState
           children: [
             for (var engineType in kSupportedEngineTypes)
               PreferenceListRadioItem(
-                icon: TranslationEngineIcon(
-                  TranslationEngineConfig(
-                    identifier: '',
-                    type: engineType,
-                    name: engineType,
-                    option: {},
-                  ),
-                ),
+                icon: TranslationEngineIcon(engineType),
                 title: Text('engine.$engineType'.tr()),
                 value: engineType,
                 groupValue: _type,

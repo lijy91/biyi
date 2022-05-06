@@ -4,171 +4,165 @@ import 'package:flutter/material.dart';
 import '../../../includes.dart';
 
 class SettingTranslatePage extends StatefulWidget {
+  const SettingTranslatePage({
+    Key? key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _SettingTranslatePageState();
 }
 
 class _SettingTranslatePageState extends State<SettingTranslatePage> {
-  String _translationMode = kTranslationModeManual;
-  TranslationEngineConfig? _defaultEngineConfig;
-  bool _doubleClickCopyResult = true;
+  Configuration get _configuration => localDb.configuration;
 
-  String t(String key, {List<String> args = const []}) {
-    return 'page_setting_translate.$key'.tr(args: args);
+  List<TranslationTarget> get _translationTargets {
+    return localDb.translationTargets.list();
   }
 
   @override
   void initState() {
-    _translationMode = sharedConfig.translationMode;
-    _defaultEngineConfig =
-        sharedLocalDb.engine(sharedConfig.defaultEngineId).get();
-    _doubleClickCopyResult = sharedConfig.doubleClickCopyResult;
+    localDb.preferences.addListener(_handleChanged);
+    localDb.translationTargets.addListener(_handleChanged);
     super.initState();
   }
 
-  void _handleChanged(newValue) {
-    _translationMode = newValue;
-    sharedConfigManager.setTranslationMode(_translationMode);
+  @override
+  void dispose() {
+    localDb.preferences.removeListener(_handleChanged);
+    localDb.translationTargets.removeListener(_handleChanged);
+    super.dispose();
+  }
+
+  void _handleChanged() {
+    if (mounted) setState(() {});
+  }
+
+  void _handleTranslationModeChanged(newValue) {
+    _configuration.translationMode = newValue;
   }
 
   Widget _buildBody(BuildContext context) {
-    return LocalDbBuilder(builder: (context, dbData) {
-      return PreferenceList(
-        children: [
+    return PreferenceList(
+      children: [
+        PreferenceListSection(
+          title: Text(t('pref_section_title_translation_mode')),
+          children: [
+            PreferenceListRadioItem(
+              value: kTranslationModeManual,
+              groupValue: _configuration.translationMode,
+              onChanged: _handleTranslationModeChanged,
+              title: Text('translation_mode.manual'.tr()),
+            ),
+            PreferenceListRadioItem(
+              value: kTranslationModeAuto,
+              groupValue: _configuration.translationMode,
+              onChanged: _handleTranslationModeChanged,
+              title: Text('translation_mode.auto'.tr()),
+            ),
+          ],
+        ),
+        if (_configuration.translationMode == kTranslationModeAuto)
           PreferenceListSection(
-            title: Text(t('pref_section_title_translation_mode')),
+            title: Text(t('pref_section_title_default_detect_language_engine')),
             children: [
-              PreferenceListRadioItem(
-                value: kTranslationModeManual,
-                groupValue: _translationMode,
-                onChanged: _handleChanged,
-                title: Text('translation_mode.manual'.tr()),
-              ),
-              PreferenceListRadioItem(
-                value: kTranslationModeAuto,
-                groupValue: _translationMode,
-                onChanged: _handleChanged,
-                title: Text('translation_mode.auto'.tr()),
+              PreferenceListItem(
+                icon: _configuration.defaultEngineConfig == null
+                    ? null
+                    : TranslationEngineIcon(
+                        _configuration.defaultEngineConfig!.type,
+                      ),
+                title: Builder(builder: (_) {
+                  if (_configuration.defaultEngineConfig == null) {
+                    return Text('please_choose'.tr());
+                  }
+                  return TranslationEngineName(
+                    _configuration.defaultEngineConfig!,
+                  );
+                }),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => TranslationEngineChooserPage(
+                        initialEngineConfig: _configuration.defaultEngineConfig,
+                        onChoosed: (engineConfig) {
+                          _configuration.defaultEngineId =
+                              engineConfig.identifier;
+                        },
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
-          if (sharedConfig.translationMode == kTranslationModeAuto)
-            PreferenceListSection(
-              title: Text(
-                t('pref_section_title_default_detect_language_engine'),
-              ),
-              children: [
+        if (_configuration.translationMode == kTranslationModeAuto)
+          PreferenceListSection(
+            title: Text(t('pref_section_title_translation_target')),
+            children: [
+              for (TranslationTarget translationTarget in _translationTargets)
                 PreferenceListItem(
-                  icon: _defaultEngineConfig == null
-                      ? null
-                      : TranslationEngineIcon(_defaultEngineConfig!),
-                  title: Builder(builder: (_) {
-                    if (_defaultEngineConfig == null)
-                      return Text('please_choose'.tr());
-                    return Text.rich(
-                      TextSpan(
-                        text: _defaultEngineConfig!.typeName,
+                  title: Builder(
+                    builder: (_) {
+                      return Row(
                         children: [
-                          TextSpan(
-                            text: ' (${_defaultEngineConfig!.shortId})',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          )
+                          if (translationTarget.sourceLanguage != null)
+                            LanguageLabel(translationTarget.sourceLanguage!),
+                          if (translationTarget.targetLanguage != null)
+                            Container(
+                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              child: Icon(
+                                FluentIcons.arrow_right_20_regular,
+                                size: 16,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                            ),
+                          if (translationTarget.targetLanguage != null)
+                            LanguageLabel(translationTarget.targetLanguage!),
                         ],
-                      ),
-                    );
-                  }),
+                      );
+                    },
+                  ),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => TranslationEngineChooserPage(
-                          initialEngineConfig: _defaultEngineConfig,
-                          onChoosed: (engineConfig) {
-                            sharedConfigManager.setDefaultEngineId(
-                              engineConfig.identifier,
-                            );
-                            setState(() {
-                              _defaultEngineConfig = engineConfig;
-                            });
-                          },
+                        builder: (_) => TranslationTargetNewPage(
+                          translationTarget: translationTarget,
                         ),
                       ),
                     );
                   },
                 ),
-              ],
-            ),
-          if (sharedConfig.translationMode == kTranslationModeAuto)
-            PreferenceListSection(
-              title: Text(t('pref_section_title_translation_target')),
-              children: [
-                for (TranslationTarget translationTarget
-                    in dbData.translationTargetList ?? [])
-                  PreferenceListItem(
-                    title: Builder(
-                      builder: (_) {
-                        return Row(
-                          children: [
-                            if (translationTarget.sourceLanguage != null)
-                              LanguageLabel(translationTarget.sourceLanguage!),
-                            if (translationTarget.targetLanguage != null)
-                              Container(
-                                padding: EdgeInsets.only(left: 8, right: 8),
-                                child: Icon(
-                                  FluentIcons.arrow_right_20_regular,
-                                  size: 16,
-                                  color: Theme.of(context).iconTheme.color,
-                                ),
-                              ),
-                            if (translationTarget.targetLanguage != null)
-                              LanguageLabel(translationTarget.targetLanguage!),
-                          ],
-                        );
-                      },
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => TranslationTargetNewPage(
-                            translationTarget: translationTarget,
-                          ),
-                        ),
-                      );
-                    },
+              PreferenceListItem(
+                title: Text(
+                  'add'.tr(),
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
                   ),
-                PreferenceListItem(
-                  title: Text(
-                    'add'.tr(),
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                ),
+                accessoryView: Container(),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const TranslationTargetNewPage(),
                     ),
-                  ),
-                  accessoryView: Container(),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => TranslationTargetNewPage(),
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-          PreferenceListSection(
-            children: [
-              PreferenceListSwitchItem(
-                value: _doubleClickCopyResult,
-                title: Text(t('pref_item_title_double_click_copy_result')),
-                onChanged: (newValue) async {
-                  sharedConfigManager.setDoubleClickCopyResult(newValue);
-                  _doubleClickCopyResult = newValue;
-                  setState(() {});
+                  );
                 },
-              ),
+              )
             ],
           ),
-        ],
-      );
-    });
+        PreferenceListSection(
+          children: [
+            PreferenceListSwitchItem(
+              value: _configuration.doubleClickCopyResult,
+              title: Text(t('pref_item_title_double_click_copy_result')),
+              onChanged: (newValue) async {
+                _configuration.doubleClickCopyResult = newValue;
+              },
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _build(BuildContext context) {
@@ -183,5 +177,9 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
   @override
   Widget build(BuildContext context) {
     return _build(context);
+  }
+
+  String t(String key, {List<String> args = const []}) {
+    return 'page_setting_translate.$key'.tr(args: args);
   }
 }

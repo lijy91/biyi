@@ -30,10 +30,10 @@ class _WordTranslationViewState extends State<WordTranslationView> {
       },
       child: Container(
         width: double.infinity,
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           minHeight: 40,
         ),
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           top: 7,
           bottom: 7,
         ),
@@ -53,15 +53,15 @@ class _WordTranslationViewState extends State<WordTranslationView> {
                   ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 2, left: 4),
-              padding: EdgeInsets.only(left: 2, right: 2),
+              margin: const EdgeInsets.only(top: 2, left: 4),
+              padding: const EdgeInsets.only(left: 2, right: 2),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Color(0xff80838a).withOpacity(0.6),
+                  color: const Color(0xff80838a).withOpacity(0.6),
                 ),
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text(
+              child: const Text(
                 '常见释义',
                 style: TextStyle(
                   color: Color(0xff80838a),
@@ -72,7 +72,7 @@ class _WordTranslationViewState extends State<WordTranslationView> {
             if ((widget.wordTranslation.audioUrl ?? '').isNotEmpty &&
                 _isHovered)
               Container(
-                margin: EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.only(left: 10),
                 child: SoundPlayButton(
                   audioUrl: widget.wordTranslation.audioUrl!,
                 ),

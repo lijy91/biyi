@@ -13,30 +13,24 @@ class SettingShortcutsPage extends StatefulWidget {
 }
 
 class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
-  Config _config = sharedConfigManager.getConfig();
-
-  String t(String key) {
-    return 'page_setting_shortcuts.$key'.tr();
-  }
+  Configuration get _configuration => localDb.configuration;
 
   @override
   void initState() {
     ShortcutService.instance.stop();
-    sharedConfigManager.addListener(_configListen);
-
+    localDb.preferences.addListener(_handleChanged);
     super.initState();
   }
 
   @override
   void dispose() {
     ShortcutService.instance.start();
-    sharedConfigManager.removeListener(_configListen);
+    localDb.preferences.removeListener(_handleChanged);
     super.dispose();
   }
 
-  void _configListen() {
-    _config = sharedConfigManager.getConfig();
-    setState(() {});
+  void _handleChanged() {
+    if (mounted) setState(() {});
   }
 
   Future<void> _handleClickRegisterNewHotKey(
@@ -50,7 +44,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
       builder: (BuildContext ctx) {
         return RecordHotKeyDialog(
           onHotKeyRecorded: (newHotKey) {
-            sharedConfigManager.setShortcut(
+            _configuration.setShortcut(
               shortcutKey,
               newHotKey..scope = shortcutScope,
             );
@@ -61,83 +55,81 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return LocalDbBuilder(builder: (context, dbData) {
-      return PreferenceList(
-        children: [
-          PreferenceListSection(
-            children: [
+    return PreferenceList(
+      children: [
+        PreferenceListSection(
+          children: [
+            PreferenceListItem(
+              title: Text(t('pref_item_title_show_or_hide')),
+              detailText: HotKeyVirtualView(
+                hotKey: _configuration.shortcutShowOrHide,
+              ),
+              onTap: () {
+                _handleClickRegisterNewHotKey(
+                  context,
+                  shortcutKey: kShortcutShowOrHide,
+                );
+              },
+            ),
+            PreferenceListItem(
+              title: Text(t('pref_item_title_hide')),
+              detailText: HotKeyVirtualView(
+                hotKey: _configuration.shortcutHide,
+              ),
+              onTap: () {
+                _handleClickRegisterNewHotKey(
+                  context,
+                  shortcutKey: kShortcutHide,
+                  shortcutScope: HotKeyScope.inapp,
+                );
+              },
+            ),
+          ],
+        ),
+        PreferenceListSection(
+          title: Text(t('pref_section_title_extract_text')),
+          children: [
+            PreferenceListItem(
+              title: Text(t('pref_item_title_extract_text_from_selection')),
+              detailText: HotKeyVirtualView(
+                hotKey: _configuration.shortcutExtractFromScreenSelection,
+              ),
+              onTap: () {
+                _handleClickRegisterNewHotKey(
+                  context,
+                  shortcutKey: kShortcutExtractFromScreenSelection,
+                );
+              },
+            ),
+            if (!kIsLinux)
               PreferenceListItem(
-                title: Text(t('pref_item_title_show_or_hide')),
+                title: Text(t('pref_item_title_extract_text_from_capture')),
                 detailText: HotKeyVirtualView(
-                  hotKey: _config.shortcutShowOrHide,
+                  hotKey: _configuration.shortcutExtractFromScreenCapture,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(
                     context,
-                    shortcutKey: kShortcutShowOrHide,
+                    shortcutKey: kShortcutExtractFromScreenCapture,
                   );
                 },
               ),
-              PreferenceListItem(
-                title: Text(t('pref_item_title_hide')),
-                detailText: HotKeyVirtualView(
-                  hotKey: _config.shortcutHide,
-                ),
-                onTap: () {
-                  _handleClickRegisterNewHotKey(
-                    context,
-                    shortcutKey: kShortcutHide,
-                    shortcutScope: HotKeyScope.inapp,
-                  );
-                },
+            PreferenceListItem(
+              title: Text(t('pref_item_title_extract_text_from_clipboard')),
+              detailText: HotKeyVirtualView(
+                hotKey: _configuration.shortcutExtractFromClipboard,
               ),
-            ],
-          ),
-          PreferenceListSection(
-            title: Text(t('pref_section_title_extract_text')),
-            children: [
-              PreferenceListItem(
-                title: Text(t('pref_item_title_extract_text_from_selection')),
-                detailText: HotKeyVirtualView(
-                  hotKey: _config.shortcutExtractFromScreenSelection,
-                ),
-                onTap: () {
-                  _handleClickRegisterNewHotKey(
-                    context,
-                    shortcutKey: kShortcutExtractFromScreenSelection,
-                  );
-                },
-              ),
-              if (!kIsLinux)
-                PreferenceListItem(
-                  title: Text(t('pref_item_title_extract_text_from_capture')),
-                  detailText: HotKeyVirtualView(
-                    hotKey: _config.shortcutExtractFromScreenCapture,
-                  ),
-                  onTap: () {
-                    _handleClickRegisterNewHotKey(
-                      context,
-                      shortcutKey: kShortcutExtractFromScreenCapture,
-                    );
-                  },
-                ),
-              PreferenceListItem(
-                title: Text(t('pref_item_title_extract_text_from_clipboard')),
-                detailText: HotKeyVirtualView(
-                  hotKey: _config.shortcutExtractFromClipboard,
-                ),
-                onTap: () {
-                  _handleClickRegisterNewHotKey(
-                    context,
-                    shortcutKey: kShortcutExtractFromClipboard,
-                  );
-                },
-              ),
-            ],
-          ),
-        ],
-      );
-    });
+              onTap: () {
+                _handleClickRegisterNewHotKey(
+                  context,
+                  shortcutKey: kShortcutExtractFromClipboard,
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _build(BuildContext context) {
@@ -152,5 +144,9 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
   @override
   Widget build(BuildContext context) {
     return _build(context);
+  }
+
+  String t(String key) {
+    return 'page_setting_shortcuts.$key'.tr();
   }
 }

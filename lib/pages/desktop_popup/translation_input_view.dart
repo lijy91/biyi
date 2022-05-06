@@ -42,19 +42,21 @@ class TranslationInputView extends StatelessWidget {
     required this.onButtonTappedTrans,
   }) : super(key: key);
 
-  Widget _buildTextGetters(BuildContext context) {
+  final bool isAddedToVocabulary = true;
+
+  Widget _buildToolbarItems(BuildContext context) {
     return Row(
       children: [
         Tooltip(
-          message: 'page_home.tip_translation_mode'.tr(args: [
-            'translation_mode.${this.translationMode}'.tr(),
+          message: 'page_desktop_popup.tip_translation_mode'.tr(args: [
+            'translation_mode.$translationMode'.tr(),
           ]),
           child: SizedBox(
             width: 30,
             height: 26,
             child: CustomButton(
               padding: EdgeInsets.zero,
-              child: Container(
+              child: SizedBox(
                 width: 30,
                 height: 26,
                 child: Stack(
@@ -63,11 +65,11 @@ class TranslationInputView extends StatelessWidget {
                     Icon(
                       FluentIcons.target_20_regular,
                       size: 22,
-                      color: this.translationMode == kTranslationModeAuto
+                      color: translationMode == kTranslationModeAuto
                           ? Theme.of(context).primaryColor
                           : Theme.of(context).iconTheme.color,
                     ),
-                    if (this.translationMode == kTranslationModeAuto)
+                    if (translationMode == kTranslationModeAuto)
                       Positioned(
                         bottom: 3,
                         child: Container(
@@ -76,13 +78,13 @@ class TranslationInputView extends StatelessWidget {
                                 Theme.of(context).primaryColor.withOpacity(0.9),
                             borderRadius: BorderRadius.circular(2),
                           ),
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             left: 2,
                             right: 2,
                             top: 1.4,
                             bottom: 1.4,
                           ),
-                          child: Text(
+                          child: const Text(
                             'AUTO',
                             style: TextStyle(
                               color: Colors.white,
@@ -102,18 +104,17 @@ class TranslationInputView extends StatelessWidget {
                         : kTranslationModeAuto;
 
                 UserPreference? userPreference =
-                    sharedLocalDb.preference(kPrefTranslationMode).get();
+                    localDb.preference(kPrefTranslationMode).get();
                 if (userPreference != null) {
-                  sharedLocalDb.preference(kPrefTranslationMode).update(
+                  localDb.preference(kPrefTranslationMode).update(
                         value: newTranslationMode,
                       );
                 } else {
-                  sharedLocalDb.preferences.create(
+                  localDb.preferences.create(
                     key: kPrefTranslationMode,
                     value: newTranslationMode,
                   );
                 }
-                sharedLocalDb.write();
                 onTranslationModeChanged(newTranslationMode);
               },
             ),
@@ -126,7 +127,8 @@ class TranslationInputView extends StatelessWidget {
           ),
         ),
         Tooltip(
-          message: 'page_home.tip_extract_text_from_screen_capture'.tr(),
+          message:
+              'page_desktop_popup.tip_extract_text_from_screen_capture'.tr(),
           child: SizedBox(
             width: 30,
             height: 26,
@@ -142,7 +144,7 @@ class TranslationInputView extends StatelessWidget {
           ),
         ),
         Tooltip(
-          message: 'page_home.tip_extract_text_from_clipboard'.tr(),
+          message: 'page_desktop_popup.tip_extract_text_from_clipboard'.tr(),
           child: SizedBox(
             width: 30,
             height: 26,
@@ -176,10 +178,10 @@ class TranslationInputView extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(2),
             child: Text(
-              'page_home.btn_clear'.tr(),
+              'page_desktop_popup.btn_clear'.tr(),
               style: const TextStyle(fontSize: 12),
             ),
-            onPressed: this.onButtonTappedClear,
+            onPressed: onButtonTappedClear,
           ),
         ),
         const SizedBox(width: 10),
@@ -195,10 +197,10 @@ class TranslationInputView extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(2),
             child: Text(
-              'page_home.btn_trans'.tr(),
+              'page_desktop_popup.btn_trans'.tr(),
               style: const TextStyle(fontSize: 12),
             ),
-            onPressed: this.onButtonTappedTrans,
+            onPressed: onButtonTappedTrans,
           ),
         ),
       ],
@@ -221,7 +223,7 @@ class TranslationInputView extends StatelessWidget {
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
-              offset: Offset(0.0, 1.0),
+              offset: const Offset(0.0, 1.0),
               blurRadius: 3.0,
             ),
           ],
@@ -229,16 +231,17 @@ class TranslationInputView extends StatelessWidget {
         child: Column(
           children: [
             Container(
+              margin: EdgeInsets.zero,
               child: Stack(
                 children: [
                   CupertinoTextField(
                     focusNode: focusNode,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.transparent,
                     ),
                     selectionHeightStyle: BoxHeightStyle.max,
-                    controller: this.controller,
-                    padding: EdgeInsets.only(
+                    controller: controller,
+                    padding: const EdgeInsets.only(
                       left: 12,
                       right: 12,
                       top: 14,
@@ -249,11 +252,11 @@ class TranslationInputView extends StatelessWidget {
                               fontSize: 14,
                               height: 1.2,
                             ),
-                    placeholder: 'page_home.input_hint'.tr(),
+                    placeholder: 'page_desktop_popup.input_hint'.tr(),
                     maxLines:
                         inputSetting == kInputSettingSubmitWithEnter ? 1 : 6,
                     minLines: 1,
-                    onChanged: this.onChanged,
+                    onChanged: onChanged,
                     onSubmitted: (newValue) {
                       onButtonTappedTrans();
                     },
@@ -265,7 +268,7 @@ class TranslationInputView extends StatelessWidget {
                       top: 0,
                       bottom: 0,
                       child: Container(
-                        padding: EdgeInsets.only(left: 12, right: 12),
+                        padding: const EdgeInsets.only(left: 12, right: 12),
                         color: Theme.of(context).canvasColor,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -279,9 +282,10 @@ class TranslationInputView extends StatelessWidget {
                                       .color,
                                   size: 18.0,
                                 ),
-                                SizedBox(width: 6),
+                                const SizedBox(width: 6),
                                 Text(
-                                  'page_home.text_extracting_text'.tr(),
+                                  'page_desktop_popup.text_extracting_text'
+                                      .tr(),
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .textTheme
@@ -300,13 +304,13 @@ class TranslationInputView extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               height: 0,
               indent: 12,
               endIndent: 12,
             ),
             Container(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: 6,
                 right: 12,
                 top: 8,
@@ -314,7 +318,7 @@ class TranslationInputView extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  _buildTextGetters(context),
+                  _buildToolbarItems(context),
                   Expanded(child: Container()),
                   _buildActionButtons(context),
                 ],

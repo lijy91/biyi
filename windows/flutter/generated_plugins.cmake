@@ -3,8 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  clipboard_watcher
   hotkey_manager
   libwinmedia
+  platform_context_menu
   protocol_handler
   screen_capturer
   screen_retriever

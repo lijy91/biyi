@@ -3,91 +3,79 @@ import 'package:flutter/material.dart';
 import '../../../includes.dart';
 
 class SettingExtractTextPage extends StatefulWidget {
+  const SettingExtractTextPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _SettingExtractTextPageState();
 }
 
 class _SettingExtractTextPageState extends State<SettingExtractTextPage> {
-  OcrEngineConfig? _defaultOcrEngineConfig;
-  bool _autoCopyDetectedText = true;
+  Configuration get _configuration => localDb.configuration;
 
-  String t(String key, {List<String> args = const []}) {
-    return 'page_setting_extract_text.$key'.tr(args: args);
-  }
+  OcrEngineConfig? get _defaultOcrEngineConfig =>
+      localDb.ocrEngine(_configuration.defaultOcrEngineId).get();
 
   @override
   void initState() {
-    _autoCopyDetectedText = sharedConfig.autoCopyDetectedText;
-    _defaultOcrEngineConfig =
-        sharedLocalDb.ocrEngine(sharedConfig.defaultOcrEngineId).get();
+    localDb.preferences.addListener(_handleChanged);
     super.initState();
   }
 
-  Widget _buildBody(BuildContext context) {
-    return LocalDbBuilder(builder: (context, dbData) {
-      return PreferenceList(
-        children: [
-          PreferenceListSection(
-            title: Text(t('pref_section_title_default_detect_text_engine')),
-            children: [
-              PreferenceListItem(
-                icon: _defaultOcrEngineConfig == null
-                    ? null
-                    : OcrEngineIcon(
-                        _defaultOcrEngineConfig!,
-                      ),
-                title: Builder(builder: (_) {
-                  if (_defaultOcrEngineConfig == null)
-                    return Text('please_choose'.tr());
-                  return Text.rich(
-                    TextSpan(
-                      text: _defaultOcrEngineConfig?.typeName,
-                      children: [
-                        TextSpan(
-                          text: ' (${_defaultOcrEngineConfig?.shortId})',
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  );
-                }),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => OcrEngineChooserPage(
-                        initialOcrEngineConfig: _defaultOcrEngineConfig,
-                        onChoosed: (ocrEngineConfig) {
-                          sharedConfigManager.setDefaultOcrEngineId(
-                            ocrEngineConfig.identifier,
-                          );
-                          setState(() {
-                            _defaultOcrEngineConfig = ocrEngineConfig;
-                          });
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-          PreferenceListSection(
-            children: [
-              PreferenceListSwitchItem(
-                value: _autoCopyDetectedText,
-                title: Text(t('pref_item_auto_copy_detected_text')),
-                onChanged: (newValue) async {
-                  sharedConfigManager.setAutoCopyDetectedText(newValue);
+  @override
+  void dispose() {
+    localDb.preferences.removeListener(_handleChanged);
+    super.dispose();
+  }
 
-                  _autoCopyDetectedText = newValue;
-                  setState(() {});
-                },
-              ),
-            ],
-          ),
-        ],
-      );
-    });
+  void _handleChanged() {
+    if (mounted) setState(() {});
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return PreferenceList(
+      children: [
+        PreferenceListSection(
+          title: Text(t('pref_section_title_default_detect_text_engine')),
+          children: [
+            PreferenceListItem(
+              icon: _defaultOcrEngineConfig == null
+                  ? null
+                  : OcrEngineIcon(_defaultOcrEngineConfig!.type),
+              title: Builder(builder: (_) {
+                if (_defaultOcrEngineConfig == null) {
+                  return Text('please_choose'.tr());
+                }
+                return OcrEngineName(_defaultOcrEngineConfig!);
+              }),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => OcrEngineChooserPage(
+                      initialOcrEngineConfig: _defaultOcrEngineConfig,
+                      onChoosed: (ocrEngineConfig) {
+                        _configuration.defaultOcrEngineId =
+                            ocrEngineConfig.identifier;
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        PreferenceListSection(
+          children: [
+            PreferenceListSwitchItem(
+              value: _configuration.autoCopyDetectedText,
+              title: Text(t('pref_item_auto_copy_detected_text')),
+              onChanged: (newValue) async {
+                _configuration.autoCopyDetectedText = newValue;
+              },
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _build(BuildContext context) {
@@ -102,5 +90,9 @@ class _SettingExtractTextPageState extends State<SettingExtractTextPage> {
   @override
   Widget build(BuildContext context) {
     return _build(context);
+  }
+
+  String t(String key, {List<String> args = const []}) {
+    return 'page_setting_extract_text.$key'.tr(args: args);
   }
 }

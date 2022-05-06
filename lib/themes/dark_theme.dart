@@ -13,7 +13,7 @@ const _kSuccessColor = _kGreenColor;
 const _kErrorColor = _kRedColor;
 const _kWarningColor = _kGoldColor;
 
-const _kScaffoldBackgroundColor = const Color(0xff1d1d1d);
+const _kScaffoldBackgroundColor = Color(0xff1d1d1d);
 const _kCanvasColor = Color(0xff282828);
 
 var darkThemeData = ThemeData(
@@ -51,7 +51,7 @@ var darkThemeData = ThemeData(
   // Color? errorColor,
   // Color? toggleableActiveColor,
   // String? fontFamily,
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
     bodyText2: TextStyle(
       fontSize: 14,
     ),
@@ -74,7 +74,7 @@ var darkThemeData = ThemeData(
   // MaterialTapTargetSize? materialTapTargetSize,
   // bool? applyElevationOverlayColor,
   // PageTransitionsTheme? pageTransitionsTheme,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     brightness: Brightness.dark,
     color: _kCanvasColor,
     elevation: 0,
@@ -108,7 +108,7 @@ var darkThemeData = ThemeData(
   // FloatingActionButtonThemeData? floatingActionButtonTheme,
   // NavigationRailThemeData? navigationRailTheme,
   // Typography? typography,
-  cupertinoOverrideTheme: CupertinoThemeData(
+  cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: _kPrimaryColor,
     barBackgroundColor: _kCanvasColor,
   ),

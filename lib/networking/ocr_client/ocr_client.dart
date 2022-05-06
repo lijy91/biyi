@@ -1,14 +1,11 @@
 export 'package:uni_ocr/uni_ocr.dart';
 
 import '../../includes.dart';
+import 'pro_ocr_engine.dart';
 
 final kDefaultBuiltInOcrEngine = BuiltInOcrEngine(
-  OcrEngineConfig(
-    identifier: 'cb838bdd-5dbd-4939-b7cb-a054b1ee1769',
-    type: kOcrEngineTypeBuiltIn,
-    name: kOcrEngineTypeBuiltIn,
-    option: {},
-  ),
+  identifier: 'builtin',
+  option: Map<String, dynamic>.from({}),
 );
 
 bool kDefaultBuiltInOcrEngineIsSupportedOnCurrentPlatform = false;
@@ -21,13 +18,21 @@ OcrEngine? createOcrEngine(
   OcrEngineConfig ocrEngineConfig,
 ) {
   OcrEngine? ocrEngine;
-
-  switch (ocrEngineConfig.type) {
-    case kOcrEngineTypeYoudao:
-      ocrEngine = YoudaoOcrEngine(ocrEngineConfig);
-      break;
+  if (localDb.proOcrEngine(ocrEngineConfig.identifier).exists()) {
+    ocrEngine = ProOcrEngine(ocrEngineConfig);
+    if (ocrEngineConfig.identifier == kDefaultBuiltInOcrEngine.identifier) {
+      ocrEngine = kDefaultBuiltInOcrEngine;
+    }
+  } else {
+    switch (ocrEngineConfig.type) {
+      case kOcrEngineTypeYoudao:
+        ocrEngine = YoudaoOcrEngine(
+          identifier: ocrEngineConfig.identifier,
+          option: ocrEngineConfig.option,
+        );
+        break;
+    }
   }
-
   return ocrEngine;
 }
 
@@ -36,13 +41,13 @@ class AutoloadOcrClientAdapter extends UniOcrClientAdapter {
 
   @override
   OcrEngine get first {
-    OcrEngineConfig engineConfig = sharedLocalDb.ocrEngines.list().first;
+    OcrEngineConfig engineConfig = localDb.ocrEngines.list().first;
     return use(engineConfig.identifier);
   }
 
   @override
   OcrEngine use(String identifier) {
-    OcrEngineConfig? engineConfig = sharedLocalDb.ocrEngine(identifier).get();
+    OcrEngineConfig? engineConfig = localDb.ocrEngine(identifier).get();
 
     OcrEngine? ocrEngine;
     if (_ocrEngineMap.containsKey(engineConfig?.identifier)) {

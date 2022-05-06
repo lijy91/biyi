@@ -34,7 +34,7 @@ class TranslationResultView extends StatelessWidget {
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
-              offset: Offset(0.0, 1.0),
+              offset: const Offset(0.0, 1.0),
               blurRadius: 3.0,
             ),
           ],
@@ -43,7 +43,7 @@ class TranslationResultView extends StatelessWidget {
         child: Row(
           children: [
             CustomButton(
-              padding: EdgeInsets.only(left: 12, right: 12),
+              padding: const EdgeInsets.only(left: 12, right: 12),
               child: LanguageLabel(
                 sourceLanguage,
                 flagSize: 18,
@@ -56,6 +56,7 @@ class TranslationResultView extends StatelessWidget {
               child: CustomButton(
                 padding: EdgeInsets.zero,
                 child: Container(
+                  margin: EdgeInsets.zero,
                   child: Icon(
                     FluentIcons.arrow_right_20_regular,
                     size: 16,
@@ -66,7 +67,7 @@ class TranslationResultView extends StatelessWidget {
               ),
             ),
             CustomButton(
-              padding: EdgeInsets.only(left: 12, right: 12),
+              padding: const EdgeInsets.only(left: 12, right: 12),
               child: LanguageLabel(
                 targetLanguage,
                 flagSize: 18,

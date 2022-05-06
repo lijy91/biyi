@@ -57,7 +57,7 @@ var lightThemeData = ThemeData(
   // Color? errorColor,
   // Color? toggleableActiveColor,
   // String? fontFamily,
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
     bodyText2: TextStyle(
       color: kTextColor,
       fontSize: 14,
@@ -82,7 +82,7 @@ var lightThemeData = ThemeData(
   // MaterialTapTargetSize? materialTapTargetSize,
   // bool? applyElevationOverlayColor,
   // PageTransitionsTheme? pageTransitionsTheme,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     brightness: Brightness.light,
     color: _kCanvasColor,
     elevation: 0,
@@ -111,12 +111,14 @@ var lightThemeData = ThemeData(
     // this.titleSpacing,
   ),
   // BottomAppBarTheme? bottomAppBarTheme,
-  // ColorScheme? colorScheme,
+  colorScheme: ColorScheme.light(
+    primary: _kPrimaryColor,
+  ),
   // DialogTheme? dialogTheme,
   // FloatingActionButtonThemeData? floatingActionButtonTheme,
   // NavigationRailThemeData? navigationRailTheme,
   // Typography? typography,
-  cupertinoOverrideTheme: CupertinoThemeData(
+  cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: _kPrimaryColor,
     barBackgroundColor: _kCanvasColor,
   ),

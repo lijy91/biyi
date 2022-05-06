@@ -18,7 +18,7 @@ class WordImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 6),
+      margin: const EdgeInsets.only(right: 6),
       width: kWordImageSize,
       height: kWordImageSize,
       decoration: BoxDecoration(

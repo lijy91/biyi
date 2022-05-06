@@ -13,12 +13,12 @@ class WordTagView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
+      padding: const EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).dividerColor),
         borderRadius: BorderRadius.circular(2),
       ),
-      constraints: BoxConstraints(minHeight: 24),
+      constraints: const BoxConstraints(minHeight: 24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

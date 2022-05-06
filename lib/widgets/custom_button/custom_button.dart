@@ -42,8 +42,6 @@ class CustomButton extends StatefulWidget {
     required this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
-        assert(disabledColor != null),
-        assert(alignment != null),
         _filled = false,
         _outlined = false,
         super(key: key);
@@ -67,8 +65,6 @@ class CustomButton extends StatefulWidget {
     required this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
-        assert(disabledColor != null),
-        assert(alignment != null),
         color = null,
         _filled = true,
         _outlined = false,
@@ -88,7 +84,6 @@ class CustomButton extends StatefulWidget {
     required this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
-        assert(disabledColor != null),
         _filled = false,
         _outlined = true,
         super(key: key);

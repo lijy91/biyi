@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:shortid/shortid.dart';
 
 import '../../includes.dart';
 
-class OcrEngineNewPage extends StatefulWidget {
+class OcrEngineCreateOrEditPage extends StatefulWidget {
   final bool editable;
+  final String? ocrEngineType;
   final OcrEngineConfig? ocrEngineConfig;
 
-  const OcrEngineNewPage({
+  const OcrEngineCreateOrEditPage({
     Key? key,
     this.editable = true,
+    this.ocrEngineType,
     this.ocrEngineConfig,
   }) : super(key: key);
 
   @override
-  _OcrEngineNewPageState createState() => _OcrEngineNewPageState();
+  _OcrEngineCreateOrEditPageState createState() =>
+      _OcrEngineCreateOrEditPageState();
 }
 
-class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
-  Map<String, TextEditingController> _textEditingControllerMap = {};
+class _OcrEngineCreateOrEditPageState extends State<OcrEngineCreateOrEditPage> {
+  final Map<String, TextEditingController> _textEditingControllerMap = {};
 
   String? _identifier;
   String? _type;
-  Map<String, dynamic> _option = Map();
+  Map<String, dynamic> _option = {};
 
   List<String> get _engineOptionKeys {
     switch (_type) {
@@ -32,7 +36,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
   }
 
   String t(String key, {List<String> args = const []}) {
-    return 'page_ocr_engine_new.$key'.tr(args: args);
+    return 'page_ocr_engine_create_or_edit.$key'.tr(args: args);
   }
 
   @override
@@ -47,16 +51,20 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
             TextEditingController(text: _option[optionKey]);
         _textEditingControllerMap[optionKey] = textEditingController;
       }
+    } else {
+      _identifier = shortid.generate();
+      _type = widget.ocrEngineType;
     }
     super.initState();
   }
 
   void _handleClickOk() async {
-    await sharedLocalDb.privateOcrEngine(_identifier).updateOrCreate(
+    await localDb //
+        .privateOcrEngine(_identifier)
+        .updateOrCreate(
           type: _type,
           option: _option,
         );
-    await sharedLocalDb.write();
 
     (sharedOcrClient.adapter as AutoloadOcrClientAdapter).renew(_identifier!);
 
@@ -66,17 +74,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: widget.ocrEngineConfig != null
-          ? Text.rich(
-              TextSpan(
-                text: widget.ocrEngineConfig?.typeName,
-                children: [
-                  TextSpan(
-                    text: ' (${widget.ocrEngineConfig?.shortId})',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  )
-                ],
-              ),
-            )
+          ? OcrEngineName(widget.ocrEngineConfig!)
           : Text(t('title')),
       actions: [
         if (widget.editable)
@@ -95,16 +93,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
           title: Text(t('pref_section_title_engine_type')),
           children: [
             PreferenceListItem(
-              icon: _type == null
-                  ? null
-                  : OcrEngineIcon(
-                      OcrEngineConfig(
-                        identifier: _identifier!,
-                        type: _type!,
-                        name: _type!,
-                        option: {},
-                      ),
-                    ),
+              icon: _type == null ? null : OcrEngineIcon(_type!),
               title: _type == null
                   ? Text('please_choose'.tr())
                   : Text('ocr_engine.$_type'.tr()),
@@ -114,11 +103,13 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => OcrEngineTypeChooserPage(
-                            engineType: _type!,
-                            onEngineTypeChanged: (newEngineType) {
+                            engineType: _type,
+                            onChoosed: (newEngineType) {
                               setState(() {
                                 _type = newEngineType;
                               });
+
+                              Navigator.of(context).pop();
                             },
                           ),
                         ),
@@ -144,26 +135,25 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
                 ),
               if (_engineOptionKeys.isEmpty)
                 PreferenceListItem(
-                  title: Text('No options'),
+                  title: const Text('No options'),
                   accessoryView: Container(),
                 ),
             ],
           ),
         if (widget.editable && widget.ocrEngineConfig != null)
           PreferenceListSection(
-            title: Text(''),
+            title: const Text(''),
             children: [
               PreferenceListItem(
                 title: Center(
                   child: Text(
                     'delete'.tr(),
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
                 accessoryView: Container(),
                 onTap: () async {
-                  await sharedLocalDb.privateOcrEngine(_identifier).delete();
-                  await sharedLocalDb.write();
+                  await localDb.privateOcrEngine(_identifier).delete();
                   Navigator.of(context).pop();
                 },
               ),

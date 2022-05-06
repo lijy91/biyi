@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 
 import 'package:photo_view/photo_view_gallery.dart';
 
-import '../../includes.dart';
-
 class ImageViewerPage extends StatefulWidget {
   ImageViewerPage(
     this.imageList, {
+    Key? key,
     this.initialIndex = 0,
-  }) : pageController = PageController(initialPage: initialIndex);
+  })  : pageController = PageController(initialPage: initialIndex),
+        super(key: key);
 
   final List<String> imageList;
   final int initialIndex;
@@ -68,7 +68,7 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 12,
                     right: 12,
                     top: 4,
@@ -80,7 +80,7 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
                   ),
                   child: Text(
                     "${_currentIndex + 1} / $itemCount",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                     ),
@@ -99,11 +99,12 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
 
     return PhotoViewGalleryPageOptions.customChild(
       child: Container(
+        margin: EdgeInsets.zero,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(right: 40),
+              margin: const EdgeInsets.only(right: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -111,7 +112,7 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
                     height: 42,
                     child: CupertinoButton(
                       padding: EdgeInsets.zero,
-                      child: Icon(
+                      child: const Icon(
                         FluentIcons.dismiss_20_regular,
                         size: 30,
                         color: Colors.white,
@@ -125,7 +126,7 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
             Hero(
               tag: imageUrl,
               child: Container(
-                margin: EdgeInsets.only(bottom: 42),
+                margin: const EdgeInsets.only(bottom: 42),
                 constraints: BoxConstraints(
                   maxWidth: MediaQuery.of(context).size.width - 60,
                 ),

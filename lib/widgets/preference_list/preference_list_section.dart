@@ -19,9 +19,9 @@ class PreferenceListSection extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.only(
-          left: 12,
-          right: 12,
+        margin: const EdgeInsets.only(
+          left: 16,
+          right: 16,
           top: 12,
           bottom: 12,
         ),
@@ -34,7 +34,7 @@ class PreferenceListSection extends StatelessWidget {
                   style: Theme.of(context).textTheme.caption!,
                   child: title!,
                 ),
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 0,
                   bottom: 10,
                   left: 12,
@@ -60,7 +60,7 @@ class PreferenceListSection extends StatelessWidget {
                                   children: [
                                     child,
                                     if (i < children.length - 1)
-                                      Divider(
+                                      const Divider(
                                         height: 0,
                                         indent: 12,
                                         endIndent: 12,
@@ -80,7 +80,7 @@ class PreferenceListSection extends StatelessWidget {
                   style: Theme.of(context).textTheme.caption!,
                   child: description!,
                 ),
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 6,
                   bottom: 6,
                   left: 12,

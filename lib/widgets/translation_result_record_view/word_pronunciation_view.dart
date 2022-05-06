@@ -13,6 +13,7 @@ class WordPronunciationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.zero,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +42,7 @@ class WordPronunciationView extends StatelessWidget {
           ),
           if ((wordPronunciation.audioUrl ?? '').isNotEmpty)
             Container(
-              margin: EdgeInsets.only(left: 10, top: 2),
+              margin: const EdgeInsets.only(left: 10, top: 2),
               child: SoundPlayButton(
                 audioUrl: wordPronunciation.audioUrl!,
               ),

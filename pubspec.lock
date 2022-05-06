@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
+  clipboard_watcher:
+    dependency: transitive
+    description:
+      name: clipboard_watcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   clock:
     dependency: transitive
     description:
@@ -78,13 +85,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.1"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
   device_info_plus:
     dependency: "direct main"
     description:
@@ -224,6 +224,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  hive:
+    dependency: "direct main"
+    description:
+      name: hive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  hive_flutter:
+    dependency: "direct main"
+    description:
+      name: hive_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   hotkey_manager:
     dependency: "direct main"
     description:
@@ -302,18 +316,18 @@ packages:
     source: hosted
     version: "1.7.0"
   ocr_engine_builtin:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: ocr_engine_builtin
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_ocr/packages/ocr_engine_builtin"
+      relative: true
+    source: path
     version: "0.1.0"
   ocr_engine_youdao:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: ocr_engine_youdao
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_ocr/packages/ocr_engine_youdao"
+      relative: true
+    source: path
     version: "0.1.0"
   package_info_plus:
     dependency: "direct main"
@@ -457,6 +471,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  platform_context_menu:
+    dependency: "direct overridden"
+    description:
+      path: "../../leanflutter/platform_context_menu"
+      relative: true
+    source: path
+    version: "0.0.1"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -478,13 +499,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1"
+  reorderables:
+    dependency: "direct main"
+    description:
+      name: reorderables
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.4"
   screen_capturer:
     dependency: "direct main"
     description:
       name: screen_capturer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.2"
   screen_retriever:
     dependency: "direct main"
     description:
@@ -498,7 +526,7 @@ packages:
       name: screen_text_extractor
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.2"
   shared_preferences:
     dependency: transitive
     description:
@@ -555,6 +583,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  shortid:
+    dependency: "direct main"
+    description:
+      name: shortid
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -610,53 +645,53 @@ packages:
     source: hosted
     version: "0.4.8"
   translation_engine_baidu:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: translation_engine_baidu
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/translation_engine_baidu"
+      relative: true
+    source: path
     version: "0.1.1"
   translation_engine_caiyun:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: translation_engine_caiyun
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/translation_engine_caiyun"
+      relative: true
+    source: path
     version: "0.1.1"
   translation_engine_deepl:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: translation_engine_deepl
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/translation_engine_deepl"
+      relative: true
+    source: path
     version: "0.1.1"
   translation_engine_google:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: translation_engine_google
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/translation_engine_google"
+      relative: true
+    source: path
     version: "0.1.1"
   translation_engine_iciba:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: translation_engine_iciba
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/translation_engine_iciba"
+      relative: true
+    source: path
     version: "0.1.1"
   translation_engine_tencent:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: translation_engine_tencent
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/translation_engine_tencent"
+      relative: true
+    source: path
     version: "0.1.1"
   translation_engine_youdao:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: translation_engine_youdao
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../uni_translate/packages/translation_engine_youdao"
+      relative: true
+    source: path
     version: "0.1.1"
   tray_manager:
     dependency: "direct main"
@@ -757,7 +792,7 @@ packages:
     source: hosted
     version: "3.0.0"
   uuid:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: uuid
       url: "https://pub.dartlang.org"

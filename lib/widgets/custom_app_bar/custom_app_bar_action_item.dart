@@ -20,7 +20,7 @@ class CustomAppBarActionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      padding: padding ?? EdgeInsets.only(right: 12),
+      padding: padding ?? const EdgeInsets.only(right: 12),
       child: child ??
           Row(
             children: [

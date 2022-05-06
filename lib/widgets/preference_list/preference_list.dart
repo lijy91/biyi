@@ -17,7 +17,7 @@ class PreferenceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: padding ??
-          EdgeInsets.only(
+          const EdgeInsets.only(
             top: 12,
             bottom: 12,
           ),

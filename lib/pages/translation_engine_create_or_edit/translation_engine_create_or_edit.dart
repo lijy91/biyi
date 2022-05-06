@@ -1,4 +1,6 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:shortid/shortid.dart';
 
 import '../../includes.dart';
 
@@ -8,28 +10,30 @@ const List<String> _kAllScopes = [
   kScopeTranslate,
 ];
 
-class TranslationEngineNewPage extends StatefulWidget {
+class TranslationEngineCreateOrEditPage extends StatefulWidget {
   final bool editable;
+  final String? engineType;
   final TranslationEngineConfig? engineConfig;
 
-  const TranslationEngineNewPage({
+  const TranslationEngineCreateOrEditPage({
     Key? key,
     this.editable = true,
+    this.engineType,
     this.engineConfig,
   }) : super(key: key);
 
   @override
-  _TranslationEngineNewPageState createState() =>
-      _TranslationEngineNewPageState();
+  _TranslationEngineCreateOrEditPageState createState() =>
+      _TranslationEngineCreateOrEditPageState();
 }
 
-class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
-  Map<String, TextEditingController> _textEditingControllerMap = {};
+class _TranslationEngineCreateOrEditPageState
+    extends State<TranslationEngineCreateOrEditPage> {
+  final Map<String, TextEditingController> _textEditingControllerMap = {};
 
   String? _identifier;
   String? _type;
-  Map<String, dynamic> _option = Map();
-  List<String> _disabledScopes = [];
+  Map<String, dynamic> _option = {};
 
   List<String> get _engineOptionKeys {
     return kKnownSupportedEngineOptionKeys[_type] ?? [];
@@ -40,25 +44,18 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
       var engineConfig = TranslationEngineConfig(
         identifier: '',
         type: _type!,
-        name: _type!,
         option: _option,
       );
       if (widget.engineConfig != null && widget.engineConfig?.option == null) {
         engineConfig = TranslationEngineConfig(
           identifier: '',
           type: _type!,
-          name: _type!,
           option: {},
-          supportedScopes: widget.engineConfig?.supportedScopes ?? [],
         );
       }
       return createTranslationEngine(engineConfig)!;
     }
     return null;
-  }
-
-  String t(String key, {List<String> args = const []}) {
-    return 'page_translation_engine_new.$key'.tr(args: args);
   }
 
   @override
@@ -67,7 +64,6 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
       _identifier = widget.engineConfig?.identifier;
       _type = widget.engineConfig?.type;
       _option = widget.engineConfig?.option ?? {};
-      _disabledScopes = widget.engineConfig?.disabledScopes ?? [];
 
       for (var optionKey in _engineOptionKeys) {
         var textEditingController = TextEditingController(
@@ -75,22 +71,37 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
         );
         _textEditingControllerMap[optionKey] = textEditingController;
       }
+    } else {
+      _identifier = shortid.generate();
+      _type = widget.engineType;
     }
 
     super.initState();
   }
 
   void _handleClickOk() async {
-    final String? id = widget.engineConfig?.identifier;
-    await sharedLocalDb.privateEngine(id).updateOrCreate(
+    // try {
+    //   var resp = await translationEngine?.lookUp(
+    //     LookUpRequest(
+    //       sourceLanguage: kLanguageEN,
+    //       targetLanguage: kLanguageZH,
+    //       word: 'hello',
+    //     ),
+    //   );
+    //   print(resp?.toJson());
+    // } catch (error) {
+    //   print((error as UniTranslateClientError).message);
+    // }
+
+    await localDb //
+        .privateEngine(_identifier)
+        .updateOrCreate(
           type: _type,
           option: _option,
-          disabledScopes: _disabledScopes,
         );
-    await sharedLocalDb.write();
 
-    (sharedTranslateClient.adapter as AutoloadTranslateClientAdapter)
-        .renew(id!);
+    (translateClient.adapter as AutoloadTranslateClientAdapter)
+        .renew(_identifier!);
 
     Navigator.of(context).pop();
   }
@@ -98,17 +109,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: widget.engineConfig != null
-          ? Text.rich(
-              TextSpan(
-                text: widget.engineConfig?.typeName,
-                children: [
-                  TextSpan(
-                    text: ' (${widget.engineConfig?.shortId})',
-                    style: const TextStyle(fontSize: 12, color: Colors.grey),
-                  )
-                ],
-              ),
-            )
+          ? TranslationEngineName(widget.engineConfig!)
           : Text(t('title')),
       actions: [
         if (widget.editable)
@@ -127,16 +128,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
           title: Text(t('pref_section_title_engine_type')),
           children: [
             PreferenceListItem(
-              icon: _type == null
-                  ? null
-                  : TranslationEngineIcon(
-                      TranslationEngineConfig(
-                        identifier: '',
-                        type: _type!,
-                        name: _type!,
-                        option: {},
-                      ),
-                    ),
+              icon: _type == null ? null : TranslationEngineIcon(_type!),
               title: _type == null
                   ? Text('please_choose'.tr())
                   : Text('engine.$_type'.tr()),
@@ -147,10 +139,12 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                         MaterialPageRoute(
                           builder: (_) => TranslationEngineTypeChooserPage(
                             engineType: _type,
-                            onEngineTypeChanged: (newEngineType) {
+                            onChoosed: (newEngineType) {
                               setState(() {
                                 _type = newEngineType;
                               });
+
+                              Navigator.of(context).pop();
                             },
                           ),
                         ),
@@ -177,10 +171,21 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                   ),
                   summary: Text(scope),
                   accessoryView: Container(
-                    child: Text(
-                      (translationEngine?.supportedScopes ?? []).contains(scope)
-                          ? '✅'
-                          : '❌',
+                    margin: EdgeInsets.zero,
+                    child: Builder(
+                      builder: (_) {
+                        if ((translationEngine?.supportedScopes ?? [])
+                            .contains(scope)) {
+                          return const Icon(
+                            FluentIcons.dismiss_circle_20_filled,
+                            color: Colors.red,
+                          );
+                        }
+                        return const Icon(
+                          FluentIcons.checkmark_circle_20_filled,
+                          color: Colors.green,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -220,8 +225,8 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                 ),
                 accessoryView: Container(),
                 onTap: () async {
-                  await sharedLocalDb.privateEngine(_identifier).delete();
-                  await sharedLocalDb.write();
+                  await localDb.privateEngine(_identifier).delete();
+
                   Navigator.of(context).pop();
                 },
               ),
@@ -237,5 +242,9 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
       appBar: _buildAppBar(context),
       body: _buildBody(context),
     );
+  }
+
+  String t(String key, {List<String> args = const []}) {
+    return 'page_translation_engine_create_or_edit.$key'.tr(args: args);
   }
 }

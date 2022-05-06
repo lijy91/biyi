@@ -28,6 +28,7 @@ class _AvailableLanguageSelector extends StatelessWidget {
         children: [
           for (String supportedLanguage in kSupportedLanguages)
             Container(
+              margin: EdgeInsets.zero,
               height: 28,
               child: Builder(builder: (_) {
                 bool isSelected = value == supportedLanguage;
@@ -111,7 +112,7 @@ class _TranslationTargetSelectViewState
     }
     return Container(
       // key: this.widget.viewKey,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: 12,
         right: 12,
         top: 0,
@@ -125,7 +126,7 @@ class _TranslationTargetSelectViewState
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
-              offset: Offset(0.0, 1.0),
+              offset: const Offset(0.0, 1.0),
               blurRadius: 3.0,
             ),
           ],
@@ -133,11 +134,12 @@ class _TranslationTargetSelectViewState
         child: Column(
           children: [
             Container(
+              margin: EdgeInsets.zero,
               height: 40,
               child: Row(
                 children: [
                   CustomButton(
-                    padding: EdgeInsets.only(left: 12, right: 12),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
                     borderRadius: BorderRadius.zero,
                     child: Row(
                       children: [
@@ -154,7 +156,7 @@ class _TranslationTargetSelectViewState
                               ),
                         ),
                         AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 200),
                           curve: Curves.fastOutSlowIn,
                           transformAlignment: Alignment.center,
                           transform: Matrix4.rotationZ(
@@ -163,6 +165,7 @@ class _TranslationTargetSelectViewState
                                 : 0,
                           ),
                           child: Container(
+                            margin: EdgeInsets.zero,
                             child: Icon(
                               FluentIcons.chevron_down_20_regular,
                               size: 14,
@@ -185,7 +188,7 @@ class _TranslationTargetSelectViewState
                     child: CustomButton(
                       padding: EdgeInsets.zero,
                       child: AnimatedContainer(
-                        duration: Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 200),
                         curve: Curves.fastOutSlowIn,
                         transformAlignment: Alignment.center,
                         transform: Matrix4.rotationZ(
@@ -209,7 +212,7 @@ class _TranslationTargetSelectViewState
                     ),
                   ),
                   CustomButton(
-                    padding: EdgeInsets.only(left: 12, right: 12),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
                     borderRadius: BorderRadius.zero,
                     child: Row(
                       children: [
@@ -226,7 +229,7 @@ class _TranslationTargetSelectViewState
                               ),
                         ),
                         AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 200),
                           curve: Curves.fastOutSlowIn,
                           transformAlignment: Alignment.center,
                           transform: Matrix4.rotationZ(
@@ -235,6 +238,7 @@ class _TranslationTargetSelectViewState
                                 : 0,
                           ),
                           child: Container(
+                            margin: EdgeInsets.zero,
                             child: Icon(
                               FluentIcons.chevron_down_20_regular,
                               size: 14,
@@ -256,7 +260,7 @@ class _TranslationTargetSelectViewState
             ),
             if (widget.isShowSourceLanguageSelector ||
                 widget.isShowTargetLanguageSelector)
-              Divider(height: 0, indent: 12, endIndent: 12),
+              const Divider(height: 0, indent: 12, endIndent: 12),
             if (widget.isShowSourceLanguageSelector)
               _AvailableLanguageSelector(
                 value: widget.sourceLanguage,

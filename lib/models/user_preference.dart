@@ -32,6 +32,14 @@ const kTranslationModeManual = 'manual';
 const kInputSettingSubmitWithEnter = 'submit-with-enter';
 const kInputSettingSubmitWithMetaEnter = 'submit-with-meta+enter';
 
+const kShortcutShowOrHide = 'shortcut_show_or_hide';
+const kShortcutHide = 'shortcut_hide';
+const kShortcutExtractFromScreenSelection =
+    'shortcut_extract_from_screen_selection';
+const kShortcutExtractFromScreenCapture =
+    'shortcut_extract_from_screen_capture';
+const kShortcutExtractFromClipboard = 'shortcut_extract_from_clipboard';
+
 const Map<String, ThemeMode> kKnownThemeModes = <String, ThemeMode>{
   'light': ThemeMode.light,
   'dark': ThemeMode.dark,
@@ -39,12 +47,9 @@ const Map<String, ThemeMode> kKnownThemeModes = <String, ThemeMode>{
 };
 
 class UserPreference {
-  String? id;
   String? key;
   String? type;
   String? value;
-  String? createdAt;
-  String? updatedAt;
 
   int? get intValue {
     if (type != kPreferenceTypeInt) return null;
@@ -57,33 +62,24 @@ class UserPreference {
   }
 
   UserPreference({
-    this.id,
     this.key,
     this.type,
     this.value,
-    this.createdAt,
-    this.updatedAt,
   });
 
-  factory UserPreference.fromJson(Map<String, dynamic> json) {
+  factory UserPreference.fromJson(Map<dynamic, dynamic> json) {
     return UserPreference(
-      id: json['id'],
       key: json['key'],
       type: json['type'],
       value: json['value'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'key': key,
       'type': type,
       'value': value,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
     };
   }
 }

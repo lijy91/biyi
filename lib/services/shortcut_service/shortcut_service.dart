@@ -19,6 +19,8 @@ class ShortcutService {
 
   ShortcutListener? _listener;
 
+  Configuration get _configuration => localDb.configuration;
+
   void setListener(ShortcutListener? listener) {
     _listener = listener;
   }
@@ -26,39 +28,39 @@ class ShortcutService {
   void start() async {
     await hotKeyManager.unregisterAll();
     await hotKeyManager.register(
-      sharedConfig.shortcutInputSettingSubmitWithMetaEnter,
+      _configuration.shortcutInputSettingSubmitWithMetaEnter,
       keyDownHandler: (_) {
         _listener?.onShortcutKeyDownSubmitWithMateEnter();
       },
     );
     await hotKeyManager.register(
-      sharedConfig.shortcutShowOrHide,
+      _configuration.shortcutShowOrHide,
       keyDownHandler: (_) {
         _listener?.onShortcutKeyDownShowOrHide();
       },
     );
     await hotKeyManager.register(
-      sharedConfig.shortcutHide,
+      _configuration.shortcutHide,
       keyDownHandler: (_) {
         _listener?.onShortcutKeyDownHide();
       },
     );
     await hotKeyManager.register(
-      sharedConfig.shortcutExtractFromScreenSelection,
+      _configuration.shortcutExtractFromScreenSelection,
       keyDownHandler: (_) {
         _listener?.onShortcutKeyDownExtractFromScreenSelection();
       },
     );
     if (!kIsLinux) {
       await hotKeyManager.register(
-        sharedConfig.shortcutExtractFromScreenCapture,
+        _configuration.shortcutExtractFromScreenCapture,
         keyDownHandler: (_) {
           _listener?.onShortcutKeyDownExtractFromScreenCapture();
         },
       );
     }
     await hotKeyManager.register(
-      sharedConfig.shortcutExtractFromClipboard,
+      _configuration.shortcutExtractFromClipboard,
       keyDownHandler: (_) {
         _listener?.onShortcutKeyDownExtractFromClipboard();
       },

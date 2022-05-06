@@ -1,0 +1,75 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+
+import 'session.dart';
+import 'user_preference.dart';
+import 'user_property.dart';
+
+class User {
+  int id;
+  String? name;
+  String? username;
+  String? email;
+  List<UserPreference> preferences;
+  List<UserProperty> properties;
+  Session? lastSession;
+
+  String get avatarUrl {
+    String md5Value =
+        md5.convert(utf8.encode((email ?? '').toLowerCase().trim())).toString();
+    return "https://dn-qiniu-avatar.qbox.me/avatar/$md5Value";
+  }
+
+  bool get isLocalUser => id == -1;
+
+  User({
+    required this.id,
+    this.name,
+    this.username,
+    this.email,
+    this.preferences = const [],
+    this.properties = const [],
+    this.lastSession,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    List<UserPreference> preferences = [];
+    List<UserProperty> properties = [];
+
+    if (json['preferences'] != null) {
+      preferences = (json['preferences'] as List)
+          .map((item) => UserPreference.fromJson(item))
+          .toList();
+    }
+
+    if (json['properties'] != null) {
+      properties = (json['properties'] as List)
+          .map((item) => UserProperty.fromJson(item))
+          .toList();
+    }
+    return User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      username: json['username'],
+      preferences: preferences,
+      properties: properties,
+      lastSession: json['last_session'] != null
+          ? Session.fromJson(json['last_session'])
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'username': username,
+      'preferences': preferences.map((e) => e.toJson()).toList(),
+      'properties': properties.map((e) => e.toJson()).toList(),
+      'last_session': lastSession?.toJson(),
+    };
+  }
+}

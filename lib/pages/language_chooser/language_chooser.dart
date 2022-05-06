@@ -19,10 +19,6 @@ class LanguageChooserPage extends StatefulWidget {
 class _LanguageChooserPageState extends State<LanguageChooserPage> {
   String? _language;
 
-  String t(String key, {List<String> args = const []}) {
-    return 'page_language_chooser.$key'.tr(args: args);
-  }
-
   @override
   void initState() {
     _language = widget.initialLanguage;
@@ -50,27 +46,25 @@ class _LanguageChooserPageState extends State<LanguageChooserPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Container(
-      child: PreferenceList(
-        children: [
-          PreferenceListSection(
-            title: Text(t('pref_section_title_all')),
-            children: [
-              for (var supportedLanguage in kSupportedLanguages)
-                PreferenceListRadioItem(
-                  title: LanguageLabel(supportedLanguage),
-                  accessoryView: Container(),
-                  value: supportedLanguage,
-                  groupValue: _language,
-                  onChanged: (newGroupValue) {
-                    _language = supportedLanguage;
-                    setState(() {});
-                  },
-                ),
-            ],
-          ),
-        ],
-      ),
+    return PreferenceList(
+      children: [
+        PreferenceListSection(
+          title: Text(t('pref_section_title_all')),
+          children: [
+            for (var supportedLanguage in kSupportedLanguages)
+              PreferenceListRadioItem(
+                title: LanguageLabel(supportedLanguage),
+                accessoryView: Container(),
+                value: supportedLanguage,
+                groupValue: _language,
+                onChanged: (newGroupValue) {
+                  _language = supportedLanguage;
+                  setState(() {});
+                },
+              ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -80,5 +74,9 @@ class _LanguageChooserPageState extends State<LanguageChooserPage> {
       appBar: _buildAppBar(context),
       body: _buildBody(context),
     );
+  }
+
+  String t(String key, {List<String> args = const []}) {
+    return 'page_language_chooser.$key'.tr(args: args);
   }
 }

@@ -23,10 +23,10 @@ class LanguageLabel extends StatelessWidget {
       children: [
         LanguageFlagView(
           language,
-          size: this.flagSize,
-          borderColor: this.flagBorderColor,
+          size: flagSize,
+          borderColor: flagBorderColor,
         ),
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
         DefaultTextStyle(
           style: Theme.of(context).textTheme.bodyText2!,
           child: Text(

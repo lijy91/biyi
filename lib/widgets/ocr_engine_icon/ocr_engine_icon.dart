@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../includes.dart';
 
 class OcrEngineIcon extends StatelessWidget {
-  final OcrEngineConfig ocrEngineConfig;
+  final String type;
   final double size;
 
   const OcrEngineIcon(
-    this.ocrEngineConfig, {
+    this.type, {
     Key? key,
     this.size = 22,
   }) : super(key: key);
@@ -15,14 +15,14 @@ class OcrEngineIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: this.size,
-      height: this.size,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(ocrEngineConfig.icon),
+          image: AssetImage(R.image('ocr_engine_icons/$type.png')),
           fit: BoxFit.cover,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(6)),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
         border: Border.all(
           color: Colors.black.withOpacity(0.2),
           width: 0.5,

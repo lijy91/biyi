@@ -15,16 +15,22 @@ class SettingAppLanguagePage extends StatefulWidget {
 }
 
 class _SettingAppLanguagePageState extends State<SettingAppLanguagePage> {
-  String? _language;
-
-  String t(String key) {
-    return 'page_setting_app_language.$key'.tr();
-  }
+  Configuration get _configuration => localDb.configuration;
 
   @override
   void initState() {
-    _language = widget.initialLanguage;
+    localDb.preferences.addListener(_handleChanged);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    localDb.preferences.removeListener(_handleChanged);
+    super.dispose();
+  }
+
+  void _handleChanged() {
+    if (mounted) setState(() {});
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
@@ -34,28 +40,24 @@ class _SettingAppLanguagePageState extends State<SettingAppLanguagePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Container(
-      child: PreferenceList(
-        children: [
-          PreferenceListSection(
-            children: [
-              for (var appLanguage in kAppLanguages)
-                PreferenceListRadioItem<String>(
-                  title: LanguageLabel(appLanguage),
-                  accessoryView: Container(),
-                  value: appLanguage,
-                  groupValue: _language ?? '',
-                  onChanged: (newGroupValue) async {
-                    _language = newGroupValue;
-                    await context.setLocale(languageToLocale(newGroupValue));
-                    sharedConfigManager.setAppLanguage(newGroupValue);
-                    setState(() {});
-                  },
-                ),
-            ],
-          ),
-        ],
-      ),
+    return PreferenceList(
+      children: [
+        PreferenceListSection(
+          children: [
+            for (var appLanguage in kAppLanguages)
+              PreferenceListRadioItem<String>(
+                title: LanguageLabel(appLanguage),
+                accessoryView: Container(),
+                value: appLanguage,
+                groupValue: _configuration.appLanguage,
+                onChanged: (newGroupValue) async {
+                  _configuration.appLanguage = newGroupValue;
+                  await context.setLocale(languageToLocale(newGroupValue));
+                },
+              ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -65,5 +67,9 @@ class _SettingAppLanguagePageState extends State<SettingAppLanguagePage> {
       appBar: _buildAppBar(context),
       body: _buildBody(context),
     );
+  }
+
+  String t(String key) {
+    return 'page_setting_app_language.$key'.tr();
   }
 }

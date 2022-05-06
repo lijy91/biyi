@@ -18,6 +18,14 @@ class TranslationEngineChooserPage extends StatefulWidget {
 
 class _TranslationEngineChooserPageState
     extends State<TranslationEngineChooserPage> {
+  List<TranslationEngineConfig> get _proEngineList {
+    return localDb.proEngines.list(where: ((e) => !e.disabled));
+  }
+
+  List<TranslationEngineConfig> get _privateEngineList {
+    return localDb.privateEngines.list(where: ((e) => !e.disabled));
+  }
+
   String? _identifier;
 
   String t(String key, {List<String> args = const []}) {
@@ -34,8 +42,7 @@ class _TranslationEngineChooserPageState
 
   void _handleClickOk() async {
     if (widget.onChoosed != null) {
-      TranslationEngineConfig? engineConfig =
-          sharedLocalDb.engine(_identifier).get();
+      TranslationEngineConfig? engineConfig = localDb.engine(_identifier).get();
       widget.onChoosed!(engineConfig!);
     }
 
@@ -43,51 +50,48 @@ class _TranslationEngineChooserPageState
   }
 
   Widget _buildBody(BuildContext context) {
-    return LocalDbBuilder(builder: (context, dbData) {
-      final privateEngineList =
-          (dbData.privateEngineList ?? []).where((e) => !e.disabled).toList();
-      return PreferenceList(
-        children: [
-          PreferenceListSection(
-            title: Text(t('pref_section_title_private')),
-            children: [
-              for (var engineConfig in privateEngineList)
-                PreferenceListRadioItem<String>(
-                  icon: TranslationEngineIcon(
-                    engineConfig,
-                  ),
-                  value: engineConfig.identifier,
-                  groupValue: _identifier ?? '',
-                  onChanged: (newValue) {
-                    setState(() {
-                      _identifier = newValue;
-                    });
-                  },
-                  title: Builder(builder: (_) {
-                    return Text.rich(
-                      TextSpan(
-                        text: engineConfig.typeName,
-                        children: [
-                          TextSpan(
-                            text: ' (${engineConfig.shortId})',
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.grey),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-              if (privateEngineList.isEmpty)
-                PreferenceListItem(
-                  title: Text(t('pref_item_title_no_available_engines')),
-                  accessoryView: Container(),
-                ),
-            ],
-          ),
-        ],
-      );
-    });
+    return PreferenceList(
+      children: [
+        PreferenceListSection(
+          children: [
+            for (var engineConfig in _proEngineList)
+              PreferenceListRadioItem<String>(
+                icon: TranslationEngineIcon(engineConfig.type),
+                title: TranslationEngineName(engineConfig),
+                value: engineConfig.identifier,
+                groupValue: _identifier ?? '',
+                onChanged: (newValue) {
+                  setState(() {
+                    _identifier = newValue;
+                  });
+                },
+              ),
+          ],
+        ),
+        PreferenceListSection(
+          title: Text(t('pref_section_title_private')),
+          children: [
+            for (var engineConfig in _privateEngineList)
+              PreferenceListRadioItem<String>(
+                icon: TranslationEngineIcon(engineConfig.type),
+                title: TranslationEngineName(engineConfig),
+                value: engineConfig.identifier,
+                groupValue: _identifier ?? '',
+                onChanged: (newValue) {
+                  setState(() {
+                    _identifier = newValue;
+                  });
+                },
+              ),
+            if (_privateEngineList.isEmpty)
+              PreferenceListItem(
+                title: Text(t('pref_item_title_no_available_engines')),
+                accessoryView: Container(),
+              ),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _build(BuildContext context) {

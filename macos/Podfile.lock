@@ -1,6 +1,8 @@
 PODS:
   - audioplayers (0.0.1):
     - FlutterMacOS
+  - clipboard_watcher (0.0.1):
+    - FlutterMacOS
   - device_info_plus_macos (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
@@ -13,6 +15,8 @@ PODS:
   - package_info_plus_macos (0.0.1):
     - FlutterMacOS
   - path_provider_macos (0.0.1):
+    - FlutterMacOS
+  - platform_context_menu (0.0.1):
     - FlutterMacOS
   - protocol_handler (0.0.1):
     - FlutterMacOS
@@ -33,12 +37,14 @@ PODS:
 
 DEPENDENCIES:
   - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
+  - clipboard_watcher (from `Flutter/ephemeral/.symlinks/plugins/clipboard_watcher/macos`)
   - device_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - hotkey_manager (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager/macos`)
   - ocr_engine_builtin (from `Flutter/ephemeral/.symlinks/plugins/ocr_engine_builtin/macos`)
   - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
+  - platform_context_menu (from `Flutter/ephemeral/.symlinks/plugins/platform_context_menu/macos`)
   - protocol_handler (from `Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos`)
   - screen_capturer (from `Flutter/ephemeral/.symlinks/plugins/screen_capturer/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
@@ -55,6 +61,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   audioplayers:
     :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
+  clipboard_watcher:
+    :path: Flutter/ephemeral/.symlinks/plugins/clipboard_watcher/macos
   device_info_plus_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos
   FlutterMacOS:
@@ -67,6 +75,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos
   path_provider_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
+  platform_context_menu:
+    :path: Flutter/ephemeral/.symlinks/plugins/platform_context_menu/macos
   protocol_handler:
     :path: Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos
   screen_capturer:
@@ -86,6 +96,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
+  clipboard_watcher: a71da520051c24c1b969a411b3e152d4dcc93ca5
   device_info_plus_macos: 1ad388a1ef433505c4038e7dd9605aadd1e2e9c7
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
   HotKey: ad59450195936c10992438c4210f673de5aee43e
@@ -93,6 +104,7 @@ SPEC CHECKSUMS:
   ocr_engine_builtin: 99c65f8f4a156830ceaf0da86940610fefe50f50
   package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
+  platform_context_menu: 71d9adbe89fab90395eec70cd7cc3e9815aa289d
   protocol_handler: 587e1caf6c0b92ce351ab14081968dae49cb8cc6
   screen_capturer: 696de78ce7beff63eecf8aa709f839985a7836d7
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38

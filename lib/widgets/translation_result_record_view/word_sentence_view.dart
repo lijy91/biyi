@@ -13,7 +13,7 @@ class WordSentenceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 6),
+      margin: const EdgeInsets.only(top: 6),
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,7 @@ class WordSentenceView extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(text: wordSentence.text),
-                TextSpan(text: '\n'),
+                const TextSpan(text: '\n'),
                 TextSpan(
                   text: wordSentence.translations.first,
                   style: Theme.of(context).textTheme.caption!.copyWith(

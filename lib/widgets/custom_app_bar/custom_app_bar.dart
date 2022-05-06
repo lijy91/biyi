@@ -2,9 +2,6 @@ import 'package:biyi/includes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import './custom_app_bar_back_button.dart';
-import './custom_app_bar_close_button.dart';
-
 export './custom_app_bar_action_item.dart';
 export './custom_app_bar_back_button.dart';
 export './custom_app_bar_close_button.dart';
@@ -21,8 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.automaticallyImplyLeading = true,
     this.title,
     this.actions,
-  })  : assert(automaticallyImplyLeading != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +45,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            blurRadius: 16,
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            width: 1,
           ),
-        ],
+        ),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey.withOpacity(0.2),
+        //     blurRadius: 16,
+        //   ),
+        // ],
       ),
       child: appBar,
     );

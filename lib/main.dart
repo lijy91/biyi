@@ -29,7 +29,6 @@ Future<void> _ensureInitialized() async {
 
   await initEnv();
   await initLocalDb();
-  await initConfig();
 }
 
 void main() async {
@@ -64,29 +63,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  ThemeMode _themeMode = ThemeMode.system;
+  Configuration get _configuration => localDb.configuration;
 
   @override
   void initState() {
+    localDb.preferences.addListener(_handleChanged);
     super.initState();
-    sharedConfigManager.addListener(_configListen);
-    _init();
   }
 
   @override
   void dispose() {
-    sharedConfigManager.removeListener(_configListen);
+    localDb.preferences.removeListener(_handleChanged);
     super.dispose();
   }
 
-  void _configListen() {
-    _themeMode = sharedConfig.themeMode;
-    setState(() {});
-  }
-
-  void _init() async {
-    _themeMode = sharedConfig.themeMode;
-    setState(() {});
+  void _handleChanged() {
+    if (mounted) setState(() {});
   }
 
   Widget _buildHome(BuildContext context) {
@@ -103,7 +95,7 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: _navigatorKey,
       theme: lightThemeData,
       darkTheme: darkThemeData,
-      themeMode: _themeMode,
+      themeMode: _configuration.themeMode,
       builder: (context, child) {
         if (kIsLinux || kIsWindows) {
           child = virtualWindowFrameBuilder(context, child);

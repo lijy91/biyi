@@ -6,7 +6,7 @@ class CustomImage extends StatelessWidget {
   final double? height;
   final BoxFit? fit;
 
-  CustomImage(
+  const CustomImage(
     this.url, {
     Key? key,
     this.width,
@@ -21,6 +21,27 @@ class CustomImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      loadingBuilder: (context, child, progress) {
+        return progress == null
+            ? child
+            : Center(
+                child: CircularProgressIndicator(
+                  value: progress.expectedTotalBytes != null
+                      ? progress.cumulativeBytesLoaded /
+                          (progress.expectedTotalBytes ?? 0)
+                      : null,
+                ),
+              );
+      },
+      errorBuilder: (ctx, error, stackTrace) {
+        print(error);
+        print(stackTrace);
+        return Container(
+          width: width,
+          height: height,
+          color: Colors.red,
+        );
+      },
     );
   }
 }

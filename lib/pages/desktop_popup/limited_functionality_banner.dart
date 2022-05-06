@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:screen_capturer/screen_capturer.dart';
+import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../includes.dart';
@@ -28,23 +29,23 @@ class _AllowAccessListItem extends StatelessWidget {
       TextSpan(
         text: allowed ? '✅' : '❌',
         children: [
-          TextSpan(text: '  '),
-          TextSpan(text: '$title'),
-          TextSpan(text: '      '),
+          const TextSpan(text: '  '),
+          TextSpan(text: title),
+          const TextSpan(text: '      '),
           if (onTappedTryAllow != null)
             TextSpan(
-              text: 'page_home.limited_banner_btn_allow'.tr(),
-              style: TextStyle(
+              text: 'page_desktop_popup.limited_banner_btn_allow'.tr(),
+              style: const TextStyle(
                 decoration: TextDecoration.underline,
                 decorationColor: Colors.white,
               ),
               recognizer: TapGestureRecognizer()..onTap = onTappedTryAllow,
             ),
-          if (onTappedTryAllow != null) TextSpan(text: ' / '),
+          if (onTappedTryAllow != null) const TextSpan(text: ' / '),
           if (onTappedGoSettings != null)
             TextSpan(
-              text: 'page_home.limited_banner_btn_go_settings'.tr(),
-              style: TextStyle(
+              text: 'page_desktop_popup.limited_banner_btn_go_settings'.tr(),
+              style: const TextStyle(
                 decoration: TextDecoration.underline,
                 decorationColor: Colors.white,
               ),
@@ -84,11 +85,11 @@ class LimitedFunctionalityBanner extends StatelessWidget {
       width: double.infinity,
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           left: 0,
           right: 0,
         ),
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           top: 12,
           bottom: 12,
           left: 18,
@@ -99,7 +100,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
           children: [
             Text.rich(
               TextSpan(
-                text: 'page_home.limited_banner_title'.tr(),
+                text: 'page_desktop_popup.limited_banner_title'.tr(),
               ),
               style: Theme.of(context).textTheme.bodyText2!.copyWith(
                     color: Colors.white,
@@ -108,22 +109,24 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                   ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 6, bottom: 6),
+              padding: const EdgeInsets.only(top: 6, bottom: 6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (kIsMacOS)
                     _AllowAccessListItem(
                       title:
-                          'page_home.limited_banner_text_screen_capture'.tr(),
+                          'page_desktop_popup.limited_banner_text_screen_capture'
+                              .tr(),
                       allowed: isAllowedScreenCaptureAccess,
                       onTappedTryAllow: () {
                         ScreenCapturer.instance.requestAccess();
                         BotToast.showText(
-                          text: 'page_home.limited_banner_msg_allow_access_tip'
-                              .tr(),
+                          text:
+                              'page_desktop_popup.limited_banner_msg_allow_access_tip'
+                                  .tr(),
                           align: Alignment.center,
-                          duration: Duration(seconds: 5),
+                          duration: const Duration(seconds: 5),
                         );
                       },
                       onTappedGoSettings: () {
@@ -135,15 +138,17 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                   if (kIsMacOS)
                     _AllowAccessListItem(
                       title:
-                          'page_home.limited_banner_text_screen_selection'.tr(),
+                          'page_desktop_popup.limited_banner_text_screen_selection'
+                              .tr(),
                       allowed: isAllowedScreenSelectionAccess,
                       onTappedTryAllow: () {
                         screenTextExtractor.requestAccess();
                         BotToast.showText(
-                          text: 'page_home.limited_banner_msg_allow_access_tip'
-                              .tr(),
+                          text:
+                              'page_desktop_popup.limited_banner_msg_allow_access_tip'
+                                  .tr(),
                           align: Alignment.center,
-                          duration: Duration(seconds: 5),
+                          duration: const Duration(seconds: 5),
                         );
                       },
                       onTappedGoSettings: () {
@@ -161,10 +166,10 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                   width: 18,
                   height: 18,
                   child: Tooltip(
-                    message: 'page_home.limited_banner_tip_help'.tr(),
+                    message: 'page_desktop_popup.limited_banner_tip_help'.tr(),
                     child: CupertinoButton(
                       padding: EdgeInsets.zero,
-                      child: Icon(
+                      child: const Icon(
                         FluentIcons.question_circle_20_regular,
                         color: Colors.white,
                         size: 18,
@@ -187,8 +192,10 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: 'page_home.limited_banner_btn_check_again'.tr(),
-                        style: TextStyle(
+                        text:
+                            'page_desktop_popup.limited_banner_btn_check_again'
+                                .tr(),
+                        style: const TextStyle(
                           color: Colors.white,
                           height: 1.3,
                           decoration: TextDecoration.underline,

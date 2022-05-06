@@ -1,15 +1,16 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../../includes.dart';
 
 class ToolbarItemSettings extends StatefulWidget {
-  final VoidCallback onSettingsPageDismiss;
+  final VoidCallback onSubPageDismissed;
 
   const ToolbarItemSettings({
     Key? key,
-    required this.onSettingsPageDismiss,
+    required this.onSubPageDismissed,
   }) : super(key: key);
 
   @override
@@ -17,11 +18,57 @@ class ToolbarItemSettings extends StatefulWidget {
 }
 
 class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
-  void _handleDismiss() async {
-    await Future.delayed(const Duration(milliseconds: 100));
+  // Offset? _lastShownPosition;
+  // Size? _lastShownSize;
 
-    widget.onSettingsPageDismiss();
+  void _handleDismiss() async {
+    // if (kIsLinux || kIsMacOS || kIsWindows) {
+    //   await windowManager.hide();
+    //   await windowManager.setTitleBarStyle(
+    //     TitleBarStyle.hidden,
+    //     windowButtonVisibility: false,
+    //   );
+    //   if (_lastShownPosition != null) {
+    //     await windowManager.setPosition(_lastShownPosition!);
+    //   }
+    //   if (_lastShownSize != null) {
+    //     await windowManager.setSize(_lastShownSize!);
+    //   }
+    // }
+    // Navigator.of(context).pop();
+
+    await Future.delayed(const Duration(milliseconds: 200));
+    widget.onSubPageDismissed();
+
+    // await windowManager.show();
   }
+
+  // void _handleOpenSettings() async {
+  //   if (kIsLinux || kIsMacOS || kIsWindows) {
+  //     _lastShownPosition = await windowManager.getPosition();
+  //     _lastShownSize = await windowManager.getSize();
+
+  //     await windowManager.hide();
+  //     await windowManager.setTitleBarStyle(
+  //       TitleBarStyle.normal,
+  //       windowButtonVisibility: true,
+  //     );
+  //     await windowManager.setSize(const Size(700, 680.0));
+  //     await windowManager.center();
+  //   }
+
+  //   Navigator.of(context).push(
+  //     PageTransition(
+  //       type: PageTransitionType.fade,
+  //       child: DesktopSettingsPage(
+  //         onDismiss: _handleDismiss,
+  //       ),
+  //     ),
+  //   );
+
+  //   await Future.delayed(const Duration(milliseconds: 200));
+  //   await windowManager.show();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -36,34 +83,18 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
           size: 20,
           color: Theme.of(context).iconTheme.color,
         ),
-        onPressed: () async {
-          Future<void> future = showModalBottomSheet(
+        onPressed: () {
+          showModalBottomSheetPage(
             context: context,
-            isScrollControlled: true,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(8),
-              ),
-            ),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
             builder: (ctx) {
-              return ModalBottomSheetWrapped(
-                child: SettingsPage(
-                  onDismiss: () {
-                    Navigator.of(ctx).pop();
-                    _handleDismiss();
-                  },
-                ),
+              return SettingsPage(
+                onDismiss: () {
+                  Navigator.of(ctx).pop();
+                  _handleDismiss();
+                },
               );
             },
-          );
-          future.whenComplete(() => _handleDismiss());
-
-          if (kIsLinux || kIsMacOS || kIsWindows) {
-            await Future.delayed(const Duration(milliseconds: 120));
-            Size size = await windowManager.getSize();
-            await windowManager.setSize(Size(size.width, 680.0));
-          }
+          ).whenComplete(() => _handleDismiss());
         },
       ),
     );

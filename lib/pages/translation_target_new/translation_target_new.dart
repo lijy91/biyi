@@ -19,10 +19,6 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
   String? _sourceLanguage;
   String? _targetLanguage;
 
-  String t(String key, {List<String> args = const []}) {
-    return 'page_translation_target_new.$key'.tr(args: args);
-  }
-
   @override
   void initState() {
     if (widget.translationTarget != null) {
@@ -33,13 +29,12 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
   }
 
   void _handleClickOk() async {
-    await sharedLocalDb
+    await localDb //
         .translationTarget(widget.translationTarget?.id)
         .updateOrCreate(
           sourceLanguage: _sourceLanguage,
           targetLanguage: _targetLanguage,
         );
-    await sharedLocalDb.write();
 
     Navigator.of(context).pop();
   }
@@ -59,74 +54,72 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return LocalDbBuilder(builder: (context, dbData) {
-      return PreferenceList(
-        children: [
+    return PreferenceList(
+      children: [
+        PreferenceListSection(
+          children: [
+            PreferenceListItem(
+              title: Text(t('source_language')),
+              detailText: _sourceLanguage != null
+                  ? LanguageLabel(_sourceLanguage!)
+                  : Text('please_choose'.tr()),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => LanguageChooserPage(
+                      onChoosed: (language) {
+                        _sourceLanguage = language;
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+            PreferenceListItem(
+              title: Text(t('target_language')),
+              detailText: _targetLanguage != null
+                  ? LanguageLabel(_targetLanguage!)
+                  : Text('please_choose'.tr()),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => LanguageChooserPage(
+                      onChoosed: (language) {
+                        _targetLanguage = language;
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        if (widget.translationTarget != null)
           PreferenceListSection(
+            title: const Text(''),
             children: [
               PreferenceListItem(
-                title: Text(t('source_language')),
-                detailText: _sourceLanguage != null
-                    ? LanguageLabel(_sourceLanguage!)
-                    : Text('please_choose'.tr()),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => LanguageChooserPage(
-                        onChoosed: (language) {
-                          _sourceLanguage = language;
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
-              PreferenceListItem(
-                title: Text(t('target_language')),
-                detailText: _targetLanguage != null
-                    ? LanguageLabel(_targetLanguage!)
-                    : Text('please_choose'.tr()),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => LanguageChooserPage(
-                        onChoosed: (language) {
-                          _targetLanguage = language;
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                  );
+                title: Center(
+                  child: Text(
+                    'delete'.tr(),
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+                accessoryView: Container(),
+                onTap: () async {
+                  await localDb
+                      .translationTarget(widget.translationTarget?.id)
+                      .delete();
+
+                  Navigator.of(context).pop();
                 },
               ),
             ],
           ),
-          if (widget.translationTarget != null)
-            PreferenceListSection(
-              title: Text(''),
-              children: [
-                PreferenceListItem(
-                  title: Center(
-                    child: Text(
-                      'delete'.tr(),
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                  accessoryView: Container(),
-                  onTap: () async {
-                    await sharedLocalDb
-                        .translationTarget(widget.translationTarget?.id)
-                        .delete();
-                    await sharedLocalDb.write();
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ),
-        ],
-      );
-    });
+      ],
+    );
   }
 
   @override
@@ -135,5 +128,9 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
       appBar: _buildAppBar(context),
       body: _buildBody(context),
     );
+  }
+
+  String t(String key, {List<String> args = const []}) {
+    return 'page_translation_target_new.$key'.tr(args: args);
   }
 }

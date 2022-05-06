@@ -7,6 +7,7 @@ const kDialogActionTypeSecondary = 'secondary';
 const kDialogActionTypeSuccess = 'success';
 const kDialogActionTypeDanger = 'danger';
 
+// ignore: must_be_immutable
 class CustomDialogAction extends StatelessWidget {
   String? type;
   final bool processing;
@@ -24,6 +25,7 @@ class CustomDialogAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.zero,
       height: 38,
       child: CustomButton.filled(
         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
@@ -91,7 +93,7 @@ class CustomAlertDialog extends StatelessWidget {
                   child: content,
                 ),
               Container(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(
                   children: <Widget>[
                     for (var i = 0; i < (actions ?? []).length; i++)

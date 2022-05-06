@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 String prettyJsonString(dynamic json) {
-  JsonEncoder encoder = new JsonEncoder.withIndent('  ');
+  JsonEncoder encoder = const JsonEncoder.withIndent('  ');
   String jsonString = encoder.convert(json);
 
   return jsonString;

@@ -9,7 +9,7 @@ class TranslationTarget {
     this.targetLanguage,
   });
 
-  factory TranslationTarget.fromJson(Map<String, dynamic> json) {
+  factory TranslationTarget.fromJson(Map<dynamic, dynamic> json) {
     return TranslationTarget(
       id: json['id'],
       sourceLanguage: json['sourceLanguage'],

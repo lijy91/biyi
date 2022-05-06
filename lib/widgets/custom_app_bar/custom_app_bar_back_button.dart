@@ -13,11 +13,11 @@ class CustomAppBarBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      padding: EdgeInsets.only(right: 12),
+      padding: const EdgeInsets.only(right: 12),
       child: Icon(
         FluentIcons.chevron_left_20_regular,
         color: Theme.of(context).appBarTheme.iconTheme!.color,
-        size: 26,
+        size: 24,
       ),
       onPressed: () {
         if (onPressed != null) {

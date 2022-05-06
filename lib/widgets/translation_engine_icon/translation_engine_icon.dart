@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../../includes.dart';
 
 class TranslationEngineIcon extends StatelessWidget {
-  final TranslationEngineConfig translationEngineConfig;
+  final String type;
   final double size;
   final Color? color;
   final Border? border;
 
   const TranslationEngineIcon(
-    this.translationEngineConfig, {
+    this.type, {
     Key? key,
     this.size = 22,
     this.color,
@@ -19,22 +19,25 @@ class TranslationEngineIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: this.size,
-      height: this.size,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(translationEngineConfig.icon),
+          image: AssetImage(R.image('translation_engine_icons/$type.png')),
           fit: BoxFit.cover,
-          colorFilter:
-              color != null ? ColorFilter.mode(color!, BlendMode.color) : null,
+          colorFilter: color != null
+              ? ColorFilter.mode(
+                  color!,
+                  BlendMode.color,
+                )
+              : null,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(6)),
-        border: border != null
-            ? border
-            : Border.all(
-                color: Colors.black.withOpacity(0.2),
-                width: 0.5,
-              ),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
+        border: border ??
+            Border.all(
+              color: Colors.black.withOpacity(0.2),
+              width: 0.5,
+            ),
       ),
     );
   }

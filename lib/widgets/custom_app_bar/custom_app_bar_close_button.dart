@@ -13,11 +13,11 @@ class CustomAppBarCloseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      padding: EdgeInsets.only(right: 12),
+      padding: const EdgeInsets.only(right: 12),
       child: Icon(
         FluentIcons.dismiss_20_regular,
         color: Theme.of(context).appBarTheme.iconTheme!.color,
-        size: 26,
+        size: 22,
       ),
       onPressed: () {
         if (onPressed != null) {

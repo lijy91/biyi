@@ -19,7 +19,7 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
   bool _isHovered = false;
 
   TranslationEngineConfig get _translationEngineConfig {
-    return sharedLocalDb
+    return localDb
         .engine(widget.translationResultRecord.translationEngineId!)
         .get()!;
   }
@@ -64,14 +64,14 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
               crossFadeState: !_isHovered
                   ? CrossFadeState.showFirst
                   : CrossFadeState.showSecond,
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               firstCurve: Curves.ease,
               secondCurve: Curves.ease,
               sizeCurve: Curves.ease,
               firstChild: Row(
                 children: [
                   TranslationEngineIcon(
-                    _translationEngineConfig,
+                    _translationEngineConfig.type,
                     size: 12,
                   ),
                 ],
@@ -79,7 +79,7 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
               secondChild: Row(
                 children: [
                   TranslationEngineIcon(
-                    _translationEngineConfig,
+                    _translationEngineConfig.type,
                     size: 12,
                   ),
                   Padding(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 
 import '../../includes.dart';
-import '../custom_alert_dialog/custom_alert_dialog.dart';
 
 class RecordHotKeyDialog extends StatefulWidget {
   final ValueChanged<HotKey> onHotKeyRecorded;

@@ -74,16 +74,16 @@ class PreferenceListItem extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 minHeight: 48,
               ),
-              padding: padding ?? EdgeInsets.fromLTRB(12, 0, 12, 0),
+              padding: padding ?? const EdgeInsets.fromLTRB(12, 0, 12, 0),
               child: Row(
                 children: [
                   if (icon != null)
                     Container(
                       child: icon,
-                      margin: EdgeInsets.only(right: 10),
+                      margin: const EdgeInsets.only(right: 10),
                     ),
                   if (title != null || summary != null)
                     Expanded(
@@ -100,7 +100,8 @@ class PreferenceListItem extends StatelessWidget {
                             DefaultTextStyle(
                               style: Theme.of(context).textTheme.caption!,
                               child: Padding(
-                                padding: EdgeInsets.only(top: 4, bottom: 4),
+                                padding:
+                                    const EdgeInsets.only(top: 4, bottom: 4),
                                 child: summary,
                               ),
                             ),
@@ -156,6 +157,7 @@ class PreferenceListRadioItem<T> extends PreferenceListItem {
   Widget buildAccessoryView(BuildContext context) {
     if (value != null && value == groupValue) {
       return Container(
+        margin: EdgeInsets.zero,
         child: Icon(
           FluentIcons.checkmark_circle_20_filled,
           size: 22,
@@ -201,7 +203,7 @@ class PreferenceListSwitchItem extends PreferenceListItem {
 
   @override
   Widget buildAccessoryView(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 22,
       width: 34,
       child: Transform.scale(
@@ -223,7 +225,7 @@ class PreferenceListTextFieldItem extends PreferenceListItem {
   final VoidCallback? onEditingComplete;
   final ValueChanged<String>? onSubmitted;
 
-  PreferenceListTextFieldItem({
+  const PreferenceListTextFieldItem({
     Key? key,
     Widget? icon,
     Widget? title,
@@ -251,11 +253,11 @@ class PreferenceListTextFieldItem extends PreferenceListItem {
   Widget buildDetailText(BuildContext context) {
     return Expanded(
       child: CupertinoTextField(
-        controller: this.controller,
+        controller: controller,
         padding: EdgeInsets.zero,
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         placeholder: placeholder,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 14,
         ),
         onChanged: onChanged,

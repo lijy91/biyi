@@ -13,7 +13,6 @@ import './includes.dart';
 Future<void> _ensureInitialized() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await AudioPlayer.ensureInitialized();
   if (kIsLinux || kIsMacOS || kIsWindows) {
     await windowManager.ensureInitialized();
   }

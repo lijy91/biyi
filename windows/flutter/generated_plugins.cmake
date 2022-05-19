@@ -6,7 +6,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   clipboard_watcher
   hotkey_manager
-  libwinmedia
   protocol_handler
   screen_capturer
   screen_retriever

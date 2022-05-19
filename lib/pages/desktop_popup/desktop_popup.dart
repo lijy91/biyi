@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide MenuItem;
 import 'package:flutter/services.dart';
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:screen_capturer/screen_capturer.dart';
@@ -100,7 +100,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   @override
   void initState() {
     localDb.preferences.addListener(_handleChanged);
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     if (kIsLinux || kIsMacOS || kIsWindows) {
       protocolHandler.addListener(this);
       ShortcutService.instance.setListener(this);
@@ -114,7 +114,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   @override
   void dispose() {
     localDb.preferences.removeListener(_handleChanged);
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     if (kIsLinux || kIsMacOS || kIsWindows) {
       protocolHandler.removeListener(this);
       ShortcutService.instance.setListener(null);
@@ -128,7 +128,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   @override
   void didChangePlatformBrightness() {
     Brightness newBrightness =
-        WidgetsBinding.instance!.window.platformBrightness;
+        WidgetsBinding.instance.window.platformBrightness;
 
     if (newBrightness != _brightness) {
       _brightness = newBrightness;
@@ -205,37 +205,45 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         isTemplate: kIsMacOS ? true : false,
       );
       await Future.delayed(const Duration(milliseconds: 10));
-      await trayManager.setContextMenu([
-        MenuItem(
-          title:
-              '${'app_name'.tr()} v${sharedEnv.appVersion} (BUILD ${sharedEnv.appBuildNumber})',
-          isEnabled: false,
-        ),
-        MenuItem.separator,
-        MenuItem(
-          key: kMenuItemKeyQuickStartGuide,
-          title: 'tray_context_menu.item_quick_start_guide'.tr(),
-        ),
-        MenuItem(
-          title: 'tray_context_menu.item_discussion'.tr(),
+      await trayManager.setContextMenu(
+        Menu(
           items: [
             MenuItem(
-              key: kMenuSubItemKeyJoinDiscord,
-              title: 'tray_context_menu.item_discussion_subitem_discord_server'
-                  .tr(),
+              label:
+                  '${'app_name'.tr()} v${sharedEnv.appVersion} (BUILD ${sharedEnv.appBuildNumber})',
+              disabled: true,
             ),
+            MenuItem.separator(),
             MenuItem(
-              key: kMenuSubItemKeyJoinQQGroup,
-              title: 'tray_context_menu.item_discussion_subitem_qq_group'.tr(),
+              key: kMenuItemKeyQuickStartGuide,
+              label: 'tray_context_menu.item_quick_start_guide'.tr(),
+            ),
+            MenuItem.submenu(
+              label: 'tray_context_menu.item_discussion'.tr(),
+              submenu: Menu(
+                items: [
+                  MenuItem(
+                    key: kMenuSubItemKeyJoinDiscord,
+                    label:
+                        'tray_context_menu.item_discussion_subitem_discord_server'
+                            .tr(),
+                  ),
+                  MenuItem(
+                    key: kMenuSubItemKeyJoinQQGroup,
+                    label: 'tray_context_menu.item_discussion_subitem_qq_group'
+                        .tr(),
+                  ),
+                ],
+              ),
+            ),
+            MenuItem.separator(),
+            MenuItem(
+              key: kMenuItemKeyQuitApp,
+              label: 'tray_context_menu.item_quit_app'.tr(),
             ),
           ],
         ),
-        MenuItem.separator,
-        MenuItem(
-          key: kMenuItemKeyQuitApp,
-          title: 'tray_context_menu.item_quit_app'.tr(),
-        ),
-      ]);
+      );
     }
   }
 
@@ -816,7 +824,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) => _windowResize());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _windowResize());
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _buildBody(context),

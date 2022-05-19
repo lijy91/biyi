@@ -322,13 +322,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.7"
-  libwinmedia:
-    dependency: "direct main"
-    description:
-      name: libwinmedia
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.7"
   lints:
     dependency: transitive
     description:
@@ -350,6 +343,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4"
+  menu_base:
+    dependency: transitive
+    description:
+      name: menu_base
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   meta:
     dependency: transitive
     description:
@@ -734,7 +734,7 @@ packages:
       name: tray_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.7"
   typed_data:
     dependency: transitive
     description:

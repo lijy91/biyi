@@ -6,7 +6,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
   clipboard_watcher
   hotkey_manager
-  libwinmedia
   screen_retriever
   screen_text_extractor
   tray_manager

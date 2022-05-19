@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,23 +21,37 @@ class SoundPlayButton extends StatefulWidget {
   _SoundPlayButtonState createState() => _SoundPlayButtonState();
 }
 
-class _SoundPlayButtonState extends State<SoundPlayButton>
-    with AudioPlayerListener {
+class _SoundPlayButtonState extends State<SoundPlayButton> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
   bool _playing = false;
   int _playingAnimImageIndex = 0;
   Timer? _playingAnimTimer;
 
   @override
   void initState() {
-    AudioPlayer.instance.addListener(this);
+    _audioPlayer.onPlayerStateChanged.listen(_handlePlayerStateChanged);
+    _audioPlayer.onPlayerComplete.listen((event) {
+      _handlePlayerStateChanged(PlayerState.completed);
+    });
     super.initState();
   }
 
   @override
   void dispose() {
-    AudioPlayer.instance.removeListener(this);
     _stopPlayingAnimTimer();
     super.dispose();
+  }
+
+  void _handlePlayerStateChanged(PlayerState state) {
+    _playing = state == PlayerState.playing;
+
+    if (_playing && !(_playingAnimTimer?.isActive ?? false)) {
+      _startPlayingAnimTimer();
+    } else if (!_playing && (_playingAnimTimer?.isActive ?? false)) {
+      _stopPlayingAnimTimer();
+    }
+    if (mounted) setState(() {});
   }
 
   void _startPlayingAnimTimer() {
@@ -65,14 +80,13 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
   }
 
   void _handleClickPlay() async {
-    AudioPlayer.instance.setSource(Uri.parse(widget.audioUrl));
-    await AudioPlayer.instance.prepare();
-    await AudioPlayer.instance.start();
+    UrlSource urlSource = UrlSource(widget.audioUrl);
+    await _audioPlayer.play(urlSource);
     _startPlayingAnimTimer();
   }
 
   void _handleClickStop() async {
-    await AudioPlayer.instance.stop();
+    await _audioPlayer.stop();
     _stopPlayingAnimTimer();
     if (mounted) setState(() {});
   }
@@ -129,28 +143,4 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
       ),
     );
   }
-
-  @override
-  void onAudioPlayerBufferingUpdate(AudioPlayer ap, bool isBuffered) {}
-
-  @override
-  void onAudioPlayerStateChanged(AudioPlayer ap, AudioPlayerState state) {
-    if (ap.getSource().toString() == widget.audioUrl) {
-      _playing = state == AudioPlayerState.playing;
-    } else {
-      _playing = false;
-    }
-    if (_playing && !(_playingAnimTimer?.isActive ?? false)) {
-      _startPlayingAnimTimer();
-    } else if (!_playing && (_playingAnimTimer?.isActive ?? false)) {
-      _stopPlayingAnimTimer();
-    }
-    if (mounted) setState(() {});
-  }
-
-  @override
-  void onAudioPlayerPositionChanged(AudioPlayer ap) {}
-
-  @override
-  void onAudioPlayerCompleted(AudioPlayer ap) {}
 }

@@ -12,7 +12,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  audioplayers: ^0.20.1
+  audioplayers: ^1.0.0-rc.4
+  audioplayers_windows: ^1.0.0-rc.3
   bot_toast: ^4.0.1
   device_info_plus: ^3.1.1
   dio: ^4.0.4
@@ -86,8 +87,6 @@ dependency_overrides:
     path: ../uni_ocr/packages/ocr_engine_builtin
   ocr_engine_youdao:
     path: ../uni_ocr/packages/ocr_engine_youdao
-  platform_context_menu:
-    path: ../../leanflutter/platform_context_menu
 
 flutter:
   uses-material-design: false

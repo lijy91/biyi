@@ -21,13 +21,13 @@ class _ModalBottomSheetWrappedState extends State<ModalBottomSheetWrapped> {
 
   @override
   void initState() {
-    localDb.privateEngines.addListener(_handleChanged);
+    localDb.preferences.addListener(_handleChanged);
     super.initState();
   }
 
   @override
   void dispose() {
-    localDb.privateEngines.removeListener(_handleChanged);
+    localDb.preferences.removeListener(_handleChanged);
     super.dispose();
   }
 

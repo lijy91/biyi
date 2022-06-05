@@ -205,45 +205,44 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         isTemplate: kIsMacOS ? true : false,
       );
       await Future.delayed(const Duration(milliseconds: 10));
-      await trayManager.setContextMenu(
-        Menu(
-          items: [
-            MenuItem(
-              label:
-                  '${'app_name'.tr()} v${sharedEnv.appVersion} (BUILD ${sharedEnv.appBuildNumber})',
-              disabled: true,
+      Menu menu = Menu(
+        items: [
+          MenuItem(
+            label:
+                '${'app_name'.tr()} v${sharedEnv.appVersion} (BUILD ${sharedEnv.appBuildNumber})',
+            disabled: true,
+          ),
+          MenuItem.separator(),
+          MenuItem(
+            key: kMenuItemKeyQuickStartGuide,
+            label: 'tray_context_menu.item_quick_start_guide'.tr(),
+          ),
+          MenuItem.submenu(
+            label: 'tray_context_menu.item_discussion'.tr(),
+            submenu: Menu(
+              items: [
+                MenuItem(
+                  key: kMenuSubItemKeyJoinDiscord,
+                  label:
+                      'tray_context_menu.item_discussion_subitem_discord_server'
+                          .tr(),
+                ),
+                MenuItem(
+                  key: kMenuSubItemKeyJoinQQGroup,
+                  label:
+                      'tray_context_menu.item_discussion_subitem_qq_group'.tr(),
+                ),
+              ],
             ),
-            MenuItem.separator(),
-            MenuItem(
-              key: kMenuItemKeyQuickStartGuide,
-              label: 'tray_context_menu.item_quick_start_guide'.tr(),
-            ),
-            MenuItem.submenu(
-              label: 'tray_context_menu.item_discussion'.tr(),
-              submenu: Menu(
-                items: [
-                  MenuItem(
-                    key: kMenuSubItemKeyJoinDiscord,
-                    label:
-                        'tray_context_menu.item_discussion_subitem_discord_server'
-                            .tr(),
-                  ),
-                  MenuItem(
-                    key: kMenuSubItemKeyJoinQQGroup,
-                    label: 'tray_context_menu.item_discussion_subitem_qq_group'
-                        .tr(),
-                  ),
-                ],
-              ),
-            ),
-            MenuItem.separator(),
-            MenuItem(
-              key: kMenuItemKeyQuitApp,
-              label: 'tray_context_menu.item_quit_app'.tr(),
-            ),
-          ],
-        ),
+          ),
+          MenuItem.separator(),
+          MenuItem(
+            key: kMenuItemKeyQuitApp,
+            label: 'tray_context_menu.item_quit_app'.tr(),
+          ),
+        ],
       );
+      await trayManager.setContextMenu(menu);
     }
   }
 

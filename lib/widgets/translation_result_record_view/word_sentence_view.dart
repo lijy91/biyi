@@ -12,6 +12,7 @@ class WordSentenceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       margin: const EdgeInsets.only(top: 6),
       width: double.infinity,
@@ -27,15 +28,15 @@ class WordSentenceView extends StatelessWidget {
                 const TextSpan(text: '\n'),
                 TextSpan(
                   text: wordSentence.translations.first,
-                  style: Theme.of(context).textTheme.caption!.copyWith(
-                        fontSize: 13,
-                      ),
+                  style: textTheme.bodySmall!.copyWith(
+                    fontSize: 13,
+                  ),
                 ),
               ],
             ),
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  height: 1.4,
-                ),
+            style: textTheme.bodyMedium!.copyWith(
+              height: 1.4,
+            ),
           ),
         ],
       ),

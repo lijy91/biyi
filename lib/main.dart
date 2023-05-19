@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:rise_ui/rise_ui.dart' as rise_ui;
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -28,6 +30,10 @@ Future<void> _ensureInitialized() async {
 
   await initEnv();
   await initLocalDb();
+
+  if (!kReleaseMode) {
+    apiClient.setDebug();
+  }
 }
 
 void main() async {
@@ -37,9 +43,6 @@ void main() async {
     EasyLocalization(
       supportedLocales: const [
         Locale(kLanguageEN),
-        // Locale(kLanguageJA),
-        // Locale(kLanguageKO),
-        // Locale(kLanguageRU),
         Locale(kLanguageZH),
       ],
       path: 'assets/translations',
@@ -56,32 +59,46 @@ class MyApp extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with LocalDbListener {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
   Configuration get _configuration => localDb.configuration;
 
   @override
   void initState() {
+    localDb.addListener(this);
     localDb.preferences.addListener(_handleChanged);
     super.initState();
   }
 
   @override
   void dispose() {
+    localDb.removeListener(this);
     localDb.preferences.removeListener(_handleChanged);
     super.dispose();
   }
 
-  void _handleChanged() {
+  void _handleChanged() async {
+    Locale oldLocale = context.locale;
+    Locale newLocale = languageToLocale(_configuration.appLanguage);
+    if (newLocale != oldLocale) {
+      await context.setLocale(newLocale);
+    }
+
+    await windowManager.setBrightness(
+      _configuration.themeMode == ThemeMode.dark
+          ? Brightness.dark
+          : Brightness.light,
+    );
+
     if (mounted) setState(() {});
   }
 
   Widget _buildHome(BuildContext context) {
-    return const DesktopPopupPage();
+    return const BootstrapPage();
   }
 
   @override
@@ -89,24 +106,46 @@ class _MyAppState extends State<MyApp> {
     final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     final botToastBuilder = BotToastInit();
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorKey: _navigatorKey,
-      theme: lightThemeData,
-      darkTheme: darkThemeData,
-      themeMode: _configuration.themeMode,
-      builder: (context, child) {
-        if (kIsLinux || kIsWindows) {
-          child = virtualWindowFrameBuilder(context, child);
-        }
-        child = botToastBuilder(context, child);
-        return child;
-      },
-      navigatorObservers: [BotToastNavigatorObserver()],
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      home: _buildHome(context),
+    return rise_ui.Theme(
+      data: rise_ui.ThemeData(
+        brightness: _configuration.themeMode == ThemeMode.dark
+            ? Brightness.dark
+            : Brightness.light,
+      ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: _navigatorKey,
+        theme: lightThemeData,
+        darkTheme: darkThemeData,
+        themeMode: _configuration.themeMode,
+        builder: (context, child) {
+          if (kIsLinux || kIsWindows) {
+            child = Stack(
+              children: [
+                virtualWindowFrameBuilder(context, child),
+                const DragToMoveArea(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 34,
+                  ),
+                ),
+              ],
+            );
+          }
+          child = botToastBuilder(context, child);
+          return child;
+        },
+        navigatorObservers: [BotToastNavigatorObserver()],
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        home: _buildHome(context),
+      ),
     );
+  }
+
+  @override
+  void onUserChanged(User oldUser, User newUser) {
+    _handleChanged();
   }
 }

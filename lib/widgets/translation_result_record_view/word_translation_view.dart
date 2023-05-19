@@ -11,7 +11,7 @@ class WordTranslationView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _WordTranslationViewState createState() => _WordTranslationViewState();
+  State<WordTranslationView> createState() => _WordTranslationViewState();
 }
 
 class _WordTranslationViewState extends State<WordTranslationView> {
@@ -19,6 +19,7 @@ class _WordTranslationViewState extends State<WordTranslationView> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return MouseRegion(
       onEnter: (event) {
         _isHovered = true;
@@ -48,9 +49,9 @@ class _WordTranslationViewState extends State<WordTranslationView> {
                   TextSpan(text: widget.wordTranslation.text),
                 ],
               ),
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    height: 1.4,
-                  ),
+              style: textTheme.bodyMedium!.copyWith(
+                height: 1.4,
+              ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 2, left: 4),

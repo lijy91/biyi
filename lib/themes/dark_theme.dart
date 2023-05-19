@@ -1,129 +1,81 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-const _kBlueColor = Color(0xff416ff4);
-const _kGreenColor = Color(0xff52c41a);
-const _kRedColor = Color(0xfff5222d);
-const _kGoldColor = Color(0xfffaad14);
+const _kDefaultTextColor = Colors.white;
 
-// -------- Colors -----------
-const _kPrimaryColor = _kBlueColor;
-const _kInfoColor = _kBlueColor;
-const _kSuccessColor = _kGreenColor;
-const _kErrorColor = _kRedColor;
-const _kWarningColor = _kGoldColor;
-
-const _kScaffoldBackgroundColor = Color(0xff1d1d1d);
+const _kPrimaryColor = Color(0xff416ff4);
+const _kSecondaryColor = Color(0xff008D94);
 const _kCanvasColor = Color(0xff282828);
+const _kScaffoldBackgroundColor = Color(0xff1d1d1d);
 
-var darkThemeData = ThemeData(
-  brightness: Brightness.dark,
-  // VisualDensity? visualDensity,
-  // MaterialColor? primarySwatch,
+const _kDefaultTextStyle = TextStyle(
+  color: _kDefaultTextColor,
+  fontFamily: 'MiSans',
+);
+
+final darkThemeData = ThemeData(
+  colorScheme: ColorScheme.fromSeed(
+    brightness: Brightness.dark,
+    seedColor: _kPrimaryColor,
+    primary: _kPrimaryColor,
+    secondary: _kSecondaryColor,
+  ),
   primaryColor: _kPrimaryColor,
-  // Brightness? primaryColorBrightness,
-  // Color? primaryColorLight,
-  // Color? primaryColorDark,
-  // Color? accentColor,
-  // Brightness? accentColorBrightness,
   canvasColor: _kCanvasColor,
-  // Color? shadowColor,
   scaffoldBackgroundColor: _kScaffoldBackgroundColor,
-  // Color? bottomAppBarColor,
-  // Color? cardColor,
-  // Color? dividerColor,
-  // Color? focusColor,
-  // Color? hoverColor,
-  // Color? highlightColor,
-  // Color? splashColor,
-  // InteractiveInkFeatureFactory? splashFactory,
-  // Color? selectedRowColor,
-  // Color? unselectedWidgetColor,
-  // Color? disabledColor,
-  // Color? buttonColor,
-  // ButtonThemeData? buttonTheme,
-  // ToggleButtonsThemeData? toggleButtonsTheme,
-  // Color? secondaryHeaderColor,
-  // Color? backgroundColor,
   dialogBackgroundColor: _kCanvasColor,
-  // Color? indicatorColor,
-  // Color? hintColor,
-  // Color? errorColor,
-  // Color? toggleableActiveColor,
-  // String? fontFamily,
-  textTheme: const TextTheme(
-    bodyText2: TextStyle(
+  fontFamily: 'MiSans',
+  iconTheme: const IconThemeData(
+    color: Colors.white,
+  ),
+  textTheme: TextTheme(
+    titleLarge: _kDefaultTextStyle.copyWith(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+    ),
+    titleMedium: _kDefaultTextStyle.copyWith(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+    ),
+    titleSmall: _kDefaultTextStyle.copyWith(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+    ),
+    bodyLarge: _kDefaultTextStyle.copyWith(
+      fontSize: 16,
+    ),
+    bodyMedium: _kDefaultTextStyle.copyWith(
       fontSize: 14,
     ),
-    caption: TextStyle(
+    bodySmall: _kDefaultTextStyle.copyWith(
+      color: _kDefaultTextColor.withOpacity(0.5),
       fontSize: 12,
     ),
   ),
-  // primaryTextTheme
-  // TextTheme? accentTextTheme,
-  // InputDecorationTheme? inputDecorationTheme,
-  // IconThemeData? iconTheme,
-  // IconThemeData? primaryIconTheme,
-  // IconThemeData? accentIconTheme,
-  // SliderThemeData? sliderTheme,
-  // TabBarTheme? tabBarTheme,
-  // TooltipThemeData? tooltipTheme,
-  // CardTheme? cardTheme,
-  // ChipThemeData? chipTheme,
-  // TargetPlatform? platform,
-  // MaterialTapTargetSize? materialTapTargetSize,
-  // bool? applyElevationOverlayColor,
-  // PageTransitionsTheme? pageTransitionsTheme,
-  appBarTheme: const AppBarTheme(
-    brightness: Brightness.dark,
+  appBarTheme: AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle.light,
     color: _kCanvasColor,
     elevation: 0,
-    // this.shadowColor,
-    iconTheme: IconThemeData(
+    iconTheme: const IconThemeData(
       color: Colors.white,
       opacity: 1,
       size: 24,
     ),
-    actionsIconTheme: IconThemeData(
+    actionsIconTheme: const IconThemeData(
       color: Colors.white,
       opacity: 1,
       size: 24,
     ),
-    textTheme: TextTheme(
-      headline6: TextStyle(
-        color: Colors.white,
-        fontSize: 15,
-      ),
-    ),
-    titleTextStyle: TextStyle(
-      color: Colors.white,
+    titleTextStyle: _kDefaultTextStyle.copyWith(
       fontSize: 15,
     ),
-    // this.centerTitle,
-    // this.titleSpacing,
   ),
-  // BottomAppBarTheme? bottomAppBarTheme,
-  // ColorScheme? colorScheme,
-  // DialogTheme? dialogTheme,
-  // FloatingActionButtonThemeData? floatingActionButtonTheme,
-  // NavigationRailThemeData? navigationRailTheme,
-  // Typography? typography,
-  cupertinoOverrideTheme: const CupertinoThemeData(
+  cupertinoOverrideTheme: CupertinoThemeData(
     primaryColor: _kPrimaryColor,
     barBackgroundColor: _kCanvasColor,
+    textTheme: CupertinoTextThemeData(
+      textStyle: _kDefaultTextStyle.copyWith(),
+    ),
   ),
-  // SnackBarThemeData? snackBarTheme,
-  // BottomSheetThemeData? bottomSheetTheme,
-  // PopupMenuThemeData? popupMenuTheme,
-  // MaterialBannerThemeData? bannerTheme,
-  // DividerThemeData? dividerTheme,
-  // ButtonBarThemeData? buttonBarTheme,
-  // BottomNavigationBarThemeData? bottomNavigationBarTheme,
-  // TimePickerThemeData? timePickerTheme,
-  // TextButtonThemeData? textButtonTheme,
-  // ElevatedButtonThemeData? elevatedButtonTheme,
-  // OutlinedButtonThemeData? outlinedButtonTheme,
-  // TextSelectionThemeData? textSelectionTheme,
-  // DataTableThemeData? dataTableTheme,
-  // bool? fixTextFieldOutlineLabel,
 );

@@ -27,6 +27,7 @@ class WordImageView extends StatelessWidget {
       ),
       child: CupertinoButton(
         padding: EdgeInsets.zero,
+        onPressed: onPressed,
         child: Hero(
           tag: wordImage.url,
           child: CustomImage(
@@ -36,7 +37,6 @@ class WordImageView extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        onPressed: onPressed,
       ),
     );
   }

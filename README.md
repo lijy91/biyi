@@ -1,8 +1,6 @@
 # biyi
 
-[![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi/all.svg?style=flat-square)](https://github.com/biyidev/biyi/releases) [![GitHub (pre-)release](https://img.shields.io/badge/distribute%20with-flutter__distributor-green?style=flat-square)](https://github.com/leanflutter/flutter_distributor) ![][visits-count-image]
-
-[visits-count-image]: https://img.shields.io/badge/dynamic/json?label=Visits%20Count&query=value&url=https://api.countapi.xyz/hit/biyidev.biyi/visits
+[![GitHub (pre-)release](https://img.shields.io/github/release/biyidev/biyi/all.svg?style=flat-square)](https://github.com/biyidev/biyi/releases) [![GitHub (pre-)release](https://img.shields.io/badge/distribute%20with-flutter__distributor-green?style=flat-square)](https://github.com/leanflutter/flutter_distributor)
 
 **Biyi** is a convenient translation and dictionary app written in `Flutter`. [View document](https://biyidev.com/docs/)
 

@@ -24,8 +24,21 @@ class Configuration {
   }
 
   TranslationEngineConfig? get defaultEngineConfig {
-    return localDb.engine(defaultEngineId).get() ??
+    return localDb.proEngine(defaultEngineId).get() ??
         localDb.privateEngine(defaultEngineId).get();
+  }
+
+  String? get defaultTranslateEngineId {
+    return _getString(kPrefDefaultTranslateEngineId);
+  }
+
+  set defaultTranslateEngineId(String? value) {
+    _setString(kPrefDefaultTranslateEngineId, value);
+  }
+
+  TranslationEngineConfig? get defaultTranslateEngineConfig {
+    return localDb.proEngine(defaultTranslateEngineId).get() ??
+        localDb.privateEngine(defaultTranslateEngineId).get();
   }
 
   bool get doubleClickCopyResult {
@@ -81,9 +94,9 @@ class Configuration {
   }
 
   ThemeMode get themeMode {
-    String _themeModeString =
+    String themeModeString =
         _getString(kPrefThemeMode) ?? describeEnum(ThemeMode.light);
-    return kKnownThemeModes[_themeModeString]!;
+    return kKnownThemeModes[themeModeString]!;
   }
 
   set themeMode(value) {
@@ -162,6 +175,19 @@ class Configuration {
 
   set shortcutExtractFromClipboard(value) {
     _setShortcut(kShortcutExtractFromClipboard, value);
+  }
+
+  HotKey get shortcutTranslateInputContent {
+    return _getShortcut(kPrefShortcutTranslateInputContent) ??
+        HotKey(
+          KeyCode.keyZ,
+          modifiers: [KeyModifier.alt],
+          identifier: kPrefShortcutTranslateInputContent,
+        );
+  }
+
+  set shortcutTranslateInputContent(value) {
+    _setShortcut(kPrefShortcutTranslateInputContent, value);
   }
 
   HotKey get shortcutInputSettingSubmitWithMetaEnter {

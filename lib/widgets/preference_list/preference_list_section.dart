@@ -16,6 +16,7 @@ class PreferenceListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Center(
       child: Container(
         width: double.infinity,
@@ -30,15 +31,15 @@ class PreferenceListSection extends StatelessWidget {
           children: [
             if (title != null)
               Container(
-                child: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.caption!,
-                  child: title!,
-                ),
                 padding: const EdgeInsets.only(
                   top: 0,
                   bottom: 10,
                   left: 12,
                   right: 12,
+                ),
+                child: DefaultTextStyle(
+                  style: textTheme.bodySmall!,
+                  child: title!,
                 ),
               ),
             ClipRRect(
@@ -76,15 +77,15 @@ class PreferenceListSection extends StatelessWidget {
             ),
             if (description != null)
               Container(
-                child: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.caption!,
-                  child: description!,
-                ),
                 padding: const EdgeInsets.only(
                   top: 6,
                   bottom: 6,
                   left: 12,
                   right: 12,
+                ),
+                child: DefaultTextStyle(
+                  style: textTheme.bodySmall!,
+                  child: description!,
                 ),
               ),
           ],

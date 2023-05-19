@@ -135,6 +135,7 @@ engine_scope:
   translate: Translate
 ocr_engine:
   built_in: Built In
+  tesseract: Tesseract OCR
   youdao: Youdao
 translation_mode:
   auto: Auto
@@ -208,15 +209,18 @@ page_setting_interface:
 page_setting_shortcuts:
   title: Shortcuts
   pref_section_title_extract_text: Screen / Clipboard extract text
+  pref_section_title_input_assist_function: Input assist function
   pref_item_title_show_or_hide: Show/Hide
   pref_item_title_hide: Hide
   pref_item_title_extract_text_from_selection: Selection
   pref_item_title_extract_text_from_capture: Capture Area
   pref_item_title_extract_text_from_clipboard: Clipboard
+  pref_item_title_translate_input_content: Translate input content
 page_setting_theme_mode:
   title: Theme Mode
 page_setting_translate:
   title: Translate
+  pref_section_title_default_translate_engine: Default translate engine
   pref_section_title_translation_mode: Translation mode
   pref_section_title_default_detect_language_engine: Default detect language engine
   pref_section_title_translation_target: Translation target
@@ -231,6 +235,7 @@ page_settings:
   pref_section_title_advanced: Advanced
   pref_section_title_service_integration: Service Integration
   pref_section_title_others: Others
+  pref_item_title_your_plan: Your Plan
   pref_item_title_extract_text: Extract text
   pref_item_title_interface: Interface
   pref_item_title_translate: Translate
@@ -267,5 +272,17 @@ page_translation_target_new:
   title_with_edit: Edit Translation Target
   source_language: Source language
   target_language: Target language
+page_your_plan_selector:
+  title: Select Your Plan
+  label_free: Free
+  label_forever: Forever
+  btn_plan_benefits: Plan benefits
+  btn_activate: activate
+  activation_code_input_hint: Activation code
+  pref_section_title_plans: Choose the right plan for you.
+  pref_section_title_activate_your_plan: Activate Your Pla
+  pref_section_title_your_plan_expiry_date: Your plan expiry date
+  pref_item_title_get_activation_code: Get activation code
+  msg_plan_pro_coming_soon: Coming soon, Please stay tuned.
 widget_record_shortcut_dialog:
   title: Customize your shortcut

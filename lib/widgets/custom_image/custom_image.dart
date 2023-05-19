@@ -34,8 +34,6 @@ class CustomImage extends StatelessWidget {
               );
       },
       errorBuilder: (ctx, error, stackTrace) {
-        print(error);
-        print(stackTrace);
         return Container(
           width: width,
           height: height,

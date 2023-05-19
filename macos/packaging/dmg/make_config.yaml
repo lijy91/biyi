@@ -8,3 +8,5 @@ contents:
     y: 344
     type: file
     path: biyi.app
+code-sign:
+  signing-identity: "Developer ID Application: Jianying Li (G83H824X6L)"

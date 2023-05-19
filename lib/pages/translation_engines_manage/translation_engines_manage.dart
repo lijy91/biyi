@@ -81,7 +81,7 @@ class _TranslationEnginesManagePageState
   }
 
   Widget _buildListSectionPrivateEngines(BuildContext context) {
-    void _onReorder(int oldIndex, int newIndex) {
+    void onReorder(int oldIndex, int newIndex) {
       List<String> idList =
           _privateEngineList.map((e) => e.identifier).toList();
       String oldId = idList.removeAt(oldIndex);
@@ -101,6 +101,7 @@ class _TranslationEnginesManagePageState
       children: [
         ReorderableColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
+          onReorder: onReorder,
           children: [
             for (var i = 0; i < _privateEngineList.length; i++)
               ReorderableWidget(
@@ -130,7 +131,6 @@ class _TranslationEnginesManagePageState
                 }),
               )
           ],
-          onReorder: _onReorder,
         ),
         PreferenceListItem(
           title: Text(

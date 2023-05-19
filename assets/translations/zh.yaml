@@ -135,6 +135,7 @@ engine_scope:
   translate: 翻译
 ocr_engine:
   built_in: 内置
+  tesseract: Tesseract OCR
   youdao: 有道通用文字识别
 translation_mode:
   auto: 自动
@@ -208,15 +209,18 @@ page_setting_interface:
 page_setting_shortcuts:
   title: 快捷键
   pref_section_title_extract_text: 屏幕/剪切板取词
+  pref_section_title_input_assist_function: 输入辅助功能
   pref_item_title_show_or_hide: 显示/隐藏
   pref_item_title_hide: 隐藏
   pref_item_title_extract_text_from_selection: 选中文字
   pref_item_title_extract_text_from_capture: 截取区域
   pref_item_title_extract_text_from_clipboard: 剪切板
+  pref_item_title_translate_input_content: 翻译当前输入框内容
 page_setting_theme_mode:
   title: 主题模式
 page_setting_translate:
   title: 翻译
+  pref_section_title_default_translate_engine: 默认翻译引擎
   pref_section_title_translation_mode: 翻译模式
   pref_section_title_default_detect_language_engine: 默认语种识别引擎
   pref_section_title_translation_target: 翻译目标
@@ -231,6 +235,7 @@ page_settings:
   pref_section_title_advanced: 高级
   pref_section_title_service_integration: 服务接入
   pref_section_title_others: 其他
+  pref_item_title_your_plan: 当前会员计划
   pref_item_title_extract_text: 取词
   pref_item_title_translate: 翻译
   pref_item_title_interface: 界面
@@ -267,5 +272,17 @@ page_translation_target_new:
   title_with_edit: 编辑翻译目标
   source_language: 源语言
   target_language: 目标语言
+page_your_plan_selector:
+  title: 选择您的会员计划
+  label_free: 免费
+  label_forever: 永久
+  btn_plan_benefits: 会员权益
+  btn_activate: 立即激活
+  activation_code_input_hint: 请输入激活码
+  pref_section_title_plans: 选择适合您的会员方案。
+  pref_section_title_activate_your_plan: 激活您的会员计划
+  pref_section_title_your_plan_expiry_date: 您的计划到期日
+  pref_item_title_get_activation_code: 获取会员计划激活码
+  msg_plan_pro_coming_soon: 即将推出，敬请期待。
 widget_record_shortcut_dialog:
   title: 自定义快捷键

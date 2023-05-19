@@ -18,40 +18,28 @@ class SoundPlayButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SoundPlayButtonState createState() => _SoundPlayButtonState();
+  State<SoundPlayButton> createState() => _SoundPlayButtonState();
 }
 
-class _SoundPlayButtonState extends State<SoundPlayButton> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
-
+class _SoundPlayButtonState extends State<SoundPlayButton>
+    with AudioPlayerListener {
   bool _playing = false;
   int _playingAnimImageIndex = 0;
   Timer? _playingAnimTimer;
 
+  UrlSource? _audioSource;
+
   @override
   void initState() {
-    _audioPlayer.onPlayerStateChanged.listen(_handlePlayerStateChanged);
-    _audioPlayer.onPlayerComplete.listen((event) {
-      _handlePlayerStateChanged(PlayerState.completed);
-    });
+    globalAudioPlayer.addListener(this);
     super.initState();
   }
 
   @override
   void dispose() {
+    globalAudioPlayer.removeListener(this);
     _stopPlayingAnimTimer();
     super.dispose();
-  }
-
-  void _handlePlayerStateChanged(PlayerState state) {
-    _playing = state == PlayerState.playing;
-
-    if (_playing && !(_playingAnimTimer?.isActive ?? false)) {
-      _startPlayingAnimTimer();
-    } else if (!_playing && (_playingAnimTimer?.isActive ?? false)) {
-      _stopPlayingAnimTimer();
-    }
-    if (mounted) setState(() {});
   }
 
   void _startPlayingAnimTimer() {
@@ -75,18 +63,19 @@ class _SoundPlayButtonState extends State<SoundPlayButton> {
     if (_playingAnimTimer != null && _playingAnimTimer!.isActive) {
       _playingAnimTimer?.cancel();
     }
+    _playing = false;
     _playingAnimTimer = null;
     _playingAnimImageIndex = 0;
   }
 
   void _handleClickPlay() async {
-    UrlSource urlSource = UrlSource(widget.audioUrl);
-    await _audioPlayer.play(urlSource);
+    _audioSource ??= UrlSource(widget.audioUrl);
+    await globalAudioPlayer.play(_audioSource!);
     _startPlayingAnimTimer();
   }
 
   void _handleClickStop() async {
-    await _audioPlayer.stop();
+    await globalAudioPlayer.stop();
     _stopPlayingAnimTimer();
     if (mounted) setState(() {});
   }
@@ -109,7 +98,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton> {
                 child: Icon(
                   FluentIcons.speaker_2_20_regular,
                   size: _kIconSize,
-                  color: Theme.of(context).textTheme.caption!.color,
+                  color: Theme.of(context).textTheme.bodySmall!.color,
                 ),
               ),
               SizedBox(
@@ -118,7 +107,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton> {
                 child: Icon(
                   FluentIcons.speaker_1_20_regular,
                   size: _kIconSize,
-                  color: Theme.of(context).textTheme.caption!.color,
+                  color: Theme.of(context).textTheme.bodySmall!.color,
                 ),
               ),
               SizedBox(
@@ -127,7 +116,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton> {
                 child: Icon(
                   FluentIcons.speaker_0_20_regular,
                   size: _kIconSize,
-                  color: Theme.of(context).textTheme.caption!.color,
+                  color: Theme.of(context).textTheme.bodySmall!.color,
                 ),
               ),
             ],
@@ -142,5 +131,23 @@ class _SoundPlayButtonState extends State<SoundPlayButton> {
         },
       ),
     );
+  }
+
+  @override
+  void onPlayerStateChanged(PlayerState state) {
+    if (_audioSource?.url != globalAudioPlayer.source?.url) {
+      _stopPlayingAnimTimer();
+      if (mounted) setState(() {});
+      return;
+    }
+
+    _playing = state == PlayerState.playing;
+
+    if (_playing && !(_playingAnimTimer?.isActive ?? false)) {
+      _startPlayingAnimTimer();
+    } else if (!_playing && (_playingAnimTimer?.isActive ?? false)) {
+      _stopPlayingAnimTimer();
+    }
+    if (mounted) setState(() {});
   }
 }

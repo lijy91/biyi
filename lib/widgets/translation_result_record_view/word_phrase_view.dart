@@ -15,6 +15,7 @@ class WordPhraseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       margin: const EdgeInsets.only(top: 6),
       width: double.infinity,
@@ -28,25 +29,25 @@ class WordPhraseView extends StatelessWidget {
               children: [
                 TextSpan(
                   text: wordPhrase.text,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.w500,
+                  ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => onTextTapped(wordPhrase.text),
                 ),
                 const TextSpan(text: ' '),
                 TextSpan(
                   text: wordPhrase.translations.first,
-                  style: Theme.of(context).textTheme.caption!.copyWith(
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontSize: 13,
                       ),
                 ),
               ],
             ),
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  height: 1.4,
-                ),
+            style: textTheme.bodyMedium!.copyWith(
+              height: 1.4,
+            ),
           ),
         ],
       ),

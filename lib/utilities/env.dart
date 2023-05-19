@@ -1,6 +1,6 @@
 import 'package:package_info_plus/package_info_plus.dart';
 
-const kAppBuildNumber = '8';
+const kAppBuildNumber = '11';
 
 Future<void> initEnv() async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();

@@ -31,8 +31,8 @@ class CustomDialogAction extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
         padding: EdgeInsets.zero,
         processing: processing,
-        child: child,
         onPressed: onPressed,
+        child: child,
       ),
     );
   }
@@ -52,13 +52,14 @@ class CustomAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.bodyText2!,
+        style: textTheme.bodyMedium!,
         child: Container(
           constraints: const BoxConstraints(
             minHeight: 100,
@@ -76,9 +77,9 @@ class CustomAlertDialog extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontSize: 16,
-                      ),
+                  style: textTheme.bodyMedium!.copyWith(
+                    fontSize: 16,
+                  ),
                   child: title ?? Container(),
                 ),
               ),

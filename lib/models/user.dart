@@ -48,6 +48,7 @@ class User {
           .map((item) => UserProperty.fromJson(item))
           .toList();
     }
+
     return User(
       id: json['id'],
       name: json['name'],

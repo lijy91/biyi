@@ -8,7 +8,7 @@ class ToolbarItemAlwaysOnTop extends StatefulWidget {
   const ToolbarItemAlwaysOnTop({Key? key}) : super(key: key);
 
   @override
-  _ToolbarItemAlwaysOnTopState createState() => _ToolbarItemAlwaysOnTopState();
+  State<ToolbarItemAlwaysOnTop> createState() => _ToolbarItemAlwaysOnTopState();
 }
 
 class _ToolbarItemAlwaysOnTopState extends State<ToolbarItemAlwaysOnTop> {

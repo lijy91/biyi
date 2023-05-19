@@ -1,7 +1,7 @@
 Section: x11
 Priority: optional
 Maintainer: LiJianying <lijy91@foxmail.com>
-Version: 0.3.3
+Version: 0.4.0
 Homepage: https://github.com/biyidev/biyi
 Package: biyi
 Architecture: amd64

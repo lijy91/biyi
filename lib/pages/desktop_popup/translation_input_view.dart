@@ -134,12 +134,12 @@ class TranslationInputView extends StatelessWidget {
             height: 26,
             child: CustomButton(
               padding: EdgeInsets.zero,
+              onPressed: onClickExtractTextFromScreenCapture,
               child: Icon(
                 FluentIcons.crop_20_regular,
                 size: 22,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onPressed: onClickExtractTextFromScreenCapture,
             ),
           ),
         ),
@@ -150,15 +150,24 @@ class TranslationInputView extends StatelessWidget {
             height: 26,
             child: CustomButton(
               padding: EdgeInsets.zero,
+              onPressed: onClickExtractTextFromClipboard,
               child: Icon(
                 FluentIcons.clipboard_text_ltr_20_regular,
                 size: 20,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onPressed: onClickExtractTextFromClipboard,
             ),
           ),
         ),
+        // const SizedBox(
+        //   height: 20,
+        //   child: VerticalDivider(
+        //     width: 8,
+        //   ),
+        // ),
+        // _ToolbarItemAddToNewWord(
+        //   controller: controller,
+        // )
       ],
     );
   }
@@ -177,11 +186,11 @@ class TranslationInputView extends StatelessWidget {
               right: 12,
             ),
             borderRadius: BorderRadius.circular(2),
+            onPressed: onButtonTappedClear,
             child: Text(
               'page_desktop_popup.btn_clear'.tr(),
               style: const TextStyle(fontSize: 12),
             ),
-            onPressed: onButtonTappedClear,
           ),
         ),
         const SizedBox(width: 10),
@@ -196,11 +205,11 @@ class TranslationInputView extends StatelessWidget {
               right: 12,
             ),
             borderRadius: BorderRadius.circular(2),
+            onPressed: onButtonTappedTrans,
             child: Text(
               'page_desktop_popup.btn_trans'.tr(),
               style: const TextStyle(fontSize: 12),
             ),
-            onPressed: onButtonTappedTrans,
           ),
         ),
       ],
@@ -209,6 +218,7 @@ class TranslationInputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       margin: const EdgeInsets.only(
         left: 12,
@@ -247,12 +257,14 @@ class TranslationInputView extends StatelessWidget {
                       top: 14,
                       bottom: 12,
                     ),
-                    style:
-                        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                              fontSize: 14,
-                              height: 1.2,
-                            ),
+                    style: textTheme.bodyMedium?.copyWith(
+                      height: 1.2,
+                    ),
                     placeholder: 'page_desktop_popup.input_hint'.tr(),
+                    placeholderStyle: textTheme.bodyMedium?.copyWith(
+                      color: textTheme.bodyMedium?.color?.withOpacity(0.5),
+                      height: 1.2,
+                    ),
                     maxLines:
                         inputSetting == kInputSettingSubmitWithEnter ? 1 : 6,
                     minLines: 1,
@@ -276,10 +288,7 @@ class TranslationInputView extends StatelessWidget {
                             Row(
                               children: [
                                 SpinKitDoubleBounce(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .caption!
-                                      .color,
+                                  color: textTheme.bodySmall!.color,
                                   size: 18.0,
                                 ),
                                 const SizedBox(width: 6),
@@ -287,10 +296,7 @@ class TranslationInputView extends StatelessWidget {
                                   'page_desktop_popup.text_extracting_text'
                                       .tr(),
                                   style: TextStyle(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .caption!
-                                        .color,
+                                    color: textTheme.bodySmall!.color,
                                     fontSize: 13,
                                   ),
                                 ),

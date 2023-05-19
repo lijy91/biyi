@@ -43,17 +43,17 @@ class _AvailableLanguageSelector extends StatelessWidget {
 
                 return isSelected
                     ? CustomButton.filled(
-                        child: child,
                         padding: padding,
                         borderRadius: BorderRadius.circular(2),
                         onPressed: () => onChanged(supportedLanguage),
+                        child: child,
                       )
                     : CustomButton.outlined(
-                        child: child,
                         padding: padding,
                         color: Theme.of(context).dividerColor,
                         borderRadius: BorderRadius.circular(2),
                         onPressed: () => onChanged(supportedLanguage),
+                        child: child,
                       );
               }),
             ),
@@ -88,7 +88,7 @@ class TranslationTargetSelectView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TranslationTargetSelectViewState createState() =>
+  State<TranslationTargetSelectView> createState() =>
       _TranslationTargetSelectViewState();
 }
 
@@ -105,13 +105,11 @@ class _TranslationTargetSelectViewState
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     if (widget.translationMode == kTranslationModeAuto) {
-      return Container(
-          // key: this.widget.viewKey,
-          );
+      return Container();
     }
     return Container(
-      // key: this.widget.viewKey,
       margin: const EdgeInsets.only(
         left: 12,
         right: 12,
@@ -149,11 +147,11 @@ class _TranslationTargetSelectViewState
                           flagBorderColor: widget.isShowSourceLanguageSelector
                               ? Theme.of(context).primaryColor
                               : null,
-                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                color: widget.isShowSourceLanguageSelector
-                                    ? Theme.of(context).primaryColor
-                                    : null,
-                              ),
+                          style: textTheme.bodyMedium!.copyWith(
+                            color: widget.isShowSourceLanguageSelector
+                                ? Theme.of(context).primaryColor
+                                : null,
+                          ),
                         ),
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
@@ -171,7 +169,7 @@ class _TranslationTargetSelectViewState
                               size: 14,
                               color: widget.isShowSourceLanguageSelector
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).textTheme.bodyText1!.color,
+                                  : textTheme.bodyMedium!.color,
                             ),
                           ),
                         ),
@@ -222,11 +220,11 @@ class _TranslationTargetSelectViewState
                           flagBorderColor: widget.isShowTargetLanguageSelector
                               ? Theme.of(context).primaryColor
                               : null,
-                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                color: widget.isShowTargetLanguageSelector
-                                    ? Theme.of(context).primaryColor
-                                    : null,
-                              ),
+                          style: textTheme.bodyMedium!.copyWith(
+                            color: widget.isShowTargetLanguageSelector
+                                ? Theme.of(context).primaryColor
+                                : null,
+                          ),
                         ),
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
@@ -244,7 +242,7 @@ class _TranslationTargetSelectViewState
                               size: 14,
                               color: widget.isShowTargetLanguageSelector
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).textTheme.bodyText1!.color,
+                                  : textTheme.bodyMedium!.color,
                             ),
                           ),
                         ),

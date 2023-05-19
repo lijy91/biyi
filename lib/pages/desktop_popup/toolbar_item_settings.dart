@@ -1,7 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:window_manager/window_manager.dart';
+// import 'package:page_transition/page_transition.dart';
+// import 'package:window_manager/window_manager.dart';
 
 import '../../includes.dart';
 
@@ -14,7 +14,7 @@ class ToolbarItemSettings extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ToolbarItemSettingsState createState() => _ToolbarItemSettingsState();
+  State<ToolbarItemSettings> createState() => _ToolbarItemSettingsState();
 }
 
 class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {

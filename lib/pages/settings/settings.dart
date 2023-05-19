@@ -236,9 +236,9 @@ class _SettingsPageState extends State<SettingsPage> {
             PreferenceListItem(
               title: Text(t('pref_item_title_about')),
               onTap: () async {
-                String url = 'https://github.com/biyidev/biyi';
-                if (await canLaunch(url)) {
-                  await launch(url);
+                Uri url = Uri.parse('https://github.com/biyidev/biyi');
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url);
                 }
               },
             ),
@@ -297,7 +297,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   sharedEnv.appVersion,
                   '${sharedEnv.appBuildNumber}',
                 ]),
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
           ],

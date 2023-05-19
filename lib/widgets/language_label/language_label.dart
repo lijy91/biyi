@@ -18,6 +18,7 @@ class LanguageLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -28,7 +29,7 @@ class LanguageLabel extends StatelessWidget {
         ),
         const SizedBox(width: 5),
         DefaultTextStyle(
-          style: Theme.of(context).textTheme.bodyText2!,
+          style: textTheme.bodyMedium!,
           child: Text(
             getLanguageName(language),
             style: style,

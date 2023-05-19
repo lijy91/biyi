@@ -2,12 +2,13 @@ import 'package:hotkey_manager/hotkey_manager.dart';
 
 import '../../includes.dart';
 
-abstract class ShortcutListener {
+abstract mixin class ShortcutListener {
   void onShortcutKeyDownShowOrHide();
   void onShortcutKeyDownHide();
   void onShortcutKeyDownExtractFromScreenSelection();
   void onShortcutKeyDownExtractFromScreenCapture();
   void onShortcutKeyDownExtractFromClipboard();
+  void onShortcutKeyDownTranslateInputContent();
   void onShortcutKeyDownSubmitWithMateEnter();
 }
 
@@ -63,6 +64,12 @@ class ShortcutService {
       _configuration.shortcutExtractFromClipboard,
       keyDownHandler: (_) {
         _listener?.onShortcutKeyDownExtractFromClipboard();
+      },
+    );
+    await hotKeyManager.register(
+      _configuration.shortcutTranslateInputContent,
+      keyDownHandler: (_) {
+        _listener?.onShortcutKeyDownTranslateInputContent();
       },
     );
   }

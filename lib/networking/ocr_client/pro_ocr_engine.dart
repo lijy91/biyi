@@ -9,6 +9,6 @@ class ProOcrEngine extends OcrEngine {
 
   @override
   Future<RecognizeTextResponse> recognizeText(RecognizeTextRequest request) {
-    throw UnimplementedError();
+    return apiClient.ocrEngine(identifier).recognizeText(request);
   }
 }

@@ -6,6 +6,7 @@ const kPreferenceTypeBool = 'bool';
 // 翻译
 const kPrefTranslationMode = 'translation_mode';
 const kPrefDefaultEngineId = 'default_engine_id';
+const kPrefDefaultTranslateEngineId = 'default_translate_engine_id';
 const kPrefDoubleClickCopyResult = 'double_click_copy_result';
 // 取词
 const kPrefDefaultOcrEngineId = 'default_ocr_engine_id';
@@ -23,6 +24,7 @@ const kPrefShortcutExtractFromScreenCapture =
     'shortcut_extract_text_from_screen_capture';
 const kPrefShortcutExtractFromScreenSelection =
     'shortcut_extract_text_from_screen_selection';
+const kPrefShortcutTranslateInputContent = 'shortcut_translate_input_content';
 // 输入设置
 const kPrefInputSetting = 'input_setting';
 
@@ -39,6 +41,7 @@ const kShortcutExtractFromScreenSelection =
 const kShortcutExtractFromScreenCapture =
     'shortcut_extract_from_screen_capture';
 const kShortcutExtractFromClipboard = 'shortcut_extract_from_clipboard';
+const kShortcutTranslateInputContent = 'shortcut_translate_input_content';
 
 const Map<String, ThemeMode> kKnownThemeModes = <String, ThemeMode>{
   'light': ThemeMode.light,

@@ -4,20 +4,22 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' hide MenuItem;
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:keypress_simulator/keypress_simulator.dart';
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:screen_capturer/screen_capturer.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:shortid/shortid.dart';
 import 'package:tray_manager/tray_manager.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../../../includes.dart';
 
 import './limited_functionality_banner.dart';
+import './new_version_found_banner.dart';
 import './toolbar_item_always_on_top.dart';
 import './toolbar_item_settings.dart';
 import './translation_input_view.dart';
@@ -60,6 +62,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   String? _lastAppLanguage;
   Offset _lastShownPosition = Offset.zero;
 
+  Version? _latestVersion;
   bool _isAllowedScreenCaptureAccess = true;
   bool _isAllowedScreenSelectionAccess = true;
 
@@ -108,6 +111,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
       windowManager.addListener(this);
       _init();
     }
+    _loadData();
     super.initState();
   }
 
@@ -128,6 +132,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   @override
   void didChangePlatformBrightness() {
     Brightness newBrightness =
+        // ignore: deprecated_member_use
         WidgetsBinding.instance.window.platformBrightness;
 
     if (newBrightness != _brightness) {
@@ -163,6 +168,9 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
 
     ShortcutService.instance.start();
 
+    // 初始化托盘图标
+    await _initTrayIcon();
+    await Future.delayed(const Duration(milliseconds: 100));
     windowManager.waitUntilReadyToShow().then((_) async {
       if (kIsLinux || kIsWindows) {
         if (kIsLinux) {
@@ -173,20 +181,18 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
         Size windowSize = await windowManager.getSize();
         _lastShownPosition = Offset(
-          (primaryDisplay.size.width / (primaryDisplay.scaleFactor ?? 1)) -
-              windowSize.width -
-              50,
+          primaryDisplay.size.width - windowSize.width - 50,
           50,
         );
         await windowManager.setPosition(_lastShownPosition);
       }
+
       await windowManager.setSkipTaskbar(true);
       await Future.delayed(const Duration(milliseconds: 100));
-      await _windowShow();
+      await _windowShow(
+        isShowBelowTray: kIsMacOS,
+      );
     });
-
-    // 初始化托盘图标
-    _initTrayIcon();
   }
 
   Future<void> _initTrayIcon() async {
@@ -261,17 +267,19 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     }
 
     if (kIsMacOS && isShowBelowTray) {
-      Rect trayIconBounds = await trayManager.getBounds();
-      Size trayIconSize = trayIconBounds.size;
-      Offset trayIconPosition = trayIconBounds.topLeft;
+      Rect? trayIconBounds = await trayManager.getBounds();
+      if (trayIconBounds != null) {
+        Size trayIconSize = trayIconBounds.size;
+        Offset trayIconPosition = trayIconBounds.topLeft;
 
-      Offset newPosition = Offset(
-        trayIconPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
-        trayIconPosition.dy,
-      );
+        Offset newPosition = Offset(
+          trayIconPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
+          trayIconPosition.dy,
+        );
 
-      if (!isAlwaysOnTop) {
-        await windowManager.setPosition(newPosition);
+        if (!isAlwaysOnTop) {
+          await windowManager.setPosition(newPosition);
+        }
       }
     }
 
@@ -322,8 +330,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         double newWindowHeight = toolbarViewHeight +
             bannersViewHeight +
             inputViewHeight +
-            resultsViewHeight +
-            ((kVirtualWindowFrameMargin * 2) + 4);
+            resultsViewHeight;
         Size oldSize = await windowManager.getSize();
         Size newSize = Size(
           oldSize.width,
@@ -344,6 +351,27 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         _resizeTimer = null;
       }
     });
+  }
+
+  void _loadData() async {
+    try {
+      await localDb.setCurrentUser(
+        localDb.user,
+      );
+    } catch (error) {
+      // skip
+    }
+    try {
+      _latestVersion = await apiClient.version('latest').get();
+      setState(() {});
+    } catch (error) {
+      // skip
+    }
+    try {
+      await localDb.loadFromCloudServer();
+    } catch (error) {
+      // skip
+    }
   }
 
   Future<void> _queryData() async {
@@ -616,10 +644,14 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         }
         _handleTextChanged(recognizeTextResponse.text, isRequery: true);
       } catch (error) {
+        String errorMessage = error.toString();
+        if (error is UniOcrClientError) {
+          errorMessage = error.message;
+        }
         _isTextDetecting = false;
         setState(() {});
         BotToast.showText(
-          text: error.toString(),
+          text: errorMessage,
           align: Alignment.center,
         );
       }
@@ -665,6 +697,9 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   }
 
   Widget _buildBannersView(BuildContext context) {
+    bool isFoundNewVersion = _latestVersion != null &&
+        _latestVersion!.buildNumber > sharedEnv.appBuildNumber;
+
     bool isNoAllowedAllAccess =
         !(_isAllowedScreenCaptureAccess && _isAllowedScreenSelectionAccess);
 
@@ -672,11 +707,15 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
       key: _bannersViewKey,
       width: double.infinity,
       margin: EdgeInsets.only(
-        bottom: (isNoAllowedAllAccess) ? 12 : 0,
+        bottom: (isFoundNewVersion || isNoAllowedAllAccess) ? 12 : 0,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (isFoundNewVersion)
+            NewVersionFoundBanner(
+              latestVersion: _latestVersion!,
+            ),
           if (isNoAllowedAllAccess)
             LimitedFunctionalityBanner(
               isAllowedScreenCaptureAccess: _isAllowedScreenCaptureAccess,
@@ -801,9 +840,10 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    VoidCallback handleDismissed = () => setState(() {});
+    handleDismissed() => setState(() {});
 
     return PreferredSize(
+      preferredSize: const Size.fromHeight(34),
       child: Container(
         padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
         child: Row(
@@ -817,7 +857,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
           ],
         ),
       ),
-      preferredSize: const Size.fromHeight(34),
     );
   }
 
@@ -884,6 +923,79 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   }
 
   @override
+  void onShortcutKeyDownTranslateInputContent() async {
+    await keyPressSimulator.simulateKeyPress(
+      key: LogicalKeyboardKey.keyA,
+      modifiers: [
+        kIsMacOS ? ModifierKey.metaModifier : ModifierKey.controlModifier,
+      ],
+    );
+    await keyPressSimulator.simulateKeyPress(
+      key: LogicalKeyboardKey.keyA,
+      modifiers: [
+        kIsMacOS ? ModifierKey.metaModifier : ModifierKey.controlModifier,
+      ],
+      keyDown: false,
+    );
+
+    try {
+      ExtractedData? extractedData = await screenTextExtractor.extract(
+        mode: ExtractMode.screenSelection,
+      );
+
+      if ((extractedData?.text ?? '').isEmpty) {
+        throw Exception('Extracted text is empty');
+      }
+
+      TranslateResponse translateResponse = await translateClient
+          .use(_configuration.defaultTranslateEngineId!)
+          .translate(
+            TranslateRequest(
+              text: extractedData?.text ?? '',
+              sourceLanguage: kLanguageZH,
+              targetLanguage: kLanguageEN,
+            ),
+          );
+
+      TextTranslation? textTranslation =
+          (translateResponse.translations ?? []).firstOrNull;
+
+      if (textTranslation != null) {
+        Clipboard.setData(ClipboardData(text: textTranslation.text));
+      }
+    } catch (error) {
+      return;
+    }
+
+    await keyPressSimulator.simulateKeyPress(
+      key: LogicalKeyboardKey.keyA,
+      modifiers: [
+        kIsMacOS ? ModifierKey.metaModifier : ModifierKey.controlModifier,
+      ],
+    );
+    await keyPressSimulator.simulateKeyPress(
+      key: LogicalKeyboardKey.keyA,
+      modifiers: [
+        kIsMacOS ? ModifierKey.metaModifier : ModifierKey.controlModifier,
+      ],
+      keyDown: false,
+    );
+    await keyPressSimulator.simulateKeyPress(
+      key: LogicalKeyboardKey.keyV,
+      modifiers: [
+        kIsMacOS ? ModifierKey.metaModifier : ModifierKey.controlModifier,
+      ],
+    );
+    await keyPressSimulator.simulateKeyPress(
+      key: LogicalKeyboardKey.keyV,
+      modifiers: [
+        kIsMacOS ? ModifierKey.metaModifier : ModifierKey.controlModifier,
+      ],
+      keyDown: false,
+    );
+  }
+
+  @override
   void onTrayIconMouseDown() async {
     _windowShow(isShowBelowTray: true);
   }
@@ -897,13 +1009,13 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   void onTrayMenuItemClick(MenuItem menuItem) async {
     switch (menuItem.key) {
       case kMenuItemKeyQuickStartGuide:
-        await launch('${sharedEnv.webUrl}/docs');
+        await launchUrlString('${sharedEnv.webUrl}/docs');
         break;
       case kMenuSubItemKeyJoinDiscord:
-        await launch('https://discord.gg/yRF62CKza8');
+        await launchUrlString('https://discord.gg/yRF62CKza8');
         break;
       case kMenuSubItemKeyJoinQQGroup:
-        await launch('https://jq.qq.com/?_wv=1027&k=vYQ5jW7y');
+        await launchUrlString('https://jq.qq.com/?_wv=1027&k=vYQ5jW7y');
         break;
       case kMenuItemKeyQuitApp:
         await trayManager.destroy();

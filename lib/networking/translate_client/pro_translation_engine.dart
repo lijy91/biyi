@@ -11,16 +11,16 @@ class ProTranslationEngine extends TranslationEngine {
 
   @override
   Future<DetectLanguageResponse> detectLanguage(DetectLanguageRequest request) {
-    throw UnimplementedError();
+    return apiClient.engine(identifier).detectLanguage(request);
   }
 
   @override
   Future<LookUpResponse> lookUp(LookUpRequest request) {
-    throw UnimplementedError();
+    return apiClient.engine(identifier).lookUp(request);
   }
 
   @override
   Future<TranslateResponse> translate(TranslateRequest request) {
-    throw UnimplementedError();
+    return apiClient.engine(identifier).translate(request);
   }
 }

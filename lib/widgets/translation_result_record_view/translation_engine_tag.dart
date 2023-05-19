@@ -12,7 +12,7 @@ class TranslationEngineTag extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TranslationEngineTagState createState() => _TranslationEngineTagState();
+  State<TranslationEngineTag> createState() => _TranslationEngineTagState();
 }
 
 class _TranslationEngineTagState extends State<TranslationEngineTag> {
@@ -86,7 +86,7 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
                     padding: const EdgeInsets.only(left: 4, right: 2),
                     child: Text(
                       _translationEngineConfig.typeName,
-                      style: Theme.of(context).textTheme.caption!.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontSize: 10,
                           ),
                     ),

@@ -35,7 +35,7 @@ class PreferenceListItem extends StatelessWidget {
   Widget buildDetailText(BuildContext context) {
     if (detailText != null) {
       return DefaultTextStyle(
-        style: Theme.of(context).textTheme.caption!,
+        style: Theme.of(context).textTheme.bodySmall!,
         child: detailText!,
       );
     } else {
@@ -52,7 +52,7 @@ class PreferenceListItem extends StatelessWidget {
         child: Icon(
           FluentIcons.chevron_right_20_regular,
           size: 18,
-          color: Theme.of(context).textTheme.caption!.color,
+          color: Theme.of(context).textTheme.bodySmall!.color,
         ),
       );
     }
@@ -64,6 +64,7 @@ class PreferenceListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Material(
       color: Theme.of(context).canvasColor,
       child: InkWell(
@@ -82,8 +83,8 @@ class PreferenceListItem extends StatelessWidget {
                 children: [
                   if (icon != null)
                     Container(
-                      child: icon,
                       margin: const EdgeInsets.only(right: 10),
+                      child: icon,
                     ),
                   if (title != null || summary != null)
                     Expanded(
@@ -93,15 +94,17 @@ class PreferenceListItem extends StatelessWidget {
                         children: [
                           if (title != null)
                             DefaultTextStyle(
-                              style: Theme.of(context).textTheme.bodyText2!,
+                              style: textTheme.bodyMedium!,
                               child: title!,
                             ),
                           if (summary != null)
                             DefaultTextStyle(
-                              style: Theme.of(context).textTheme.caption!,
+                              style: textTheme.bodySmall!,
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 4, bottom: 4),
+                                padding: const EdgeInsets.only(
+                                  top: 2,
+                                  bottom: 2,
+                                ),
                                 child: summary,
                               ),
                             ),
@@ -128,6 +131,7 @@ class PreferenceListRadioItem<T> extends PreferenceListItem {
 
   const PreferenceListRadioItem({
     Key? key,
+    EdgeInsets? padding,
     Widget? icon,
     Widget? title,
     Widget? summary,
@@ -139,6 +143,7 @@ class PreferenceListRadioItem<T> extends PreferenceListItem {
     required this.onChanged,
   }) : super(
           key: key,
+          padding: padding,
           icon: icon,
           title: title,
           summary: summary,
@@ -251,14 +256,19 @@ class PreferenceListTextFieldItem extends PreferenceListItem {
 
   @override
   Widget buildDetailText(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Expanded(
       child: CupertinoTextField(
         controller: controller,
         padding: EdgeInsets.zero,
         decoration: const BoxDecoration(),
+        style: textTheme.bodyMedium?.copyWith(
+          height: 1.2,
+        ),
         placeholder: placeholder,
-        style: const TextStyle(
-          fontSize: 14,
+        placeholderStyle: textTheme.bodyMedium?.copyWith(
+          color: textTheme.bodyMedium?.color?.withOpacity(0.5),
+          height: 1.2,
         ),
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,

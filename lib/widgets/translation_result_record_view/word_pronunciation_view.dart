@@ -12,6 +12,7 @@ class WordPronunciationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       margin: EdgeInsets.zero,
       child: Row(
@@ -26,9 +27,9 @@ class WordPronunciationView extends StatelessWidget {
                 if ((wordPronunciation.type ?? '').isNotEmpty)
                   TextSpan(
                     text: '${wordPronunciation.localType} ',
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 13,
-                        ),
+                    style: textTheme.bodyMedium!.copyWith(
+                      fontSize: 13,
+                    ),
                   ),
                 if ((wordPronunciation.phoneticSymbol ?? '').isNotEmpty)
                   TextSpan(
@@ -36,9 +37,9 @@ class WordPronunciationView extends StatelessWidget {
                   )
               ],
             ),
-            style: Theme.of(context).textTheme.caption!.copyWith(
-                  fontSize: 13,
-                ),
+            style: textTheme.bodySmall!.copyWith(
+              fontSize: 13,
+            ),
           ),
           if ((wordPronunciation.audioUrl ?? '').isNotEmpty)
             Container(

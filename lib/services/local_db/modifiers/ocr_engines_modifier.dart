@@ -65,10 +65,10 @@ class OcrEnginesModifier extends Listenable {
     required String type,
     required Map<String, dynamic> option,
   }) async {
-    List<OcrEngineConfig> _list = list();
+    List<OcrEngineConfig> configs = list();
     int position = 1;
-    if (_list.isNotEmpty) {
-      position = _list.last.position + 1;
+    if (configs.isNotEmpty) {
+      position = configs.last.position + 1;
     }
     final value = OcrEngineConfig(
       position: position,

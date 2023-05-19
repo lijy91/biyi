@@ -1,7 +1,44 @@
+import 'package:rise_ui/rise_ui.dart' hide Theme;
 import 'package:flutter/material.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 
 import '../../../includes.dart';
+
+class _HotKeyDisplayView extends StatelessWidget {
+  final HotKey hotKey;
+
+  const _HotKeyDisplayView(
+    this.hotKey, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return KbdTheme(
+      data: KbdTheme.of(context).copyWith(
+        brightness: Theme.of(context).brightness,
+        size: NamedSize.tiny,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (KeyModifier keyModifier in hotKey.modifiers ?? []) ...[
+            Kbd(
+              keyModifier.keyLabel,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4),
+              child: Text('+', style: TextStyle(fontSize: 14)),
+            ),
+          ],
+          Kbd(
+            hotKey.keyCode.keyLabel,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class SettingShortcutsPage extends StatefulWidget {
   const SettingShortcutsPage({
@@ -61,8 +98,8 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
           children: [
             PreferenceListItem(
               title: Text(t('pref_item_title_show_or_hide')),
-              detailText: HotKeyVirtualView(
-                hotKey: _configuration.shortcutShowOrHide,
+              detailText: _HotKeyDisplayView(
+                _configuration.shortcutShowOrHide,
               ),
               onTap: () {
                 _handleClickRegisterNewHotKey(
@@ -73,8 +110,8 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
             ),
             PreferenceListItem(
               title: Text(t('pref_item_title_hide')),
-              detailText: HotKeyVirtualView(
-                hotKey: _configuration.shortcutHide,
+              detailText: _HotKeyDisplayView(
+                _configuration.shortcutHide,
               ),
               onTap: () {
                 _handleClickRegisterNewHotKey(
@@ -91,8 +128,8 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
           children: [
             PreferenceListItem(
               title: Text(t('pref_item_title_extract_text_from_selection')),
-              detailText: HotKeyVirtualView(
-                hotKey: _configuration.shortcutExtractFromScreenSelection,
+              detailText: _HotKeyDisplayView(
+                _configuration.shortcutExtractFromScreenSelection,
               ),
               onTap: () {
                 _handleClickRegisterNewHotKey(
@@ -104,8 +141,8 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
             if (!kIsLinux)
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_capture')),
-                detailText: HotKeyVirtualView(
-                  hotKey: _configuration.shortcutExtractFromScreenCapture,
+                detailText: _HotKeyDisplayView(
+                  _configuration.shortcutExtractFromScreenCapture,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(
@@ -116,13 +153,30 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
               ),
             PreferenceListItem(
               title: Text(t('pref_item_title_extract_text_from_clipboard')),
-              detailText: HotKeyVirtualView(
-                hotKey: _configuration.shortcutExtractFromClipboard,
+              detailText: _HotKeyDisplayView(
+                _configuration.shortcutExtractFromClipboard,
               ),
               onTap: () {
                 _handleClickRegisterNewHotKey(
                   context,
                   shortcutKey: kShortcutExtractFromClipboard,
+                );
+              },
+            ),
+          ],
+        ),
+        PreferenceListSection(
+          title: Text(t('pref_section_title_input_assist_function')),
+          children: [
+            PreferenceListItem(
+              title: Text(t('pref_item_title_translate_input_content')),
+              detailText: _HotKeyDisplayView(
+                _configuration.shortcutTranslateInputContent,
+              ),
+              onTap: () {
+                _handleClickRegisterNewHotKey(
+                  context,
+                  shortcutKey: kShortcutTranslateInputContent,
                 );
               },
             ),

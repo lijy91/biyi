@@ -11,7 +11,7 @@ class TranslationTargetNewPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TranslationTargetNewPageState createState() =>
+  State<TranslationTargetNewPage> createState() =>
       _TranslationTargetNewPageState();
 }
 

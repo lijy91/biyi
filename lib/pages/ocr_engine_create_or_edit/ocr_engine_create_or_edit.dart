@@ -16,7 +16,7 @@ class OcrEngineCreateOrEditPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _OcrEngineCreateOrEditPageState createState() =>
+  State<OcrEngineCreateOrEditPage> createState() =>
       _OcrEngineCreateOrEditPageState();
 }
 

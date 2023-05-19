@@ -79,7 +79,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
   }
 
   Widget _buildListSectionPrivateEngines(BuildContext context) {
-    void _onReorder(int oldIndex, int newIndex) {
+    void onReorder(int oldIndex, int newIndex) {
       List<String> idList =
           _privateOcrEngineList.map((e) => e.identifier).toList();
       String oldId = idList.removeAt(oldIndex);
@@ -99,6 +99,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
       children: [
         ReorderableColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
+          onReorder: onReorder,
           children: [
             for (var i = 0; i < _privateOcrEngineList.length; i++)
               ReorderableWidget(
@@ -112,7 +113,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
                     value: !item.disabled,
                     onChanged: (newValue) {
                       localDb //
-                          .privateEngine(item.identifier)
+                          .privateOcrEngine(item.identifier)
                           .update(disabled: !item.disabled);
                     },
                     onTap: () {
@@ -128,7 +129,6 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
                 }),
               )
           ],
-          onReorder: _onReorder,
         ),
         PreferenceListItem(
           title: Text(

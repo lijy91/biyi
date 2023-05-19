@@ -45,6 +45,40 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
     return PreferenceList(
       children: [
         PreferenceListSection(
+          title: Text(t('pref_section_title_default_translate_engine')),
+          children: [
+            PreferenceListItem(
+              icon: _configuration.defaultTranslateEngineConfig == null
+                  ? null
+                  : TranslationEngineIcon(
+                      _configuration.defaultTranslateEngineConfig!.type,
+                    ),
+              title: Builder(builder: (_) {
+                if (_configuration.defaultTranslateEngineConfig == null) {
+                  return Text('please_choose'.tr());
+                }
+                return TranslationEngineName(
+                  _configuration.defaultTranslateEngineConfig!,
+                );
+              }),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => TranslationEngineChooserPage(
+                      initialEngineConfig:
+                          _configuration.defaultTranslateEngineConfig,
+                      onChoosed: (engineConfig) {
+                        _configuration.defaultTranslateEngineId =
+                            engineConfig.identifier;
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        PreferenceListSection(
           title: Text(t('pref_section_title_translation_mode')),
           children: [
             PreferenceListRadioItem(

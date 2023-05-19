@@ -16,10 +16,24 @@ releases:
           build_args:
             dart-define:
               APP_ENV: production
+      - name: release-linux-deb
+        package:
+          platform: linux
+          target: deb
+          build_args:
+            dart-define:
+              APP_ENV: production
       - name: release-windows-exe
         package:
           platform: windows
           target: exe
+          build_args:
+            dart-define:
+              APP_ENV: production
+      - name: release-windows-msix
+        package:
+          platform: windows
+          target: msix
           build_args:
             dart-define:
               APP_ENV: production

@@ -54,7 +54,7 @@ class TranslationResultRecordView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SpinKitThreeBounce(
-            color: Theme.of(context).textTheme.caption!.color,
+            color: Theme.of(context).textTheme.bodySmall!.color,
             size: 12.0,
           ),
         ],
@@ -88,6 +88,8 @@ class TranslationResultRecordView extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     // String? word;
     List<TextTranslation>? translations; // 翻译
     List<WordTag>? tags; // 标签
@@ -147,9 +149,9 @@ class TranslationResultRecordView extends StatelessWidget {
             TextSpan(
               children: [TextSpan(text: textTranslation.text)],
             ),
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  height: 1.4,
-                ),
+            style: textTheme.bodyMedium!.copyWith(
+              height: 1.4,
+            ),
           ),
         ),
       );
@@ -199,7 +201,7 @@ class TranslationResultRecordView extends StatelessWidget {
                           if ((definitions[i].name ?? '').isNotEmpty)
                             TextSpan(
                               text: '${definitions[i].name}',
-                              style: Theme.of(context).textTheme.caption,
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                           if ((definitions[i].name ?? '').isNotEmpty)
                             const TextSpan(text: ' '),
@@ -211,9 +213,9 @@ class TranslationResultRecordView extends StatelessWidget {
                       ),
                   ],
                 ),
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      height: 1.5,
-                    ),
+                style: textTheme.bodyMedium!.copyWith(
+                  height: 1.5,
+                ),
               ),
             ),
           // 时态
@@ -232,26 +234,23 @@ class TranslationResultRecordView extends StatelessWidget {
                           for (var tenseValue in (tenses[i].values ?? []))
                             TextSpan(
                               text: ' $tenseValue ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                              style: textTheme.bodyMedium!.copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w500,
+                              ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => onTextTapped(tenseValue),
                             ),
                         ],
-                        style: Theme.of(context).textTheme.caption!.copyWith(
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               fontSize: 13,
                             ),
                       ),
                   ],
                 ),
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      height: 1.5,
-                    ),
+                style: textTheme.bodyMedium!.copyWith(
+                  height: 1.5,
+                ),
               ),
             ),
           // 图片
@@ -305,7 +304,7 @@ class TranslationResultRecordView extends StatelessWidget {
           //           ),
           //           child: Text(
           //             '常用短语/词组',
-          //             style: Theme.of(context).textTheme.caption.copyWith(
+          //             style: Theme.of(context).textTheme.bodySmall.copyWith(
           //                   fontWeight: FontWeight.bold,
           //                 ),
           //           ),
@@ -341,7 +340,7 @@ class TranslationResultRecordView extends StatelessWidget {
           //           ),
           //           child: Text(
           //             '例句',
-          //             style: Theme.of(context).textTheme.caption.copyWith(
+          //             style: Theme.of(context).textTheme.bodySmall.copyWith(
           //                   fontWeight: FontWeight.bold,
           //                 ),
           //           ),

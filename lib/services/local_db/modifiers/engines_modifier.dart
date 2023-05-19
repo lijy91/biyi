@@ -54,8 +54,8 @@ class EnginesModifier extends Listenable {
   }
 
   TranslationEngineConfig? get() {
-    dynamic value = _box.get(_id);
-    if (value != null) {
+    if (_box.containsKey(_id)) {
+      dynamic value = _box.get(_id);
       return TranslationEngineConfig.fromJson(value);
     }
     return null;
@@ -67,10 +67,10 @@ class EnginesModifier extends Listenable {
     List<String>? supportedScopes,
     bool? disabled,
   }) async {
-    List<TranslationEngineConfig> _list = list();
+    List<TranslationEngineConfig> configs = list();
     int position = 1;
-    if (_list.isNotEmpty) {
-      position = _list.last.position + 1;
+    if (configs.isNotEmpty) {
+      position = configs.last.position + 1;
     }
     final value = TranslationEngineConfig(
       position: position,

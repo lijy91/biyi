@@ -25,6 +25,8 @@ class _AllowAccessListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Text.rich(
       TextSpan(
         text: allowed ? '✅' : '❌',
@@ -53,10 +55,10 @@ class _AllowAccessListItem extends StatelessWidget {
             ),
         ],
       ),
-      style: Theme.of(context)
-          .textTheme
-          .bodyText2!
-          .copyWith(color: Colors.white, fontSize: 13),
+      style: textTheme.bodyMedium!.copyWith(
+        color: Colors.white,
+        fontSize: 13,
+      ),
     );
   }
 }
@@ -78,6 +80,8 @@ class LimitedFunctionalityBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     if (_isAllowedAllAccess) return Container();
 
     return Container(
@@ -102,11 +106,11 @@ class LimitedFunctionalityBanner extends StatelessWidget {
               TextSpan(
                 text: 'page_desktop_popup.limited_banner_title'.tr(),
               ),
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: textTheme.bodyMedium!.copyWith(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             Container(
               padding: const EdgeInsets.only(top: 6, bottom: 6),
@@ -175,9 +179,9 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                         size: 18,
                       ),
                       onPressed: () async {
-                        String url = '${sharedEnv.webUrl}/docs';
-                        if (await canLaunch(url)) {
-                          await launch(url);
+                        Uri url = Uri.parse('${sharedEnv.webUrl}/docs');
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url);
                         } else {
                           throw 'Could not launch $url';
                         }
@@ -206,10 +210,10 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                       ),
                     ],
                   ),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(color: Colors.white, fontSize: 14),
+                  style: textTheme.bodyMedium!.copyWith(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
                 ),
               ],
             )

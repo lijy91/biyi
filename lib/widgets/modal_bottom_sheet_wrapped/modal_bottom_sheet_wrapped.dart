@@ -12,7 +12,7 @@ class ModalBottomSheetWrapped extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ModalBottomSheetWrappedState createState() =>
+  State<ModalBottomSheetWrapped> createState() =>
       _ModalBottomSheetWrappedState();
 }
 

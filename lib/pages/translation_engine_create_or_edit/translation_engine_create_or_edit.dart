@@ -23,7 +23,7 @@ class TranslationEngineCreateOrEditPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TranslationEngineCreateOrEditPageState createState() =>
+  State<TranslationEngineCreateOrEditPage> createState() =>
       _TranslationEngineCreateOrEditPageState();
 }
 
@@ -174,7 +174,7 @@ class _TranslationEngineCreateOrEditPageState
                     margin: EdgeInsets.zero,
                     child: Builder(
                       builder: (_) {
-                        if ((translationEngine?.supportedScopes ?? [])
+                        if (!(translationEngine?.supportedScopes ?? [])
                             .contains(scope)) {
                           return const Icon(
                             FluentIcons.dismiss_circle_20_filled,

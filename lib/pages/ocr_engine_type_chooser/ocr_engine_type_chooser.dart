@@ -13,7 +13,7 @@ class OcrEngineTypeChooserPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _OcrEngineTypeChooserPageState createState() =>
+  State<OcrEngineTypeChooserPage> createState() =>
       _OcrEngineTypeChooserPageState();
 }
 

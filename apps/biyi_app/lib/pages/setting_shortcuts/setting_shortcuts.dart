@@ -13,28 +13,24 @@ class _HotKeyDisplayView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KbdTheme(
-      data: KbdTheme.of(context).copyWith(
-        brightness: Theme.of(context).brightness,
-        size: NamedSize.tiny,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (KeyModifier keyModifier in hotKey.modifiers ?? []) ...[
-            Kbd(
-              keyModifier.keyLabel,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4),
-              child: Text('+', style: TextStyle(fontSize: 14)),
-            ),
-          ],
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (KeyModifier keyModifier in hotKey.modifiers ?? []) ...[
           Kbd(
-            hotKey.keyCode.keyLabel,
+            keyModifier.keyLabel,
+            size: NamedSize.tiny,
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            child: Text('+', style: TextStyle(fontSize: 14)),
           ),
         ],
-      ),
+        Kbd(
+          hotKey.keyCode.keyLabel,
+          size: NamedSize.tiny,
+        ),
+      ],
     );
   }
 }

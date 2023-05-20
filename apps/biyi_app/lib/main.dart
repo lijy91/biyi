@@ -105,41 +105,42 @@ class _MyAppState extends State<MyApp> with LocalDbListener {
     final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     final botToastBuilder = BotToastInit();
 
-    return rise_ui.Theme(
-      data: rise_ui.ThemeData(
-        brightness: _configuration.themeMode == ThemeMode.dark
-            ? Brightness.dark
-            : Brightness.light,
-      ),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorKey: _navigatorKey,
-        theme: lightThemeData,
-        darkTheme: darkThemeData,
-        themeMode: _configuration.themeMode,
-        builder: (context, child) {
-          if (kIsLinux || kIsWindows) {
-            child = Stack(
-              children: [
-                virtualWindowFrameBuilder(context, child),
-                const DragToMoveArea(
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 34,
-                  ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorKey: _navigatorKey,
+      theme: lightThemeData,
+      darkTheme: darkThemeData,
+      themeMode: _configuration.themeMode,
+      builder: (context, child) {
+        if (kIsLinux || kIsWindows) {
+          child = Stack(
+            children: [
+              virtualWindowFrameBuilder(context, child),
+              const DragToMoveArea(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 34,
                 ),
-              ],
-            );
-          }
-          child = botToastBuilder(context, child);
-          return child;
-        },
-        navigatorObservers: [BotToastNavigatorObserver()],
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        home: _buildHome(context),
-      ),
+              ),
+            ],
+          );
+        }
+        child = botToastBuilder(context, child);
+        child = rise_ui.Theme(
+          data: rise_ui.ThemeData(
+            brightness: _configuration.themeMode == ThemeMode.dark
+                ? Brightness.dark
+                : Brightness.light,
+          ),
+          child: child,
+        );
+        return child;
+      },
+      navigatorObservers: [BotToastNavigatorObserver()],
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: _buildHome(context),
     );
   }
 

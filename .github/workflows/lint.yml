@@ -1,0 +1,43 @@
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.10.1"
+          channel: "stable"
+      - uses: bluefireteam/melos-action@v2
+      - run: melos run analyze
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.10.1"
+          channel: "stable"
+          cache: true
+      - uses: bluefireteam/melos-action@v2
+      - run: melos run format-check
+
+  dependency_validator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.10.1"
+          channel: "stable"
+          cache: true
+      - uses: bluefireteam/melos-action@v2
+      - run: melos run dependency_validator

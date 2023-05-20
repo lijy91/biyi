@@ -10,16 +10,12 @@ dependencies:
   audioplayers: ^4.0.1
   bot_toast: ^4.0.3
   collection: ^1.17.1
-  contextual_menu: ^0.1.2
   crypto: ^3.0.3
-  device_info_plus: ^8.0.0
   dio: ^5.1.2
   easy_localization: ^3.0.1
   easy_localization_loader: ^1.0.1+1
   fluentui_system_icons: ^1.1.200
   flutter:
-    sdk: flutter
-  flutter_localizations:
     sdk: flutter
   flutter_spinkit: ^5.2.0
   flutter_svg: ^2.0.5
@@ -33,7 +29,6 @@ dependencies:
   path: ^1.8.3
   path_provider: ^2.0.15
   photo_view: ^0.14.0
-  platform_device_id: ^1.0.1
   protocol_handler: ^0.1.5
   reorderables: ^0.6.0
   rise_ui:
@@ -56,7 +51,6 @@ dev_dependencies:
   dependency_validator: ^3.0.0
   flutter_test:
     sdk: flutter
-  msix: any
 
 dependency_overrides:
   ocr_engine_builtin:

@@ -4,3 +4,5 @@
 
 # Flutter/Dart/Pub related
 .dart_tool/
+
+**/pubspec_overrides.yaml

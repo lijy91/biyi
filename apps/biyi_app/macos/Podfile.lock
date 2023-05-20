@@ -6,10 +6,6 @@ PODS:
   - connectivity_plus_macos (0.0.1):
     - FlutterMacOS
     - ReachabilitySwift
-  - contextual_menu (0.0.1):
-    - FlutterMacOS
-  - device_info_plus (0.0.1):
-    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - HotKey (0.1.2)
   - hotkey_manager (0.0.1):
@@ -23,10 +19,6 @@ PODS:
     - FlutterMacOS
   - path_provider_foundation (0.0.1):
     - Flutter
-    - FlutterMacOS
-  - platform_device_id (0.0.1):
-    - FlutterMacOS
-  - platform_device_id_macos (0.0.1):
     - FlutterMacOS
   - protocol_handler (0.0.1):
     - FlutterMacOS
@@ -51,16 +43,12 @@ DEPENDENCIES:
   - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
   - clipboard_watcher (from `Flutter/ephemeral/.symlinks/plugins/clipboard_watcher/macos`)
   - connectivity_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos`)
-  - contextual_menu (from `Flutter/ephemeral/.symlinks/plugins/contextual_menu/macos`)
-  - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - hotkey_manager (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager/macos`)
   - keypress_simulator (from `Flutter/ephemeral/.symlinks/plugins/keypress_simulator/macos`)
   - ocr_engine_builtin (from `Flutter/ephemeral/.symlinks/plugins/ocr_engine_builtin/macos`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
-  - platform_device_id (from `Flutter/ephemeral/.symlinks/plugins/platform_device_id/macos`)
-  - platform_device_id_macos (from `Flutter/ephemeral/.symlinks/plugins/platform_device_id_macos/macos`)
   - protocol_handler (from `Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos`)
   - screen_capturer (from `Flutter/ephemeral/.symlinks/plugins/screen_capturer/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
@@ -82,10 +70,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/clipboard_watcher/macos
   connectivity_plus_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos
-  contextual_menu:
-    :path: Flutter/ephemeral/.symlinks/plugins/contextual_menu/macos
-  device_info_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   hotkey_manager:
@@ -98,10 +82,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
   path_provider_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
-  platform_device_id:
-    :path: Flutter/ephemeral/.symlinks/plugins/platform_device_id/macos
-  platform_device_id_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/platform_device_id_macos/macos
   protocol_handler:
     :path: Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos
   screen_capturer:
@@ -123,8 +103,6 @@ SPEC CHECKSUMS:
   audioplayers_darwin: dcad41de4fbd0099cb3749f7ab3b0cb8f70b810c
   clipboard_watcher: a71da520051c24c1b969a411b3e152d4dcc93ca5
   connectivity_plus_macos: f6e86fd000e971d361e54b5afcadc8c8fa773308
-  contextual_menu: 6d35fb15942c0d8769f5eae8d3bda653994a6f5a
-  device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   HotKey: ad59450195936c10992438c4210f673de5aee43e
   hotkey_manager: ad673457691f4d39e481be04a61da2ae07d81c62
@@ -132,8 +110,6 @@ SPEC CHECKSUMS:
   ocr_engine_builtin: 99c65f8f4a156830ceaf0da86940610fefe50f50
   package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
-  platform_device_id: 3e414428f45df149bbbfb623e2c0ca27c545b763
-  platform_device_id_macos: f763bb55f088be804d61b96eb4710b8ab6598e94
   protocol_handler: 587e1caf6c0b92ce351ab14081968dae49cb8cc6
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   screen_capturer: 696de78ce7beff63eecf8aa709f839985a7836d7

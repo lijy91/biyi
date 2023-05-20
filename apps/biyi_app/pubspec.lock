@@ -478,19 +478,21 @@ packages:
     source: hosted
     version: "1.0.0"
   ocr_engine_builtin:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_ocr/packages/ocr_engine_builtin"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: ocr_engine_builtin
+      sha256: ced1acd5cd3dee2ea63e8dd2b77fac63deebf3ee5b4654e26b87314b917eebbb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   ocr_engine_youdao:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_ocr/packages/ocr_engine_youdao"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: ocr_engine_youdao
+      sha256: f5c5eee137c4e816f53ea49323e2db389733da9b2a8c0ee70f1525057e05239d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   package_config:
     dependency: transitive
     description:
@@ -840,54 +842,61 @@ packages:
     source: hosted
     version: "0.5.1"
   translation_engine_baidu:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/translation_engine_baidu"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: translation_engine_baidu
+      sha256: e01548df24f85269cb676ce9d1e65b01cb05bba95ca8be5382b7c55295b2c019
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   translation_engine_caiyun:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/translation_engine_caiyun"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: translation_engine_caiyun
+      sha256: eb00682de3d46fedd75fe83c6350307f4855be126ac5bc717ff14ee67d2153a7
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   translation_engine_deepl:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/translation_engine_deepl"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: translation_engine_deepl
+      sha256: "8410b441e5bc5aa5ff69379210afdd85dae58de050a1184da45c0b47b0cc42fa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   translation_engine_google:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/translation_engine_google"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: translation_engine_google
+      sha256: "9efd3a6e8b910161b6c7b1f41281ec07ceeb1005c9d58c552791d0445b994a14"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   translation_engine_iciba:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/translation_engine_iciba"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: translation_engine_iciba
+      sha256: "0aac89539b948c7f5f2dc2a854d3f40ccd74fd11f2048bd2653f54080e6573aa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   translation_engine_tencent:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/translation_engine_tencent"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: translation_engine_tencent
+      sha256: e2216f4b349d6c700d528a0007a65bda3b71715b9dac5eb6e892e8f5d5a4323b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   translation_engine_youdao:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/translation_engine_youdao"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: translation_engine_youdao
+      sha256: "826131ef301d58676ca036e5ba6c250abb5507125f1707991bea93e028bd00e8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   tray_manager:
     dependency: "direct main"
     description:
@@ -907,31 +916,35 @@ packages:
   uni_ocr:
     dependency: "direct main"
     description:
-      path: "../../../uni_ocr/packages/uni_ocr"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: uni_ocr
+      sha256: "36ad2309d59901a00e46c7e3896a3713370272543a447c3692cdb627aa4e748a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   uni_ocr_client:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_ocr/packages/uni_ocr_client"
-      relative: true
-    source: path
-    version: "0.1.0"
+      name: uni_ocr_client
+      sha256: "0508e0891008e6b240c0773a8cd73e5144f3a9d06e9db09787520b4cfb69535d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   uni_translate:
     dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/uni_translate"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: uni_translate
+      sha256: a8195a69ab4e788ec3d79c8ef779756c7d8ca53f3b6f3dacf51c95cb9bb89c26
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   uni_translate_client:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: "../../../uni_translate/packages/uni_translate_client"
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: uni_translate_client
+      sha256: "7074ad15cbf73e388725178f94a4f3ee0537fb2fe379f3928a8b0eedda00063c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   url_launcher:
     dependency: "direct main"
     description:
@@ -1094,4 +1107,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.0.0 <4.0.0"
-  flutter: ">=3.7.0-0"
+  flutter: ">=3.10.0"

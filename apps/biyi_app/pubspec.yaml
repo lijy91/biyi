@@ -24,6 +24,8 @@ dependencies:
   hotkey_manager: ^0.1.7
   keypress_simulator: ^0.1.0
   launch_at_startup: ^0.2.2
+  ocr_engine_builtin: ^0.1.1
+  ocr_engine_youdao: ^0.1.1
   package_info_plus: ^3.0.2
   page_transition: ^2.0.9
   path: ^1.8.3
@@ -40,9 +42,18 @@ dependencies:
   shelf_router: ^1.1.4
   shortid: ^0.1.2
   sticky_headers: ^0.3.0+2
+  translation_engine_baidu: ^0.1.2
+  translation_engine_caiyun: ^0.1.2
+  translation_engine_deepl: ^0.1.2
+  translation_engine_google: ^0.1.2
+  translation_engine_iciba: ^0.1.2
+  translation_engine_tencent: ^0.1.2
+  translation_engine_youdao: ^0.1.2
   tray_manager: ^0.2.0
-  uni_ocr: ^0.1.0
-  uni_translate: ^0.1.1
+  uni_ocr: ^0.1.1
+  uni_ocr_client: ^0.1.1
+  uni_translate: ^0.1.2
+  uni_translate_client: ^0.1.2
   url_launcher: ^6.1.11
   vclibs: ^0.1.0
   window_manager: ^0.3.2
@@ -51,34 +62,6 @@ dev_dependencies:
   dependency_validator: ^3.0.0
   flutter_test:
     sdk: flutter
-
-dependency_overrides:
-  ocr_engine_builtin:
-    path: ../../../uni_ocr/packages/ocr_engine_builtin
-  ocr_engine_youdao:
-    path: ../../../uni_ocr/packages/ocr_engine_youdao
-  translation_engine_baidu:
-    path: ../../../uni_translate/packages/translation_engine_baidu
-  translation_engine_caiyun:
-    path: ../../../uni_translate/packages/translation_engine_caiyun
-  translation_engine_deepl:
-    path: ../../../uni_translate/packages/translation_engine_deepl
-  translation_engine_google:
-    path: ../../../uni_translate/packages/translation_engine_google
-  translation_engine_iciba:
-    path: ../../../uni_translate/packages/translation_engine_iciba
-  translation_engine_tencent:
-    path: ../../../uni_translate/packages/translation_engine_tencent
-  translation_engine_youdao:
-    path: ../../../uni_translate/packages/translation_engine_youdao
-  uni_ocr:
-    path: ../../../uni_ocr/packages/uni_ocr
-  uni_ocr_client:
-    path: ../../../uni_ocr/packages/uni_ocr_client
-  uni_translate:
-    path: ../../../uni_translate/packages/uni_translate
-  uni_translate_client:
-    path: ../../../uni_translate/packages/uni_translate_client
 
 flutter:
   uses-material-design: false
@@ -98,3 +81,6 @@ flutter:
           weight: 600
         - asset: assets/fonts/MiSans-Bold.ttf
           weight: 700
+    - family: Roboto Mono
+      fonts:
+        - asset: assets/fonts/RobotoMono-Regular.ttf

@@ -23,7 +23,13 @@ class _HotKeyDisplayView extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 4),
-            child: Text('+', style: TextStyle(fontSize: 14)),
+            child: Text(
+              '+',
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Roboto Mono',
+              ),
+            ),
           ),
         ],
         Kbd(

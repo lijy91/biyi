@@ -1,13 +1,7 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class TranslationEngineIcon extends StatelessWidget {
-  final String type;
-  final double size;
-  final Color? color;
-  final Border? border;
-
   const TranslationEngineIcon(
     this.type, {
     Key? key,
@@ -15,6 +9,11 @@ class TranslationEngineIcon extends StatelessWidget {
     this.color,
     this.border,
   }) : super(key: key);
+
+  final String type;
+  final double size;
+  final Color? color;
+  final Border? border;
 
   @override
   Widget build(BuildContext context) {

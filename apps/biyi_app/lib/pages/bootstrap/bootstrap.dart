@@ -1,9 +1,8 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
-
-import '../../includes.dart';
 
 class BootstrapPage extends StatefulWidget {
   const BootstrapPage({Key? key}) : super(key: key);

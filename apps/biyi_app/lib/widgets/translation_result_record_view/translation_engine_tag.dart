@@ -1,15 +1,14 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class TranslationEngineTag extends StatefulWidget {
-  final TranslationResultRecord translationResultRecord;
-
   const TranslationEngineTag({
     Key? key,
     required this.translationResultRecord,
   }) : super(key: key);
+
+  final TranslationResultRecord translationResultRecord;
 
   @override
   State<TranslationEngineTag> createState() => _TranslationEngineTagState();

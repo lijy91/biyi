@@ -1,7 +1,4 @@
 class Session {
-  int id;
-  String? accessToken;
-
   Session({
     required this.id,
     this.accessToken,
@@ -13,6 +10,9 @@ class Session {
       accessToken: json['access_token'],
     );
   }
+
+  int id;
+  String? accessToken;
 
   Map<String, dynamic> toJson() {
     return {

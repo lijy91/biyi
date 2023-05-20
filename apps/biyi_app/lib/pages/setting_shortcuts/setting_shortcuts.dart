@@ -1,16 +1,15 @@
-import 'package:rise_ui/rise_ui.dart' hide Theme;
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
-
-import '../../../includes.dart';
+import 'package:rise_ui/rise_ui.dart' hide Theme;
 
 class _HotKeyDisplayView extends StatelessWidget {
-  final HotKey hotKey;
-
   const _HotKeyDisplayView(
     this.hotKey, {
     Key? key,
   }) : super(key: key);
+
+  final HotKey hotKey;
 
   @override
   Widget build(BuildContext context) {

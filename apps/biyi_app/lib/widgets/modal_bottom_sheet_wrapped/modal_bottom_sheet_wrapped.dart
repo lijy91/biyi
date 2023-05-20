@@ -1,15 +1,14 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../../includes.dart';
-
 class ModalBottomSheetWrapped extends StatefulWidget {
-  final Widget child;
-
   const ModalBottomSheetWrapped({
     Key? key,
     required this.child,
   }) : super(key: key);
+
+  final Widget child;
 
   @override
   State<ModalBottomSheetWrapped> createState() =>

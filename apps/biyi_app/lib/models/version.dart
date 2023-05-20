@@ -1,7 +1,4 @@
 class VersionPlatform {
-  String platform;
-  String url;
-
   VersionPlatform({
     required this.platform,
     required this.url,
@@ -14,6 +11,9 @@ class VersionPlatform {
     );
   }
 
+  String platform;
+  String url;
+
   Map<String, dynamic> toJson() {
     return {
       'platform': platform,
@@ -23,10 +23,6 @@ class VersionPlatform {
 }
 
 class Version {
-  String version;
-  int buildNumber;
-  List<VersionPlatform> platforms;
-
   Version({
     required this.version,
     required this.buildNumber,
@@ -47,6 +43,9 @@ class Version {
       platforms: platforms,
     );
   }
+  String version;
+  int buildNumber;
+  List<VersionPlatform> platforms;
 
   Map<String, dynamic> toJson() {
     return {

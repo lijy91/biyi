@@ -1,12 +1,11 @@
+// import 'package:biyi_app/includes.dart';
+
+import 'package:biyi_app/pages/home/tab_homepage/tab_homepage.dart';
+import 'package:biyi_app/pages/home/tab_settings/tab_settings.dart';
+import 'package:biyi_app/pages/home/tab_vocabulary/tab_vocabulary.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-// import '../../includes.dart';
-
-import 'tab_homepage/tab_homepage.dart';
-import 'tab_settings/tab_settings.dart';
-import 'tab_vocabulary/tab_vocabulary.dart';
 
 const _kHomeTabHomepage = 0;
 // const _kHomeTabVocabulary = 1;

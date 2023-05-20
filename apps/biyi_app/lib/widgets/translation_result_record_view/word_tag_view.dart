@@ -1,14 +1,13 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class WordTagView extends StatelessWidget {
-  final WordTag wordTag;
-
   const WordTagView(
     this.wordTag, {
     Key? key,
   }) : super(key: key);
+
+  final WordTag wordTag;
 
   @override
   Widget build(BuildContext context) {

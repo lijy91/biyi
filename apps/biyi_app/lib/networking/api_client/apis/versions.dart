@@ -1,14 +1,14 @@
 import 'dart:async';
+
+import 'package:biyi_app/includes.dart';
 import 'package:dio/dio.dart';
 
-import '../../../includes.dart';
-
 class VersionsApi {
+  VersionsApi(this._http);
+
   final Dio _http;
 
   String? _versionId;
-
-  VersionsApi(this._http);
 
   void setVersionId(String? id) {
     _versionId = id;

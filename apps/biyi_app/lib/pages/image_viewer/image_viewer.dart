@@ -79,7 +79,7 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Text(
-                    "${_currentIndex + 1} / $itemCount",
+                    '${_currentIndex + 1} / $itemCount',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,

@@ -3,16 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PreferenceListItem extends StatelessWidget {
-  final EdgeInsets? padding;
-  final Widget? icon;
-  final Widget? title;
-  final Widget? summary;
-  final Widget? detailText;
-  final Widget? accessoryView;
-  final Widget? bottomView;
-  final bool disabled;
-  final VoidCallback? onTap;
-
   const PreferenceListItem({
     Key? key,
     this.padding,
@@ -26,10 +16,18 @@ class PreferenceListItem extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
+  final EdgeInsets? padding;
+  final Widget? icon;
+  final Widget? title;
+  final Widget? summary;
+  final Widget? detailText;
+  final Widget? accessoryView;
+  final Widget? bottomView;
+  final bool disabled;
+  final VoidCallback? onTap;
+
   _onTap() {
-    if (onTap != null) {
-      onTap!();
-    }
+    onTap?.call();
   }
 
   Widget buildDetailText(BuildContext context) {
@@ -125,10 +123,6 @@ class PreferenceListItem extends StatelessWidget {
 }
 
 class PreferenceListRadioItem<T> extends PreferenceListItem {
-  final T value;
-  final T groupValue;
-  final ValueChanged<T> onChanged;
-
   const PreferenceListRadioItem({
     Key? key,
     EdgeInsets? padding,
@@ -151,6 +145,9 @@ class PreferenceListRadioItem<T> extends PreferenceListItem {
           accessoryView: accessoryView,
           onTap: onTap,
         );
+  final T value;
+  final T groupValue;
+  final ValueChanged<T> onChanged;
 
   @override
   void _onTap() {
@@ -175,9 +172,6 @@ class PreferenceListRadioItem<T> extends PreferenceListItem {
 }
 
 class PreferenceListSwitchItem extends PreferenceListItem {
-  final bool value;
-  final ValueChanged<bool> onChanged;
-
   const PreferenceListSwitchItem({
     Key? key,
     Widget? icon,
@@ -197,6 +191,8 @@ class PreferenceListSwitchItem extends PreferenceListItem {
           accessoryView: accessoryView,
           onTap: onTap,
         );
+  final bool value;
+  final ValueChanged<bool> onChanged;
 
   @override
   void _onTap() {
@@ -224,12 +220,6 @@ class PreferenceListSwitchItem extends PreferenceListItem {
 }
 
 class PreferenceListTextFieldItem extends PreferenceListItem {
-  final TextEditingController? controller;
-  final String? placeholder;
-  final ValueChanged<String>? onChanged;
-  final VoidCallback? onEditingComplete;
-  final ValueChanged<String>? onSubmitted;
-
   const PreferenceListTextFieldItem({
     Key? key,
     Widget? icon,
@@ -250,6 +240,11 @@ class PreferenceListTextFieldItem extends PreferenceListItem {
           accessoryView: accessoryView,
           onTap: onTap,
         );
+  final TextEditingController? controller;
+  final String? placeholder;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onEditingComplete;
+  final ValueChanged<String>? onSubmitted;
 
   @override
   bool get disabled => true;

@@ -1,19 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:biyi_app/includes.dart';
 import 'package:shortid/shortid.dart';
 
-import '../../includes.dart';
-
 class DbData {
-  List<TranslationEngineConfig>? privateEngineList;
-  List<OcrEngineConfig>? privateOcrEngineList;
-  List<UserPreference>? preferenceList;
-  List<TranslationTarget>? translationTargetList;
-
-  List<TranslationEngineConfig> get engineList => [...?privateEngineList];
-  List<OcrEngineConfig> get ocrEngineList => [...?privateOcrEngineList];
-
   DbData({
     this.privateEngineList,
     this.privateOcrEngineList,
@@ -54,6 +45,14 @@ class DbData {
       translationTargetList: translationTargetList,
     );
   }
+
+  List<TranslationEngineConfig>? privateEngineList;
+  List<OcrEngineConfig>? privateOcrEngineList;
+  List<UserPreference>? preferenceList;
+  List<TranslationTarget>? translationTargetList;
+
+  List<TranslationEngineConfig> get engineList => [...?privateEngineList];
+  List<OcrEngineConfig> get ocrEngineList => [...?privateOcrEngineList];
 
   Map<String, dynamic> toJson() {
     return {

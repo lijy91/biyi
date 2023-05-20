@@ -1,8 +1,7 @@
 import 'dart:io';
 
+import 'package:biyi_app/includes.dart';
 import 'package:shortid/shortid.dart';
-
-import '../../includes.dart';
 
 Future<void> initDataIfNeed() async {
   final userDataDir = await getUserDataDirectory();
@@ -32,7 +31,7 @@ Future<void> initDataIfNeed() async {
   }
   final String jsonString = prettyJsonString(
     {
-      "timestamp": DateTime.now().millisecondsSinceEpoch,
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
     },
   );
   await file.writeAsString(jsonString);

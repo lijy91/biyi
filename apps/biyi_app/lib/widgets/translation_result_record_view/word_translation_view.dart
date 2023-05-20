@@ -1,14 +1,13 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class WordTranslationView extends StatefulWidget {
-  final TextTranslation wordTranslation;
 
   const WordTranslationView(
     this.wordTranslation, {
     Key? key,
   }) : super(key: key);
+  final TextTranslation wordTranslation;
 
   @override
   State<WordTranslationView> createState() => _WordTranslationViewState();

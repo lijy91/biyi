@@ -1,19 +1,18 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:shortid/shortid.dart';
 
-import '../../includes.dart';
-
 class OcrEngineCreateOrEditPage extends StatefulWidget {
-  final bool editable;
-  final String? ocrEngineType;
-  final OcrEngineConfig? ocrEngineConfig;
-
   const OcrEngineCreateOrEditPage({
     Key? key,
     this.editable = true,
     this.ocrEngineType,
     this.ocrEngineConfig,
   }) : super(key: key);
+
+  final bool editable;
+  final String? ocrEngineType;
+  final OcrEngineConfig? ocrEngineConfig;
 
   @override
   State<OcrEngineCreateOrEditPage> createState() =>

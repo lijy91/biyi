@@ -1,8 +1,4 @@
 class Result<T> {
-  int code;
-  T? data;
-  List<T>? items;
-
   Result({
     required this.code,
     this.data,
@@ -30,4 +26,8 @@ class Result<T> {
       items: items,
     );
   }
+
+  int code;
+  T? data;
+  List<T>? items;
 }

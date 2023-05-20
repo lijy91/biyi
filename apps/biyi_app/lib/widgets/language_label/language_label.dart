@@ -1,13 +1,7 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class LanguageLabel extends StatelessWidget {
-  final String language;
-  final double flagSize;
-  final Color? flagBorderColor;
-  final TextStyle? style;
-
   const LanguageLabel(
     this.language, {
     Key? key,
@@ -15,6 +9,11 @@ class LanguageLabel extends StatelessWidget {
     this.flagBorderColor,
     this.style,
   }) : super(key: key);
+
+  final String language;
+  final double flagSize;
+  final Color? flagBorderColor;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {

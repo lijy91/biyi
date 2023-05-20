@@ -1,16 +1,15 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../includes.dart';
-
 class NewVersionFoundBanner extends StatelessWidget {
-  final Version latestVersion;
-
   const NewVersionFoundBanner({
     Key? key,
     required this.latestVersion,
   }) : super(key: key);
+
+  final Version latestVersion;
 
   @override
   Widget build(BuildContext context) {

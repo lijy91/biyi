@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CustomImage extends StatelessWidget {
-  final String url;
-  final double? width;
-  final double? height;
-  final BoxFit? fit;
-
   const CustomImage(
     this.url, {
     Key? key,
@@ -13,6 +8,11 @@ class CustomImage extends StatelessWidget {
     this.height,
     this.fit,
   }) : super(key: key);
+
+  final String url;
+  final double? width;
+  final double? height;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {

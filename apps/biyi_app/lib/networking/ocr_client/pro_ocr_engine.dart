@@ -1,11 +1,11 @@
-import '../../includes.dart';
+import 'package:biyi_app/includes.dart';
 
 class ProOcrEngine extends OcrEngine {
-  OcrEngineConfig config;
-
   ProOcrEngine(
     this.config,
   ) : super(identifier: config.identifier, option: config.option);
+
+  OcrEngineConfig config;
 
   @override
   Future<RecognizeTextResponse> recognizeText(RecognizeTextRequest request) {

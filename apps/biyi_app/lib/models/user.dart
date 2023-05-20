@@ -1,28 +1,11 @@
 import 'dart:convert';
 
+import 'package:biyi_app/models/session.dart';
+import 'package:biyi_app/models/user_preference.dart';
+import 'package:biyi_app/models/user_property.dart';
 import 'package:crypto/crypto.dart';
 
-import 'session.dart';
-import 'user_preference.dart';
-import 'user_property.dart';
-
 class User {
-  int id;
-  String? name;
-  String? username;
-  String? email;
-  List<UserPreference> preferences;
-  List<UserProperty> properties;
-  Session? lastSession;
-
-  String get avatarUrl {
-    String md5Value =
-        md5.convert(utf8.encode((email ?? '').toLowerCase().trim())).toString();
-    return "https://dn-qiniu-avatar.qbox.me/avatar/$md5Value";
-  }
-
-  bool get isLocalUser => id == -1;
-
   User({
     required this.id,
     this.name,
@@ -61,6 +44,21 @@ class User {
           : null,
     );
   }
+  int id;
+  String? name;
+  String? username;
+  String? email;
+  List<UserPreference> preferences;
+  List<UserProperty> properties;
+  Session? lastSession;
+
+  String get avatarUrl {
+    String md5Value =
+        md5.convert(utf8.encode((email ?? '').toLowerCase().trim())).toString();
+    return 'https://dn-qiniu-avatar.qbox.me/avatar/$md5Value';
+  }
+
+  bool get isLocalUser => id == -1;
 
   Map<String, dynamic> toJson() {
     return {

@@ -1,8 +1,4 @@
 class UserProperty {
-  String? key;
-  String? type;
-  String? value;
-
   UserProperty({
     this.key,
     this.type,
@@ -16,6 +12,10 @@ class UserProperty {
       value: json['value'],
     );
   }
+
+  String? key;
+  String? type;
+  String? value;
 
   Map<String, dynamic> toJson() {
     return {

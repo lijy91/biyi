@@ -1,6 +1,5 @@
+import 'package:biyi_app/includes.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
-
-import '../../includes.dart';
 
 abstract mixin class ShortcutListener {
   void onShortcutKeyDownShowOrHide();

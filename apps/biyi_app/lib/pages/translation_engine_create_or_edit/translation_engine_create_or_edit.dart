@@ -1,8 +1,7 @@
+import 'package:biyi_app/includes.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:shortid/shortid.dart';
-
-import '../../includes.dart';
 
 const List<String> _kAllScopes = [
   kScopeDetectLanguage,
@@ -11,16 +10,16 @@ const List<String> _kAllScopes = [
 ];
 
 class TranslationEngineCreateOrEditPage extends StatefulWidget {
-  final bool editable;
-  final String? engineType;
-  final TranslationEngineConfig? engineConfig;
-
   const TranslationEngineCreateOrEditPage({
     Key? key,
     this.editable = true,
     this.engineType,
     this.engineConfig,
   }) : super(key: key);
+
+  final bool editable;
+  final String? engineType;
+  final TranslationEngineConfig? engineConfig;
 
   @override
   State<TranslationEngineCreateOrEditPage> createState() =>

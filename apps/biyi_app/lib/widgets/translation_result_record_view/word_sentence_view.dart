@@ -1,14 +1,13 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class WordSentenceView extends StatelessWidget {
-  final WordSentence wordSentence;
-
   const WordSentenceView(
     this.wordSentence, {
     Key? key,
   }) : super(key: key);
+
+  final WordSentence wordSentence;
 
   @override
   Widget build(BuildContext context) {

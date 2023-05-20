@@ -1,6 +1,5 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
-
-import '../../../includes.dart';
 
 class SettingExtractTextPage extends StatefulWidget {
   const SettingExtractTextPage({Key? key}) : super(key: key);

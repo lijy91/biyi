@@ -1,11 +1,10 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../../includes.dart';
-
 class DesktopSettingsPage extends StatefulWidget {
-  final VoidCallback? onDismiss;
-
   const DesktopSettingsPage({Key? key, this.onDismiss}) : super(key: key);
+
+  final VoidCallback? onDismiss;
 
   @override
   State<StatefulWidget> createState() => _DesktopSettingsPageState();

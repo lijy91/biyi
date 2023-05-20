@@ -1,16 +1,15 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../../includes.dart';
-
 class TranslationEngineChooserPage extends StatefulWidget {
-  final TranslationEngineConfig? initialEngineConfig;
-  final ValueChanged<TranslationEngineConfig>? onChoosed;
-
   const TranslationEngineChooserPage({
     Key? key,
     this.initialEngineConfig,
     this.onChoosed,
   }) : super(key: key);
+
+  final TranslationEngineConfig? initialEngineConfig;
+  final ValueChanged<TranslationEngineConfig>? onChoosed;
 
   @override
   State<StatefulWidget> createState() => _TranslationEngineChooserPageState();

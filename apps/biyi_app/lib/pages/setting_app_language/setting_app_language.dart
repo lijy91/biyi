@@ -1,14 +1,13 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class SettingAppLanguagePage extends StatefulWidget {
-  final String? initialLanguage;
-
   const SettingAppLanguagePage({
     Key? key,
     this.initialLanguage,
   }) : super(key: key);
+
+  final String? initialLanguage;
 
   @override
   State<StatefulWidget> createState() => _SettingAppLanguagePageState();

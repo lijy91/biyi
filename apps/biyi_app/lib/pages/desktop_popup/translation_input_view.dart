@@ -1,14 +1,29 @@
 import 'dart:ui';
 
+import 'package:biyi_app/includes.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:screen_capturer/screen_capturer.dart';
 
-import '../../../includes.dart';
-
 class TranslationInputView extends StatelessWidget {
+  const TranslationInputView({
+    Key? key,
+    required this.focusNode,
+    required this.controller,
+    required this.onChanged,
+    this.capturedData,
+    required this.isTextDetecting,
+    required this.translationMode,
+    required this.onTranslationModeChanged,
+    required this.inputSetting,
+    required this.onClickExtractTextFromScreenCapture,
+    required this.onClickExtractTextFromClipboard,
+    required this.onButtonTappedClear,
+    required this.onButtonTappedTrans,
+  }) : super(key: key);
+
   final FocusNode focusNode;
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
@@ -25,22 +40,6 @@ class TranslationInputView extends StatelessWidget {
 
   final VoidCallback onButtonTappedClear;
   final VoidCallback onButtonTappedTrans;
-
-  const TranslationInputView({
-    Key? key,
-    required this.focusNode,
-    required this.controller,
-    required this.onChanged,
-    this.capturedData,
-    required this.isTextDetecting,
-    required this.translationMode,
-    required this.onTranslationModeChanged,
-    required this.inputSetting,
-    required this.onClickExtractTextFromScreenCapture,
-    required this.onClickExtractTextFromClipboard,
-    required this.onButtonTappedClear,
-    required this.onButtonTappedTrans,
-  }) : super(key: key);
 
   final bool isAddedToVocabulary = true;
 

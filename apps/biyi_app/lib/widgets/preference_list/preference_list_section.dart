@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
 class PreferenceListSection extends StatelessWidget {
-  final Widget? leading;
-  final Widget? title;
-  final Widget? description;
-  final List<Widget> children;
-
   const PreferenceListSection({
     Key? key,
     this.leading,
@@ -13,6 +8,11 @@ class PreferenceListSection extends StatelessWidget {
     this.description,
     required this.children,
   }) : super(key: key);
+
+  final Widget? leading;
+  final Widget? title;
+  final Widget? description;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {

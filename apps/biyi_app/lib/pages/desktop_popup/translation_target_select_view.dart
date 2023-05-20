@@ -1,19 +1,18 @@
 import 'dart:math' as math;
 
+import 'package:biyi_app/includes.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../../../includes.dart';
-
 class _AvailableLanguageSelector extends StatelessWidget {
-  final String value;
-  final ValueChanged<String> onChanged;
-
   const _AvailableLanguageSelector({
     Key? key,
     required this.value,
     required this.onChanged,
   }) : super(key: key);
+
+  final String value;
+  final ValueChanged<String> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +63,6 @@ class _AvailableLanguageSelector extends StatelessWidget {
 }
 
 class TranslationTargetSelectView extends StatefulWidget {
-  // final Key viewKey;
-  final String translationMode;
-  final bool isShowSourceLanguageSelector;
-  final bool isShowTargetLanguageSelector;
-  final ValueChanged<bool> onToggleShowSourceLanguageSelector;
-  final ValueChanged<bool> onToggleShowTargetLanguageSelector;
-  final String sourceLanguage;
-  final String targetLanguage;
-  final Function(String sourceLanguage, String targetLanguage) onChanged;
-
   const TranslationTargetSelectView({
     Key? key,
     // this.viewKey,
@@ -86,6 +75,15 @@ class TranslationTargetSelectView extends StatefulWidget {
     required this.targetLanguage,
     required this.onChanged,
   }) : super(key: key);
+  // final Key viewKey;
+  final String translationMode;
+  final bool isShowSourceLanguageSelector;
+  final bool isShowTargetLanguageSelector;
+  final ValueChanged<bool> onToggleShowSourceLanguageSelector;
+  final ValueChanged<bool> onToggleShowTargetLanguageSelector;
+  final String sourceLanguage;
+  final String targetLanguage;
+  final Function(String sourceLanguage, String targetLanguage) onChanged;
 
   @override
   State<TranslationTargetSelectView> createState() =>

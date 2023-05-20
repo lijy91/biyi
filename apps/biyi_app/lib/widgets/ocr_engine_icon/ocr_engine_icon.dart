@@ -1,16 +1,15 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class OcrEngineIcon extends StatelessWidget {
-  final String type;
-  final double size;
-
   const OcrEngineIcon(
     this.type, {
     Key? key,
     this.size = 22,
   }) : super(key: key);
+
+  final String type;
+  final double size;
 
   @override
   Widget build(BuildContext context) {

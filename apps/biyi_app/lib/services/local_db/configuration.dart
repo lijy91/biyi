@@ -1,10 +1,9 @@
 import 'dart:convert';
 
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
-
-import '../../includes.dart';
 
 class Configuration {
   String get translationMode {

@@ -1,19 +1,18 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../includes.dart';
 
 const kWordImageSize = 74.0;
 
 class WordImageView extends StatelessWidget {
-  final WordImage wordImage;
-  final VoidCallback? onPressed;
-
   const WordImageView(
     this.wordImage, {
     Key? key,
     this.onPressed,
   }) : super(key: key);
+
+  final WordImage wordImage;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

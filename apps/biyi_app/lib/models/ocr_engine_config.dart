@@ -1,21 +1,6 @@
-import '../includes.dart';
+import 'package:biyi_app/includes.dart';
 
 class OcrEngineConfig {
-  int position;
-  String? group;
-  final String identifier;
-  String type;
-  Map<String, dynamic> option;
-  bool disabled = false;
-
-  String get typeName {
-    String key = 'ocr_engine.$type';
-    if (key.tr() == key) {
-      return type;
-    }
-    return key.tr();
-  }
-
   OcrEngineConfig({
     this.position = -1,
     this.group,
@@ -34,6 +19,21 @@ class OcrEngineConfig {
       option: Map<String, dynamic>.from(json['option'] ?? {}),
       disabled: json['disabled'] ?? false,
     );
+  }
+
+  int position;
+  String? group;
+  final String identifier;
+  String type;
+  Map<String, dynamic> option;
+  bool disabled = false;
+
+  String get typeName {
+    String key = 'ocr_engine.$type';
+    if (key.tr() == key) {
+      return type;
+    }
+    return key.tr();
   }
 
   Map<String, dynamic> toJson() {

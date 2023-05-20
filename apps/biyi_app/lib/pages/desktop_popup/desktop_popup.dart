@@ -1,6 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:biyi_app/includes.dart';
+import 'package:biyi_app/pages/desktop_popup/limited_functionality_banner.dart';
+import 'package:biyi_app/pages/desktop_popup/new_version_found_banner.dart';
+import 'package:biyi_app/pages/desktop_popup/toolbar_item_always_on_top.dart';
+import 'package:biyi_app/pages/desktop_popup/toolbar_item_settings.dart';
+import 'package:biyi_app/pages/desktop_popup/translation_input_view.dart';
+import 'package:biyi_app/pages/desktop_popup/translation_results_view.dart';
+import 'package:biyi_app/pages/desktop_popup/translation_target_select_view.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -15,16 +23,6 @@ import 'package:shortid/shortid.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:window_manager/window_manager.dart';
-
-import '../../../includes.dart';
-
-import './limited_functionality_banner.dart';
-import './new_version_found_banner.dart';
-import './toolbar_item_always_on_top.dart';
-import './toolbar_item_settings.dart';
-import './translation_input_view.dart';
-import './translation_results_view.dart';
-import './translation_target_select_view.dart';
 
 const kMenuItemKeyQuickStartGuide = 'quick-start-guide';
 const kMenuItemKeyQuitApp = 'quit-app';
@@ -732,14 +730,14 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
                     _isAllowedScreenSelectionAccess) {
                   BotToast.showText(
                     text:
-                        "page_desktop_popup.limited_banner_msg_all_access_allowed"
+                        'page_desktop_popup.limited_banner_msg_all_access_allowed'
                             .tr(),
                     align: Alignment.center,
                   );
                 } else {
                   BotToast.showText(
                     text:
-                        "page_desktop_popup.limited_banner_msg_all_access_not_allowed"
+                        'page_desktop_popup.limited_banner_msg_all_access_not_allowed'
                             .tr(),
                     align: Alignment.center,
                   );

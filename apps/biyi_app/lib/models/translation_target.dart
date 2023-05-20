@@ -1,8 +1,4 @@
 class TranslationTarget {
-  String? id;
-  String? sourceLanguage;
-  String? targetLanguage;
-
   TranslationTarget({
     this.id,
     this.sourceLanguage,
@@ -16,6 +12,10 @@ class TranslationTarget {
       targetLanguage: json['targetLanguage'],
     );
   }
+
+  String? id;
+  String? sourceLanguage;
+  String? targetLanguage;
 
   Map<String, dynamic> toJson() {
     return {

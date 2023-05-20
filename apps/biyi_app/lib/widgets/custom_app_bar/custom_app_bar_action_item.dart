@@ -2,12 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarActionItem extends StatelessWidget {
-  final IconData? icon;
-  final String? text;
-  final Widget? child;
-  final EdgeInsets? padding;
-  final VoidCallback? onPressed;
-
   const CustomAppBarActionItem({
     Key? key,
     this.icon,
@@ -16,6 +10,12 @@ class CustomAppBarActionItem extends StatelessWidget {
     this.padding,
     this.onPressed,
   }) : super(key: key);
+
+  final IconData? icon;
+  final String? text;
+  final Widget? child;
+  final EdgeInsets? padding;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

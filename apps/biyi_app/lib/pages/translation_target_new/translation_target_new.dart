@@ -1,14 +1,13 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class TranslationTargetNewPage extends StatefulWidget {
-  final TranslationTarget? translationTarget;
-
   const TranslationTargetNewPage({
     Key? key,
     this.translationTarget,
   }) : super(key: key);
+
+  final TranslationTarget? translationTarget;
 
   @override
   State<TranslationTargetNewPage> createState() =>

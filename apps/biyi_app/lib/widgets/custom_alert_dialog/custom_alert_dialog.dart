@@ -1,6 +1,5 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
-
-import '../../includes.dart';
 
 const kDialogActionTypePrimary = 'primary';
 const kDialogActionTypeSecondary = 'secondary';
@@ -9,11 +8,6 @@ const kDialogActionTypeDanger = 'danger';
 
 // ignore: must_be_immutable
 class CustomDialogAction extends StatelessWidget {
-  String? type;
-  final bool processing;
-  final Widget child;
-  final VoidCallback? onPressed;
-
   CustomDialogAction({
     Key? key,
     this.type,
@@ -21,6 +15,11 @@ class CustomDialogAction extends StatelessWidget {
     required this.child,
     this.onPressed,
   }) : super(key: key);
+
+  String? type;
+  final bool processing;
+  final Widget child;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +38,15 @@ class CustomDialogAction extends StatelessWidget {
 }
 
 class CustomAlertDialog extends StatelessWidget {
-  final Widget? title;
-  final Widget? content;
-  final List<Widget>? actions;
-
   const CustomAlertDialog({
     Key? key,
     this.title,
     this.content,
     this.actions,
   }) : super(key: key);
+  final Widget? title;
+  final Widget? content;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {

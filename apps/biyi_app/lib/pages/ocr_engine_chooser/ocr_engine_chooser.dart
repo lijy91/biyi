@@ -1,16 +1,15 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../../includes.dart';
-
 class OcrEngineChooserPage extends StatefulWidget {
-  final OcrEngineConfig? initialOcrEngineConfig;
-  final ValueChanged<OcrEngineConfig>? onChoosed;
-
   const OcrEngineChooserPage({
     Key? key,
     this.initialOcrEngineConfig,
     this.onChoosed,
   }) : super(key: key);
+
+  final OcrEngineConfig? initialOcrEngineConfig;
+  final ValueChanged<OcrEngineConfig>? onChoosed;
 
   @override
   State<StatefulWidget> createState() => _OcrEngineChooserPageState();

@@ -1,16 +1,15 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class TranslationEngineTypeChooserPage extends StatefulWidget {
-  final String? engineType;
-  final ValueChanged<String>? onChoosed;
-
   const TranslationEngineTypeChooserPage({
     Key? key,
     this.engineType,
     this.onChoosed,
   }) : super(key: key);
+
+  final String? engineType;
+  final ValueChanged<String>? onChoosed;
 
   @override
   State<TranslationEngineTypeChooserPage> createState() =>
@@ -32,9 +31,7 @@ class _TranslationEngineTypeChooserPageState
   }
 
   void _handleClickOk() async {
-    if (widget.onChoosed != null) {
-      widget.onChoosed!(_type!);
-    }
+    widget.onChoosed?.call(_type!);
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {

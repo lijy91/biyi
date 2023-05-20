@@ -1,7 +1,6 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../../includes.dart';
 
 class SettingThemeModePage extends StatefulWidget {
   const SettingThemeModePage({

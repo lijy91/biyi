@@ -1,10 +1,11 @@
-import '../../includes.dart';
+import 'package:biyi_app/includes.dart';
 
 class ProTranslationEngine extends TranslationEngine {
-  TranslationEngineConfig config;
   ProTranslationEngine(
     this.config,
   ) : super(identifier: config.identifier, option: config.option);
+
+  TranslationEngineConfig config;
 
   @override
   List<String> get supportedScopes => config.supportedScopes;

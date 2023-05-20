@@ -1,4 +1,4 @@
-import 'package:biyi/includes.dart';
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,11 +7,6 @@ export './custom_app_bar_back_button.dart';
 export './custom_app_bar_close_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final Widget? leading;
-  final bool automaticallyImplyLeading;
-  final Widget? title;
-  final List<Widget>? actions;
-
   const CustomAppBar({
     Key? key,
     this.leading,
@@ -19,6 +14,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.actions,
   }) : super(key: key);
+
+  final Widget? leading;
+  final bool automaticallyImplyLeading;
+  final Widget? title;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {

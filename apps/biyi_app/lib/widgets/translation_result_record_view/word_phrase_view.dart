@@ -1,17 +1,16 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class WordPhraseView extends StatelessWidget {
-  final WordPhrase wordPhrase;
-  final ValueChanged<String> onTextTapped;
-
   const WordPhraseView(
     this.wordPhrase, {
     Key? key,
     required this.onTextTapped,
   }) : super(key: key);
+
+  final WordPhrase wordPhrase;
+  final ValueChanged<String> onTextTapped;
 
   @override
   Widget build(BuildContext context) {

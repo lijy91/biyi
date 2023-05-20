@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarCloseButton extends StatelessWidget {
-  final VoidCallback? onPressed;
-
   const CustomAppBarCloseButton({
     Key? key,
     this.onPressed,
   }) : super(key: key);
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

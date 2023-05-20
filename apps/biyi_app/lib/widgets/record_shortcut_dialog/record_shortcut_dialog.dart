@@ -1,15 +1,14 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 
-import '../../includes.dart';
-
 class RecordHotKeyDialog extends StatefulWidget {
-  final ValueChanged<HotKey> onHotKeyRecorded;
-
   const RecordHotKeyDialog({
     Key? key,
     required this.onHotKeyRecorded,
   }) : super(key: key);
+
+  final ValueChanged<HotKey> onHotKeyRecorded;
 
   @override
   State<RecordHotKeyDialog> createState() => _RecordHotKeyDialogState();

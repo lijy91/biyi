@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:rise_ui/rise_ui.dart' as rise_ui;
+import 'package:biyi_app/includes.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/foundation.dart';
@@ -8,9 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:protocol_handler/protocol_handler.dart';
+import 'package:rise_ui/rise_ui.dart' as rise_ui;
 import 'package:window_manager/window_manager.dart';
-
-import './includes.dart';
 
 Future<void> _ensureInitialized() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -50,20 +50,6 @@ const Map<String, ThemeMode> kKnownThemeModes = <String, ThemeMode>{
 };
 
 class UserPreference {
-  String? key;
-  String? type;
-  String? value;
-
-  int? get intValue {
-    if (type != kPreferenceTypeInt) return null;
-    return int.parse(value!);
-  }
-
-  bool? get boolValue {
-    if (type != kPreferenceTypeBool) return null;
-    return value == 'true';
-  }
-
   UserPreference({
     this.key,
     this.type,
@@ -76,6 +62,20 @@ class UserPreference {
       type: json['type'],
       value: json['value'],
     );
+  }
+
+  String? key;
+  String? type;
+  String? value;
+
+  int? get intValue {
+    if (type != kPreferenceTypeInt) return null;
+    return int.parse(value!);
+  }
+
+  bool? get boolValue {
+    if (type != kPreferenceTypeBool) return null;
+    return value == 'true';
   }
 
   Map<String, dynamic> toJson() {

@@ -1,14 +1,13 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class OcrEngineName extends StatelessWidget {
-  final OcrEngineConfig ocrEngineConfig;
-
   const OcrEngineName(
     this.ocrEngineConfig, {
     Key? key,
   }) : super(key: key);
+
+  final OcrEngineConfig ocrEngineConfig;
 
   @override
   Widget build(BuildContext context) {

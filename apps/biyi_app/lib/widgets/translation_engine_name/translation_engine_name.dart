@@ -1,14 +1,13 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class TranslationEngineName extends StatelessWidget {
-  final TranslationEngineConfig translationEngineConfig;
-
   const TranslationEngineName(
     this.translationEngineConfig, {
     Key? key,
   }) : super(key: key);
+
+  final TranslationEngineConfig translationEngineConfig;
 
   @override
   Widget build(BuildContext context) {

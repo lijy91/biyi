@@ -1,21 +1,20 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:biyi_app/includes.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 const _kIconSize = 16.0;
 
 class SoundPlayButton extends StatefulWidget {
-  final String audioUrl;
-
   const SoundPlayButton({
     Key? key,
     required this.audioUrl,
   }) : super(key: key);
+
+  final String audioUrl;
 
   @override
   State<SoundPlayButton> createState() => _SoundPlayButtonState();

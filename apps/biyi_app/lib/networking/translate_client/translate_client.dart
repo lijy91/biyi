@@ -1,7 +1,7 @@
+import 'package:biyi_app/includes.dart';
+import 'package:biyi_app/networking/translate_client/pro_translation_engine.dart'
+    show ProTranslationEngine;
 export 'package:uni_translate/uni_translate.dart';
-
-import '../../includes.dart';
-import 'pro_translation_engine.dart';
 
 const kSupportedEngineTypes = [
   kEngineTypeBaidu,

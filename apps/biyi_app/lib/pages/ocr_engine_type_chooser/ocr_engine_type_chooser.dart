@@ -1,16 +1,15 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class OcrEngineTypeChooserPage extends StatefulWidget {
-  final String? engineType;
-  final ValueChanged<String>? onChoosed;
-
   const OcrEngineTypeChooserPage({
     Key? key,
     this.engineType,
     this.onChoosed,
   }) : super(key: key);
+
+  final String? engineType;
+  final ValueChanged<String>? onChoosed;
 
   @override
   State<OcrEngineTypeChooserPage> createState() =>
@@ -27,9 +26,7 @@ class _OcrEngineTypeChooserPageState extends State<OcrEngineTypeChooserPage> {
   }
 
   void _handleClickOk() async {
-    if (widget.onChoosed != null) {
-      widget.onChoosed!(_type!);
-    }
+    widget.onChoosed?.call(_type!);
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {

@@ -1,3 +1,9 @@
+import 'package:biyi_app/includes.dart';
+import 'package:biyi_app/widgets/translation_result_record_view/translation_engine_tag.dart';
+import 'package:biyi_app/widgets/translation_result_record_view/word_image_view.dart';
+import 'package:biyi_app/widgets/translation_result_record_view/word_pronunciation_view.dart';
+import 'package:biyi_app/widgets/translation_result_record_view/word_tag_view.dart';
+import 'package:biyi_app/widgets/translation_result_record_view/word_translation_view.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -5,27 +11,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../includes.dart';
-
-import 'translation_engine_tag.dart';
-import 'word_image_view.dart';
-// import 'word_phrase_view.dart';
-import 'word_pronunciation_view.dart';
-// import 'word_sentence_view.dart';
-import 'word_tag_view.dart';
-import 'word_translation_view.dart';
-
 class TranslationResultRecordView extends StatelessWidget {
-  final TranslationResult translationResult;
-  final TranslationResultRecord translationResultRecord;
-  final ValueChanged<String> onTextTapped;
-
   const TranslationResultRecordView({
     Key? key,
     required this.translationResult,
     required this.translationResultRecord,
     required this.onTextTapped,
   }) : super(key: key);
+
+  final TranslationResult translationResult;
+  final TranslationResultRecord translationResultRecord;
+  final ValueChanged<String> onTextTapped;
 
   Configuration get _configuration => localDb.configuration;
 

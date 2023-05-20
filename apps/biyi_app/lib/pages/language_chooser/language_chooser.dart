@@ -1,16 +1,15 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class LanguageChooserPage extends StatefulWidget {
-  final String? initialLanguage;
-  final ValueChanged<String>? onChoosed;
-
   const LanguageChooserPage({
     Key? key,
     this.initialLanguage,
     this.onChoosed,
   }) : super(key: key);
+
+  final String? initialLanguage;
+  final ValueChanged<String>? onChoosed;
 
   @override
   State<StatefulWidget> createState() => _LanguageChooserPageState();
@@ -26,9 +25,7 @@ class _LanguageChooserPageState extends State<LanguageChooserPage> {
   }
 
   void _handleClickOk() async {
-    if (widget.onChoosed != null) {
-      widget.onChoosed!(_language!);
-    }
+    widget.onChoosed?.call(_language!);
 
     Navigator.of(context).pop();
   }

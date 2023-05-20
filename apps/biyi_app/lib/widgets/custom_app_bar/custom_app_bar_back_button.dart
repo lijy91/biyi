@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBarBackButton extends StatelessWidget {
-  final VoidCallback? onPressed;
-
   const CustomAppBarBackButton({
     Key? key,
     this.onPressed,
   }) : super(key: key);
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

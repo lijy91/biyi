@@ -1,12 +1,7 @@
-import './translation_result_record.dart';
-import './translation_target.dart';
+import 'package:biyi_app/models/translation_result_record.dart';
+import 'package:biyi_app/models/translation_target.dart';
 
 class TranslationResult {
-  String? id;
-  TranslationTarget? translationTarget;
-  List<TranslationResultRecord>? translationResultRecordList;
-  List<String>? unsupportedEngineIdList;
-
   TranslationResult({
     this.id,
     this.translationTarget,
@@ -33,6 +28,11 @@ class TranslationResult {
       ),
     );
   }
+
+  String? id;
+  TranslationTarget? translationTarget;
+  List<TranslationResultRecord>? translationResultRecordList;
+  List<String>? unsupportedEngineIdList;
 
   Map<String, dynamic> toJson() {
     return {

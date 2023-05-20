@@ -1,14 +1,13 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
-import '../../includes.dart';
-
 class WordPronunciationView extends StatelessWidget {
-  final WordPronunciation wordPronunciation;
-
   const WordPronunciationView(
     this.wordPronunciation, {
     Key? key,
   }) : super(key: key);
+
+  final WordPronunciation wordPronunciation;
 
   @override
   Widget build(BuildContext context) {

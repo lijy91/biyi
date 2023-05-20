@@ -1,18 +1,8 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
-import '../../../includes.dart';
-
 class TranslationResultsView extends StatelessWidget {
-  final Key viewKey;
-  final ScrollController controller;
-  final String translationMode;
-  final bool querySubmitted;
-  final String text;
-  final String? textDetectedLanguage;
-  final List<TranslationResult> translationResultList;
-  final ValueChanged<String> onTextTapped;
-
   const TranslationResultsView({
     Key? key,
     required this.viewKey,
@@ -24,6 +14,15 @@ class TranslationResultsView extends StatelessWidget {
     required this.translationResultList,
     required this.onTextTapped,
   }) : super(key: key);
+
+  final Key viewKey;
+  final ScrollController controller;
+  final String translationMode;
+  final bool querySubmitted;
+  final String text;
+  final String? textDetectedLanguage;
+  final List<TranslationResult> translationResultList;
+  final ValueChanged<String> onTextTapped;
 
   Widget _buildNoMatchingTranslationTarget(BuildContext context) {
     return Container(

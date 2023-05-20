@@ -1,14 +1,13 @@
 import 'dart:async';
+
+import 'package:biyi_app/includes.dart';
 import 'package:dio/dio.dart';
 
-import '../../../includes.dart';
-
 class OcrEnginesApi {
+  OcrEnginesApi(this._http);
   final Dio _http;
 
   String? _ocrEngineId;
-
-  OcrEnginesApi(this._http);
 
   void setOcrEngineId(String? id) {
     _ocrEngineId = id;

@@ -1,17 +1,16 @@
 import 'dart:io';
 
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../includes.dart';
-
 class SettingsPage extends StatefulWidget {
-  final VoidCallback? onDismiss;
-
   const SettingsPage({Key? key, this.onDismiss}) : super(key: key);
+
+  final VoidCallback? onDismiss;
 
   @override
   State<StatefulWidget> createState() => _SettingsPageState();

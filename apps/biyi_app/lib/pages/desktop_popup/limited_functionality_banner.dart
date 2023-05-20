@@ -1,3 +1,4 @@
+import 'package:biyi_app/includes.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,14 +8,7 @@ import 'package:screen_capturer/screen_capturer.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../includes.dart';
-
 class _AllowAccessListItem extends StatelessWidget {
-  final String title;
-  final bool allowed;
-  final VoidCallback? onTappedTryAllow;
-  final VoidCallback? onTappedGoSettings;
-
   const _AllowAccessListItem({
     Key? key,
     required this.title,
@@ -22,6 +16,11 @@ class _AllowAccessListItem extends StatelessWidget {
     this.onTappedTryAllow,
     this.onTappedGoSettings,
   }) : super(key: key);
+
+  final String title;
+  final bool allowed;
+  final VoidCallback? onTappedTryAllow;
+  final VoidCallback? onTappedGoSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +63,15 @@ class _AllowAccessListItem extends StatelessWidget {
 }
 
 class LimitedFunctionalityBanner extends StatelessWidget {
-  final bool isAllowedScreenCaptureAccess;
-  final bool isAllowedScreenSelectionAccess;
-  final VoidCallback onTappedRecheckIsAllowedAllAccess;
-
   const LimitedFunctionalityBanner({
     Key? key,
     required this.isAllowedScreenCaptureAccess,
     required this.isAllowedScreenSelectionAccess,
     required this.onTappedRecheckIsAllowedAllAccess,
   }) : super(key: key);
+  final bool isAllowedScreenCaptureAccess;
+  final bool isAllowedScreenSelectionAccess;
+  final VoidCallback onTappedRecheckIsAllowedAllAccess;
 
   bool get _isAllowedAllAccess =>
       isAllowedScreenCaptureAccess && isAllowedScreenSelectionAccess;

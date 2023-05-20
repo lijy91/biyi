@@ -1,17 +1,17 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/material.dart';
 // import 'package:page_transition/page_transition.dart';
 // import 'package:window_manager/window_manager.dart';
 
-import '../../includes.dart';
+import 'package:biyi_app/includes.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/material.dart';
 
 class ToolbarItemSettings extends StatefulWidget {
-  final VoidCallback onSubPageDismissed;
-
   const ToolbarItemSettings({
     Key? key,
     required this.onSubPageDismissed,
   }) : super(key: key);
+
+  final VoidCallback onSubPageDismissed;
 
   @override
   State<ToolbarItemSettings> createState() => _ToolbarItemSettingsState();

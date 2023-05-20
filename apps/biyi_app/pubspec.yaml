@@ -1,4 +1,4 @@
-name: biyi
+name: biyi_app
 description: A convenient translation and dictionary app written in Flutter.
 publish_to: "none"
 version: 0.5.0+17
@@ -54,20 +54,15 @@ dependencies:
 
 dev_dependencies:
   dependency_validator: ^3.0.0
-  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
   msix: any
 
 dependency_overrides:
-  uni_ocr:
-    path: ../../../uni_ocr/packages/uni_ocr
-  uni_ocr_client:
-    path: ../../../uni_ocr/packages/uni_ocr_client
-  uni_translate:
-    path: ../../../uni_translate/packages/uni_translate
-  uni_translate_client:
-    path: ../../../uni_translate/packages/uni_translate_client
+  ocr_engine_builtin:
+    path: ../../../uni_ocr/packages/ocr_engine_builtin
+  ocr_engine_youdao:
+    path: ../../../uni_ocr/packages/ocr_engine_youdao
   translation_engine_baidu:
     path: ../../../uni_translate/packages/translation_engine_baidu
   translation_engine_caiyun:
@@ -82,10 +77,14 @@ dependency_overrides:
     path: ../../../uni_translate/packages/translation_engine_tencent
   translation_engine_youdao:
     path: ../../../uni_translate/packages/translation_engine_youdao
-  ocr_engine_builtin:
-    path: ../../../uni_ocr/packages/ocr_engine_builtin
-  ocr_engine_youdao:
-    path: ../../../uni_ocr/packages/ocr_engine_youdao
+  uni_ocr:
+    path: ../../../uni_ocr/packages/uni_ocr
+  uni_ocr_client:
+    path: ../../../uni_ocr/packages/uni_ocr_client
+  uni_translate:
+    path: ../../../uni_translate/packages/uni_translate
+  uni_translate_client:
+    path: ../../../uni_translate/packages/uni_translate_client
 
 flutter:
   uses-material-design: false

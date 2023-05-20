@@ -1,6 +1,5 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
-
-import '../../../includes.dart';
 
 class TabVocabularyScene extends StatelessWidget {
   const TabVocabularyScene({Key? key}) : super(key: key);

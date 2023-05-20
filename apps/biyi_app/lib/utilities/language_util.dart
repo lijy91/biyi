@@ -1,6 +1,5 @@
+import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
-
-import '../includes.dart';
 
 const kLanguageDE = 'de';
 const kLanguageEN = 'en';

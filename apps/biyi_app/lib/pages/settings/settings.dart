@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:launch_at_startup/launch_at_startup.dart';
+// import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,7 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return (localDb.ocrEngines.list(where: (e) => !e.disabled));
   }
 
-  bool _launchAtStartupIsEnabled = false;
+  // bool _launchAtStartupIsEnabled = false;
 
   @override
   void initState() {
@@ -49,9 +49,9 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _init() async {
-    if (kIsMacOS || kIsWindows) {
-      _launchAtStartupIsEnabled = await launchAtStartup.isEnabled();
-    }
+    // if (kIsMacOS || kIsWindows) {
+    //   _launchAtStartupIsEnabled = await launchAtStartup.isEnabled();
+    // }
     setState(() {});
   }
 
@@ -162,24 +162,24 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ],
         ),
-        PreferenceListSection(
-          title: Text(t('pref_section_title_advanced')),
-          children: [
-            PreferenceListSwitchItem(
-              value: _launchAtStartupIsEnabled,
-              title: Text(t('pref_item_title_launch_at_startup')),
-              onChanged: (newValue) async {
-                if (newValue) {
-                  LaunchAtStartup.instance.enable();
-                } else {
-                  LaunchAtStartup.instance.disable();
-                }
-                _launchAtStartupIsEnabled = await launchAtStartup.isEnabled();
-                setState(() {});
-              },
-            ),
-          ],
-        ),
+        // PreferenceListSection(
+        //   title: Text(t('pref_section_title_advanced')),
+        //   children: [
+        //     PreferenceListSwitchItem(
+        //       value: _launchAtStartupIsEnabled,
+        //       title: Text(t('pref_item_title_launch_at_startup')),
+        //       onChanged: (newValue) async {
+        //         if (newValue) {
+        //           LaunchAtStartup.instance.enable();
+        //         } else {
+        //           LaunchAtStartup.instance.disable();
+        //         }
+        //         _launchAtStartupIsEnabled = await launchAtStartup.isEnabled();
+        //         setState(() {});
+        //       },
+        //     ),
+        //   ],
+        // ),
         PreferenceListSection(
           title: Text(t('pref_section_title_service_integration')),
           children: [

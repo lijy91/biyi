@@ -4,7 +4,7 @@ publish_to: "none"
 version: 0.5.0+17
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   audioplayers: ^4.0.1
@@ -26,7 +26,7 @@ dependencies:
   launch_at_startup: ^0.2.2
   ocr_engine_builtin: ^0.1.1
   ocr_engine_youdao: ^0.1.1
-  package_info_plus: ^3.0.2
+  package_info_plus: ^4.0.1
   page_transition: ^2.0.9
   path: ^1.8.3
   path_provider: ^2.0.15
@@ -34,10 +34,12 @@ dependencies:
   protocol_handler: ^0.1.5
   reorderables: ^0.6.0
   rise_ui:
-    path: ../../../../leanflutter/rise_ui/packages/rise_ui
+    git:
+      url: https://github.com/leanflutter/rise_ui.git
+      path: packages/rise_ui
   screen_capturer: ^0.1.4
   screen_retriever: ^0.1.6
-  screen_text_extractor: ^0.1.2
+  screen_text_extractor: ^0.1.3
   shelf: ^1.4.1
   shelf_router: ^1.1.4
   shortid: ^0.1.2

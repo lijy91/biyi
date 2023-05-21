@@ -58,7 +58,7 @@ dependencies:
   uni_translate_client: ^0.1.2
   url_launcher: ^6.1.11
   vclibs: ^0.1.0
-  window_manager: ^0.3.2
+  window_manager: ^0.3.4
 
 dev_dependencies:
   dependency_validator: ^3.0.0

@@ -170,12 +170,18 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     await _initTrayIcon();
     await Future.delayed(const Duration(milliseconds: 100));
     windowManager.waitUntilReadyToShow().then((_) async {
+      await windowManager.setTitleBarStyle(
+        TitleBarStyle.hidden,
+        windowButtonVisibility: false,
+      );
+      await windowManager.setSkipTaskbar(true);
+      if (kIsMacOS) {
+        await windowManager.setVisibleOnAllWorkspaces(
+          true,
+          visibleOnFullScreen: true,
+        );
+      }
       if (kIsLinux || kIsWindows) {
-        if (kIsLinux) {
-          await windowManager.setAsFrameless();
-        } else {
-          await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
-        }
         Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
         Size windowSize = await windowManager.getSize();
         _lastShownPosition = Offset(
@@ -184,8 +190,6 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         );
         await windowManager.setPosition(_lastShownPosition);
       }
-
-      await windowManager.setSkipTaskbar(true);
       await Future.delayed(const Duration(milliseconds: 100));
       await _windowShow(
         isShowBelowTray: kIsMacOS,

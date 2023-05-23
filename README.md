@@ -73,12 +73,13 @@ $ cd ~/biyidev/biyi
 4. Install dependencies
 
 ```
-$ flutter pub get
+$ melos bs
 ```
 
 ### Run app
 
 ```
+$ cd apps/biyi_app
 $ flutter run -d linux / macos / windows
 ```
 

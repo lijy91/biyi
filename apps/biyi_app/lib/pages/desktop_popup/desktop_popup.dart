@@ -169,12 +169,13 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
     // 初始化托盘图标
     await _initTrayIcon();
     await Future.delayed(const Duration(milliseconds: 100));
-    windowManager.waitUntilReadyToShow().then((_) async {
-      await windowManager.setTitleBarStyle(
-        TitleBarStyle.hidden,
-        windowButtonVisibility: false,
-      );
-      await windowManager.setSkipTaskbar(true);
+    WindowOptions windowOptions = WindowOptions(
+      titleBarStyle: TitleBarStyle.hidden,
+      windowButtonVisibility: false,
+      skipTaskbar: true,
+      backgroundColor: Colors.transparent,
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
       if (kIsMacOS) {
         await windowManager.setVisibleOnAllWorkspaces(
           true,

@@ -5,9 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
   clipboard_watcher
-  contextual_menu
   hotkey_manager
-  platform_device_id_linux
   screen_retriever
   screen_text_extractor
   tray_manager

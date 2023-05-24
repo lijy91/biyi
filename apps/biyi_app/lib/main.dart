@@ -102,7 +102,6 @@ class _MyAppState extends State<MyApp> with LocalDbListener {
 
   @override
   Widget build(BuildContext context) {
-    final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     final botToastBuilder = BotToastInit();
 
     return MaterialApp(
@@ -115,7 +114,13 @@ class _MyAppState extends State<MyApp> with LocalDbListener {
         if (kIsLinux || kIsWindows) {
           child = Stack(
             children: [
-              virtualWindowFrameBuilder(context, child),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(7),
+                  topRight: Radius.circular(7),
+                ),
+                child: child,
+              ),
               const DragToMoveArea(
                 child: SizedBox(
                   width: double.infinity,

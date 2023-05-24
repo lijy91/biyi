@@ -6,10 +6,8 @@ list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   clipboard_watcher
   connectivity_plus_windows
-  contextual_menu
   hotkey_manager
   keypress_simulator
-  platform_device_id_windows
   protocol_handler
   screen_capturer
   screen_retriever

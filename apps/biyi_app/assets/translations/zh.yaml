@@ -126,6 +126,7 @@ engine:
   google: 谷歌翻译
   ibmwatson: IBMWatson
   iciba: 爱词霸
+  openai: OpenAI
   sogou: 搜狗翻译
   tencent: 腾讯翻译君
   youdao: 有道翻译

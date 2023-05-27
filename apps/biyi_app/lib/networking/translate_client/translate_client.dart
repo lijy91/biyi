@@ -1,7 +1,16 @@
-import 'package:biyi_app/includes.dart';
+import 'package:biyi_app/models/translation_engine_config.dart';
 import 'package:biyi_app/networking/translate_client/pro_translation_engine.dart'
     show ProTranslationEngine;
-export 'package:uni_translate/uni_translate.dart';
+import 'package:biyi_app/services/local_db/local_db.dart';
+import 'package:translation_engine_baidu/translation_engine_baidu.dart';
+import 'package:translation_engine_caiyun/translation_engine_caiyun.dart';
+import 'package:translation_engine_deepl/translation_engine_deepl.dart';
+import 'package:translation_engine_google/translation_engine_google.dart';
+import 'package:translation_engine_iciba/translation_engine_iciba.dart';
+import 'package:translation_engine_openai/translation_engine_openai.dart';
+import 'package:translation_engine_tencent/translation_engine_tencent.dart';
+import 'package:translation_engine_youdao/translation_engine_youdao.dart';
+import 'package:uni_translate_client/uni_translate_client.dart';
 
 const kSupportedEngineTypes = [
   kEngineTypeBaidu,
@@ -9,6 +18,7 @@ const kSupportedEngineTypes = [
   kEngineTypeDeepL,
   kEngineTypeGoogle,
   kEngineTypeIciba,
+  kEngineTypeOpenAI,
   kEngineTypeTencent,
   kEngineTypeYoudao,
 ];
@@ -19,6 +29,7 @@ final Map<String, List<String>> kKnownSupportedEngineOptionKeys = {
   kEngineTypeDeepL: DeepLTranslationEngine.optionKeys,
   kEngineTypeGoogle: GoogleTranslationEngine.optionKeys,
   kEngineTypeIciba: IcibaTranslationEngine.optionKeys,
+  kEngineTypeOpenAI: OpenAITranslationEngine.optionKeys,
   kEngineTypeTencent: TencentTranslationEngine.optionKeys,
   kEngineTypeYoudao: YoudaoTranslationEngine.optionKeys,
 };
@@ -52,6 +63,11 @@ TranslationEngine? createTranslationEngine(
         );
       case kEngineTypeIciba:
         return IcibaTranslationEngine(
+          identifier: engineConfig.identifier,
+          option: engineConfig.option,
+        );
+      case kEngineTypeOpenAI:
+        return OpenAITranslationEngine(
           identifier: engineConfig.identifier,
           option: engineConfig.option,
         );

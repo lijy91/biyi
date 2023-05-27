@@ -1,6 +1,7 @@
 import 'package:biyi_app/includes.dart';
 import 'package:biyi_app/networking/ocr_client/pro_ocr_engine.dart';
-export 'package:uni_ocr/uni_ocr.dart';
+import 'package:ocr_engine_builtin/ocr_engine_builtin.dart';
+import 'package:ocr_engine_youdao/ocr_engine_youdao.dart';
 
 final kDefaultBuiltInOcrEngine = BuiltInOcrEngine(
   identifier: 'builtin',

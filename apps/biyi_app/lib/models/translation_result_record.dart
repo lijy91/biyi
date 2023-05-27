@@ -1,4 +1,4 @@
-import 'package:uni_translate/uni_translate.dart';
+import 'package:uni_translate_client/uni_translate_client.dart';
 
 class TranslationResultRecord {
   TranslationResultRecord({

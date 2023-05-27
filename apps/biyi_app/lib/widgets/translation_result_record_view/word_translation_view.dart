@@ -2,7 +2,6 @@ import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
 class WordTranslationView extends StatefulWidget {
-
   const WordTranslationView(
     this.wordTranslation, {
     Key? key,

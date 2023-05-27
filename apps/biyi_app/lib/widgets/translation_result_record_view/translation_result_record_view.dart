@@ -1,15 +1,20 @@
 import 'package:biyi_app/includes.dart';
+import 'package:biyi_app/models/models.dart';
+import 'package:biyi_app/pages/pages.dart';
+import 'package:biyi_app/services/services.dart';
 import 'package:biyi_app/widgets/translation_result_record_view/translation_engine_tag.dart';
 import 'package:biyi_app/widgets/translation_result_record_view/word_image_view.dart';
 import 'package:biyi_app/widgets/translation_result_record_view/word_pronunciation_view.dart';
 import 'package:biyi_app/widgets/translation_result_record_view/word_tag_view.dart';
 import 'package:biyi_app/widgets/translation_result_record_view/word_translation_view.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:uni_translate_client/uni_translate_client.dart';
 
 class TranslationResultRecordView extends StatelessWidget {
   const TranslationResultRecordView({
@@ -29,6 +34,14 @@ class TranslationResultRecordView extends StatelessWidget {
     if (_isErrorOccurred) return false;
     return translationResultRecord.lookUpResponse == null &&
         translationResultRecord.translateResponse == null;
+  }
+
+  bool get _isGenerating {
+    if (_isErrorOccurred) return false;
+    final record = translationResultRecord;
+    return record.lookUpResponse?.generating ??
+        record.translateResponse?.generating ??
+        false;
   }
 
   bool get _isErrorOccurred {
@@ -143,7 +156,14 @@ class TranslationResultRecordView extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: SelectableText.rich(
             TextSpan(
-              children: [TextSpan(text: textTranslation.text)],
+              children: [
+                TextSpan(text: textTranslation.text),
+                if (_isGenerating)
+                  WidgetSpan(
+                    child: GeneratingCursor(),
+                    alignment: PlaceholderAlignment.middle,
+                  ),
+              ],
             ),
             style: textTheme.bodyMedium!.copyWith(
               height: 1.4,

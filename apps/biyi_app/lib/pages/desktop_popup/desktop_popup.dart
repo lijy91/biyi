@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:biyi_app/includes.dart';
+import 'package:biyi_app/models/models.dart';
+import 'package:biyi_app/networking/networking.dart';
 import 'package:biyi_app/pages/desktop_popup/limited_functionality_banner.dart';
 import 'package:biyi_app/pages/desktop_popup/new_version_found_banner.dart';
 import 'package:biyi_app/pages/desktop_popup/toolbar_item_always_on_top.dart';
@@ -9,8 +10,11 @@ import 'package:biyi_app/pages/desktop_popup/toolbar_item_settings.dart';
 import 'package:biyi_app/pages/desktop_popup/translation_input_view.dart';
 import 'package:biyi_app/pages/desktop_popup/translation_results_view.dart';
 import 'package:biyi_app/pages/desktop_popup/translation_target_select_view.dart';
+import 'package:biyi_app/services/services.dart';
+import 'package:biyi_app/utilities/utilities.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +25,8 @@ import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:shortid/shortid.dart';
 import 'package:tray_manager/tray_manager.dart';
+import 'package:uni_ocr_client/uni_ocr_client.dart';
+import 'package:uni_translate_client/uni_translate_client.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -196,6 +202,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         isShowBelowTray: kIsMacOS,
       );
     });
+    setState(() {});
   }
 
   Future<void> _initTrayIcon() async {
@@ -514,6 +521,12 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
               translateResponse = await translateClient //
                   .use(identifier)
                   .translate(translateRequest);
+              translateResponse.stream.listen(
+                (event) {
+                  setState(() {});
+                },
+                onDone: () {},
+              );
             } on UniTranslateClientError catch (error) {
               translateError = error;
             } catch (error) {

@@ -6,6 +6,7 @@ import 'package:biyi_app/services/local_db/init_data_if_need.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:ocr_engine_builtin/ocr_engine_builtin.dart';
 import 'package:path/path.dart' as path;
 
 export 'configuration.dart';

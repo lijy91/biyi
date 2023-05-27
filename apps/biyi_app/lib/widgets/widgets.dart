@@ -3,6 +3,7 @@ export './custom_alert_dialog/custom_alert_dialog.dart';
 export './custom_app_bar/custom_app_bar.dart';
 export './custom_button/custom_button.dart';
 export './custom_image/custom_image.dart';
+export './generating_cursor/generating_cursor.dart';
 export './language_flag_view/language_flag_view.dart';
 export './language_label/language_label.dart';
 export './modal_bottom_sheet_wrapped/modal_bottom_sheet_wrapped.dart';

@@ -333,7 +333,8 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         double newWindowHeight = toolbarViewHeight +
             bannersViewHeight +
             inputViewHeight +
-            resultsViewHeight;
+            resultsViewHeight +
+            (kIsWindows ? 5 : 0);
         Size oldSize = await windowManager.getSize();
         Size newSize = Size(
           oldSize.width,

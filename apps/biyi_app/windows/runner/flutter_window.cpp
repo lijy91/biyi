@@ -26,6 +26,11 @@ bool FlutterWindow::OnCreate() {
   }
   RegisterPlugins(flutter_controller_->engine());
   SetChildContent(flutter_controller_->view()->GetNativeWindow());
+
+  flutter_controller_->engine()->SetNextFrameCallback([&]() {
+    this->Show();
+  });
+
   return true;
 }
 
@@ -54,9 +59,6 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
   switch (message) {
     case WM_FONTCHANGE:
       flutter_controller_->engine()->ReloadSystemFonts();
-      break;
-    case WM_DWMCOLORIZATIONCOLORCHANGED:
-      flutter_controller_->engine()->ReloadPlatformBrightness();
       break;
   }
 

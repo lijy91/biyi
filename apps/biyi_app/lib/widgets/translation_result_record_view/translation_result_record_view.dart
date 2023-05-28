@@ -1,4 +1,3 @@
-import 'package:biyi_app/includes.dart';
 import 'package:biyi_app/models/models.dart';
 import 'package:biyi_app/pages/pages.dart';
 import 'package:biyi_app/services/services.dart';
@@ -7,6 +6,7 @@ import 'package:biyi_app/widgets/translation_result_record_view/word_image_view.
 import 'package:biyi_app/widgets/translation_result_record_view/word_pronunciation_view.dart';
 import 'package:biyi_app/widgets/translation_result_record_view/word_tag_view.dart';
 import 'package:biyi_app/widgets/translation_result_record_view/word_translation_view.dart';
+import 'package:biyi_app/widgets/widgets.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';

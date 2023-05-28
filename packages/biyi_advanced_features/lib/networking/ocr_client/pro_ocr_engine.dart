@@ -1,4 +1,5 @@
-import 'package:biyi_app/includes.dart';
+import 'package:biyi_advanced_features/models/models.dart';
+import 'package:uni_ocr_client/uni_ocr_client.dart';
 
 class ProOcrEngine extends OcrEngine {
   ProOcrEngine(
@@ -9,6 +10,6 @@ class ProOcrEngine extends OcrEngine {
 
   @override
   Future<RecognizeTextResponse> recognizeText(RecognizeTextRequest request) {
-    return apiClient.ocrEngine(identifier).recognizeText(request);
+    throw UnsupportedError('recognizeText');
   }
 }

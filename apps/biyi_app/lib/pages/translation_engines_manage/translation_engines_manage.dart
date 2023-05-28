@@ -1,3 +1,4 @@
+import 'package:biyi_advanced_features/biyi_advanced_features.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
@@ -52,6 +53,7 @@ class _TranslationEnginesManagePageState
   }
 
   Widget _buildListSectionProEngines(BuildContext context) {
+    if (_proEngineList.isEmpty) return Container();
     return PreferenceListSection(
       children: [
         for (TranslationEngineConfig item in _proEngineList)

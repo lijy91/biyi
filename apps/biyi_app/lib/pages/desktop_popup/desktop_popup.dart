@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:biyi_advanced_features/biyi_advanced_features.dart';
 import 'package:biyi_app/models/models.dart';
 import 'package:biyi_app/networking/networking.dart';
 import 'package:biyi_app/pages/desktop_popup/limited_functionality_banner.dart';

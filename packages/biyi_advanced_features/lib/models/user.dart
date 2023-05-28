@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:biyi_app/models/session.dart';
-import 'package:biyi_app/models/user_preference.dart';
-import 'package:biyi_app/models/user_property.dart';
+import 'package:biyi_advanced_features/models/user_preference.dart';
+import 'package:biyi_advanced_features/models/user_property.dart';
 import 'package:crypto/crypto.dart';
 
 class User {
@@ -13,7 +12,6 @@ class User {
     this.email,
     this.preferences = const [],
     this.properties = const [],
-    this.lastSession,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -39,9 +37,6 @@ class User {
       username: json['username'],
       preferences: preferences,
       properties: properties,
-      lastSession: json['last_session'] != null
-          ? Session.fromJson(json['last_session'])
-          : null,
     );
   }
   int id;
@@ -50,7 +45,6 @@ class User {
   String? email;
   List<UserPreference> preferences;
   List<UserProperty> properties;
-  Session? lastSession;
 
   String get avatarUrl {
     String md5Value =
@@ -68,7 +62,6 @@ class User {
       'username': username,
       'preferences': preferences.map((e) => e.toJson()).toList(),
       'properties': properties.map((e) => e.toJson()).toList(),
-      'last_session': lastSession?.toJson(),
     };
   }
 }

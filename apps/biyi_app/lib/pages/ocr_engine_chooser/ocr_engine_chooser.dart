@@ -1,3 +1,4 @@
+import 'package:biyi_advanced_features/biyi_advanced_features.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
@@ -46,22 +47,23 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
   Widget _buildBody(BuildContext context) {
     return PreferenceList(
       children: [
-        PreferenceListSection(
-          children: [
-            for (var ocrEngineConfig in _proOcrEngineList)
-              PreferenceListRadioItem<String>(
-                icon: OcrEngineIcon(ocrEngineConfig.type),
-                title: OcrEngineName(ocrEngineConfig),
-                value: ocrEngineConfig.identifier,
-                groupValue: _identifier ?? '',
-                onChanged: (newValue) {
-                  setState(() {
-                    _identifier = newValue;
-                  });
-                },
-              ),
-          ],
-        ),
+        if (_proOcrEngineList.isNotEmpty)
+          PreferenceListSection(
+            children: [
+              for (var ocrEngineConfig in _proOcrEngineList)
+                PreferenceListRadioItem<String>(
+                  icon: OcrEngineIcon(ocrEngineConfig.type),
+                  title: OcrEngineName(ocrEngineConfig),
+                  value: ocrEngineConfig.identifier,
+                  groupValue: _identifier ?? '',
+                  onChanged: (newValue) {
+                    setState(() {
+                      _identifier = newValue;
+                    });
+                  },
+                ),
+            ],
+          ),
         PreferenceListSection(
           title: Text(t('pref_section_title_private')),
           children: [

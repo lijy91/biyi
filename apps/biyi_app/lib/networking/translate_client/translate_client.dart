@@ -1,6 +1,4 @@
-import 'package:biyi_app/models/translation_engine_config.dart';
-import 'package:biyi_app/networking/translate_client/pro_translation_engine.dart'
-    show ProTranslationEngine;
+import 'package:biyi_advanced_features/biyi_advanced_features.dart';
 import 'package:biyi_app/services/local_db/local_db.dart';
 import 'package:translation_engine_baidu/translation_engine_baidu.dart';
 import 'package:translation_engine_caiyun/translation_engine_caiyun.dart';

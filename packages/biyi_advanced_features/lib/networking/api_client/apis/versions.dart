@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:biyi_app/includes.dart';
+import 'package:biyi_advanced_features/models/models.dart';
 import 'package:dio/dio.dart';
 
 class VersionsApi {

@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   audioplayers: ^4.0.1
+  biyi_advanced_features:
+    path: ../../packages/biyi_advanced_features
   bot_toast: ^4.0.3
   collection: ^1.17.1
   crypto: ^3.0.3
@@ -63,6 +65,10 @@ dev_dependencies:
   dependency_validator: ^3.0.0
   flutter_test:
     sdk: flutter
+
+# dependency_overrides: 
+#   biyi_advanced_features:
+#     path: ../../../biyi_advanced_features
 
 flutter:
   uses-material-design: false

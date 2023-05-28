@@ -1,3 +1,4 @@
+import 'package:biyi_advanced_features/biyi_advanced_features.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
@@ -50,6 +51,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
   }
 
   Widget _buildListSectionProEngines(BuildContext context) {
+    if (_proOcrEngineList.isEmpty) return Container();
     return PreferenceListSection(
       children: [
         for (OcrEngineConfig item in _proOcrEngineList)

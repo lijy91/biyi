@@ -1,13 +1,13 @@
-import 'package:biyi_app/networking/api_client/apis/engines.dart';
-import 'package:biyi_app/networking/api_client/apis/ocr_engines.dart';
-import 'package:biyi_app/networking/api_client/apis/versions.dart';
+import 'package:biyi_advanced_features/networking/api_client/apis/engines.dart';
+import 'package:biyi_advanced_features/networking/api_client/apis/ocr_engines.dart';
+import 'package:biyi_advanced_features/networking/api_client/apis/versions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class ApiClient {
   ApiClient._() {
     BaseOptions options = BaseOptions(
-      baseUrl: 'https://biyi-next-api.thecode.me',
+      baseUrl: 'https://biyi-api.thecode.me',
       connectTimeout: const Duration(seconds: 60),
       receiveTimeout: const Duration(seconds: 60),
       headers: {
@@ -24,8 +24,8 @@ class ApiClient {
       ));
     }
 
-    _enginesApi = EnginesApi(_http);
-    _ocrEnginesApi = OcrEnginesApi(_http);
+    _enginesApi = EnginesApi();
+    _ocrEnginesApi = OcrEnginesApi();
     _versionsApi = VersionsApi(_http);
   }
 
@@ -38,23 +38,9 @@ class ApiClient {
   late OcrEnginesApi _ocrEnginesApi;
   late VersionsApi _versionsApi;
 
-  void setDebug() {
-    _http.options.baseUrl = 'http://127.0.0.1:8080';
-  }
+  EnginesApi get engines => _enginesApi;
 
-  EnginesApi get engines => engine(null);
-
-  EnginesApi engine(String? id) {
-    _enginesApi.setEngineId(id);
-    return _enginesApi;
-  }
-
-  OcrEnginesApi get ocrEngines => ocrEngine(null);
-
-  OcrEnginesApi ocrEngine(String? id) {
-    _ocrEnginesApi.setOcrEngineId(id);
-    return _ocrEnginesApi;
-  }
+  OcrEnginesApi get ocrEngines => _ocrEnginesApi;
 
   VersionsApi get versions => version(null);
 

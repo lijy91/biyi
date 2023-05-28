@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:biyi_advanced_features/biyi_advanced_features.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -29,10 +29,6 @@ Future<void> _ensureInitialized() async {
 
   await initEnv();
   await initLocalDb();
-
-  if (!kReleaseMode) {
-    apiClient.setDebug();
-  }
 }
 
 void main() async {

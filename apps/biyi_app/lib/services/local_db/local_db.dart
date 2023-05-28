@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:biyi_advanced_features/biyi_advanced_features.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:biyi_app/services/local_db/init_data_if_need.dart';
 import 'package:collection/collection.dart';
@@ -11,7 +12,6 @@ import 'package:path/path.dart' as path;
 
 export 'configuration.dart';
 export 'local_db_listener.dart';
-// import 'migrate_old_db.dart';
 
 export 'modifiers/engines_modifier.dart';
 export 'modifiers/ocr_engines_modifier.dart';

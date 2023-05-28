@@ -26,7 +26,6 @@ class Result<T> {
       items: items,
     );
   }
-
   int code;
   T? data;
   List<T>? items;

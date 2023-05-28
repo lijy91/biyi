@@ -1,3 +1,4 @@
+import 'package:biyi_advanced_features/biyi_advanced_features.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
@@ -51,22 +52,23 @@ class _TranslationEngineChooserPageState
   Widget _buildBody(BuildContext context) {
     return PreferenceList(
       children: [
-        PreferenceListSection(
-          children: [
-            for (var engineConfig in _proEngineList)
-              PreferenceListRadioItem<String>(
-                icon: TranslationEngineIcon(engineConfig.type),
-                title: TranslationEngineName(engineConfig),
-                value: engineConfig.identifier,
-                groupValue: _identifier ?? '',
-                onChanged: (newValue) {
-                  setState(() {
-                    _identifier = newValue;
-                  });
-                },
-              ),
-          ],
-        ),
+        if (_proEngineList.isNotEmpty)
+          PreferenceListSection(
+            children: [
+              for (var engineConfig in _proEngineList)
+                PreferenceListRadioItem<String>(
+                  icon: TranslationEngineIcon(engineConfig.type),
+                  title: TranslationEngineName(engineConfig),
+                  value: engineConfig.identifier,
+                  groupValue: _identifier ?? '',
+                  onChanged: (newValue) {
+                    setState(() {
+                      _identifier = newValue;
+                    });
+                  },
+                ),
+            ],
+          ),
         PreferenceListSection(
           title: Text(t('pref_section_title_private')),
           children: [

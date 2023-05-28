@@ -30,6 +30,6 @@ scripts:
 
   dependency_validator:
     exec: flutter pub run dependency_validator
-    select-package:
-      depends-on:
+    packageFilters:
+      dependsOn:
         - dependency_validator

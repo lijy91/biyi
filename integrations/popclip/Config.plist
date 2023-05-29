@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Extension Name</key>
+	<string>比译</string>
+	<key>Extension Identifier</key>
+	<string>com.biyidev.popclip.extension</string>
+	<key>Extension Description</key>
+	<string>用比译翻译选中的文本</string>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>URL</key>
+			<string>biyiapp://translate?text={popclip text}</string>
+			<key>Image File</key>
+			<string>icon.png</string>
+			<key>Title</key>
+			<string>比译</string>
+			<key>Regular Expression</key>
+			<string>(?s)^.{1,1900}$</string>
+		</dict>
+	</array>
+</dict>
+</plist>

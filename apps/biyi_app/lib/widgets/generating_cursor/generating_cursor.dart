@@ -19,7 +19,14 @@ class _GeneratingCursorState extends State<GeneratingCursor>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: EdgeInsets.only(left: 2),
       child: AnimatedBuilder(
@@ -27,10 +34,8 @@ class _GeneratingCursorState extends State<GeneratingCursor>
         builder: (context, child) {
           return Text(
             '|',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black.withOpacity(_animationController.value),
+            style: textTheme.bodyMedium!.copyWith(
+              height: 1.4,
             ),
           );
         },

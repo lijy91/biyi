@@ -1,4 +1,5 @@
 import 'package:biyi_advanced_features/biyi_advanced_features.dart';
+import 'package:biyi_app/generated/locale_keys.g.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
@@ -133,7 +134,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
         ),
         PreferenceListItem(
           title: Text(
-            'add'.tr(),
+            LocaleKeys.add.tr(),
             style: TextStyle(
               color: Theme.of(context).primaryColor,
             ),

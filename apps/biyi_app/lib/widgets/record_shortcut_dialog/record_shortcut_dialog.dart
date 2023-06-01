@@ -1,3 +1,4 @@
+import 'package:biyi_app/generated/locale_keys.g.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
@@ -50,7 +51,7 @@ class _RecordHotKeyDialogState extends State<RecordHotKeyDialog> {
       ),
       actions: <Widget>[
         CustomDialogAction(
-          child: Text('cancel'.tr()),
+          child: Text(LocaleKeys.cancel.tr()),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -62,7 +63,7 @@ class _RecordHotKeyDialogState extends State<RecordHotKeyDialog> {
                   widget.onHotKeyRecorded(_hotKey!);
                   Navigator.of(context).pop();
                 },
-          child: Text('ok'.tr()),
+          child: Text(LocaleKeys.ok.tr()),
         ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:biyi_app/generated/locale_keys.g.dart';
 import 'package:biyi_app/models/models.dart';
 import 'package:biyi_app/pages/pages.dart';
 import 'package:biyi_app/services/services.dart';
@@ -138,7 +139,7 @@ class TranslationResultRecordView extends StatelessWidget {
           if (_configuration.doubleClickCopyResult) {
             Clipboard.setData(ClipboardData(text: textTranslation.text));
             BotToast.showText(
-              text: 'copied'.tr(),
+              text: LocaleKeys.copied.tr(),
               align: Alignment.center,
             );
           }

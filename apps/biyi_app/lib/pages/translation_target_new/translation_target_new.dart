@@ -1,3 +1,4 @@
+import 'package:biyi_app/generated/locale_keys.g.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
           : Text(t('title')),
       actions: [
         CustomAppBarActionItem(
-          text: 'ok'.tr(),
+          text: LocaleKeys.ok.tr(),
           onPressed: _handleClickOk,
         ),
       ],
@@ -102,7 +103,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
               PreferenceListItem(
                 title: Center(
                   child: Text(
-                    'delete'.tr(),
+                    LocaleKeys.delete.tr(),
                     style: const TextStyle(color: Colors.red),
                   ),
                 ),

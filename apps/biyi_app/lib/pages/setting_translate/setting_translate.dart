@@ -1,4 +1,5 @@
 import 'package:biyi_advanced_features/biyi_advanced_features.dart';
+import 'package:biyi_app/generated/locale_keys.g.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -168,7 +169,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                 ),
               PreferenceListItem(
                 title: Text(
-                  'add'.tr(),
+                  LocaleKeys.add.tr(),
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                   ),

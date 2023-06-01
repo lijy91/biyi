@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:biyi_advanced_features/biyi_advanced_features.dart';
+import 'package:biyi_app/generated/locale_keys.g.dart';
 import 'package:biyi_app/models/models.dart';
 import 'package:biyi_app/networking/networking.dart';
 import 'package:biyi_app/pages/desktop_popup/limited_functionality_banner.dart';
@@ -226,7 +227,7 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
         items: [
           MenuItem(
             label:
-                '${'app_name'.tr()} v${sharedEnv.appVersion} (BUILD ${sharedEnv.appBuildNumber})',
+                '${LocaleKeys.app_name.tr()} v${sharedEnv.appVersion} (BUILD ${sharedEnv.appBuildNumber})',
             disabled: true,
           ),
           MenuItem.separator(),

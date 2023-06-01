@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:biyi_advanced_features/biyi_advanced_features.dart';
+import 'package:biyi_app/generated/codegen_loader.g.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -40,8 +40,8 @@ void main() async {
         Locale(kLanguageEN),
         Locale(kLanguageZH),
       ],
-      path: 'assets/translations',
-      assetLoader: YamlAssetLoader(),
+      path: 'resources/langs',
+      assetLoader: CodegenLoader(),
       fallbackLocale: const Locale(kLanguageEN),
       child: const MyApp(),
     ),

@@ -1,5 +1,5 @@
 class R {
   static String image(String name) {
-    return 'assets/images/$name';
+    return 'resources/images/$name';
   }
 }

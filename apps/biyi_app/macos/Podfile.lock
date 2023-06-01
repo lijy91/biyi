@@ -3,9 +3,6 @@ PODS:
     - FlutterMacOS
   - clipboard_watcher (0.0.1):
     - FlutterMacOS
-  - connectivity_plus_macos (0.0.1):
-    - FlutterMacOS
-    - ReachabilitySwift
   - device_info_plus (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
@@ -24,7 +21,6 @@ PODS:
     - FlutterMacOS
   - protocol_handler (0.0.1):
     - FlutterMacOS
-  - ReachabilitySwift (5.0.0)
   - screen_capturer (0.1.0):
     - FlutterMacOS
   - screen_retriever (0.0.1):
@@ -44,7 +40,6 @@ PODS:
 DEPENDENCIES:
   - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
   - clipboard_watcher (from `Flutter/ephemeral/.symlinks/plugins/clipboard_watcher/macos`)
-  - connectivity_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos`)
   - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - hotkey_manager (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager/macos`)
@@ -64,15 +59,12 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - HotKey
-    - ReachabilitySwift
 
 EXTERNAL SOURCES:
   audioplayers_darwin:
     :path: Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos
   clipboard_watcher:
     :path: Flutter/ephemeral/.symlinks/plugins/clipboard_watcher/macos
-  connectivity_plus_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos
   device_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
   FlutterMacOS:
@@ -107,7 +99,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   audioplayers_darwin: dcad41de4fbd0099cb3749f7ab3b0cb8f70b810c
   clipboard_watcher: a71da520051c24c1b969a411b3e152d4dcc93ca5
-  connectivity_plus_macos: f6e86fd000e971d361e54b5afcadc8c8fa773308
   device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   HotKey: ad59450195936c10992438c4210f673de5aee43e
@@ -117,7 +108,6 @@ SPEC CHECKSUMS:
   package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   protocol_handler: 587e1caf6c0b92ce351ab14081968dae49cb8cc6
-  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   screen_capturer: 696de78ce7beff63eecf8aa709f839985a7836d7
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   screen_text_extractor: 2c310f54af1dee881522e2b76bec9a668ebfe0cf

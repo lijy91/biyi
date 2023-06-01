@@ -1,3 +1,4 @@
+import 'package:biyi_app/generated/locale_keys.g.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class _TranslationEngineTypeChooserPageState
       title: Text(t('title')),
       actions: [
         CustomAppBarActionItem(
-          text: 'ok'.tr(),
+          text: LocaleKeys.ok.tr(),
           onPressed: _handleClickOk,
         ),
       ],

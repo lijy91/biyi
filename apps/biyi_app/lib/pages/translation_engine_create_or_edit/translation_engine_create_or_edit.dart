@@ -1,4 +1,5 @@
 import 'package:biyi_advanced_features/biyi_advanced_features.dart';
+import 'package:biyi_app/generated/locale_keys.g.dart';
 import 'package:biyi_app/includes.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +115,7 @@ class _TranslationEngineCreateOrEditPageState
       actions: [
         if (widget.editable)
           CustomAppBarActionItem(
-            text: 'ok'.tr(),
+            text: LocaleKeys.ok.tr(),
             onPressed: _handleClickOk,
           ),
       ],
@@ -219,7 +220,7 @@ class _TranslationEngineCreateOrEditPageState
               PreferenceListItem(
                 title: Center(
                   child: Text(
-                    'delete'.tr(),
+                    LocaleKeys.delete.tr(),
                     style: const TextStyle(color: Colors.red),
                   ),
                 ),

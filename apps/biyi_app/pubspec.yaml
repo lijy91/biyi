@@ -13,7 +13,6 @@ dependencies:
   bot_toast: ^4.0.3
   collection: ^1.17.1
   easy_localization: ^3.0.1
-  easy_localization_loader: ^1.0.1+1
   fluentui_system_icons: ^1.1.200
   flutter:
     sdk: flutter
@@ -58,32 +57,28 @@ dependencies:
   window_manager: ^0.3.4
 
 dev_dependencies:
+  build_runner: ^2.4.4
   dependency_validator: ^3.0.0
   flutter_test:
     sdk: flutter
-
-# dependency_overrides: 
-#   biyi_advanced_features:
-#     path: ../../../biyi_advanced_features
 
 flutter:
   uses-material-design: false
 
   assets:
-    - assets/images/
-    - assets/images/flag_icons/
-    - assets/images/ocr_engine_icons/
-    - assets/images/translation_engine_icons/
-    - assets/translations/
+    - resources/images/
+    - resources/images/flag_icons/
+    - resources/images/ocr_engine_icons/
+    - resources/images/translation_engine_icons/
 
   fonts:
     - family: MiSans
       fonts:
-        - asset: assets/fonts/MiSans-Regular.ttf
-        - asset: assets/fonts/MiSans-Semibold.ttf
+        - asset: resources/fonts/MiSans-Regular.ttf
+        - asset: resources/fonts/MiSans-Semibold.ttf
           weight: 600
-        - asset: assets/fonts/MiSans-Bold.ttf
+        - asset: resources/fonts/MiSans-Bold.ttf
           weight: 700
     - family: Roboto Mono
       fonts:
-        - asset: assets/fonts/RobotoMono-Regular.ttf
+        - asset: resources/fonts/RobotoMono-Regular.ttf

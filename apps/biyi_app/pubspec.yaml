@@ -65,7 +65,7 @@ dev_dependencies:
 
 dependency_overrides:
   # biyi_advanced_features:
-  #     path: ../../../biyi_advanced_features
+  #   path: ../../../biyi_advanced_features
   dart_openai:
     git:
       ref: fix/stream-mode-error-handling

@@ -210,10 +210,16 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   Future<void> _initTrayIcon() async {
     if (kIsWeb) return;
 
-    String trayIconName =
-        kIsWindows ? 'tray_icon_black.ico' : 'tray_icon_black.png';
+    String trayIconName = platformSelect<String>(
+      () => 'tray_icon_black.png',
+      windows: () => 'tray_icon_black.ico',
+      linux: () => 'tray_icon.ico',
+    );
     if (_brightness == Brightness.dark) {
-      trayIconName = kIsWindows ? 'tray_icon.ico' : 'tray_icon.png';
+      trayIconName = platformSelect<String>(
+        () => 'tray_icon.png',
+        windows: () => 'tray_icon.ico',
+      );
     }
 
     await trayManager.destroy();

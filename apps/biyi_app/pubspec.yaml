@@ -62,6 +62,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+dependency_overrides:
+  dart_openai:
+    git:
+      ref: fix/stream-mode-error-handling
+      url: https://github.com/biyidev/openai.git
+
 flutter:
   uses-material-design: false
 

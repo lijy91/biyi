@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sed -i - 's/# biyi_advanced_features:/biyi_advanced_features:/g' pubspec.yaml
+sed -i - 's/#   path: ..\/..\/..\/biyi_advanced_features/    path: ..\/..\/..\/biyi_advanced_features/g' pubspec.yaml
+
+melos bs
+flutter_distributor release --name prod --no-version-check

@@ -34,7 +34,7 @@ class TranslationTargetsModifier extends Listenable {
   }
 
   TranslationTarget? get() {
-    if (_box.containsKey(_id)) {
+    if (_id != null && _box.containsKey(_id)) {
       return TranslationTarget.fromJson(_box.get(_id));
     }
     return null;
@@ -67,7 +67,7 @@ class TranslationTargetsModifier extends Listenable {
   }
 
   bool exists() {
-    return _box.containsKey(_id);
+    return _id != null && _box.containsKey(_id);
   }
 
   Future<void> updateOrCreate({

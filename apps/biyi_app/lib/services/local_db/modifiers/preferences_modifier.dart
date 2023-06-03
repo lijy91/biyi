@@ -67,7 +67,7 @@ class PreferencesModifier extends Listenable {
   }
 
   bool exists() {
-    return _box.containsKey(_key);
+    return _key != null && _box.containsKey(_key);
   }
 
   Future<void> updateOrCreate({

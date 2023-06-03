@@ -172,6 +172,12 @@ class LocalDb {
       // skip error
     }
 
+    if (configuration.defaultTranslateEngineId == null ||
+        !engine(configuration.defaultTranslateEngineId).exists()) {
+      configuration.defaultTranslateEngineId =
+          newProEngineList.firstWhere((e) => e.type == 'baidu').identifier;
+    }
+
     if (configuration.defaultEngineId == null ||
         !engine(configuration.defaultEngineId).exists()) {
       configuration.defaultEngineId =

@@ -53,7 +53,7 @@ class EnginesModifier extends Listenable {
   }
 
   TranslationEngineConfig? get() {
-    if (_box.containsKey(_id)) {
+    if (_id != null && _box.containsKey(_id)) {
       dynamic value = _box.get(_id);
       return TranslationEngineConfig.fromJson(value);
     }

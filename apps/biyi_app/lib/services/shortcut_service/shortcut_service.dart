@@ -65,12 +65,14 @@ class ShortcutService {
         _listener?.onShortcutKeyDownExtractFromClipboard();
       },
     );
-    await hotKeyManager.register(
-      _configuration.shortcutTranslateInputContent,
-      keyDownHandler: (_) {
-        _listener?.onShortcutKeyDownTranslateInputContent();
-      },
-    );
+    if (!kIsLinux) {
+      await hotKeyManager.register(
+        _configuration.shortcutTranslateInputContent,
+        keyDownHandler: (_) {
+          _listener?.onShortcutKeyDownTranslateInputContent();
+        },
+      );
+    }
   }
 
   void stop() {

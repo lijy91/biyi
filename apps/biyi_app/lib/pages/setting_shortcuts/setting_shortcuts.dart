@@ -167,23 +167,24 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
             ),
           ],
         ),
-        PreferenceListSection(
-          title: Text(t('pref_section_title_input_assist_function')),
-          children: [
-            PreferenceListItem(
-              title: Text(t('pref_item_title_translate_input_content')),
-              detailText: _HotKeyDisplayView(
-                _configuration.shortcutTranslateInputContent,
+        if (!kIsLinux)
+          PreferenceListSection(
+            title: Text(t('pref_section_title_input_assist_function')),
+            children: [
+              PreferenceListItem(
+                title: Text(t('pref_item_title_translate_input_content')),
+                detailText: _HotKeyDisplayView(
+                  _configuration.shortcutTranslateInputContent,
+                ),
+                onTap: () {
+                  _handleClickRegisterNewHotKey(
+                    context,
+                    shortcutKey: kShortcutTranslateInputContent,
+                  );
+                },
               ),
-              onTap: () {
-                _handleClickRegisterNewHotKey(
-                  context,
-                  shortcutKey: kShortcutTranslateInputContent,
-                );
-              },
-            ),
-          ],
-        ),
+            ],
+          ),
       ],
     );
   }

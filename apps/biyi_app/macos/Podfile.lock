@@ -102,7 +102,7 @@ SPEC CHECKSUMS:
   device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   HotKey: ad59450195936c10992438c4210f673de5aee43e
-  hotkey_manager: ad673457691f4d39e481be04a61da2ae07d81c62
+  hotkey_manager: c32bf0bfe8f934b7bc17ab4ad5c4c142960b023c
   keypress_simulator: c9697f52dc29725ce0185dcd52b6731718e0b9ca
   ocr_engine_builtin: 99c65f8f4a156830ceaf0da86940610fefe50f50
   package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce

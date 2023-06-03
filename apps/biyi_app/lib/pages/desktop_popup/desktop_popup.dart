@@ -32,6 +32,7 @@ import 'package:uni_translate_client/uni_translate_client.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:window_manager/window_manager.dart';
 
+const kMenuItemKeyShow = 'show';
 const kMenuItemKeyQuickStartGuide = 'quick-start-guide';
 const kMenuItemKeyQuitApp = 'quit-app';
 
@@ -237,6 +238,11 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
             disabled: true,
           ),
           MenuItem.separator(),
+          if (kIsLinux)
+            MenuItem(
+              key: kMenuItemKeyShow,
+              label: LocaleKeys.tray_context_menu_item_show.tr(),
+            ),
           MenuItem(
             key: kMenuItemKeyQuickStartGuide,
             label: 'tray_context_menu.item_quick_start_guide'.tr(),
@@ -1033,6 +1039,10 @@ class _DesktopPopupPageState extends State<DesktopPopupPage>
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
     switch (menuItem.key) {
+      case kMenuItemKeyShow:
+        await Future.delayed(Duration(milliseconds: 300));
+        await _windowShow();
+        break;
       case kMenuItemKeyQuickStartGuide:
         await launchUrlString('${sharedEnv.webUrl}/docs');
         break;

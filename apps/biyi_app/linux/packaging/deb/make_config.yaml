@@ -1,0 +1,18 @@
+display_name: Biyi
+package_name: biyi
+maintainer:
+  name: LiJianying
+  email: lijy91@foxmail.com
+priority: optional
+section: x11
+essential: false
+icon: resources/images/app_icons/256x256.png
+keywords:
+  - Translator
+generic_name: Translation Application
+categories:
+  - Utility
+dependencies:
+  - gir1.2-appindicator3-0.1
+  - libkeybinder-3.0-0
+startup_notify: true

@@ -8,7 +8,6 @@
 
 #include <audioplayers_windows/audioplayers_windows_plugin.h>
 #include <clipboard_watcher/clipboard_watcher_plugin.h>
-#include <connectivity_plus_windows/connectivity_plus_windows_plugin.h>
 #include <hotkey_manager/hotkey_manager_plugin.h>
 #include <keypress_simulator/keypress_simulator_plugin.h>
 #include <protocol_handler/protocol_handler_plugin.h>
@@ -25,8 +24,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("AudioplayersWindowsPlugin"));
   ClipboardWatcherPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ClipboardWatcherPlugin"));
-  ConnectivityPlusWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("ConnectivityPlusWindowsPlugin"));
   HotkeyManagerPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("HotkeyManagerPlugin"));
   KeypressSimulatorPluginRegisterWithRegistrar(

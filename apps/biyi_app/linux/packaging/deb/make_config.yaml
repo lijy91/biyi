@@ -10,6 +10,7 @@ icon: resources/images/app_icons/256x256.png
 keywords:
   - Translator
 generic_name: Translation Application
+installed_size: 22671604
 categories:
   - Utility
 dependencies:

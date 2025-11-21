@@ -1,0 +1,61 @@
+output: dist/
+artifact_name: 'biyi{{#flavor}}-{{flavor}}{{/flavor}}-{{build_name}}+{{build_number}}{{#is_profile}}-{{build_mode}}{{/is_profile}}-{{platform}}{{#is_installer}}-setup{{/is_installer}}{{#ext}}.{{ext}}{{/ext}}'
+releases:
+  - name: prod-playstore
+    jobs:
+      - name: build-aab
+        package:
+          platform: android
+          target: aab
+          build_args:
+            target-platform: android-arm
+            flavor: prod
+        # Publish to playstore
+        publish:
+          target: playstore
+          args:
+            package-name: com.biyidev.app
+  - name: prod
+    jobs:
+      - name: release-macos-dmg
+        package:
+          platform: macos
+          target: dmg
+          build_args:
+            dart-define:
+              APP_ENV: production
+      # - name: release-macos-zip
+      #   package:
+      #     platform: macos
+      #     target: zip
+      #     build_args:
+      #       dart-define:
+      #         APP_ENV: production
+      # - name: release-linux-deb
+      #   package:
+      #     platform: linux
+      #     target: deb
+      #     build_args:
+      #       dart-define:
+      #         APP_ENV: production
+      # - name: release-windows-exe
+      #   package:
+      #     platform: windows
+      #     target: exe
+      #     build_args:
+      #       dart-define:
+      #         APP_ENV: production
+      # - name: release-windows-msix
+      #   package:
+      #     platform: windows
+      #     target: msix
+      #     build_args:
+      #       dart-define:
+      #         APP_ENV: production
+      # - name: release-windows-zip
+      #   package:
+      #     platform: windows
+      #     target: zip
+      #     build_args:
+      #       dart-define:
+      #         APP_ENV: production

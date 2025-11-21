@@ -1,0 +1,26 @@
+name: uikit
+description: "UI kit"
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.9.2 <4.0.0"
+
+dependencies:
+  fluentui_system_icons: ^1.1.255
+  flutter:
+    sdk: flutter
+  gap: ^3.0.1
+  shadcn_flutter: ^0.0.37
+
+dependency_overrides:
+  skeletonizer: ^2.0.0-pre
+
+dev_dependencies:
+  dependency_validator: ^3.2.3
+  flutter_test:
+    sdk: flutter
+  mostly_reasonable_lints: ^0.1.2
+
+flutter:
+  uses-material-design: false

@@ -8,4 +8,4 @@ Translate the text using `Biyi`.
 
 ## Installation
 
-Download the file from [Releases](https://github.com/biyidev/biyi/releases) and double click to install the extension.
+Download the file from [Releases](https://github.com/lijy91/biyi/releases) and double click to install the extension.

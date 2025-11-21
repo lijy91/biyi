@@ -1,0 +1,379 @@
+{
+  "app_name": "Biyi",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "add": "Add",
+  "delete": "Delete",
+  "copied": "Copied",
+  "please_choose": "Please Choose",
+  "language": {
+    "af": "Afrikaans",
+    "am": "Amharic",
+    "ar": "Arabic",
+    "az": "Azerbaijani",
+    "be": "Belarusian",
+    "bg": "Bulgarian",
+    "bn": "Bengali",
+    "bs": "Bosnian",
+    "ca": "Catalan",
+    "ceb": "Cebuano",
+    "co": "Corsican",
+    "cs": "Czech",
+    "cy": "Welsh",
+    "da": "Danish",
+    "de": "German",
+    "el": "Greek",
+    "en": "English",
+    "eo": "Esperanto",
+    "es": "Spanish",
+    "et": "Estonian",
+    "eu": "Basque",
+    "fa": "Persian",
+    "fi": "Finnish",
+    "fr": "French",
+    "fy": "Frisian",
+    "ga": "Irish",
+    "gd": "Scots Gaelic",
+    "gl": "Galician",
+    "gu": "Gujarati",
+    "ha": "Hausa",
+    "haw": "Hawaiian",
+    "he": "Hebrew",
+    "hi": "Hindi",
+    "hmn": "Hmong",
+    "hr": "Croatian",
+    "ht": "Haitian Creole",
+    "hu": "Hungarian",
+    "hy": "Armenian",
+    "id": "Indonesian",
+    "ig": "Igbo",
+    "is": "Icelandic",
+    "it": "Italian",
+    "iw": "Hebrew",
+    "ja": "Japanese",
+    "jw": "Javanese",
+    "ka": "Georgian",
+    "kk": "Kazakh",
+    "km": "Khmer",
+    "kn": "Kannada",
+    "ko": "Korean",
+    "ku": "Kurdish (Kurmanji)",
+    "ky": "Kyrgyz",
+    "la": "Latin",
+    "lb": "Luxembourgish",
+    "lo": "Lao",
+    "lt": "Lithuanian",
+    "lv": "Latvian",
+    "mg": "Malagasy",
+    "mi": "Maori",
+    "mk": "Macedonian",
+    "ml": "Malayalam",
+    "mn": "Mongolian",
+    "mr": "Marathi",
+    "ms": "Malay",
+    "mt": "Maltese",
+    "my": "Myanmar (Burmese)",
+    "ne": "Nepali",
+    "nl": "Dutch",
+    "no": "Norwegian",
+    "ny": "Chichewa",
+    "or": "Odia (Oriya)",
+    "pa": "Punjabi",
+    "pl": "Polish",
+    "ps": "Pashto",
+    "pt": "Portuguese",
+    "ro": "Romanian",
+    "ru": "Russian",
+    "rw": "Kinyarwanda",
+    "sd": "Sindhi",
+    "si": "Sinhala",
+    "sk": "Slovak",
+    "sl": "Slovenian",
+    "sm": "Samoan",
+    "sn": "Shona",
+    "so": "Somali",
+    "sq": "Albanian",
+    "sr": "Serbian",
+    "st": "Sesotho",
+    "su": "Sundanese",
+    "sv": "Swedish",
+    "sw": "Swahili",
+    "ta": "Tamil",
+    "te": "Telugu",
+    "tg": "Tajik",
+    "th": "Thai",
+    "tk": "Turkmen",
+    "tl": "Filipino",
+    "tr": "Turkish",
+    "tt": "Tatar",
+    "ug": "Uyghur",
+    "uk": "Ukrainian",
+    "ur": "Urdu",
+    "uz": "Uzbek",
+    "vi": "Vietnamese",
+    "xh": "Xhosa",
+    "yi": "Yiddish",
+    "yo": "Yoruba",
+    "zh": "Chinese",
+    "zh_CN": "Chinese",
+    "zh_TW": "Chinese (Traditional)",
+    "zu": "Zulu"
+  },
+  "engine": {
+    "baidu": "Baidu",
+    "caiyun": "Caiyun",
+    "deepl": "DeepL",
+    "google": "Google",
+    "ibmwatson": "IBMWatson",
+    "iciba": "Iciba",
+    "openai": "OpenAI",
+    "sogou": "Sogou",
+    "tencent": "Tencent",
+    "youdao": "Youda"
+  },
+  "engine_scope": {
+    "detectlanguage": "detectLanguage",
+    "lookup": "LookUp",
+    "translate": "Translate"
+  },
+  "ocr_engine": {
+    "built_in": "Built In",
+    "tesseract": "Tesseract OCR",
+    "youdao": "Youdao"
+  },
+  "translation_mode": {
+    "auto": "Auto",
+    "manual": "Manual"
+  },
+  "theme_mode": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "word_pronunciation": {
+    "us": "US",
+    "uk": "UK"
+  },
+  "tray_context_menu": {
+    "item_show": "Show",
+    "item_quick_start_guide": "Quick Start",
+    "item_discussion": "Join Discussion",
+    "item_quit_app": "Quit Biyi",
+    "item_discussion_subitem_discord_server": "Join Discord",
+    "item_discussion_subitem_qq_group": "Join QQ Group"
+  },
+  "app": {
+    "home": {
+      "newversion_banner_text_found_new_version": "New version found: $version",
+      "newversion_banner_btn_update": "Update",
+      "limited_banner_title": "Functionality is limited, please perform a check according to the prompts.",
+      "limited_banner_text_screen_capture": "Grant screen recording access",
+      "limited_banner_text_screen_selection": "Grant accessibility access",
+      "limited_banner_btn_allow": "Allow",
+      "limited_banner_btn_go_settings": "Go Settings",
+      "limited_banner_btn_check_again": "Check Again",
+      "limited_banner_tip_help": "View the help document",
+      "limited_banner_msg_allow_access_tip": "If there is no response after clicking \"Allow\", please click \"Go Settings\" to set it manually.",
+      "limited_banner_msg_all_access_allowed": "The Screen extract text is enabled",
+      "limited_banner_msg_all_access_not_allowed": "The required access are not allowed.\nPlease check and set again.",
+      "input_hint": "Enter the word or text here",
+      "text_extracting_text": "Extracting text...",
+      "tip_translation_mode": "Current translation mode: $mode",
+      "tip_extract_text_from_screen_capture": "Capture screen area and recognize text",
+      "tip_extract_text_from_clipboard": "Read clipboard content",
+      "btn_clear": "Clear",
+      "btn_trans": "Translate",
+      "msg_please_enter_word_or_text": "No text entered or text not extracted",
+      "msg_capture_screen_area_canceled": "Capture screen area has been canceled"
+    },
+    "record_shortcut": {
+      "title": "Record your shortcut"
+    },
+    "ocr_engine_types": {
+      "title": "Engine Type"
+    },
+    "ocr_engines": {
+      "title": "Text Detections Engines",
+      "msg": {
+        "no_available_engines": "No available engines"
+      },
+      "private": {
+        "title": "Private"
+      }
+    },
+    "ocr_engines_new": {
+      "title": "Add Text Detection Engine",
+      "engine_type": {
+        "title": "Engine type"
+      },
+      "option": {
+        "title": "Option"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "text_version": "Version $version BUILD $buildNumber",
+      "kLayout": {
+        "navgroup": {
+          "client": "Client",
+          "integrations": "Integrations",
+          "resources": "Resources"
+        }
+      },
+      "about": {
+        "title": "About",
+        "package_info": {
+          "version": "Version",
+          "build_number": "Build Number"
+        }
+      },
+      "advanced": {
+        "title": "Advanced",
+        "launch_at_login": {
+          "title": "Launch at login"
+        }
+      },
+      "appearance": {
+        "title": "Appearance",
+        "subtitle": "Change the look of your client.",
+        "tray_icon": {
+          "title": "Tray Icon",
+          "style": {
+            "title": "Tray Icon Style"
+          },
+          "show": {
+            "title": "Show Tray Icon"
+          }
+        },
+        "max_window_height": {
+          "title": "Maximum window height (logical pixels)"
+        }
+      },
+      "changelog": {
+        "title": "Changelog",
+        "subtitle": "See what cool new features we're making."
+      },
+      "general": {
+        "title": "General",
+        "subtitle": "General settings related to the client.",
+        "default_detect_text_engine": {
+          "title": "Default detect text engine"
+        },
+        "extract_text": {
+          "auto_copy_detected_text": {
+            "title": "Auto copy the detected text"
+          }
+        },
+        "default_translate_engine": {
+          "title": "Default translate engine"
+        },
+        "translation_mode": {
+          "title": "Translation Mode"
+        },
+        "default_detect_language_engine": {
+          "title": "Default detect language engine"
+        },
+        "translation_target": {
+          "title": "Translation target"
+        },
+        "translate": {
+          "double_click_copy_result": {
+            "title": "Double-click to copy translation result"
+          }
+        },
+        "input_settings": {
+          "title": "Input Settings",
+          "submit_with_enter": {
+            "title": "Submit with Enter"
+          },
+          "submit_with_meta_enter": {
+            "title": "Submit with Ctrl + Enter"
+          },
+          "submit_with_meta_enter_mac": {
+            "title": "Submit with ⌘ + Enter"
+          }
+        }
+      },
+      "keybinds": {
+        "title": "Keybinds",
+        "subtitle": "View and manage client keybinds",
+        "window": {
+          "show_or_hide": { "title": "Show/Hide" },
+          "hide": { "title": "Hide" }
+        },
+        "extract_text": {
+          "title": "Screen / Clipboard extract text",
+          "from_selection": { "title": "Selection" },
+          "from_capture": { "title": "Capture Area" },
+          "from_clipboard": { "title": "Clipboard" }
+        },
+        "input_assist_function": {
+          "title": "Input assist function",
+          "translate_input_content": {
+            "title": "Translate input content"
+          }
+        }
+      },
+      "language": {
+        "title": "Language"
+      },
+      "ocr_engines": {
+        "title": "Text Detections",
+        "private": {
+          "title": "Private",
+          "description": "Long press an item to reorder it"
+        }
+      },
+      "translation_engines": {
+        "title": "Text Translations",
+        "private": {
+          "title": "Private",
+          "description": "Long press an item to reorder it"
+        }
+      }
+    },
+    "supported_languages": {
+      "title": "Supported Languages",
+      "all": {
+        "title": "All"
+      }
+    },
+    "translation_engine_types": {
+      "title": "Engine Type"
+    },
+    "translation_engines": {
+      "title": "Text Translation Engines",
+      "msg": {
+        "no_available_engines": "No available engines"
+      },
+      "private": {
+        "title": "Private"
+      }
+    },
+    "translation_engines_new": {
+      "title": "Add Text Translation Engine",
+      "engine_type": {
+        "title": "Engine type"
+      },
+      "support_interface": {
+        "title": "Support interface"
+      },
+      "option": {
+        "title": "Option"
+      }
+    },
+    "translation_targets": {
+      "new": {
+        "title": "Add Translation Target",
+        "title_with_edit": "Edit Translation Target",
+        "source_language": "Source language",
+        "target_language": "Target language"
+      }
+    }
+  },
+  "widget": {
+    "record_shortcut_dialog": {
+      "title": "Customize your shortcut"
+    }
+  }
+}

@@ -1,5 +1,5 @@
 name: biyi_workspace
-repository: https://github.com/biyidev/biyi
+repository: https://github.com/lijy91/biyi
 
 packages:
   - apps/*

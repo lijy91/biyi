@@ -1,0 +1,379 @@
+{
+  "app_name": "比译",
+  "ok": "确定",
+  "cancel": "取消",
+  "add": "添加",
+  "delete": "删除",
+  "copied": "已复制",
+  "please_choose": "请选择",
+  "language": {
+    "af": "布尔语(南非荷兰语)",
+    "am": "阿姆哈拉语",
+    "ar": "阿拉伯语",
+    "az": "阿塞拜疆语",
+    "be": "白俄罗斯语",
+    "bg": "保加利亚语",
+    "bn": "孟加拉语",
+    "bs": "波斯尼亚语",
+    "ca": "加泰罗尼亚语",
+    "ceb": "宿务语",
+    "co": "科西嘉语",
+    "cs": "捷克语",
+    "cy": "威尔士语",
+    "da": "丹麦语",
+    "de": "德语",
+    "el": "希腊语",
+    "en": "英语",
+    "eo": "世界语",
+    "es": "西班牙语",
+    "et": "爱沙尼亚语",
+    "eu": "巴斯克语",
+    "fa": "波斯语",
+    "fi": "芬兰语",
+    "fr": "法语",
+    "fy": "弗里西语",
+    "ga": "爱尔兰语",
+    "gd": "苏格兰盖尔语",
+    "gl": "加利西亚语",
+    "gu": "古吉拉特语",
+    "ha": "豪萨语",
+    "haw": "夏威夷语",
+    "he": "希伯来语",
+    "hi": "印地语",
+    "hmn": "苗语",
+    "hr": "克罗地亚语",
+    "ht": "海地克里奥尔语",
+    "hu": "匈牙利语",
+    "hy": "亚美尼亚语",
+    "id": "印尼语",
+    "ig": "伊博语",
+    "is": "冰岛语",
+    "it": "意大利语",
+    "iw": "希伯来语",
+    "ja": "日语",
+    "jw": "印尼爪哇语",
+    "ka": "格鲁吉亚语",
+    "kk": "哈萨克语",
+    "km": "高棉语",
+    "kn": "卡纳达语",
+    "ko": "韩语",
+    "ku": "库尔德语",
+    "ky": "吉尔吉斯语",
+    "la": "拉丁语",
+    "lb": "卢森堡语",
+    "lo": "老挝语",
+    "lt": "立陶宛语",
+    "lv": "拉脱维亚语",
+    "mg": "马尔加什语",
+    "mi": "毛利语",
+    "mk": "马其顿语",
+    "ml": "马拉雅拉姆语",
+    "mn": "蒙古语",
+    "mr": "马拉地语",
+    "ms": "马来语",
+    "mt": "马耳他语",
+    "my": "缅甸语",
+    "ne": "尼泊尔语",
+    "nl": "荷兰语",
+    "no": "挪威语",
+    "ny": "齐切瓦语",
+    "or": "奥利亚语",
+    "pa": "旁遮普语",
+    "pl": "波兰语",
+    "ps": "普什图语",
+    "pt": "葡萄牙语",
+    "ro": "罗马尼亚语",
+    "ru": "俄语",
+    "rw": "卢旺达语",
+    "sd": "信德语",
+    "si": "僧伽罗语",
+    "sk": "斯洛伐克语",
+    "sl": "斯洛文尼亚语",
+    "sm": "萨摩亚语",
+    "sn": "修纳语",
+    "so": "索马里语",
+    "sq": "阿尔巴尼亚语",
+    "sr": "塞尔维亚语",
+    "st": "塞索托语",
+    "su": "印尼巽他语",
+    "sv": "瑞典语",
+    "sw": "斯瓦希里语",
+    "ta": "泰米尔语",
+    "te": "泰卢固语",
+    "tg": "塔吉克语",
+    "th": "泰语",
+    "tk": "土库曼语",
+    "tl": "菲律宾语",
+    "tr": "土耳其语",
+    "tt": "鞑靼语",
+    "ug": "维吾尔语",
+    "uk": "乌克兰语",
+    "ur": "乌尔都语",
+    "uz": "乌兹别克语",
+    "vi": "越南语",
+    "xh": "南非科萨语",
+    "yi": "意第绪语",
+    "yo": "约鲁巴语",
+    "zh": "中文",
+    "zh_CN": "中文",
+    "zh_TW": "中文(繁体)",
+    "zu": "南非祖鲁语"
+  },
+  "engine": {
+    "baidu": "百度翻译",
+    "caiyun": "彩云小译",
+    "deepl": "DeepL",
+    "google": "谷歌翻译",
+    "ibmwatson": "IBMWatson",
+    "iciba": "爱词霸",
+    "openai": "OpenAI",
+    "sogou": "搜狗翻译",
+    "tencent": "腾讯翻译君",
+    "youdao": "有道翻译"
+  },
+  "engine_scope": {
+    "detectlanguage": "语种识别",
+    "lookup": "查词",
+    "translate": "翻译"
+  },
+  "ocr_engine": {
+    "built_in": "内置",
+    "tesseract": "Tesseract OCR",
+    "youdao": "有道通用文字识别"
+  },
+  "translation_mode": {
+    "auto": "自动",
+    "manual": "手动"
+  },
+  "theme_mode": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "word_pronunciation": {
+    "us": "美",
+    "uk": "英"
+  },
+  "tray_context_menu": {
+    "item_show": "显示",
+    "item_quick_start_guide": "快速入门",
+    "item_discussion": "加入讨论",
+    "item_quit_app": "退出比译",
+    "item_discussion_subitem_discord_server": "加入 Discord",
+    "item_discussion_subitem_qq_group": "加入 QQ 群"
+  },
+  "app": {
+    "home": {
+      "newversion_banner_text_found_new_version": "发现新版本：$version",
+      "newversion_banner_btn_update": "立即更新",
+      "limited_banner_title": "功能受限，请根据提示进行检查。",
+      "limited_banner_text_screen_capture": "授予屏幕录制权限",
+      "limited_banner_text_screen_selection": "授予辅助功能权限",
+      "limited_banner_btn_allow": "允许",
+      "limited_banner_btn_go_settings": "前往设置",
+      "limited_banner_btn_check_again": "重新检查",
+      "limited_banner_tip_help": "查看帮助文档",
+      "limited_banner_msg_allow_access_tip": "点击「授权」后如无任何响应，请点击「前往设置」进行手动设置。",
+      "limited_banner_msg_all_access_allowed": "屏幕取词功能已启用",
+      "limited_banner_msg_all_access_not_allowed": "未获得所需权限，\n请重新检查并进行设置。",
+      "input_hint": "在此处输入单词或文本",
+      "text_extracting_text": "正在提取文字...",
+      "tip_translation_mode": "当前翻译模式：$mode",
+      "tip_extract_text_from_screen_capture": "截取屏幕区域并识别文字",
+      "tip_extract_text_from_clipboard": "读取剪切板内容",
+      "btn_clear": "清空",
+      "btn_trans": "翻译",
+      "msg_please_enter_word_or_text": "未输入或未提取到文本",
+      "msg_capture_screen_area_canceled": "截取屏幕区域已取消"
+    },
+    "record_shortcut": {
+      "title": "录制你的快捷键"
+    },
+    "ocr_engine_types": {
+      "title": "引擎类型"
+    },
+    "ocr_engines": {
+      "title": "文字识别引擎",
+      "msg": {
+        "no_available_engines": "无可用的引擎"
+      },
+      "private": {
+        "title": "私有"
+      }
+    },
+    "ocr_engines_new": {
+      "title": "添加文字识别引擎",
+      "engine_type": {
+        "title": "引擎类型"
+      },
+      "option": {
+        "title": "选项"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "text_version": "Version $version BUILD $buildNumber",
+      "kLayout": {
+        "navgroup": {
+          "client": "客户端",
+          "integrations": "服务接入",
+          "resources": "资源"
+        }
+      },
+      "about": {
+        "title": "关于",
+        "package_info": {
+          "version": "版本号",
+          "build_number": "内部版本号"
+        }
+      },
+      "advanced": {
+        "title": "高级",
+        "launch_at_login": {
+          "title": "开机自启动"
+        }
+      },
+      "appearance": {
+        "title": "外观",
+        "subtitle": "改变你的客户端的外观。",
+        "tray_icon": {
+          "title": "托盘图标",
+          "style": {
+            "title": "托盘图标样式"
+          },
+          "show": {
+            "title": "显示托盘图标"
+          }
+        },
+        "max_window_height": {
+          "title": "最大窗口高度（逻辑像素）"
+        }
+      },
+      "changelog": {
+        "title": "变更日志",
+        "subtitle": "看看我们正在开发哪些很酷的新功能。"
+      },
+      "general": {
+        "title": "通用",
+        "subtitle": "与客户端相关的通用设置。",
+        "default_detect_text_engine": {
+          "title": "默认文字识别引擎"
+        },
+        "extract_text": {
+          "auto_copy_detected_text": {
+            "title": "自动复制检测到的文本"
+          }
+        },
+        "default_translate_engine": {
+          "title": "默认翻译引擎"
+        },
+        "translation_mode": {
+          "title": "翻译模式"
+        },
+        "default_detect_language_engine": {
+          "title": "默认语种识别引擎"
+        },
+        "translation_target": {
+          "title": "翻译目标"
+        },
+        "translate": {
+          "double_click_copy_result": {
+            "title": "双击复制翻译结果"
+          }
+        },
+        "input_settings": {
+          "title": "输入设置",
+          "submit_with_enter": {
+            "title": "用 Enter 提交"
+          },
+          "submit_with_meta_enter": {
+            "title": "用 Ctrl + Enter 提交"
+          },
+          "submit_with_meta_enter_mac": {
+            "title": "用 ⌘ + Enter 提交"
+          }
+        }
+      },
+      "keybinds": {
+        "title": "快捷键",
+        "subtitle": "查看和管理客户端快捷键。",
+        "window": {
+          "show_or_hide": { "title": "显示/隐藏" },
+          "hide": { "title": "隐藏" }
+        },
+        "extract_text": {
+          "title": "屏幕/剪切板取词",
+          "from_selection": { "title": "选中文字" },
+          "from_capture": { "title": "截取区域" },
+          "from_clipboard": { "title": "剪切板" }
+        },
+        "input_assist_function": {
+          "title": "输入辅助功能",
+          "translate_input_content": {
+            "title": "翻译当前输入框内容"
+          }
+        }
+      },
+      "language": {
+        "title": "语言"
+      },
+      "ocr_engines": {
+        "title": "文字识别",
+        "private": {
+          "title": "私有",
+          "description": "长按项目以重新排序"
+        }
+      },
+      "translation_engines": {
+        "title": "文本翻译",
+        "private": {
+          "title": "私有",
+          "description": "长按项目以重新排序"
+        }
+      }
+    },
+    "supported_languages": {
+      "title": "支持的语言",
+      "all": {
+        "title": "全部"
+      }
+    },
+    "translation_engine_types": {
+      "title": "引擎类型"
+    },
+    "translation_engines": {
+      "title": "文本翻译引擎",
+      "msg": {
+        "no_available_engines": "无可用的引擎"
+      },
+      "private": {
+        "title": "私有"
+      }
+    },
+    "translation_engines_new": {
+      "title": "添加文本翻译引擎",
+      "engine_type": {
+        "title": "引擎类型"
+      },
+      "support_interface": {
+        "title": "支持接口"
+      },
+      "option": {
+        "title": "选项"
+      }
+    },
+    "translation_targets": {
+      "new": {
+        "title": "添加翻译目标",
+        "title_with_edit": "编辑翻译目标",
+        "source_language": "源语言",
+        "target_language": "目标语言"
+      }
+    }
+  },
+  "widget": {
+    "record_shortcut_dialog": {
+      "title": "自定义快捷键"
+    }
+  }
+}

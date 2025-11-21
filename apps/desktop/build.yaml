@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      source_gen:combining_builder:
+        options:
+          ignore_for_file:
+            - require_trailing_commas
+            - invalid_use_of_internal_member
+            - unnecessary_non_null_assertion
+            - unnecessary_null_comparison

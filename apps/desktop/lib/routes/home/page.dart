@@ -1,7 +1,8 @@
-import 'package:biyi_app/app/home/tab_homepage.dart';
-import 'package:biyi_app/app/home/tab_settings.dart';
-import 'package:biyi_app/app/home/tab_vocabulary.dart';
 import 'package:uikit/uikit.dart';
+
+import './tab_homepage.dart';
+import './tab_settings.dart';
+import './tab_vocabulary.dart';
 
 const _kHomeTabHomepage = 0;
 

@@ -1,4 +1,4 @@
-import 'package:biyi_app/app/router_config.dart';
+import 'package:biyi_app/routes/router_config.dart';
 import 'package:biyi_app/i18n/strings.g.dart';
 import 'package:biyi_app/models/translation_target.dart';
 import 'package:biyi_app/services/api_client.dart';

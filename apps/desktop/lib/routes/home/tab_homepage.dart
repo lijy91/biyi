@@ -1,4 +1,3 @@
-import 'package:biyi_app/app/router_config.dart';
 import 'package:biyi_app/widgets/customized_app_bar/customized_app_bar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uikit/uikit.dart';
@@ -17,7 +16,7 @@ class _TabHomepageSceneState extends State<TabHomepageScene> {
       children: [
         Button.primary(
           onPressed: () {
-            context.go(PageId.settingsGeneral);
+            context.go('/settings/general');
           },
           child: const Text('settings/general'),
         ),

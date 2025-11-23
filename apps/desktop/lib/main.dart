@@ -2,7 +2,6 @@
 
 // import 'dart:io';
 
-import 'package:biyi_app/app/router_config.dart';
 import 'package:biyi_app/i18n/strings.g.dart';
 import 'package:biyi_app/states/actions/translate_input_content.dart';
 import 'package:biyi_app/states/settings.dart';
@@ -20,6 +19,7 @@ import 'package:uni_platform/uni_platform.dart';
 import 'package:window_manager/window_manager.dart';
 
 import './features/mini_translator.dart';
+import './router_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

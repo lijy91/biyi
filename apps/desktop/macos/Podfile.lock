@@ -12,6 +12,8 @@ PODS:
     - HotKey
   - keypress_simulator_macos (0.0.1):
     - FlutterMacOS
+  - objective_c (0.0.1):
+    - FlutterMacOS
   - ocr_engine_builtin (0.0.1):
     - FlutterMacOS
   - protocol_handler (0.0.1):
@@ -34,6 +36,7 @@ DEPENDENCIES:
   - FlutterMacOS (from `Flutter/ephemeral`)
   - hotkey_manager_macos (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager_macos/macos`)
   - keypress_simulator_macos (from `Flutter/ephemeral/.symlinks/plugins/keypress_simulator_macos/macos`)
+  - objective_c (from `Flutter/ephemeral/.symlinks/plugins/objective_c/macos`)
   - ocr_engine_builtin (from `Flutter/ephemeral/.symlinks/plugins/ocr_engine_builtin/macos`)
   - protocol_handler (from `Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos`)
   - screen_capturer_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_capturer_macos/macos`)
@@ -59,6 +62,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/hotkey_manager_macos/macos
   keypress_simulator_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/keypress_simulator_macos/macos
+  objective_c:
+    :path: Flutter/ephemeral/.symlinks/plugins/objective_c/macos
   ocr_engine_builtin:
     :path: Flutter/ephemeral/.symlinks/plugins/ocr_engine_builtin/macos
   protocol_handler:
@@ -82,6 +87,7 @@ SPEC CHECKSUMS:
   HotKey: 400beb7caa29054ea8d864c96f5ba7e5b4852277
   hotkey_manager_macos: a4317849af96d2430fa89944d3c58977ca089fbe
   keypress_simulator_macos: b5c87294b03ab5a2e743873a7dabe1ff5589129d
+  objective_c: ec13431e45ba099cb734eb2829a5c1cd37986cba
   ocr_engine_builtin: 825f9e1a6f6a79a6a647d78ee1218bcce19b45e8
   protocol_handler: f4d1317b2b828d6370e140077be5155feb3f06c7
   screen_capturer_macos: 229306903c56767a7c7d3a48167ba303e95c6d29

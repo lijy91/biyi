@@ -1,4 +1,4 @@
-import 'package:biyi_app/app/settings/page.dart';
+import 'package:biyi_app/routes/settings/page.dart';
 import 'package:uikit/uikit.dart';
 
 class TabSettingsScene extends StatelessWidget {

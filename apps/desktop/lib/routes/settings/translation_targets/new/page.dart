@@ -1,4 +1,4 @@
-import 'package:biyi_app/app/router_config.dart';
+import 'package:biyi_app/routes/router_config.dart';
 import 'package:biyi_app/i18n/strings.g.dart';
 import 'package:biyi_app/models/models.dart';
 import 'package:biyi_app/states/settings.dart';

@@ -31,7 +31,7 @@ class OcrEngineIcon extends StatelessWidget {
         ),
         borderRadius: const BorderRadius.all(Radius.circular(6)),
         border: Border.all(
-          color: Colors.black.withOpacity(0.2),
+          color: Colors.black.withValues(alpha: 0.2),
           width: 0.5,
         ),
       ),

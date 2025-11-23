@@ -23,13 +23,15 @@ class AvailableTranslationEnginesPage extends StatefulWidget {
 class _AvailableTranslationEnginesPageState
     extends State<AvailableTranslationEnginesPage> {
   List<TranslationEngineConfig> get _proEngineList {
-    return Settings.instance.proTranslationEngines
-        .list(where: ((e) => !e.disabled));
+    return Settings.instance.proTranslationEngines.list(
+      where: ((e) => !e.disabled),
+    );
   }
 
   List<TranslationEngineConfig> get _privateEngineList {
-    return Settings.instance.privateTranslationEngines
-        .list(where: ((e) => !e.disabled));
+    return Settings.instance.privateTranslationEngines.list(
+      where: ((e) => !e.disabled),
+    );
   }
 
   String? _selectedEngineId;
@@ -51,7 +53,7 @@ class _AvailableTranslationEnginesPageState
   Future<void> _handleClickOk() async {
     TranslationEngineConfig? engineConfig =
         Settings.instance.privateTranslationEngine(_selectedEngineId).get() ??
-            Settings.instance.proTranslationEngine(_selectedEngineId).get();
+        Settings.instance.proTranslationEngine(_selectedEngineId).get();
     context.pop<TranslationEngineConfig?>(engineConfig);
   }
 

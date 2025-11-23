@@ -1,4 +1,4 @@
-library biyi_api_client;
+library;
 
 export 'src/biyi_api_client.dart';
 export 'src/models/ocr_engine_config.dart';

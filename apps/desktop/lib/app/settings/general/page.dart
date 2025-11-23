@@ -67,8 +67,8 @@ class _GeneralSettingPageState extends State<GeneralSettingPage> {
               ),
               trailing: const ListTileChevron(),
               onTap: () async {
-                final OcrEngineConfig? ocrEngineConfig =
-                    await context.push<OcrEngineConfig?>(
+                final OcrEngineConfig?
+                ocrEngineConfig = await context.push<OcrEngineConfig?>(
                   '${PageId.availableOcrEngines}?selectedEngineId=${settings.defaultOcrEngineId}',
                 );
                 if (ocrEngineConfig != null) {
@@ -86,7 +86,12 @@ class _GeneralSettingPageState extends State<GeneralSettingPage> {
                 _handleUpdateSettings(autoCopyRecognizedText: value);
               },
               title: Text(
-                t.app.settings.general.extract_text.auto_copy_detected_text
+                t
+                    .app
+                    .settings
+                    .general
+                    .extract_text
+                    .auto_copy_detected_text
                     .title,
               ),
             ),
@@ -115,8 +120,8 @@ class _GeneralSettingPageState extends State<GeneralSettingPage> {
               ),
               trailing: const ListTileChevron(),
               onTap: () async {
-                final TranslationEngineConfig? engineConfig =
-                    await context.push<TranslationEngineConfig?>(
+                final TranslationEngineConfig?
+                engineConfig = await context.push<TranslationEngineConfig?>(
                   '${PageId.availableTranslationEngines}?selectedEngineId=${settings.defaultTranslationEngineId}',
                 );
                 if (engineConfig != null) {
@@ -175,8 +180,8 @@ class _GeneralSettingPageState extends State<GeneralSettingPage> {
                   },
                 ),
                 onTap: () async {
-                  final TranslationEngineConfig? engineConfig =
-                      await context.push<TranslationEngineConfig?>(
+                  final TranslationEngineConfig?
+                  engineConfig = await context.push<TranslationEngineConfig?>(
                     '${PageId.availableTranslationEngines}?selectedEngineId=${settings.defaultDetectLanguageEngineId}',
                   );
                   if (engineConfig != null) {
@@ -232,8 +237,8 @@ class _GeneralSettingPageState extends State<GeneralSettingPage> {
                 title: Text(
                   t.add,
                   style: const TextStyle(
-                      // color: Theme.of(context).primaryColor,
-                      ),
+                    // color: Theme.of(context).primaryColor,
+                  ),
                 ),
                 onTap: () async {
                   await context.push<TranslationEngineConfig?>(
@@ -282,10 +287,20 @@ class _GeneralSettingPageState extends State<GeneralSettingPage> {
               useCheckmarkStyle: true,
               title: Text(
                 UniPlatform.isMacOS
-                    ? t.app.settings.general.input_settings
-                        .submit_with_meta_enter_mac.title
-                    : t.app.settings.general.input_settings
-                        .submit_with_meta_enter.title,
+                    ? t
+                          .app
+                          .settings
+                          .general
+                          .input_settings
+                          .submit_with_meta_enter_mac
+                          .title
+                    : t
+                          .app
+                          .settings
+                          .general
+                          .input_settings
+                          .submit_with_meta_enter
+                          .title,
               ),
             ),
           ],

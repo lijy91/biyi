@@ -37,9 +37,9 @@ class _TranslationTargetNewOrEditPageState
 
   void _handleClickOk() {
     context.read<Settings>().transTargets.updateOrCreate(
-          sourceLanguage: _sourceLanguage!,
-          targetLanguage: _targetLanguage!,
-        );
+      sourceLanguage: _sourceLanguage!,
+      targetLanguage: _targetLanguage!,
+    );
     Navigator.of(context).pop();
   }
 

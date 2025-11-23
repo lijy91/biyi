@@ -177,8 +177,13 @@ class _KeybindsSettingPageState extends State<KeybindsSettingPage> {
             children: [
               ListTile(
                 title: Text(
-                  t.app.settings.keybinds.input_assist_function
-                      .translate_input_content.title,
+                  t
+                      .app
+                      .settings
+                      .keybinds
+                      .input_assist_function
+                      .translate_input_content
+                      .title,
                 ),
                 additionalInfo: HotKeyDisplayView(
                   boundShortcuts.translateInputContent,

@@ -74,7 +74,8 @@ class TranslationResultRecordView extends StatelessWidget {
   }
 
   Widget _buildRequestError(BuildContext context) {
-    UniTranslateClientError error = translationResultRecord.lookUpError ??
+    UniTranslateClientError error =
+        translationResultRecord.lookUpError ??
         translationResultRecord.translateError ??
         UniTranslateClientError(
           message: 'Unknown Error',
@@ -129,7 +130,8 @@ class TranslationResultRecordView extends StatelessWidget {
     }
 
     // 是否显示为查词结果
-    bool isShowAsLookUpResult = (definitions ?? []).isNotEmpty ||
+    bool isShowAsLookUpResult =
+        (definitions ?? []).isNotEmpty ||
         (pronunciations ?? []).isNotEmpty ||
         (images ?? []).isNotEmpty;
 

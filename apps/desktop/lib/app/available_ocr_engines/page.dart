@@ -24,8 +24,9 @@ class _AvailableOcrEnginesPageState extends State<AvailableOcrEnginesPage> {
   }
 
   List<OcrEngineConfig> get _privateOcrEngineList {
-    return Settings.instance.privateOcrEngines
-        .list(where: ((e) => !e.disabled));
+    return Settings.instance.privateOcrEngines.list(
+      where: ((e) => !e.disabled),
+    );
   }
 
   String? _selectedEngineId;
@@ -47,7 +48,7 @@ class _AvailableOcrEnginesPageState extends State<AvailableOcrEnginesPage> {
   Future<void> _handleClickOk() async {
     OcrEngineConfig? ocrEngineConfig =
         Settings.instance.privateOcrEngine(_selectedEngineId).get() ??
-            Settings.instance.proOcrEngine(_selectedEngineId).get();
+        Settings.instance.proOcrEngine(_selectedEngineId).get();
     context.pop<OcrEngineConfig?>(ocrEngineConfig);
   }
 

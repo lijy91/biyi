@@ -24,7 +24,7 @@ class SettingsLayout extends StatefulWidget {
 
 class _SettingsLayoutState extends State<SettingsLayout> with WindowListener {
   String? _selectedDestination = PageId.settingsGeneral;
-  bool _expanded = true;
+  final bool _expanded = true;
   int _selectedIndex = 0;
 
   @override
@@ -151,8 +151,9 @@ class _SettingsLayoutState extends State<SettingsLayout> with WindowListener {
         children: [
           NavigationLabel(
             alignment: Alignment.centerLeft,
-            child:
-                Text(t.app.settings.kLayout.navgroup.client).semiBold().muted(),
+            child: Text(
+              t.app.settings.kLayout.navgroup.client,
+            ).semiBold().muted(),
           ),
           NavigationItem(
             alignment: Alignment.centerLeft,
@@ -191,9 +192,9 @@ class _SettingsLayoutState extends State<SettingsLayout> with WindowListener {
           ),
           NavigationLabel(
             alignment: Alignment.centerLeft,
-            child: Text(t.app.settings.kLayout.navgroup.integrations)
-                .semiBold()
-                .muted(),
+            child: Text(
+              t.app.settings.kLayout.navgroup.integrations,
+            ).semiBold().muted(),
           ),
           NavigationItem(
             alignment: Alignment.centerLeft,
@@ -215,9 +216,9 @@ class _SettingsLayoutState extends State<SettingsLayout> with WindowListener {
           ),
           NavigationLabel(
             alignment: Alignment.centerLeft,
-            child: Text(t.app.settings.kLayout.navgroup.resources)
-                .semiBold()
-                .muted(),
+            child: Text(
+              t.app.settings.kLayout.navgroup.resources,
+            ).semiBold().muted(),
           ),
           NavigationItem(
             alignment: Alignment.centerLeft,

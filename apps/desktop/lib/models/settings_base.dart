@@ -1,3 +1,5 @@
+// ignore_for_file: strict_top_level_inference
+
 import 'package:biyi_api_client/biyi_api_client.dart';
 import 'package:biyi_app/i18n/strings.g.dart';
 import 'package:biyi_app/models/translation_target.dart';
@@ -49,12 +51,12 @@ class BoundShortcuts {
     HotKey? extractFromScreenCapture,
     HotKey? extractFromClipboard,
     HotKey? translateInputContent,
-  })  : _showOrHide = showOrHide,
-        _hide = hide,
-        _extractFromScreenSelection = extractFromScreenSelection,
-        _extractFromScreenCapture = extractFromScreenCapture,
-        _extractFromClipboard = extractFromClipboard,
-        _translateInputContent = translateInputContent;
+  }) : _showOrHide = showOrHide,
+       _hide = hide,
+       _extractFromScreenSelection = extractFromScreenSelection,
+       _extractFromScreenCapture = extractFromScreenCapture,
+       _extractFromClipboard = extractFromClipboard,
+       _translateInputContent = translateInputContent;
 
   factory BoundShortcuts.fromJson(Map<String, dynamic> json) =>
       _$BoundShortcutsFromJson(json);
@@ -174,10 +176,10 @@ class SettingsBase {
     this.autoStartEnabled = false,
     List<OcrEngineConfig>? ocrEngines,
     List<TranslationEngineConfig>? translationEngines,
-  })  : translationTargets = translationTargets ?? [],
-        boundShortcuts = boundShortcuts ?? BoundShortcuts(),
-        ocrEngines = ocrEngines ?? [],
-        translationEngines = translationEngines ?? [];
+  }) : translationTargets = translationTargets ?? [],
+       boundShortcuts = boundShortcuts ?? BoundShortcuts(),
+       ocrEngines = ocrEngines ?? [],
+       translationEngines = translationEngines ?? [];
 
   factory SettingsBase.fromJson(Map<String, dynamic> json) =>
       _$SettingsBaseFromJson(json);

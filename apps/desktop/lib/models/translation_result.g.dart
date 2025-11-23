@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas, invalid_use_of_internal_member, unnecessary_non_null_assertion, unnecessary_null_comparison
+// ignore_for_file: unused_element_parameter, require_trailing_commas, invalid_use_of_internal_member, unnecessary_non_null_assertion, unnecessary_null_comparison
 
 part of 'translation_result.dart';
 
@@ -14,11 +14,14 @@ TranslationResult _$TranslationResultFromJson(Map<String, dynamic> json) =>
       translationTarget: json['translationTarget'] == null
           ? null
           : TranslationTarget.fromJson(
-              json['translationTarget'] as Map<String, dynamic>),
+              json['translationTarget'] as Map<String, dynamic>,
+            ),
       translationResultRecordList:
           (json['translationResultRecordList'] as List<dynamic>?)
-              ?.map((e) =>
-                  TranslationResultRecord.fromJson(e as Map<String, dynamic>))
+              ?.map(
+                (e) =>
+                    TranslationResultRecord.fromJson(e as Map<String, dynamic>),
+              )
               .toList(),
       unsupportedEngineIdList:
           (json['unsupportedEngineIdList'] as List<dynamic>?)

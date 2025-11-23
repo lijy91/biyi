@@ -307,17 +307,18 @@ class DialogPage<T> extends Page<T> {
       context: context,
       settings: this,
       alignment: Alignment.center,
-      transitionBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-      ) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      },
+      transitionBuilder:
+          (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
       builder: (BuildContext context) {
         return Center(
           child: Container(
@@ -339,8 +340,8 @@ class DialogPage<T> extends Page<T> {
                 boxShadow: [
                   BoxShadow(
                     color: isDark
-                        ? Colors.white.withOpacity(0.05)
-                        : Colors.black.withOpacity(0.3),
+                        ? Colors.white.withValues(alpha: 0.05)
+                        : Colors.black.withValues(alpha: 0.3),
                     offset: const Offset(0.0, 0.0),
                     blurRadius: 20,
                   ),
@@ -355,7 +356,7 @@ class DialogPage<T> extends Page<T> {
         );
       },
       anchorPoint: anchorPoint,
-      barrierColor: barrierColor ?? Colors.black.withOpacity(0.5),
+      barrierColor: barrierColor ?? Colors.black.withValues(alpha: 0.5),
       barrierDismissible: barrierDismissible,
       barrierLabel: barrierLabel,
       useSafeArea: useSafeArea,
@@ -371,19 +372,19 @@ class FadeTransitionPage extends CustomTransitionPage<void> {
     required LocalKey super.key,
     required super.child,
   }) : super(
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              FadeTransition(
-            opacity: animation.drive(_curveTween),
-            child: child,
-          ),
-          transitionDuration: const Duration(milliseconds: 100),
-          reverseTransitionDuration: const Duration(milliseconds: 100),
-        );
+         transitionsBuilder:
+             (
+               BuildContext context,
+               Animation<double> animation,
+               Animation<double> secondaryAnimation,
+               Widget child,
+             ) => FadeTransition(
+               opacity: animation.drive(_curveTween),
+               child: child,
+             ),
+         transitionDuration: const Duration(milliseconds: 100),
+         reverseTransitionDuration: const Duration(milliseconds: 100),
+       );
 
   static final CurveTween _curveTween = CurveTween(curve: Curves.easeIn);
 }

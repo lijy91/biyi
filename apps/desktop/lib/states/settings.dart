@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:biyi_app/models/settings_base.dart';
 import 'package:biyi_app/models/translation_target.dart';
 import 'package:biyi_app/services/api_client.dart';
-import 'package:biyi_app/services/local_db/migrate_old_settings.dart';
 import 'package:biyi_app/services/ocr_client/ocr_client.dart';
 import 'package:biyi_app/states/modifiers/ocr_engines_modifier.dart';
 import 'package:biyi_app/states/modifiers/translation_engines_modifier.dart';
@@ -18,11 +17,6 @@ import 'package:ocr_engine_builtin/ocr_engine_builtin.dart';
 import 'package:uikit/uikit.dart' show ThemeMode;
 
 export 'package:biyi_app/models/settings_base.dart';
-
-Future<File> _getOldSettingsMigratedFile() async {
-  final appDir = await getAppDirectory();
-  return File('${appDir.path}/old_settings_migrated.json');
-}
 
 Future<File> _getSettingsFile() async {
   final appDir = await getAppDirectory();
@@ -89,9 +83,7 @@ class Settings extends SettingsBase with ChangeNotifier {
         return engine;
       }).toList();
 
-      newProOcrEngineList.removeWhere(
-        (e) => e.type == kOcrEngineTypeBuiltIn,
-      );
+      newProOcrEngineList.removeWhere((e) => e.type == kOcrEngineTypeBuiltIn);
 
       try {
         if (await kDefaultBuiltInOcrEngine.isSupportedOnCurrentPlatform()) {
@@ -123,14 +115,16 @@ class Settings extends SettingsBase with ChangeNotifier {
 
     if (defaultTranslationEngineId == null ||
         defaultTranslationEngineConfig == null) {
-      defaultTranslationEngineId =
-          newProEngineList.firstWhere((e) => e.type == 'baidu').id;
+      defaultTranslationEngineId = newProEngineList
+          .firstWhere((e) => e.type == 'baidu')
+          .id;
     }
 
     if (defaultDetectLanguageEngineId == null ||
         defaultDetectLanguageEngineConfig == null) {
-      defaultDetectLanguageEngineId =
-          newProEngineList.firstWhere((e) => e.type == 'baidu').id;
+      defaultDetectLanguageEngineId = newProEngineList
+          .firstWhere((e) => e.type == 'baidu')
+          .id;
     }
 
     if (defaultOcrEngineId == null || defaultOcrEngineConfig == null) {
@@ -175,8 +169,10 @@ class Settings extends SettingsBase with ChangeNotifier {
   }
 
   TranslationEnginesModifier get proTranslationEngines {
-    _proTranslationEnginesModifier ??=
-        TranslationEnginesModifier(this, group: 'pro');
+    _proTranslationEnginesModifier ??= TranslationEnginesModifier(
+      this,
+      group: 'pro',
+    );
     return _proTranslationEnginesModifier!;
   }
 
@@ -185,8 +181,10 @@ class Settings extends SettingsBase with ChangeNotifier {
   }
 
   TranslationEnginesModifier get privateTranslationEngines {
-    _privateTranslationEnginesModifier ??=
-        TranslationEnginesModifier(this, group: 'private');
+    _privateTranslationEnginesModifier ??= TranslationEnginesModifier(
+      this,
+      group: 'private',
+    );
     return _privateTranslationEnginesModifier!;
   }
 
@@ -215,24 +213,30 @@ class Settings extends SettingsBase with ChangeNotifier {
     // Merge other settings
     Settings? settings,
   }) {
-    this.defaultOcrEngineId = defaultOcrEngineId ??
+    this.defaultOcrEngineId =
+        defaultOcrEngineId ??
         settings?.defaultOcrEngineId ??
         this.defaultOcrEngineId;
-    this.autoCopyRecognizedText = autoCopyRecognizedText ??
+    this.autoCopyRecognizedText =
+        autoCopyRecognizedText ??
         settings?.autoCopyRecognizedText ??
         this.autoCopyRecognizedText;
-    this.defaultTranslationEngineId = defaultTranslationEngineId ??
+    this.defaultTranslationEngineId =
+        defaultTranslationEngineId ??
         settings?.defaultTranslationEngineId ??
         this.defaultTranslationEngineId;
     this.translationMode =
         translationMode ?? settings?.translationMode ?? this.translationMode;
-    this.defaultDetectLanguageEngineId = defaultDetectLanguageEngineId ??
+    this.defaultDetectLanguageEngineId =
+        defaultDetectLanguageEngineId ??
         settings?.defaultDetectLanguageEngineId ??
         this.defaultDetectLanguageEngineId;
-    this.translationTargets = translationTargets ??
+    this.translationTargets =
+        translationTargets ??
         settings?.translationTargets ??
         this.translationTargets;
-    this.doubleClickCopyResult = doubleClickCopyResult ??
+    this.doubleClickCopyResult =
+        doubleClickCopyResult ??
         settings?.doubleClickCopyResult ??
         this.doubleClickCopyResult;
     this.inputSubmitMode =
@@ -249,7 +253,8 @@ class Settings extends SettingsBase with ChangeNotifier {
     this.autoStartEnabled =
         autoStartEnabled ?? settings?.autoStartEnabled ?? this.autoStartEnabled;
     this.ocrEngines = ocrEngines ?? settings?.ocrEngines ?? this.ocrEngines;
-    this.translationEngines = translationEngines ??
+    this.translationEngines =
+        translationEngines ??
         settings?.translationEngines ??
         this.translationEngines;
 
@@ -285,16 +290,6 @@ class Settings extends SettingsBase with ChangeNotifier {
 
   /// Load settings from local file
   Future<void> _readFromLocalFile() async {
-    // Migrate old settings
-    final oldSettingsMigratedFile = await _getOldSettingsMigratedFile();
-    if (!oldSettingsMigratedFile.existsSync()) {
-      await migrateOldSettings(this);
-      await _writeToLocalFile();
-      oldSettingsMigratedFile.writeAsStringSync(
-        jsonEncode({'timestamp': DateTime.now().millisecondsSinceEpoch}),
-      );
-    }
-
     final settingsFile = await _getSettingsFile();
     if (settingsFile.existsSync()) {
       final json = jsonDecode(settingsFile.readAsStringSync());

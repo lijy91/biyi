@@ -37,8 +37,10 @@ class _TranslationEnginesSettingPageState
   }
 
   Widget _buildListSectionProEngines(BuildContext context) {
-    final proTranslationEngineList =
-        context.watch<Settings>().proTranslationEngines.list();
+    final proTranslationEngineList = context
+        .watch<Settings>()
+        .proTranslationEngines
+        .list();
     if (proTranslationEngineList.isEmpty) return Container();
     return ListSection(
       children: [
@@ -70,12 +72,15 @@ class _TranslationEnginesSettingPageState
   }
 
   Widget _buildListSectionPrivateEngines(BuildContext context) {
-    final privateTranslationEngineList =
-        context.watch<Settings>().privateTranslationEngines.list();
+    final privateTranslationEngineList = context
+        .watch<Settings>()
+        .privateTranslationEngines
+        .list();
 
     void onReorder(int oldIndex, int newIndex) {
-      List<String> idList =
-          privateTranslationEngineList.map((e) => e.id).toList();
+      List<String> idList = privateTranslationEngineList
+          .map((e) => e.id)
+          .toList();
       String oldId = idList.removeAt(oldIndex);
       idList.insert(newIndex, oldId);
 

@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:uikit/src/gapped_column.dart';
 import 'package:uikit/src/gapped_row.dart';

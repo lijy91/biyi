@@ -67,8 +67,10 @@ class _OcrEnginesSettingPageState extends State<OcrEnginesSettingPage> {
   }
 
   Widget _buildListSectionPrivateEngines(BuildContext context) {
-    final privateOcrEngineList =
-        context.watch<Settings>().privateOcrEngines.list();
+    final privateOcrEngineList = context
+        .watch<Settings>()
+        .privateOcrEngines
+        .list();
 
     void onReorder(int oldIndex, int newIndex) {
       List<String> idList = privateOcrEngineList.map((e) => e.id).toList();
@@ -77,7 +79,10 @@ class _OcrEnginesSettingPageState extends State<OcrEnginesSettingPage> {
 
       for (var i = 0; i < idList.length; i++) {
         final id = idList[i];
-        context.read<Settings>().privateOcrEngine(id).update(
+        context
+            .read<Settings>()
+            .privateOcrEngine(id)
+            .update(
               position: i + 1,
             );
       }

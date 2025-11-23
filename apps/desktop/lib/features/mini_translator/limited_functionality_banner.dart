@@ -124,7 +124,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                               FluentIcons.question_circle_20_regular,
                               size: 14,
                               color: hovered
-                                  ? Colors.white.withOpacity(0.7)
+                                  ? Colors.white.withValues(alpha: 0.7)
                                   : Colors.white,
                             ),
                           );

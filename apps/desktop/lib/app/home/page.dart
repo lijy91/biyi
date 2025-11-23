@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = _kHomeTabHomepage;
+  final int _selectedIndex = _kHomeTabHomepage;
 
   Widget _buildBody(BuildContext context) {
     return IndexedStack(

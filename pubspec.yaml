@@ -1,8 +1,26 @@
-name: biyi_workspace
+name: beyondtranslate_workspace
 publish_to: "none"
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
 
+workspace:
+  - apps/desktop
+  - packages/biyi_advanced_features
+  - packages/biyi_api_client
+  - packages/lints
+  - packages/uikit
+
 dev_dependencies:
-  melos: ^6.1.0
+  melos: ^7.3.0
+
+melos:
+  scripts:
+    lint:
+      run: melos exec -c 1 -- flutter analyze --fatal-infos
+    format:
+      run: melos exec -c 1 -- dart format .
+    format-check:
+      run: melos exec -c 1 -- dart format . --set-exit-if-changed
+    test:
+      run: melos exec -c 1 --depends-on flutter_test -- flutter test

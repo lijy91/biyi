@@ -53,8 +53,9 @@ class _OcrEnginesNewOrEditPageState extends State<OcrEnginesNewOrEditPage> {
       _option = widget.ocrEngineConfig?.option ?? {};
 
       for (var optionKey in _engineOptionKeys) {
-        var textEditingController =
-            TextEditingController(text: _option[optionKey]);
+        var textEditingController = TextEditingController(
+          text: _option[optionKey],
+        );
         _textEditingControllerMap[optionKey] = textEditingController;
       }
     } else {
@@ -65,7 +66,10 @@ class _OcrEnginesNewOrEditPageState extends State<OcrEnginesNewOrEditPage> {
   }
 
   void _handleClickOk() {
-    context.read<Settings>().privateOcrEngine(_id!).updateOrCreate(
+    context
+        .read<Settings>()
+        .privateOcrEngine(_id!)
+        .updateOrCreate(
           type: _type,
           option: _option,
         );

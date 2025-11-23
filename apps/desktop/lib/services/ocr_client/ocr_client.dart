@@ -51,7 +51,7 @@ class AutoloadOcrClientAdapter extends UniOcrClientAdapter {
     String id = identifier;
     OcrEngineConfig? engineConfig =
         Settings.instance.privateOcrEngine(id).get() ??
-            Settings.instance.proOcrEngine(id).get();
+        Settings.instance.proOcrEngine(id).get();
 
     OcrEngine? ocrEngine;
     if (_ocrEngineMap.containsKey(engineConfig?.id)) {

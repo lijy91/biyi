@@ -1,4 +1,4 @@
-library uikit;
+library;
 
 export 'package:flutter/material.dart' show Tooltip;
 export 'package:gap/gap.dart';

@@ -49,8 +49,8 @@ class _AppearanceSettingPageState extends State<AppearanceSettingPage> {
                   themeMode == ThemeMode.light
                       ? t.theme_mode.light
                       : themeMode == ThemeMode.dark
-                          ? t.theme_mode.dark
-                          : t.theme_mode.system,
+                      ? t.theme_mode.dark
+                      : t.theme_mode.system,
                 ),
               ),
           ],

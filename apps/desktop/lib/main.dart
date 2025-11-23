@@ -1,103 +1,101 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: invalid_use_of_internal_member, implementation_imports
 
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:biyi_app/app/router_config.dart';
-import 'package:biyi_app/extension/hotkey.dart';
 import 'package:biyi_app/i18n/strings.g.dart';
-import 'package:biyi_app/services/local_db/local_db.dart';
 import 'package:biyi_app/states/actions/translate_input_content.dart';
 import 'package:biyi_app/states/settings.dart';
-import 'package:biyi_app/utils/env.dart';
+// import 'package:biyi_app/utils/env.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/src/widgets/_window.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hotkey_manager/hotkey_manager.dart';
-import 'package:launch_at_startup/launch_at_startup.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:protocol_handler/protocol_handler.dart';
+// import 'package:hotkey_manager/hotkey_manager.dart';
+// import 'package:launch_at_startup/launch_at_startup.dart';
+// import 'package:package_info_plus/package_info_plus.dart';
+// import 'package:protocol_handler/protocol_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:uikit/uikit.dart';
 import 'package:uni_platform/uni_platform.dart';
 import 'package:window_manager/window_manager.dart';
+
 import './features/mini_translator.dart';
-
-Future<void> _ensureInitialized() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  if (UniPlatform.isLinux || UniPlatform.isMacOS || UniPlatform.isWindows) {
-    await hotKeyManager.unregisterAll();
-    await windowManager.ensureInitialized();
-  }
-
-  if (UniPlatform.isMacOS || UniPlatform.isWindows) {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    LaunchAtStartup.instance.setup(
-      appName: packageInfo.appName,
-      appPath: Platform.resolvedExecutable,
-    );
-    await protocolHandler.register('beyondtranslate');
-  }
-
-  await initEnv();
-  // ignore: deprecated_member_use_from_same_package
-  await initLocalDb();
-  await Settings.instance.loadFromLocalFile();
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await _ensureInitialized();
-
-  // UniPlatform.call<Future<void>>(
-  //   desktop: () async {
-  //     const WindowOptions windowOptions = WindowOptions(
-  //       alwaysOnTop: false,
-  //       skipTaskbar: true,
-  //       titleBarStyle: TitleBarStyle.hidden,
-  //       windowButtonVisibility: false,
-  //     );
-  //     windowManager.waitUntilReadyToShow(windowOptions, () async {
-  //       if (UniPlatform.isMacOS) {
-  //         await windowManager.setVisibleOnAllWorkspaces(
-  //           true,
-  //           visibleOnFullScreen: true,
-  //         );
-  //       }
-  //     });
-  //   },
-  //   otherwise: () => Future(() => null),
-  // );
 
   runWidget(
     TranslationProvider(
       child: MultiProvider(
         providers: [ChangeNotifierProvider.value(value: Settings.instance)],
-        child: const ViewCollection(views: [MiniTranslatorApp(), MyApp()]),
+        child: const ViewCollection(views: [MiniTranslatorApp(), MainApp()]),
       ),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+const kMainAppTitle = 'Beyond Translate';
+
+// Future<void> _ensureInitialized() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   if (UniPlatform.isLinux || UniPlatform.isMacOS || UniPlatform.isWindows) {
+//     await hotKeyManager.unregisterAll();
+//     await windowManager.ensureInitialized();
+//   }
+
+//   if (UniPlatform.isMacOS || UniPlatform.isWindows) {
+//     PackageInfo packageInfo = await PackageInfo.fromPlatform();
+//     LaunchAtStartup.instance.setup(
+//       appName: packageInfo.appName,
+//       appPath: Platform.resolvedExecutable,
+//     );
+//     await protocolHandler.register('beyondtranslate');
+//   }
+
+//   await initEnv();
+//   await Settings.instance.loadFromLocalFile();
+// }
+
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MainApp> createState() => _MainAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MainAppState extends State<MainApp> {
   final _windowController = RegularWindowController(
     preferredSize: const Size(1280, 720),
     title: 'Beyond Translate',
   );
+
+  final botToastBuilder = BotToastInit();
+
+  @override
+  Widget build(BuildContext context) {
+    // final boundShortcuts = Settings.instance.boundShortcuts;
+
+    // final translateInputContentSingleActivator =
+    //     boundShortcuts.translateInputContent.singleActivator;
+    return Actions(
+      actions: <Type, Action<Intent>>{
+        TranslateInputContentIntent: TranslateInputContentAction(),
+      },
+      // child: GlobalShortcuts(
+      //   shortcuts: {
+      //     translateInputContentSingleActivator: TranslateInputContentIntent(),
+      //   },
+      //   child: _buildApp(context),
+      // ),
+      child: _buildApp(context),
+    );
+  }
 
   @override
   void dispose() {
     _windowController.dispose();
     super.dispose();
   }
-
-  final botToastBuilder = BotToastInit();
 
   Widget _buildApp(BuildContext context) {
     final settings = context.watch<Settings>();
@@ -135,26 +133,6 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         debugShowCheckedModeBanner: false,
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // final boundShortcuts = Settings.instance.boundShortcuts;
-
-    // final translateInputContentSingleActivator =
-    //     boundShortcuts.translateInputContent.singleActivator;
-    return Actions(
-      actions: <Type, Action<Intent>>{
-        TranslateInputContentIntent: TranslateInputContentAction(),
-      },
-      // child: GlobalShortcuts(
-      //   shortcuts: {
-      //     translateInputContentSingleActivator: TranslateInputContentIntent(),
-      //   },
-      //   child: _buildApp(context),
-      // ),
-      child: _buildApp(context),
     );
   }
 }

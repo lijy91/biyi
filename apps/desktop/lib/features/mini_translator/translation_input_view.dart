@@ -175,7 +175,9 @@ class TranslationInputView extends StatelessWidget {
                   placeholder: Text(
                     t.app.home.input_hint,
                     style: themeData.typography.base.copyWith(
-                      color: themeData.typography.base.color?.withOpacity(0.5),
+                      color: themeData.typography.base.color?.withValues(
+                        alpha: 0.5,
+                      ),
                       height: 1.2,
                     ),
                   ),

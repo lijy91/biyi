@@ -69,8 +69,9 @@ class TranslationEnginesModifier {
     List<String>? supportedScopes,
     bool? disabled,
   }) async {
-    final index =
-        settings.translationEngines.indexWhere((element) => element.id == id);
+    final index = settings.translationEngines.indexWhere(
+      (element) => element.id == id,
+    );
     if (index == -1) return;
 
     final oldTranslationEngine = settings.translationEngines[index];

@@ -100,7 +100,7 @@ class AutoloadTranslateClientAdapter extends UniTranslateClientAdapter {
     String id = identifier;
     TranslationEngineConfig? engineConfig =
         Settings.instance.privateTranslationEngine(id).get() ??
-            Settings.instance.proTranslationEngine(id).get();
+        Settings.instance.proTranslationEngine(id).get();
 
     TranslationEngine? translationEngine;
     if (_translationEngineMap.containsKey(engineConfig?.id)) {

@@ -2,6 +2,7 @@ name: biyi_api_client
 description: biyi api client
 version: 0.1.0
 publish_to: none
+resolution: workspace
 
 environment:
   sdk: ">=3.9.2 <4.0.0"
@@ -13,6 +14,6 @@ dependencies:
   uni_translate_client: ^0.1.6
 
 dev_dependencies:
+  beyondtranslate_lints: ^0.1.0
   build_runner: ^2.4.4
   json_serializable: ^6.6.0
-  mostly_reasonable_lints: ^0.1.2

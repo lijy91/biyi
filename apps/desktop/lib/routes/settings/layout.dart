@@ -8,7 +8,6 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uikit/uikit.dart';
 import 'package:uni_platform/uni_platform.dart';
-import 'package:window_manager/window_manager.dart';
 
 class SettingsLayout extends StatefulWidget {
   const SettingsLayout({
@@ -22,63 +21,10 @@ class SettingsLayout extends StatefulWidget {
   State<SettingsLayout> createState() => _SettingsLayoutState();
 }
 
-class _SettingsLayoutState extends State<SettingsLayout> with WindowListener {
+class _SettingsLayoutState extends State<SettingsLayout> {
   String? _selectedDestination = PageId.settingsGeneral;
   final bool _expanded = true;
   int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    UniPlatform.call<Future<void>>(
-      desktop: () => _initWindow(),
-      otherwise: () => Future(() => null),
-    );
-  }
-
-  @override
-  void dispose() {
-    UniPlatform.call<Future<void>>(
-      desktop: () => _uninitWindow(),
-      otherwise: () => Future(() => null),
-    );
-    super.dispose();
-  }
-
-  @override
-  Future<void> onWindowClose() async {
-    await windowManager.hide();
-    // ignore: use_build_context_synchronously
-    context.go(PageId.home);
-  }
-
-  Future<void> _initWindow() async {
-    windowManager.addListener(this);
-    const size = Size(840, 600);
-    const minimunSize = Size(840, 600);
-    const maximumSize = Size(840, 600);
-    await Future.any([
-      windowManager.setSize(size),
-      windowManager.setMinimumSize(minimunSize),
-      windowManager.setMaximumSize(maximumSize),
-      windowManager.center(),
-      windowManager.setSkipTaskbar(false),
-      windowManager.setTitleBarStyle(
-        TitleBarStyle.hidden,
-        windowButtonVisibility: true,
-      ),
-      windowManager.setPreventClose(true),
-    ]);
-
-    await Future<void>.delayed(const Duration(milliseconds: 200));
-    await windowManager.setOpacity(1);
-    await windowManager.show();
-  }
-
-  Future<void> _uninitWindow() {
-    windowManager.removeListener(this);
-    return Future<void>.value();
-  }
 
   Future<void> _handleDestinationSelected(String value) async {
     setState(() {

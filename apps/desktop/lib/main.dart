@@ -16,7 +16,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:uikit/uikit.dart';
 import 'package:uni_platform/uni_platform.dart';
-import 'package:window_manager/window_manager.dart';
 
 import './features/mini_translator.dart';
 import './router_config.dart';
@@ -119,9 +118,9 @@ class _MainAppState extends State<MainApp> {
                   ),
                   child: child,
                 ),
-                const DragToMoveArea(
-                  child: SizedBox(width: double.infinity, height: 34),
-                ),
+                // const DragToMoveArea(
+                //   child: SizedBox(width: double.infinity, height: 34),
+                // ),
               ],
             );
           }

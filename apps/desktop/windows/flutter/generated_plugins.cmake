@@ -9,12 +9,10 @@ list(APPEND FLUTTER_PLUGIN_LIST
   keypress_simulator_windows
   protocol_handler
   screen_capturer_windows
-  screen_retriever_windows
   screen_text_extractor
   tray_manager
   url_launcher_windows
   vclibs
-  window_manager
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

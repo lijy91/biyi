@@ -12,12 +12,10 @@
 #include <keypress_simulator_windows/keypress_simulator_windows_plugin_c_api.h>
 #include <protocol_handler/protocol_handler_plugin.h>
 #include <screen_capturer_windows/screen_capturer_windows_plugin_c_api.h>
-#include <screen_retriever_windows/screen_retriever_windows_plugin_c_api.h>
 #include <screen_text_extractor/screen_text_extractor_plugin.h>
 #include <tray_manager/tray_manager_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
 #include <vclibs/vclibs_plugin_c_api.h>
-#include <window_manager/window_manager_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   AudioplayersWindowsPluginRegisterWithRegistrar(
@@ -32,8 +30,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("ProtocolHandlerPlugin"));
   ScreenCapturerWindowsPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ScreenCapturerWindowsPluginCApi"));
-  ScreenRetrieverWindowsPluginCApiRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("ScreenRetrieverWindowsPluginCApi"));
   ScreenTextExtractorPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ScreenTextExtractorPlugin"));
   TrayManagerPluginRegisterWithRegistrar(
@@ -42,6 +38,4 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
   VclibsPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("VclibsPluginCApi"));
-  WindowManagerPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("WindowManagerPlugin"));
 }

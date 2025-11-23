@@ -90,7 +90,7 @@ $ flutter run -d linux / macos / windows
 - https://github.com/leanflutter/hotkey_manager
 - https://github.com/leanflutter/screen_text_extractor
 - https://github.com/leanflutter/tray_manager
-- https://github.com/leanflutter/window_manager
+- https://github.com/libnativeapi/nativeapi
 
 ## License
 

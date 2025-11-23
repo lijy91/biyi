@@ -11,14 +11,12 @@ import 'package:biyi_app/states/settings.dart';
 import 'package:biyi_app/utils/utils.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:uikit/uikit.dart';
 import 'package:screen_capturer/screen_capturer.dart';
-import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:shortid/shortid.dart';
 import 'package:tray_manager/tray_manager.dart';
@@ -26,7 +24,6 @@ import 'package:uni_ocr_client/uni_ocr_client.dart';
 import 'package:uni_platform/uni_platform.dart';
 import 'package:uni_translate_client/uni_translate_client.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:window_manager/window_manager.dart';
 import './limited_functionality_banner.dart';
 import './new_version_found_banner.dart';
 import './toolbar_item_always_on_top.dart';
@@ -50,11 +47,7 @@ class MiniTranslator extends StatefulWidget {
 }
 
 class _MiniTranslatorState extends State<MiniTranslator>
-    with
-        WidgetsBindingObserver,
-        ProtocolListener,
-        TrayListener,
-        WindowListener {
+    with WidgetsBindingObserver, ProtocolListener, TrayListener {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -67,7 +60,6 @@ class _MiniTranslatorState extends State<MiniTranslator>
 
   bool? _lastShowTrayIcon;
   String? _lastAppLanguage;
-  Offset _lastShownPosition = Offset.zero;
 
   Version? _latestVersion;
   bool _isAllowedScreenCaptureAccess = true;
@@ -86,8 +78,6 @@ class _MiniTranslatorState extends State<MiniTranslator>
   List<TranslationResult> _translationResultList = [];
 
   List<Future> _futureList = [];
-
-  Timer? _resizeTimer;
 
   List<TranslationEngineConfig> get _translationEngineList {
     return Settings.instance.translationEngines
@@ -114,15 +104,10 @@ class _MiniTranslatorState extends State<MiniTranslator>
     if (UniPlatform.isLinux || UniPlatform.isMacOS || UniPlatform.isWindows) {
       protocolHandler.addListener(this);
       trayManager.addListener(this);
-      windowManager.addListener(this);
       _init();
     }
     _loadData();
     super.initState();
-    UniPlatform.call<Future<void>>(
-      desktop: () => _initWindow(),
-      otherwise: () => Future(() => null),
-    );
   }
 
   @override
@@ -132,7 +117,6 @@ class _MiniTranslatorState extends State<MiniTranslator>
     if (UniPlatform.isLinux || UniPlatform.isMacOS || UniPlatform.isWindows) {
       protocolHandler.removeListener(this);
       trayManager.removeListener(this);
-      windowManager.removeListener(this);
     }
     super.dispose();
   }
@@ -149,25 +133,6 @@ class _MiniTranslatorState extends State<MiniTranslator>
       }
       setState(() {});
     }
-  }
-
-  Future<void> _initWindow() async {
-    const size = Size(420, 185);
-    const minimunSize = Size(420, 185);
-    const maximumSize = Size(420, 600);
-    await Future.any([
-      windowManager.setSize(size),
-      windowManager.setMinimumSize(minimunSize),
-      windowManager.setMaximumSize(maximumSize),
-      windowManager.setSkipTaskbar(true),
-      windowManager.setTitleBarStyle(
-        TitleBarStyle.hidden,
-        windowButtonVisibility: false,
-      ),
-      windowManager.setPreventClose(true),
-    ]);
-    await Future<void>.delayed(const Duration(milliseconds: 200));
-    await windowManager.show();
   }
 
   void _handleChanged() {
@@ -197,15 +162,6 @@ class _MiniTranslatorState extends State<MiniTranslator>
     await _initTrayIcon();
     await Future.delayed(const Duration(milliseconds: 400));
 
-    if (UniPlatform.isLinux || UniPlatform.isWindows) {
-      Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
-      Size windowSize = await windowManager.getSize();
-      _lastShownPosition = Offset(
-        primaryDisplay.size.width - windowSize.width - 50,
-        50,
-      );
-      await windowManager.setPosition(_lastShownPosition);
-    }
     await _windowShow(isShowBelowTray: UniPlatform.isMacOS);
     setState(() {});
   }
@@ -279,100 +235,15 @@ class _MiniTranslatorState extends State<MiniTranslator>
   }
 
   Future<void> _windowShow({bool isShowBelowTray = false}) async {
-    bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    Size windowSize = await windowManager.getSize();
-
-    if (UniPlatform.isLinux) {
-      await windowManager.setPosition(_lastShownPosition);
-    }
-
-    if (kReleaseMode && UniPlatform.isMacOS && isShowBelowTray) {
-      Rect? trayIconBounds = await trayManager.getBounds();
-      if (trayIconBounds != null) {
-        Size trayIconSize = trayIconBounds.size;
-        Offset trayIconPosition = trayIconBounds.topLeft;
-
-        Offset newPosition = Offset(
-          trayIconPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
-          trayIconPosition.dy,
-        );
-
-        if (!isAlwaysOnTop) {
-          await windowManager.setPosition(newPosition);
-        }
-      }
-    }
-
-    bool isVisible = await windowManager.isVisible();
-    if (!isVisible) {
-      await windowManager.show();
-    } else {
-      await windowManager.focus();
-    }
-
-    // Linux 下无法激活窗口临时解决方案
-    if (UniPlatform.isLinux && !isAlwaysOnTop) {
-      await windowManager.setAlwaysOnTop(true);
-      await Future.delayed(const Duration(milliseconds: 10));
-      await windowManager.setAlwaysOnTop(false);
-      await Future.delayed(const Duration(milliseconds: 10));
-      await windowManager.focus();
-    }
+    // TODO: Implement window show
   }
 
   Future<void> _windowHide() async {
-    await windowManager.hide();
+    // TODO: Implement window hide
   }
 
   void _windowResize() {
-    if (Navigator.of(context).canPop()) return;
-
-    if (_resizeTimer != null && _resizeTimer!.isActive) {
-      _resizeTimer?.cancel();
-    }
-    _resizeTimer = Timer.periodic(const Duration(milliseconds: 10), (_) async {
-      if (!UniPlatform.isMacOS) {
-        await Future.delayed(const Duration(milliseconds: 100));
-      }
-      RenderBox? rb1 =
-          _bannersViewKey.currentContext?.findRenderObject() as RenderBox?;
-      RenderBox? rb2 =
-          _inputViewKey.currentContext?.findRenderObject() as RenderBox?;
-      RenderBox? rb3 =
-          _resultsViewKey.currentContext?.findRenderObject() as RenderBox?;
-
-      double toolbarViewHeight = 36.0;
-      double bannersViewHeight = rb1?.size.height ?? 0;
-      double inputViewHeight = rb2?.size.height ?? 0;
-      double resultsViewHeight = rb3?.size.height ?? 0;
-
-      try {
-        double newWindowHeight =
-            toolbarViewHeight +
-            bannersViewHeight +
-            inputViewHeight +
-            resultsViewHeight +
-            (UniPlatform.isWindows ? 5 : 0);
-        Size oldSize = await windowManager.getSize();
-        Size newSize = Size(
-          oldSize.width,
-          newWindowHeight < Settings.instance.maxWindowHeight
-              ? newWindowHeight
-              : Settings.instance.maxWindowHeight,
-        );
-        if (oldSize.width != newSize.width ||
-            oldSize.height != newSize.height) {
-          await windowManager.setSize(newSize, animate: true);
-        }
-      } catch (error) {
-        // print(error);
-      }
-
-      if (_resizeTimer != null) {
-        _resizeTimer?.cancel();
-        _resizeTimer = null;
-      }
-    });
+    // TODO: Implement window resize
   }
 
   Future<void> _loadData() async {
@@ -684,12 +555,7 @@ class _MiniTranslatorState extends State<MiniTranslator>
   }
 
   Future<void> _handleExtractTextFromClipboard() async {
-    bool windowIsVisible = await windowManager.isVisible();
-    if (!windowIsVisible) {
-      await _windowShow();
-      await Future.delayed(const Duration(milliseconds: 10));
-    }
-
+    // TODO: Implement window show when not visible
     ExtractedData? extractedData = await screenTextExtractor.extract(
       mode: ExtractMode.clipboard,
     );
@@ -887,12 +753,7 @@ class _MiniTranslatorState extends State<MiniTranslator>
     return CallbackGlobalShortcuts(
       bindings: {
         shortcuts.showOrHide.singleActivator: () async {
-          bool isVisible = await windowManager.isVisible();
-          if (isVisible) {
-            _windowHide();
-          } else {
-            _windowShow();
-          }
+          // TODO: Implement window show or hide
         },
         shortcuts.hide.singleActivator: () => _windowHide(),
         shortcuts.extractFromScreenSelection.singleActivator: () =>
@@ -960,24 +821,5 @@ class _MiniTranslatorState extends State<MiniTranslator>
         await trayManager.destroy();
         exit(0);
     }
-  }
-
-  @override
-  Future<void> onWindowFocus() async {
-    _focusNode.requestFocus();
-  }
-
-  @override
-  Future<void> onWindowBlur() async {
-    _focusNode.unfocus();
-    bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    if (kReleaseMode && !isAlwaysOnTop) {
-      windowManager.hide();
-    }
-  }
-
-  @override
-  Future<void> onWindowMove() async {
-    _lastShownPosition = await windowManager.getPosition();
   }
 }

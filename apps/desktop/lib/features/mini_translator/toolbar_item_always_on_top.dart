@@ -1,6 +1,5 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:uikit/uikit.dart';
-import 'package:window_manager/window_manager.dart';
 
 class ToolbarItemAlwaysOnTop extends StatefulWidget {
   const ToolbarItemAlwaysOnTop({super.key});
@@ -19,7 +18,7 @@ class _ToolbarItemAlwaysOnTopState extends State<ToolbarItemAlwaysOnTop> {
   }
 
   Future<void> _init() async {
-    _isAlwaysOnTop = await windowManager.isAlwaysOnTop();
+    // _isAlwaysOnTop = await window.isAlwaysOnTop();
     setState(() {});
   }
 
@@ -31,7 +30,7 @@ class _ToolbarItemAlwaysOnTopState extends State<ToolbarItemAlwaysOnTop> {
         setState(() {
           _isAlwaysOnTop = !_isAlwaysOnTop;
         });
-        windowManager.setAlwaysOnTop(_isAlwaysOnTop);
+        // window.setAlwaysOnTop(_isAlwaysOnTop);
       },
       icon: AnimatedContainer(
         duration: const Duration(milliseconds: 200),

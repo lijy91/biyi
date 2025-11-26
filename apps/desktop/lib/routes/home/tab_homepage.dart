@@ -16,7 +16,7 @@ class _TabHomepageSceneState extends State<TabHomepageScene> {
       children: [
         Button.primary(
           onPressed: () {
-            context.go('/settings/general');
+            context.push('/settings/general');
           },
           child: const Text('settings/general'),
         ),

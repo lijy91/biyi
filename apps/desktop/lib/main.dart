@@ -16,7 +16,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:uikit/uikit.dart';
 import 'package:uni_platform/uni_platform.dart';
-
 import './features/mini_translator.dart';
 import './router_config.dart';
 

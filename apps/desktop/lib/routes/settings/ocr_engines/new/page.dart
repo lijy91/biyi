@@ -1,4 +1,4 @@
-import 'package:biyi_app/routes/router_config.dart';
+import 'package:biyi_app/router_config.dart';
 import 'package:biyi_app/i18n/strings.g.dart';
 import 'package:biyi_app/services/api_client.dart';
 import 'package:biyi_app/services/ocr_client/ocr_client.dart';

@@ -1,4 +1,4 @@
-import 'package:biyi_app/routes/router_config.dart';
+import 'package:biyi_app/router_config.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uikit/uikit.dart';

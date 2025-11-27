@@ -9,18 +9,26 @@ import 'package:biyi_app/states/settings.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/src/widgets/_window.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nativeapi/nativeapi.dart';
 // import 'package:hotkey_manager/hotkey_manager.dart';
 // import 'package:launch_at_startup/launch_at_startup.dart';
 // import 'package:package_info_plus/package_info_plus.dart';
 // import 'package:protocol_handler/protocol_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:uikit/uikit.dart';
+import 'package:uikit/uikit.dart' hide Image;
 import 'package:uni_platform/uni_platform.dart';
+import 'package:collection/collection.dart';
 import './features/mini_translator.dart';
 import './router_config.dart';
 
+import './extension/window_controller.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
+
+  setupGlobalWillShowHook();
+  setupGlobalWillHideHook();
 
   runWidget(
     TranslationProvider(
@@ -31,8 +39,6 @@ void main() async {
     ),
   );
 }
-
-const kMainAppTitle = 'Beyond Translate';
 
 // Future<void> _ensureInitialized() async {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -54,6 +60,20 @@ const kMainAppTitle = 'Beyond Translate';
 //   await Settings.instance.loadFromLocalFile();
 // }
 
+const _kMainAppTitle = 'Beyond Translate';
+
+final mainWindowController =
+    RegularWindowController(
+      preferredSize: const Size(1280, 720),
+      title: _kMainAppTitle,
+    )..setWillShowHook((window) {
+      if (window.isFirstShow) {
+        window.titleBarStyle = TitleBarStyle.hidden;
+        window.center();
+      }
+      return true;
+    });
+
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
@@ -62,43 +82,53 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  final _windowController = RegularWindowController(
-    preferredSize: const Size(1280, 720),
-    title: 'Beyond Translate',
-  );
+  late final TrayIcon _trayIcon;
 
-  final botToastBuilder = BotToastInit();
+  Window get _mainWindow => mainWindowController.window;
+
+  Window get _miniTranslatorWindow => miniTranslatorWindowController.window;
 
   @override
-  Widget build(BuildContext context) {
-    // final boundShortcuts = Settings.instance.boundShortcuts;
-
-    // final translateInputContentSingleActivator =
-    //     boundShortcuts.translateInputContent.singleActivator;
-    return Actions(
-      actions: <Type, Action<Intent>>{
-        TranslateInputContentIntent: TranslateInputContentAction(),
-      },
-      // child: GlobalShortcuts(
-      //   shortcuts: {
-      //     translateInputContentSingleActivator: TranslateInputContentIntent(),
-      //   },
-      //   child: _buildApp(context),
-      // ),
-      child: _buildApp(context),
-    );
+  void initState() {
+    super.initState();
+    _setupTrayIcon();
   }
 
-  @override
-  void dispose() {
-    _windowController.dispose();
-    super.dispose();
+  void _setupTrayIcon() {
+    _trayIcon = TrayIcon();
+    final icon = Image.fromAsset('resources/images/tray_icon.png');
+    if (icon != null) _trayIcon.icon = icon;
+    _trayIcon.isVisible = true;
+    _trayIcon.contextMenu = Menu()
+      ..addItem(
+        MenuItem('Open Settings')..on<MenuItemClickedEvent>((_) {
+          _mainWindow.center();
+          _mainWindow.show();
+        }),
+      )
+      ..addItem(
+        MenuItem('Exit')..on<MenuItemClickedEvent>((_) {
+          print('Clicked Exit');
+        }),
+      );
+    _trayIcon.contextMenuTrigger = ContextMenuTrigger.rightClicked;
+    _trayIcon.on<TrayIconClickedEvent>((event) {
+      final bounds = _trayIcon.bounds;
+      if (bounds != null) {
+        _miniTranslatorWindow.setPosition(
+          bounds.left - (_miniTranslatorWindow.bounds.width - bounds.width) / 2,
+          bounds.bottom + 10,
+        );
+      }
+      _miniTranslatorWindow.show();
+    });
   }
 
   Widget _buildApp(BuildContext context) {
+    final botToastBuilder = BotToastInit();
     final settings = context.watch<Settings>();
     return RegularWindow(
-      controller: _windowController,
+      controller: mainWindowController,
       child: ShadcnApp.router(
         theme: const ThemeData(
           colorScheme: ColorSchemes.lightBlue,
@@ -131,6 +161,26 @@ class _MainAppState extends State<MainApp> {
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         debugShowCheckedModeBanner: false,
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // final boundShortcuts = Settings.instance.boundShortcuts;
+
+    // final translateInputContentSingleActivator =
+    //     boundShortcuts.translateInputContent.singleActivator;
+    return Actions(
+      actions: <Type, Action<Intent>>{
+        TranslateInputContentIntent: TranslateInputContentAction(),
+      },
+      // child: GlobalShortcuts(
+      //   shortcuts: {
+      //     translateInputContentSingleActivator: TranslateInputContentIntent(),
+      //   },
+      //   child: _buildApp(context),
+      // ),
+      child: _buildApp(context),
     );
   }
 }

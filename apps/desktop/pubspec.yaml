@@ -81,7 +81,7 @@ dependency_overrides:
     path: ../../../../owncal/shadcn_flutter
 
 flutter:
-  uses-material-design: false
+  uses-material-design: true
   assets:
     - resources/images/
     - resources/images/flag_icons/

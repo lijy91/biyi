@@ -151,15 +151,15 @@ class _MiniTranslatorState extends State<MiniTranslator>
   }
 
   Future<void> _init() async {
-    if (UniPlatform.isMacOS) {
-      _isAllowedScreenCaptureAccess = await ScreenCapturer.instance
-          .isAccessAllowed();
-      _isAllowedScreenSelectionAccess = await screenTextExtractor
-          .isAccessAllowed();
-    }
+    // if (UniPlatform.isMacOS) {
+    //   _isAllowedScreenCaptureAccess = await ScreenCapturer.instance
+    //       .isAccessAllowed();
+    //   _isAllowedScreenSelectionAccess = await screenTextExtractor
+    //       .isAccessAllowed();
+    // }
 
     // 初始化托盘图标
-    await _initTrayIcon();
+    // await _initTrayIcon();
     await Future.delayed(const Duration(milliseconds: 400));
 
     await _windowShow(isShowBelowTray: UniPlatform.isMacOS);

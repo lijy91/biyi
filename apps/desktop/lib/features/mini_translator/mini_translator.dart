@@ -3,14 +3,17 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:biyi_app/extension/hotkey.dart';
+import 'package:biyi_app/extension/window_controller.dart';
 import 'package:biyi_app/i18n/strings.g.dart';
 import 'package:biyi_app/models/models.dart';
 import 'package:biyi_app/services/api_client.dart';
 import 'package:biyi_app/services/services.dart';
 import 'package:biyi_app/states/settings.dart';
 import 'package:biyi_app/utils/utils.dart';
+import 'package:biyi_app/main.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/services.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:protocol_handler/protocol_handler.dart';
@@ -23,21 +26,12 @@ import 'package:tray_manager/tray_manager.dart';
 import 'package:uni_ocr_client/uni_ocr_client.dart';
 import 'package:uni_platform/uni_platform.dart';
 import 'package:uni_translate_client/uni_translate_client.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import './limited_functionality_banner.dart';
 import './new_version_found_banner.dart';
 import './toolbar_item_always_on_top.dart';
-import './toolbar_item_settings.dart';
 import './translation_input_view.dart';
 import './translation_results_view.dart';
 import './translation_target_select_view.dart';
-
-const kMenuItemKeyShow = 'show';
-const kMenuItemKeyQuickStartGuide = 'quick-start-guide';
-const kMenuItemKeyQuitApp = 'quit-app';
-
-const kMenuSubItemKeyJoinDiscord = 'subitem-join-discord';
-const kMenuSubItemKeyJoinQQGroup = 'subitem-join-qq';
 
 class MiniTranslator extends StatefulWidget {
   const MiniTranslator({super.key});
@@ -57,9 +51,6 @@ class _MiniTranslatorState extends State<MiniTranslator>
   final GlobalKey _resultsViewKey = GlobalKey();
 
   Brightness _brightness = Brightness.light;
-
-  bool? _lastShowTrayIcon;
-  String? _lastAppLanguage;
 
   Version? _latestVersion;
   bool _isAllowedScreenCaptureAccess = true;
@@ -128,25 +119,11 @@ class _MiniTranslatorState extends State<MiniTranslator>
     ).platformDispatcher.platformBrightness;
     if (newBrightness != _brightness) {
       _brightness = newBrightness;
-      if (UniPlatform.isWindows && Settings.instance.trayIconEnabled) {
-        _initTrayIcon();
-      }
       setState(() {});
     }
   }
 
   void _handleChanged() {
-    bool trayIconUpdated =
-        _lastShowTrayIcon != Settings.instance.trayIconEnabled ||
-        _lastAppLanguage != Settings.instance.displayLanguage;
-
-    _lastShowTrayIcon = Settings.instance.trayIconEnabled;
-    _lastAppLanguage = Settings.instance.displayLanguage;
-
-    if (trayIconUpdated) {
-      _initTrayIcon();
-    }
-
     if (mounted) setState(() {});
   }
 
@@ -158,80 +135,10 @@ class _MiniTranslatorState extends State<MiniTranslator>
     //       .isAccessAllowed();
     // }
 
-    // 初始化托盘图标
-    // await _initTrayIcon();
     await Future.delayed(const Duration(milliseconds: 400));
 
     await _windowShow(isShowBelowTray: UniPlatform.isMacOS);
     setState(() {});
-  }
-
-  Future<void> _initTrayIcon() async {
-    if (UniPlatform.isWeb) return;
-
-    String trayIconName = UniPlatform.select<String>(
-      windows: 'tray_icon_black.ico',
-      linux: 'tray_icon.ico',
-      otherwise: 'tray_icon_black.png',
-    );
-    if (_brightness == Brightness.dark) {
-      trayIconName = UniPlatform.select<String>(
-        windows: 'tray_icon.ico',
-        otherwise: 'tray_icon.png',
-      );
-    }
-
-    await trayManager.destroy();
-    if (Settings.instance.trayIconEnabled) {
-      await trayManager.setIcon(
-        R.image(trayIconName),
-        isTemplate: UniPlatform.isMacOS ? true : false,
-      );
-      await Future.delayed(const Duration(milliseconds: 10));
-      Menu menu = Menu(
-        items: [
-          MenuItem(
-            label:
-                '${t.app_name} v${sharedEnv.appVersion} '
-                '(BUILD ${sharedEnv.appBuildNumber})',
-            disabled: true,
-          ),
-          MenuItem.separator(),
-          if (UniPlatform.isLinux)
-            MenuItem(
-              key: kMenuItemKeyShow,
-              label: t.tray_context_menu.item_show,
-            ),
-          MenuItem(
-            key: kMenuItemKeyQuickStartGuide,
-            label: t.tray_context_menu.item_quick_start_guide,
-          ),
-          MenuItem.submenu(
-            label: t.tray_context_menu.item_discussion,
-            submenu: Menu(
-              items: [
-                MenuItem(
-                  key: kMenuSubItemKeyJoinDiscord,
-                  label: t
-                      .tray_context_menu
-                      .item_discussion_subitem_discord_server,
-                ),
-                MenuItem(
-                  key: kMenuSubItemKeyJoinQQGroup,
-                  label: t.tray_context_menu.item_discussion_subitem_qq_group,
-                ),
-              ],
-            ),
-          ),
-          MenuItem.separator(),
-          MenuItem(
-            key: kMenuItemKeyQuitApp,
-            label: t.tray_context_menu.item_quit_app,
-          ),
-        ],
-      );
-      await trayManager.setContextMenu(menu);
-    }
   }
 
   Future<void> _windowShow({bool isShowBelowTray = false}) async {
@@ -729,7 +636,7 @@ class _MiniTranslatorState extends State<MiniTranslator>
     );
   }
 
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildToolBar(BuildContext context) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(40),
       child: Container(
@@ -739,7 +646,14 @@ class _MiniTranslatorState extends State<MiniTranslator>
           children: [
             const ToolbarItemAlwaysOnTop(),
             Expanded(child: Container()),
-            const ToolbarItemSettings(),
+            IconButton.text(
+              onPressed: () {
+                mainWindowController.window.show();
+              },
+              icon: const Icon(
+                FluentIcons.settings_20_regular,
+              ),
+            ),
           ],
         ),
       ),
@@ -770,7 +684,7 @@ class _MiniTranslatorState extends State<MiniTranslator>
         },
       },
       child: PageScaffold(
-        navigationBar: _buildAppBar(context),
+        navigationBar: _buildToolBar(context),
         child: _buildBody(context),
       ),
     );
@@ -789,37 +703,5 @@ class _MiniTranslatorState extends State<MiniTranslator>
       }
     }
     await _windowShow();
-  }
-
-  @override
-  Future<void> onTrayIconMouseDown() async {
-    _windowShow(isShowBelowTray: true);
-  }
-
-  @override
-  void onTrayIconRightMouseDown() {
-    trayManager.popUpContextMenu();
-  }
-
-  @override
-  Future<void> onTrayMenuItemClick(MenuItem menuItem) async {
-    switch (menuItem.key) {
-      case kMenuItemKeyShow:
-        await Future.delayed(const Duration(milliseconds: 300));
-        await _windowShow();
-        break;
-      case kMenuItemKeyQuickStartGuide:
-        await launchUrlString('${sharedEnv.webUrl}/docs');
-        break;
-      case kMenuSubItemKeyJoinDiscord:
-        await launchUrlString('https://discord.gg/yRF62CKza8');
-        break;
-      case kMenuSubItemKeyJoinQQGroup:
-        await launchUrlString('https://jq.qq.com/?_wv=1027&k=vYQ5jW7y');
-        break;
-      case kMenuItemKeyQuitApp:
-        await trayManager.destroy();
-        exit(0);
-    }
   }
 }

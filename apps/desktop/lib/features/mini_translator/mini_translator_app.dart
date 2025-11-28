@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:uikit/uikit.dart';
 import 'package:flutter/src/widgets/_window.dart';
 import 'package:nativeapi/nativeapi.dart';
-import 'package:collection/collection.dart';
 import '../../i18n/strings.g.dart';
 import './mini_translator.dart';
 
@@ -26,8 +25,6 @@ final miniTranslatorWindowController =
 
 class MiniTranslatorApp extends StatefulWidget {
   const MiniTranslatorApp({super.key});
-
-  static const String title = _kMiniTranslatorTitle;
 
   @override
   State<MiniTranslatorApp> createState() => _MiniTranslatorAppState();

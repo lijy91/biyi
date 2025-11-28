@@ -17,7 +17,6 @@ import 'package:nativeapi/nativeapi.dart';
 import 'package:provider/provider.dart';
 import 'package:uikit/uikit.dart' hide Image;
 import 'package:uni_platform/uni_platform.dart';
-import 'package:collection/collection.dart';
 import './features/mini_translator.dart';
 import './router_config.dart';
 

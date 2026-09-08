@@ -17,12 +17,13 @@ import 'dart:typed_data';
 
 import 'package:beyondtranslate_desktop/src/routes/mini_translator/limited_functionality_banner.dart';
 import 'package:beyondtranslate_desktop/src/theme/app_theme.dart'
-    show AppThemeProvider, AppThemeName;
+    show AppThemeProvider, AppThemeName, DesignThemeFamily;
 import 'package:beyondtranslate_desktop/src/widgets/avatar.dart';
 import 'package:beyondtranslate_desktop/src/widgets/block_heading.dart';
 import 'package:beyondtranslate_desktop/src/widgets/blocks.dart';
 import 'package:beyondtranslate_desktop/src/widgets/data_display.dart';
 import 'package:beyondtranslate_desktop/src/widgets/swap_pair.dart';
+import 'package:beyondtranslate_desktop/src/widgets/theme_picker.dart';
 import 'package:beyondtranslate_desktop/src/widgets/ui.dart'
     show Badge, PreferenceRow, Switch, ThemeDataBuildContextProps;
 import 'package:flutter/services.dart' show FontLoader;
@@ -251,6 +252,39 @@ void main() {
             onEndPressed: () {},
           ),
           const SegmentGauge(filled: 2, partial: true),
+        ]),
+      );
+    });
+
+    // 外观 › 主题风格, the row that has to say what six palettes look like in
+    // the width of a preference row's trailing slot.
+    testWidgets('theme family picker', (tester) async {
+      await expectGolden(
+        tester,
+        'theme_picker',
+        column([
+          // Studio selected under Studio: picking a family repaints the
+          // window, so the selection and the theme in force are never a
+          // different family, and the ring is always drawn in the accent of
+          // the swatch it is around.
+          ThemeFamilyPicker(
+            value: DesignThemeFamily.studio,
+            onChanged: (_) {},
+          ),
+        ]),
+      );
+    });
+
+    testWidgets('theme family picker in the dark', (tester) async {
+      await expectGolden(
+        tester,
+        'theme_picker_dark',
+        theme: AppThemeName.studioDark,
+        column([
+          ThemeFamilyPicker(
+            value: DesignThemeFamily.studio,
+            onChanged: (_) {},
+          ),
         ]),
       );
     });

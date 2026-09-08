@@ -8,11 +8,12 @@ import 'ui.dart' show Pressable, ThemeDataBuildContextProps, ThemeVariables;
 /// The palettes, as the colours they paint with.
 ///
 /// A name does not tell you what Frost or Ember look like and the choice is
-/// entirely about the colour, so each family shows its own paper with its own
-/// marker hue on it — Bright by its acid green rather than by the ink it fills
-/// buttons with, which is the half of it you actually notice. The swatches
-/// preview at the brightness the window is in, and picking one repaints
-/// everything at once, so the row is its own preview.
+/// entirely about the colour, so each family shows two of its own: the ground
+/// it lays paper on, and the hue it marks that paper with — Bright by its acid
+/// green rather than by the ink it fills buttons with, which is the half of it
+/// you actually notice. The swatches preview at the brightness the window is
+/// in, and picking one repaints everything at once, so the row is its own
+/// preview.
 class ThemeFamilyPicker extends StatelessWidget {
   const ThemeFamilyPicker({
     super.key,
@@ -44,6 +45,12 @@ class ThemeFamilyPicker extends StatelessWidget {
   }
 }
 
+/// The swatch, its gap, and the ring around it — 26 across in total, which is
+/// the height of the segmented control on the row below.
+const double _kSwatchSize = 18;
+const double _kRingGap = 2;
+const double _kRingWidth = 2;
+
 class _ThemeFamilySwatch extends StatelessWidget {
   const _ThemeFamilySwatch({
     required this.family,
@@ -73,39 +80,52 @@ class _ThemeFamilySwatch extends StatelessWidget {
         borderRadius: BorderRadius.circular(vars.radiusFull),
         builder: (context, states) {
           final bool hovered = states.contains(WidgetState.hovered);
-          // The ring sits outside the swatch with a gap, so it still reads on
-          // the family whose own accent it is drawn in.
+          // The ring's room is always reserved, drawn in nothing until there is
+          // something to say: a row that resizes as the selection moves along
+          // it is a row that never sits still.
           return AnimatedContainer(
             duration: vars.motionDuration,
             curve: vars.motionEasing,
-            padding: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(_kRingGap),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
                 color: selected
                     ? vars.accent
-                    : (hovered ? vars.colorBorderStrong : vars.colorBorder),
-                width: selected ? 2 : context.hairlineWidth,
+                    : (hovered ? vars.colorBorderStrong : _kNoRing),
+                width: _kRingWidth,
               ),
             ),
-            child: Container(
-              width: 18,
-              height: 18,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: theirs.colorSurface,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: theirs.colorBorderStrong,
-                  width: context.hairlineWidth,
-                ),
-              ),
+            child: SizedBox.square(
+              dimension: _kSwatchSize,
               child: Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: theirs.highlight,
+                // The edge goes over the halves rather than around them, so the
+                // seam between the two runs to the rim instead of stopping at
+                // an inset border's inside.
+                foregroundDecoration: BoxDecoration(
                   shape: BoxShape.circle,
+                  border: Border.all(
+                    color: theirs.colorBorderStrong,
+                    width: context.hairlineWidth,
+                  ),
+                ),
+                child: ClipOval(
+                  child: Row(
+                    // Stretched, so each half takes the swatch's full height:
+                    // `Expanded` only decides the width, and a `ColoredBox`
+                    // with nothing in it is nothing tall.
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // The ground, not `colorSurface`: every family in light
+                      // lays white or near-white paper, and it is the ground
+                      // under it that the family is named for — sage, sand,
+                      // ice, lilac. Half and half rather than a dot on a
+                      // field, because at 18 across a dot leaves too little of
+                      // either colour to read.
+                      Expanded(child: ColoredBox(color: theirs.colorCanvas)),
+                      Expanded(child: ColoredBox(color: theirs.highlight)),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -115,3 +135,7 @@ class _ThemeFamilySwatch extends StatelessWidget {
     );
   }
 }
+
+/// A ring drawn in nothing, so the selected one can appear without moving its
+/// neighbours.
+const Color _kNoRing = Color(0x00000000);

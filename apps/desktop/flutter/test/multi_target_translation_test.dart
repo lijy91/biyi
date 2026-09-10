@@ -91,16 +91,14 @@ void main() {
               ],
             ),
             expansion: [
-              CandidateRow(
+              const CandidateRow(
                 name: 'Claude',
-                avatarLabel: 'C',
-                avatarColor: kProviderAvatarColors[1],
-                child: const Text('自注意力…'),
+                providerType: ProviderType.anthropic,
+                child: Text('自注意力…'),
               ),
               const CandidateRow(
                 name: 'DeepL',
-                avatarLabel: 'D',
-                avatarColor: Color(0xFF3A7BFD),
+                providerType: ProviderType.deepLApi,
                 child: Text('等待翻译'),
               ),
             ],
@@ -146,8 +144,7 @@ void main() {
                     expansion: const [
                       CandidateRow(
                         name: 'Claude',
-                        avatarLabel: 'C',
-                        avatarColor: Color(0xFFD97757),
+                        providerType: ProviderType.anthropic,
                         child: Text('…'),
                       ),
                     ],
@@ -210,6 +207,10 @@ void main() {
           translationResultList: results,
           translationServiceIds: const {'builtin', 'claude'},
           serviceNameById: const {'builtin': '内置模型', 'claude': 'Claude'},
+          providerTypeByServiceId: const {
+            'builtin': ProviderType.system,
+            'claude': ProviderType.anthropic,
+          },
           preferredServiceId: preferredServiceId,
           inputSubmitMode: InputSubmitMode.enter,
           compareOpenTargets: open,

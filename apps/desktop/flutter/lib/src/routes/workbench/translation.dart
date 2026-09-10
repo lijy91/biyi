@@ -17,7 +17,6 @@ import '../../services/workbench_translation_controller.dart';
 import '../../theme/product_tokens.dart' show ProductPalette, ProductTypography;
 import '../../utils/language_util.dart';
 import '../../utils/shortcut_util.dart';
-import '../../widgets/avatar.dart' show Avatar, AvatarSize;
 import '../../widgets/block_heading.dart';
 import '../../widgets/blocks.dart'
     show HighlightBlock, HighlightRule, HighlightTone;

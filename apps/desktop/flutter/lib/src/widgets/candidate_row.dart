@@ -1,18 +1,9 @@
 import 'package:flutter/widgets.dart';
 
 import '../services/runtime.dart' show ProviderType;
-import '../theme/product_tokens.dart' show ProductTokens, ProductTypography;
+import '../theme/product_tokens.dart' show ProductTypography;
 import 'provider_icon/provider_icon.dart' show ProviderIcon;
 import 'ui.dart' show SectionLabel, ThemeDataBuildContextProps;
-
-/// The brand colours the deck gives its services, by position in the list —
-/// the same order the ⌥n hints count in.
-const List<Color> kProviderAvatarColors = [
-  ProductTokens.providerBuiltin,
-  ProductTokens.providerClaude,
-  ProductTokens.providerDeepl,
-  ProductTokens.providerDict,
-];
 
 /// One candidate service in a result block's 对比 list — two rows: the
 /// attribution, then the text. The list is there to be read, not chosen from:

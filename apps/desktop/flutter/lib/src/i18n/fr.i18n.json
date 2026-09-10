@@ -398,15 +398,13 @@
       "title": "Raccourcis",
       "section": {
         "text_extraction": "Extraction de texte",
-        "input_assist": "Fonction d'aide à la saisie",
         "submit_mode": "Envoyer avec"
       },
       "row": {
         "toggle_mini_translator": "Afficher/Masquer la fenêtre",
         "extract_text_from_screen_selection": "Extraire le texte d'une sélection d'écran",
         "extract_text_from_screen_capture": "Extraire le texte d'une capture d'écran",
-        "extract_text_from_clipboard": "Extraire le texte du presse-papiers",
-        "translate_input": "Traduire le contenu saisi"
+        "extract_text_from_clipboard": "Extraire le texte du presse-papiers"
       },
       "reset_dialog": {
         "title": "Réinitialiser les raccourcis",
@@ -579,7 +577,6 @@
         "message": "Choisissez une section de paramètres dans la barre latérale."
       },
       "groups": "Groupes",
-      "effect_hint": "Les changements prennent effet immédiatement",
       "footer_note": "Traductions et clés restent sur cet appareil",
       "support": "Assistance"
     },
@@ -590,10 +587,8 @@
       "check_again": "Vérifier à nouveau",
       "links": "Liens",
       "website": "Site web",
-      "github": "GitHub",
-      "report_issue": "Signaler un problème",
-      "license": "Licence",
-      "open_changelog": "Ouvrir le journal des modifications",
+      "help_center": "Centre d'aide",
+      "open_changelog": "Journal des modifications",
       "update": "Mise à jour"
     }
   }

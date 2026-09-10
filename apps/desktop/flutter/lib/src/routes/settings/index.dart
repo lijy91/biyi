@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../i18n/i18n.dart';
 import '../../widgets/nav_columns.dart' show Rail, RailGroup, RailItem;
-import '../../widgets/ui.dart' show KeyCap, ThemeDataBuildContextProps;
+import '../../widgets/ui.dart' show ThemeDataBuildContextProps;
 import '../../widgets/workbench.dart' show WorkbenchToolbar;
 import 'about.dart';
 import 'advanced.dart';
@@ -181,10 +181,13 @@ class SettingsTabsShell extends StatelessWidget {
             location: const ProvidersSettingsRoute().location,
             label: t.settings.providers.title,
           ),
-          (
-            location: const AdvancedSettingsRoute().location,
-            label: t.settings.advanced.title,
-          ),
+          // 高级 is hidden for now. The page and its route stay wired, so
+          // /settings/advanced still opens when something navigates there —
+          // only the way in from the rail is off.
+          // (
+          //   location: const AdvancedSettingsRoute().location,
+          //   label: t.settings.advanced.title,
+          // ),
         ],
       ),
       // 关于 sits in its own run: everything above it is something you change,
@@ -212,10 +215,7 @@ class SettingsTabsShell extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          WorkbenchToolbar(
-            title: t.settings.layout.title,
-            children: [const Spacer(), KeyCap(t.settings.layout.effect_hint)],
-          ),
+          WorkbenchToolbar(title: t.settings.layout.title),
           Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,

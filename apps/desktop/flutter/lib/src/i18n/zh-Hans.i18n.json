@@ -458,15 +458,13 @@
       "title": "快捷键",
       "section": {
         "text_extraction": "文字提取",
-        "input_assist": "输入辅助功能",
         "submit_mode": "提交方式"
       },
       "row": {
         "toggle_mini_translator": "显示/隐藏窗口",
         "extract_text_from_screen_selection": "从屏幕选区提取文字",
         "extract_text_from_screen_capture": "从屏幕截图提取文字",
-        "extract_text_from_clipboard": "从剪贴板提取文字",
-        "translate_input": "翻译输入内容"
+        "extract_text_from_clipboard": "从剪贴板提取文字"
       },
       "reset_dialog": {
         "title": "重置快捷键",
@@ -643,7 +641,6 @@
         "message": "从侧边栏选择一个设置分类。"
       },
       "groups": "设置分组",
-      "effect_hint": "更改即时生效",
       "footer_note": "译文与密钥仅保存在本机",
       "support": "支持"
     },
@@ -654,10 +651,8 @@
       "check_again": "重新检查",
       "links": "链接",
       "website": "网站",
-      "github": "GitHub",
-      "report_issue": "提交问题",
-      "license": "许可证",
-      "open_changelog": "查看更新日志",
+      "help_center": "帮助中心",
+      "open_changelog": "更新日志",
       "update": "更新"
     }
   }

@@ -1365,9 +1365,6 @@ class TranslationsSettingsLayoutEn {
   /// en: 'Groups'
   String get groups => 'Groups';
 
-  /// en: 'Changes apply immediately'
-  String get effect_hint => 'Changes apply immediately';
-
   /// en: 'Translations and keys stay on this Mac'
   String get footer_note => 'Translations and keys stay on this Mac';
 
@@ -1401,17 +1398,11 @@ class TranslationsSettingsAboutEn {
   /// en: 'Website'
   String get website => 'Website';
 
-  /// en: 'GitHub'
-  String get github => 'GitHub';
+  /// en: 'Help Center'
+  String get help_center => 'Help Center';
 
-  /// en: 'Report an Issue'
-  String get report_issue => 'Report an Issue';
-
-  /// en: 'License'
-  String get license => 'License';
-
-  /// en: 'Open Changelog'
-  String get open_changelog => 'Open Changelog';
+  /// en: 'Changelog'
+  String get open_changelog => 'Changelog';
 
   /// en: 'Update'
   String get update => 'Update';
@@ -1909,9 +1900,6 @@ class TranslationsSettingsShortcutsSectionEn {
   /// en: 'Text Extraction'
   String get text_extraction => 'Text Extraction';
 
-  /// en: 'Input Assist Function'
-  String get input_assist => 'Input Assist Function';
-
   /// en: 'Submit With'
   String get submit_mode => 'Submit With';
 }
@@ -1937,9 +1925,6 @@ class TranslationsSettingsShortcutsRowEn {
 
   /// en: 'Extract text from clipboard'
   String get extract_text_from_clipboard => 'Extract text from clipboard';
-
-  /// en: 'Translate input content'
-  String get translate_input => 'Translate input content';
 }
 
 // Path: settings.shortcuts.reset_dialog
@@ -3069,7 +3054,6 @@ extension on Translations {
         'Changes apply to the whole window immediately.',
       'settings.shortcuts.title' => 'Shortcuts',
       'settings.shortcuts.section.text_extraction' => 'Text Extraction',
-      'settings.shortcuts.section.input_assist' => 'Input Assist Function',
       'settings.shortcuts.section.submit_mode' => 'Submit With',
       'settings.shortcuts.row.toggle_mini_translator' => 'Show/Hide Window',
       'settings.shortcuts.row.extract_text_from_screen_selection' =>
@@ -3078,7 +3062,6 @@ extension on Translations {
         'Extract text from screen capture',
       'settings.shortcuts.row.extract_text_from_clipboard' =>
         'Extract text from clipboard',
-      'settings.shortcuts.row.translate_input' => 'Translate input content',
       'settings.shortcuts.reset_dialog.title' => 'Reset Shortcuts',
       'settings.shortcuts.reset_dialog.message' =>
         'Are you sure you want to reset all shortcuts to their default values?',
@@ -3211,7 +3194,6 @@ extension on Translations {
       'settings.layout.empty.message' =>
         'Choose a settings section from the sidebar.',
       'settings.layout.groups' => 'Groups',
-      'settings.layout.effect_hint' => 'Changes apply immediately',
       'settings.layout.footer_note' => 'Translations and keys stay on this Mac',
       'settings.layout.support' => 'Support',
       'settings.about.title' => 'About',
@@ -3220,10 +3202,8 @@ extension on Translations {
       'settings.about.check_again' => 'Check Again',
       'settings.about.links' => 'Links',
       'settings.about.website' => 'Website',
-      'settings.about.github' => 'GitHub',
-      'settings.about.report_issue' => 'Report an Issue',
-      'settings.about.license' => 'License',
-      'settings.about.open_changelog' => 'Open Changelog',
+      'settings.about.help_center' => 'Help Center',
+      'settings.about.open_changelog' => 'Changelog',
       'settings.about.update' => 'Update',
       _ => null,
     };

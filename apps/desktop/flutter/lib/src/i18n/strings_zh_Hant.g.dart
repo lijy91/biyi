@@ -1074,8 +1074,6 @@ class _TranslationsSettingsLayoutZhHant extends TranslationsSettingsLayoutEn {
   @override
   String get groups => '設定分組';
   @override
-  String get effect_hint => '更改即時生效';
-  @override
   String get footer_note => '譯文與金鑰僅保存在本機';
   @override
   String get support => '支援';
@@ -1103,13 +1101,9 @@ class _TranslationsSettingsAboutZhHant extends TranslationsSettingsAboutEn {
   @override
   String get website => '網站';
   @override
-  String get github => 'GitHub';
+  String get help_center => '說明中心';
   @override
-  String get report_issue => '回報問題';
-  @override
-  String get license => '授權條款';
-  @override
-  String get open_changelog => '查看更新日誌';
+  String get open_changelog => '更新日誌';
   @override
   String get update => '更新';
 }
@@ -1541,8 +1535,6 @@ class _TranslationsSettingsShortcutsSectionZhHant
   @override
   String get text_extraction => '文字擷取';
   @override
-  String get input_assist => '輸入輔助功能';
-  @override
   String get submit_mode => '提交方式';
 }
 
@@ -1564,8 +1556,6 @@ class _TranslationsSettingsShortcutsRowZhHant
   String get extract_text_from_screen_capture => '從螢幕截圖擷取文字';
   @override
   String get extract_text_from_clipboard => '從剪貼簿擷取文字';
-  @override
-  String get translate_input => '翻譯輸入內容';
 }
 
 // Path: settings.shortcuts.reset_dialog
@@ -2580,14 +2570,12 @@ extension on TranslationsZhHant {
       'settings.appearance.footer' => '變更立即套用到整個視窗。',
       'settings.shortcuts.title' => '快捷鍵',
       'settings.shortcuts.section.text_extraction' => '文字擷取',
-      'settings.shortcuts.section.input_assist' => '輸入輔助功能',
       'settings.shortcuts.section.submit_mode' => '提交方式',
       'settings.shortcuts.row.toggle_mini_translator' => '顯示/隱藏視窗',
       'settings.shortcuts.row.extract_text_from_screen_selection' =>
         '從螢幕選取範圍擷取文字',
       'settings.shortcuts.row.extract_text_from_screen_capture' => '從螢幕截圖擷取文字',
       'settings.shortcuts.row.extract_text_from_clipboard' => '從剪貼簿擷取文字',
-      'settings.shortcuts.row.translate_input' => '翻譯輸入內容',
       'settings.shortcuts.reset_dialog.title' => '重設快捷鍵',
       'settings.shortcuts.reset_dialog.message' => '確定要重設所有快捷鍵為預設值嗎？',
       'settings.shortcuts.reset_dialog.confirm' => '重設',
@@ -2689,7 +2677,6 @@ extension on TranslationsZhHant {
       'settings.layout.empty.title' => '選擇一個分類',
       'settings.layout.empty.message' => '從側邊欄選擇一個設定分類。',
       'settings.layout.groups' => '設定分組',
-      'settings.layout.effect_hint' => '更改即時生效',
       'settings.layout.footer_note' => '譯文與金鑰僅保存在本機',
       'settings.layout.support' => '支援',
       'settings.about.title' => '關於',
@@ -2698,10 +2685,8 @@ extension on TranslationsZhHant {
       'settings.about.check_again' => '重新檢查',
       'settings.about.links' => '連結',
       'settings.about.website' => '網站',
-      'settings.about.github' => 'GitHub',
-      'settings.about.report_issue' => '回報問題',
-      'settings.about.license' => '授權條款',
-      'settings.about.open_changelog' => '查看更新日誌',
+      'settings.about.help_center' => '說明中心',
+      'settings.about.open_changelog' => '更新日誌',
       'settings.about.update' => '更新',
       _ => null,
     };

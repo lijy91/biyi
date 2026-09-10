@@ -1065,8 +1065,6 @@ class _TranslationsSettingsLayoutJa extends TranslationsSettingsLayoutEn {
   @override
   String get groups => '設定グループ';
   @override
-  String get effect_hint => '変更は即時反映';
-  @override
   String get footer_note => '訳文とキーはこのMacにのみ保存されます';
   @override
   String get support => 'サポート';
@@ -1094,13 +1092,9 @@ class _TranslationsSettingsAboutJa extends TranslationsSettingsAboutEn {
   @override
   String get website => 'ウェブサイト';
   @override
-  String get github => 'GitHub';
+  String get help_center => 'ヘルプセンター';
   @override
-  String get report_issue => '問題を報告';
-  @override
-  String get license => 'ライセンス';
-  @override
-  String get open_changelog => '更新履歴を開く';
+  String get open_changelog => '更新履歴';
   @override
   String get update => 'アップデート';
 }
@@ -1527,8 +1521,6 @@ class _TranslationsSettingsShortcutsSectionJa
   @override
   String get text_extraction => 'テキスト抽出';
   @override
-  String get input_assist => '入力補助機能';
-  @override
   String get submit_mode => '送信方法';
 }
 
@@ -1550,8 +1542,6 @@ class _TranslationsSettingsShortcutsRowJa
   String get extract_text_from_screen_capture => '画面キャプチャからテキストを抽出';
   @override
   String get extract_text_from_clipboard => 'クリップボードからテキストを抽出';
-  @override
-  String get translate_input => '入力内容を翻訳';
 }
 
 // Path: settings.shortcuts.reset_dialog
@@ -2572,7 +2562,6 @@ extension on TranslationsJa {
       'settings.appearance.footer' => '変更はウインドウ全体にすぐ適用されます。',
       'settings.shortcuts.title' => 'ショートカット',
       'settings.shortcuts.section.text_extraction' => 'テキスト抽出',
-      'settings.shortcuts.section.input_assist' => '入力補助機能',
       'settings.shortcuts.section.submit_mode' => '送信方法',
       'settings.shortcuts.row.toggle_mini_translator' => 'ウィンドウの表示/非表示',
       'settings.shortcuts.row.extract_text_from_screen_selection' =>
@@ -2581,7 +2570,6 @@ extension on TranslationsJa {
         '画面キャプチャからテキストを抽出',
       'settings.shortcuts.row.extract_text_from_clipboard' =>
         'クリップボードからテキストを抽出',
-      'settings.shortcuts.row.translate_input' => '入力内容を翻訳',
       'settings.shortcuts.reset_dialog.title' => 'ショートカットをリセット',
       'settings.shortcuts.reset_dialog.message' =>
         'すべてのショートカットをデフォルト値にリセットしますか？',
@@ -2691,7 +2679,6 @@ extension on TranslationsJa {
       'settings.layout.empty.title' => 'カテゴリを選択',
       'settings.layout.empty.message' => 'サイドバーから設定セクションを選択してください。',
       'settings.layout.groups' => '設定グループ',
-      'settings.layout.effect_hint' => '変更は即時反映',
       'settings.layout.footer_note' => '訳文とキーはこのMacにのみ保存されます',
       'settings.layout.support' => 'サポート',
       'settings.about.title' => '情報',
@@ -2700,10 +2687,8 @@ extension on TranslationsJa {
       'settings.about.check_again' => '再確認',
       'settings.about.links' => 'リンク',
       'settings.about.website' => 'ウェブサイト',
-      'settings.about.github' => 'GitHub',
-      'settings.about.report_issue' => '問題を報告',
-      'settings.about.license' => 'ライセンス',
-      'settings.about.open_changelog' => '更新履歴を開く',
+      'settings.about.help_center' => 'ヘルプセンター',
+      'settings.about.open_changelog' => '更新履歴',
       'settings.about.update' => 'アップデート',
       _ => null,
     };

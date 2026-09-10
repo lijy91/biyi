@@ -398,15 +398,13 @@
       "title": "ショートカット",
       "section": {
         "text_extraction": "テキスト抽出",
-        "input_assist": "入力補助機能",
         "submit_mode": "送信方法"
       },
       "row": {
         "toggle_mini_translator": "ウィンドウの表示/非表示",
         "extract_text_from_screen_selection": "画面選択からテキストを抽出",
         "extract_text_from_screen_capture": "画面キャプチャからテキストを抽出",
-        "extract_text_from_clipboard": "クリップボードからテキストを抽出",
-        "translate_input": "入力内容を翻訳"
+        "extract_text_from_clipboard": "クリップボードからテキストを抽出"
       },
       "reset_dialog": {
         "title": "ショートカットをリセット",
@@ -579,7 +577,6 @@
         "message": "サイドバーから設定セクションを選択してください。"
       },
       "groups": "設定グループ",
-      "effect_hint": "変更は即時反映",
       "footer_note": "訳文とキーはこのMacにのみ保存されます",
       "support": "サポート"
     },
@@ -590,10 +587,8 @@
       "check_again": "再確認",
       "links": "リンク",
       "website": "ウェブサイト",
-      "github": "GitHub",
-      "report_issue": "問題を報告",
-      "license": "ライセンス",
-      "open_changelog": "更新履歴を開く",
+      "help_center": "ヘルプセンター",
+      "open_changelog": "更新履歴",
       "update": "アップデート"
     }
   }

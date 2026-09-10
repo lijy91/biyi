@@ -398,15 +398,13 @@
       "title": "단축키",
       "section": {
         "text_extraction": "텍스트 추출",
-        "input_assist": "입력 보조 기능",
         "submit_mode": "전송 방식"
       },
       "row": {
         "toggle_mini_translator": "창 보이기/숨기기",
         "extract_text_from_screen_selection": "화면 선택 영역에서 텍스트 추출",
         "extract_text_from_screen_capture": "화면 캡처에서 텍스트 추출",
-        "extract_text_from_clipboard": "클립보드에서 텍스트 추출",
-        "translate_input": "입력 내용 번역"
+        "extract_text_from_clipboard": "클립보드에서 텍스트 추출"
       },
       "reset_dialog": {
         "title": "단축키 초기화",
@@ -579,7 +577,6 @@
         "message": "사이드바에서 설정 섹션을 선택하세요."
       },
       "groups": "설정 그룹",
-      "effect_hint": "변경 사항 즉시 적용",
       "footer_note": "번역과 키는 이 기기에만 저장됩니다",
       "support": "지원"
     },
@@ -590,10 +587,8 @@
       "check_again": "다시 확인",
       "links": "링크",
       "website": "웹사이트",
-      "github": "GitHub",
-      "report_issue": "문제 보고",
-      "license": "라이선스",
-      "open_changelog": "변경 내역 열기",
+      "help_center": "고객 지원",
+      "open_changelog": "변경 내역",
       "update": "업데이트"
     }
   }

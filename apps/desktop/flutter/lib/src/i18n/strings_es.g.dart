@@ -1082,8 +1082,6 @@ class _TranslationsSettingsLayoutEs extends TranslationsSettingsLayoutEn {
   @override
   String get groups => 'Grupos';
   @override
-  String get effect_hint => 'Los cambios se aplican al instante';
-  @override
   String get footer_note =>
       'Las traducciones y claves se guardan solo en este equipo';
   @override
@@ -1112,13 +1110,9 @@ class _TranslationsSettingsAboutEs extends TranslationsSettingsAboutEn {
   @override
   String get website => 'Sitio web';
   @override
-  String get github => 'GitHub';
+  String get help_center => 'Centro de ayuda';
   @override
-  String get report_issue => 'Informar de un problema';
-  @override
-  String get license => 'Licencia';
-  @override
-  String get open_changelog => 'Abrir registro de cambios';
+  String get open_changelog => 'Registro de cambios';
   @override
   String get update => 'Actualización';
 }
@@ -1569,8 +1563,6 @@ class _TranslationsSettingsShortcutsSectionEs
   @override
   String get text_extraction => 'Extracción de texto';
   @override
-  String get input_assist => 'Función de asistencia de entrada';
-  @override
   String get submit_mode => 'Enviar con';
 }
 
@@ -1594,8 +1586,6 @@ class _TranslationsSettingsShortcutsRowEs
       'Extraer texto de la captura de pantalla';
   @override
   String get extract_text_from_clipboard => 'Extraer texto del portapapeles';
-  @override
-  String get translate_input => 'Traducir contenido de entrada';
 }
 
 // Path: settings.shortcuts.reset_dialog
@@ -2684,8 +2674,6 @@ extension on TranslationsEs {
         'Los cambios se aplican de inmediato a toda la ventana.',
       'settings.shortcuts.title' => 'Atajos',
       'settings.shortcuts.section.text_extraction' => 'Extracción de texto',
-      'settings.shortcuts.section.input_assist' =>
-        'Función de asistencia de entrada',
       'settings.shortcuts.section.submit_mode' => 'Enviar con',
       'settings.shortcuts.row.toggle_mini_translator' =>
         'Mostrar/Ocultar ventana',
@@ -2695,8 +2683,6 @@ extension on TranslationsEs {
         'Extraer texto de la captura de pantalla',
       'settings.shortcuts.row.extract_text_from_clipboard' =>
         'Extraer texto del portapapeles',
-      'settings.shortcuts.row.translate_input' =>
-        'Traducir contenido de entrada',
       'settings.shortcuts.reset_dialog.title' => 'Restablecer atajos',
       'settings.shortcuts.reset_dialog.message' =>
         '¿Estás seguro de que deseas restablecer todos los atajos a sus valores predeterminados?',
@@ -2827,7 +2813,6 @@ extension on TranslationsEs {
       'settings.layout.empty.message' =>
         'Elige una sección de configuración de la barra lateral.',
       'settings.layout.groups' => 'Grupos',
-      'settings.layout.effect_hint' => 'Los cambios se aplican al instante',
       'settings.layout.footer_note' =>
         'Las traducciones y claves se guardan solo en este equipo',
       'settings.layout.support' => 'Soporte',
@@ -2837,10 +2822,8 @@ extension on TranslationsEs {
       'settings.about.check_again' => 'Verificar de nuevo',
       'settings.about.links' => 'Enlaces',
       'settings.about.website' => 'Sitio web',
-      'settings.about.github' => 'GitHub',
-      'settings.about.report_issue' => 'Informar de un problema',
-      'settings.about.license' => 'Licencia',
-      'settings.about.open_changelog' => 'Abrir registro de cambios',
+      'settings.about.help_center' => 'Centro de ayuda',
+      'settings.about.open_changelog' => 'Registro de cambios',
       'settings.about.update' => 'Actualización',
       _ => null,
     };

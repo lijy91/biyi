@@ -27,7 +27,6 @@ enum _Binding {
   extractTextFromScreenSelection,
   extractTextFromScreenCapture,
   extractTextFromClipboard,
-  translateInputContent,
 }
 
 extension on _Binding {
@@ -38,7 +37,6 @@ extension on _Binding {
         _Binding.extractTextFromScreenCapture =>
           shortcuts.extractTextFromScreenCapture,
         _Binding.extractTextFromClipboard => shortcuts.extractTextFromClipboard,
-        _Binding.translateInputContent => shortcuts.translateInputContent,
       };
 
   ShortcutSettingsPatch patch(String value) => switch (this) {
@@ -50,8 +48,6 @@ extension on _Binding {
           ShortcutSettingsPatch(extractTextFromScreenCapture: value),
         _Binding.extractTextFromClipboard =>
           ShortcutSettingsPatch(extractTextFromClipboard: value),
-        _Binding.translateInputContent =>
-          ShortcutSettingsPatch(translateInputContent: value),
       };
 
   String get label => switch (this) {
@@ -63,8 +59,6 @@ extension on _Binding {
           t.settings.shortcuts.row.extract_text_from_screen_capture,
         _Binding.extractTextFromClipboard =>
           t.settings.shortcuts.row.extract_text_from_clipboard,
-        _Binding.translateInputContent =>
-          t.settings.shortcuts.row.translate_input,
       };
 }
 
@@ -78,7 +72,6 @@ const Map<_Binding, String> _kDefaultBindings = {
   _Binding.extractTextFromScreenSelection: 'Option+Q',
   _Binding.extractTextFromScreenCapture: 'Option+W',
   _Binding.extractTextFromClipboard: 'Option+E',
-  _Binding.translateInputContent: 'Option+Z',
 };
 
 /// The runtime stores `Option+Shift+2`; the design prints `⌥⇧2`. The two are
@@ -265,9 +258,6 @@ class _ShortcutsSettingsPageState extends State<ShortcutsSettingsPage> {
                 _buildRow(_Binding.extractTextFromScreenSelection, shortcuts),
                 _buildRow(_Binding.extractTextFromScreenCapture, shortcuts),
                 _buildRow(_Binding.extractTextFromClipboard, shortcuts),
-              ]),
-              PreferenceSection(label: text.section.input_assist, children: [
-                _buildRow(_Binding.translateInputContent, shortcuts),
               ]),
             ]),
         const SettingsSectionDivider(),

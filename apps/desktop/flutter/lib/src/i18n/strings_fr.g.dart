@@ -1084,8 +1084,6 @@ class _TranslationsSettingsLayoutFr extends TranslationsSettingsLayoutEn {
   @override
   String get groups => 'Groupes';
   @override
-  String get effect_hint => 'Les changements prennent effet immédiatement';
-  @override
   String get footer_note => 'Traductions et clés restent sur cet appareil';
   @override
   String get support => 'Assistance';
@@ -1113,13 +1111,9 @@ class _TranslationsSettingsAboutFr extends TranslationsSettingsAboutEn {
   @override
   String get website => 'Site web';
   @override
-  String get github => 'GitHub';
+  String get help_center => 'Centre d\'aide';
   @override
-  String get report_issue => 'Signaler un problème';
-  @override
-  String get license => 'Licence';
-  @override
-  String get open_changelog => 'Ouvrir le journal des modifications';
+  String get open_changelog => 'Journal des modifications';
   @override
   String get update => 'Mise à jour';
 }
@@ -1569,8 +1563,6 @@ class _TranslationsSettingsShortcutsSectionFr
   @override
   String get text_extraction => 'Extraction de texte';
   @override
-  String get input_assist => 'Fonction d\'aide à la saisie';
-  @override
   String get submit_mode => 'Envoyer avec';
 }
 
@@ -1595,8 +1587,6 @@ class _TranslationsSettingsShortcutsRowFr
   @override
   String get extract_text_from_clipboard =>
       'Extraire le texte du presse-papiers';
-  @override
-  String get translate_input => 'Traduire le contenu saisi';
 }
 
 // Path: settings.shortcuts.reset_dialog
@@ -2690,8 +2680,6 @@ extension on TranslationsFr {
         'Les modifications s’appliquent immédiatement à toute la fenêtre.',
       'settings.shortcuts.title' => 'Raccourcis',
       'settings.shortcuts.section.text_extraction' => 'Extraction de texte',
-      'settings.shortcuts.section.input_assist' =>
-        'Fonction d\'aide à la saisie',
       'settings.shortcuts.section.submit_mode' => 'Envoyer avec',
       'settings.shortcuts.row.toggle_mini_translator' =>
         'Afficher/Masquer la fenêtre',
@@ -2701,7 +2689,6 @@ extension on TranslationsFr {
         'Extraire le texte d\'une capture d\'écran',
       'settings.shortcuts.row.extract_text_from_clipboard' =>
         'Extraire le texte du presse-papiers',
-      'settings.shortcuts.row.translate_input' => 'Traduire le contenu saisi',
       'settings.shortcuts.reset_dialog.title' => 'Réinitialiser les raccourcis',
       'settings.shortcuts.reset_dialog.message' =>
         'Êtes-vous sûr de vouloir réinitialiser tous les raccourcis à leurs valeurs par défaut ?',
@@ -2832,8 +2819,6 @@ extension on TranslationsFr {
       'settings.layout.empty.message' =>
         'Choisissez une section de paramètres dans la barre latérale.',
       'settings.layout.groups' => 'Groupes',
-      'settings.layout.effect_hint' =>
-        'Les changements prennent effet immédiatement',
       'settings.layout.footer_note' =>
         'Traductions et clés restent sur cet appareil',
       'settings.layout.support' => 'Assistance',
@@ -2844,10 +2829,8 @@ extension on TranslationsFr {
       'settings.about.check_again' => 'Vérifier à nouveau',
       'settings.about.links' => 'Liens',
       'settings.about.website' => 'Site web',
-      'settings.about.github' => 'GitHub',
-      'settings.about.report_issue' => 'Signaler un problème',
-      'settings.about.license' => 'Licence',
-      'settings.about.open_changelog' => 'Ouvrir le journal des modifications',
+      'settings.about.help_center' => 'Centre d\'aide',
+      'settings.about.open_changelog' => 'Journal des modifications',
       'settings.about.update' => 'Mise à jour',
       _ => null,
     };

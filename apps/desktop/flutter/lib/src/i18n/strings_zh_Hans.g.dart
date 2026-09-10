@@ -1208,8 +1208,6 @@ class _TranslationsSettingsLayoutZhHans extends TranslationsSettingsLayoutEn {
   @override
   String get groups => '设置分组';
   @override
-  String get effect_hint => '更改即时生效';
-  @override
   String get footer_note => '译文与密钥仅保存在本机';
   @override
   String get support => '支持';
@@ -1237,13 +1235,9 @@ class _TranslationsSettingsAboutZhHans extends TranslationsSettingsAboutEn {
   @override
   String get website => '网站';
   @override
-  String get github => 'GitHub';
+  String get help_center => '帮助中心';
   @override
-  String get report_issue => '提交问题';
-  @override
-  String get license => '许可证';
-  @override
-  String get open_changelog => '查看更新日志';
+  String get open_changelog => '更新日志';
   @override
   String get update => '更新';
 }
@@ -1677,8 +1671,6 @@ class _TranslationsSettingsShortcutsSectionZhHans
   @override
   String get text_extraction => '文字提取';
   @override
-  String get input_assist => '输入辅助功能';
-  @override
   String get submit_mode => '提交方式';
 }
 
@@ -1700,8 +1692,6 @@ class _TranslationsSettingsShortcutsRowZhHans
   String get extract_text_from_screen_capture => '从屏幕截图提取文字';
   @override
   String get extract_text_from_clipboard => '从剪贴板提取文字';
-  @override
-  String get translate_input => '翻译输入内容';
 }
 
 // Path: settings.shortcuts.reset_dialog
@@ -2799,14 +2789,12 @@ extension on TranslationsZhHans {
       'settings.appearance.footer' => '更改立即应用到整个窗口。',
       'settings.shortcuts.title' => '快捷键',
       'settings.shortcuts.section.text_extraction' => '文字提取',
-      'settings.shortcuts.section.input_assist' => '输入辅助功能',
       'settings.shortcuts.section.submit_mode' => '提交方式',
       'settings.shortcuts.row.toggle_mini_translator' => '显示/隐藏窗口',
       'settings.shortcuts.row.extract_text_from_screen_selection' =>
         '从屏幕选区提取文字',
       'settings.shortcuts.row.extract_text_from_screen_capture' => '从屏幕截图提取文字',
       'settings.shortcuts.row.extract_text_from_clipboard' => '从剪贴板提取文字',
-      'settings.shortcuts.row.translate_input' => '翻译输入内容',
       'settings.shortcuts.reset_dialog.title' => '重置快捷键',
       'settings.shortcuts.reset_dialog.message' => '确定要重置所有快捷键为默认值吗？',
       'settings.shortcuts.reset_dialog.confirm' => '重置',
@@ -2913,7 +2901,6 @@ extension on TranslationsZhHans {
       'settings.layout.empty.title' => '选择一个分类',
       'settings.layout.empty.message' => '从侧边栏选择一个设置分类。',
       'settings.layout.groups' => '设置分组',
-      'settings.layout.effect_hint' => '更改即时生效',
       'settings.layout.footer_note' => '译文与密钥仅保存在本机',
       'settings.layout.support' => '支持',
       'settings.about.title' => '关于',
@@ -2922,10 +2909,8 @@ extension on TranslationsZhHans {
       'settings.about.check_again' => '重新检查',
       'settings.about.links' => '链接',
       'settings.about.website' => '网站',
-      'settings.about.github' => 'GitHub',
-      'settings.about.report_issue' => '提交问题',
-      'settings.about.license' => '许可证',
-      'settings.about.open_changelog' => '查看更新日志',
+      'settings.about.help_center' => '帮助中心',
+      'settings.about.open_changelog' => '更新日志',
       'settings.about.update' => '更新',
       _ => null,
     };

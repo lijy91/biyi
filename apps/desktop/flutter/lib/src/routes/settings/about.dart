@@ -19,7 +19,8 @@ import '../../widgets/ui.dart'
 
 /// 关于 — the one settings page you read rather than change, which is why it
 /// sits in its own run of the rail. Three blocks: what this build is, whether
-/// a newer one exists, and where to go for everything else.
+/// a newer one exists, and where to go for everything else — all three links
+/// land on the site, so 帮助中心 is where a question goes, not an issue tracker.
 ///
 /// Mirrors the React `AboutPage` in `screens/main/settings-view.tsx` and the
 /// macOS `AboutView.swift`.
@@ -130,23 +131,17 @@ class _AboutSettingsPageState extends State<AboutSettingsPage> {
                   ))),
         ]),
         const SettingsSectionDivider(),
+        // 网站 · 帮助中心 · 更新日志 — widest first, then the two you go to
+        // with a reason: a question, or a build.
         PreferenceSection(label: about.links, children: [
-          _ExternalRow(
-            title: about.open_changelog,
-            url: '${Env.instance.webUrl}/changelog',
-          ),
           _ExternalRow(title: about.website, url: Env.instance.webUrl),
           _ExternalRow(
-            title: about.github,
-            url: 'https://github.com/beyondtranslate/beyondtranslate',
+            title: about.help_center,
+            url: '${Env.instance.webUrl}/support',
           ),
           _ExternalRow(
-            title: about.report_issue,
-            url: 'https://github.com/beyondtranslate/beyondtranslate/issues',
-          ),
-          _ExternalRow(
-            title: about.license,
-            url: '${Env.instance.webUrl}/license',
+            title: about.open_changelog,
+            url: '${Env.instance.webUrl}/releases',
           ),
         ]),
       ],

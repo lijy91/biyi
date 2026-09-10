@@ -1067,8 +1067,6 @@ class _TranslationsSettingsLayoutKo extends TranslationsSettingsLayoutEn {
   @override
   String get groups => '설정 그룹';
   @override
-  String get effect_hint => '변경 사항 즉시 적용';
-  @override
   String get footer_note => '번역과 키는 이 기기에만 저장됩니다';
   @override
   String get support => '지원';
@@ -1096,13 +1094,9 @@ class _TranslationsSettingsAboutKo extends TranslationsSettingsAboutEn {
   @override
   String get website => '웹사이트';
   @override
-  String get github => 'GitHub';
+  String get help_center => '고객 지원';
   @override
-  String get report_issue => '문제 보고';
-  @override
-  String get license => '라이선스';
-  @override
-  String get open_changelog => '변경 내역 열기';
+  String get open_changelog => '변경 내역';
   @override
   String get update => '업데이트';
 }
@@ -1532,8 +1526,6 @@ class _TranslationsSettingsShortcutsSectionKo
   @override
   String get text_extraction => '텍스트 추출';
   @override
-  String get input_assist => '입력 보조 기능';
-  @override
   String get submit_mode => '전송 방식';
 }
 
@@ -1555,8 +1547,6 @@ class _TranslationsSettingsShortcutsRowKo
   String get extract_text_from_screen_capture => '화면 캡처에서 텍스트 추출';
   @override
   String get extract_text_from_clipboard => '클립보드에서 텍스트 추출';
-  @override
-  String get translate_input => '입력 내용 번역';
 }
 
 // Path: settings.shortcuts.reset_dialog
@@ -2583,7 +2573,6 @@ extension on TranslationsKo {
       'settings.appearance.footer' => '변경 사항은 창 전체에 즉시 적용됩니다.',
       'settings.shortcuts.title' => '단축키',
       'settings.shortcuts.section.text_extraction' => '텍스트 추출',
-      'settings.shortcuts.section.input_assist' => '입력 보조 기능',
       'settings.shortcuts.section.submit_mode' => '전송 방식',
       'settings.shortcuts.row.toggle_mini_translator' => '창 보이기/숨기기',
       'settings.shortcuts.row.extract_text_from_screen_selection' =>
@@ -2591,7 +2580,6 @@ extension on TranslationsKo {
       'settings.shortcuts.row.extract_text_from_screen_capture' =>
         '화면 캡처에서 텍스트 추출',
       'settings.shortcuts.row.extract_text_from_clipboard' => '클립보드에서 텍스트 추출',
-      'settings.shortcuts.row.translate_input' => '입력 내용 번역',
       'settings.shortcuts.reset_dialog.title' => '단축키 초기화',
       'settings.shortcuts.reset_dialog.message' => '모든 단축키를 기본값으로 초기화하시겠습니까?',
       'settings.shortcuts.reset_dialog.confirm' => '초기화',
@@ -2697,7 +2685,6 @@ extension on TranslationsKo {
       'settings.layout.empty.title' => '카테고리 선택',
       'settings.layout.empty.message' => '사이드바에서 설정 섹션을 선택하세요.',
       'settings.layout.groups' => '설정 그룹',
-      'settings.layout.effect_hint' => '변경 사항 즉시 적용',
       'settings.layout.footer_note' => '번역과 키는 이 기기에만 저장됩니다',
       'settings.layout.support' => '지원',
       'settings.about.title' => '정보',
@@ -2706,10 +2693,8 @@ extension on TranslationsKo {
       'settings.about.check_again' => '다시 확인',
       'settings.about.links' => '링크',
       'settings.about.website' => '웹사이트',
-      'settings.about.github' => 'GitHub',
-      'settings.about.report_issue' => '문제 보고',
-      'settings.about.license' => '라이선스',
-      'settings.about.open_changelog' => '변경 내역 열기',
+      'settings.about.help_center' => '고객 지원',
+      'settings.about.open_changelog' => '변경 내역',
       'settings.about.update' => '업데이트',
       _ => null,
     };

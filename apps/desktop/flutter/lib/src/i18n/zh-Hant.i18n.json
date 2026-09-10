@@ -398,15 +398,13 @@
       "title": "快捷鍵",
       "section": {
         "text_extraction": "文字擷取",
-        "input_assist": "輸入輔助功能",
         "submit_mode": "提交方式"
       },
       "row": {
         "toggle_mini_translator": "顯示/隱藏視窗",
         "extract_text_from_screen_selection": "從螢幕選取範圍擷取文字",
         "extract_text_from_screen_capture": "從螢幕截圖擷取文字",
-        "extract_text_from_clipboard": "從剪貼簿擷取文字",
-        "translate_input": "翻譯輸入內容"
+        "extract_text_from_clipboard": "從剪貼簿擷取文字"
       },
       "reset_dialog": {
         "title": "重設快捷鍵",
@@ -579,7 +577,6 @@
         "message": "從側邊欄選擇一個設定分類。"
       },
       "groups": "設定分組",
-      "effect_hint": "更改即時生效",
       "footer_note": "譯文與金鑰僅保存在本機",
       "support": "支援"
     },
@@ -590,10 +587,8 @@
       "check_again": "重新檢查",
       "links": "連結",
       "website": "網站",
-      "github": "GitHub",
-      "report_issue": "回報問題",
-      "license": "授權條款",
-      "open_changelog": "查看更新日誌",
+      "help_center": "說明中心",
+      "open_changelog": "更新日誌",
       "update": "更新"
     }
   }

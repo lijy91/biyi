@@ -458,15 +458,13 @@
       "title": "Shortcuts",
       "section": {
         "text_extraction": "Text Extraction",
-        "input_assist": "Input Assist Function",
         "submit_mode": "Submit With"
       },
       "row": {
         "toggle_mini_translator": "Show/Hide Window",
         "extract_text_from_screen_selection": "Extract text from screen selection",
         "extract_text_from_screen_capture": "Extract text from screen capture",
-        "extract_text_from_clipboard": "Extract text from clipboard",
-        "translate_input": "Translate input content"
+        "extract_text_from_clipboard": "Extract text from clipboard"
       },
       "reset_dialog": {
         "title": "Reset Shortcuts",
@@ -643,7 +641,6 @@
         "message": "Choose a settings section from the sidebar."
       },
       "groups": "Groups",
-      "effect_hint": "Changes apply immediately",
       "footer_note": "Translations and keys stay on this Mac",
       "support": "Support"
     },
@@ -654,10 +651,8 @@
       "check_again": "Check Again",
       "links": "Links",
       "website": "Website",
-      "github": "GitHub",
-      "report_issue": "Report an Issue",
-      "license": "License",
-      "open_changelog": "Open Changelog",
+      "help_center": "Help Center",
+      "open_changelog": "Changelog",
       "update": "Update"
     }
   }

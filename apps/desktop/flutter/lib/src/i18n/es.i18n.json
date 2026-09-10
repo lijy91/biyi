@@ -398,15 +398,13 @@
       "title": "Atajos",
       "section": {
         "text_extraction": "Extracción de texto",
-        "input_assist": "Función de asistencia de entrada",
         "submit_mode": "Enviar con"
       },
       "row": {
         "toggle_mini_translator": "Mostrar/Ocultar ventana",
         "extract_text_from_screen_selection": "Extraer texto de la selección de pantalla",
         "extract_text_from_screen_capture": "Extraer texto de la captura de pantalla",
-        "extract_text_from_clipboard": "Extraer texto del portapapeles",
-        "translate_input": "Traducir contenido de entrada"
+        "extract_text_from_clipboard": "Extraer texto del portapapeles"
       },
       "reset_dialog": {
         "title": "Restablecer atajos",
@@ -579,7 +577,6 @@
         "message": "Elige una sección de configuración de la barra lateral."
       },
       "groups": "Grupos",
-      "effect_hint": "Los cambios se aplican al instante",
       "footer_note": "Las traducciones y claves se guardan solo en este equipo",
       "support": "Soporte"
     },
@@ -590,10 +587,8 @@
       "check_again": "Verificar de nuevo",
       "links": "Enlaces",
       "website": "Sitio web",
-      "github": "GitHub",
-      "report_issue": "Informar de un problema",
-      "license": "Licencia",
-      "open_changelog": "Abrir registro de cambios",
+      "help_center": "Centro de ayuda",
+      "open_changelog": "Registro de cambios",
       "update": "Actualización"
     }
   }

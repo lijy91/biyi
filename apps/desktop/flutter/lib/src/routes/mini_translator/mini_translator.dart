@@ -1097,8 +1097,15 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
     // action bar sit directly on it, the panel card floats between them.
     // A `Scaffold` used to paint this; all it was giving the window was its
     // ground, and the tray draws everything else itself.
+    //
+    // The tray is the paper. `colorSurfaceMuted` is the card sitting on it —
+    // "the card, the panel, the toolbar", in the token's own words — and the
+    // two were the other way round here, which held in every palette but
+    // Bright: Bright's card steps *up* to white where Studio's steps down, so
+    // it landed on the same white the tray had taken, and the panel vanished
+    // into the window.
     return ColoredBox(
-      color: context.vars.colorSurfaceMuted,
+      color: context.vars.colorSurface,
       child: CallbackShortcuts(
         bindings: {
           // ⌥1…⌥9 promote the matching service, as hinted on the cards.

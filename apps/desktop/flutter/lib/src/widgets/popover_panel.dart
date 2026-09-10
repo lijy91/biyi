@@ -9,9 +9,15 @@ import 'package:flutter/widgets.dart';
 
 import 'ui.dart' show ThemeDataBuildContextProps;
 
-/// The inner card of the mini window (and of the extension popup). `panel` is
-/// its own token rather than `window`, because which of tray/panel is the
-/// brighter surface flips between the Studio and Bright palettes.
+/// The inner card of the mini window (and of the extension popup).
+///
+/// `colorSurfaceMuted` is the card's own role — "one step off the paper: the
+/// card, the panel, the toolbar" — and off is away from the paper in either
+/// direction: down to `#f7f7fa` under Studio, up to white under Bright, whose
+/// paper is the warm `#fbfaf7`. That is the flip, and taking the role rather
+/// than a step spells it without naming a palette. `colorSurfaceRaised` is the
+/// brightest rung and is white in five of the six families, which is a card
+/// everywhere except the one place it matters.
 class PopoverPanel extends StatelessWidget {
   const PopoverPanel({super.key, this.child});
 
@@ -24,7 +30,7 @@ class PopoverPanel extends StatelessWidget {
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: vars.colorSurfaceRaised,
+        color: vars.colorSurfaceMuted,
         border: Border.all(
           color: vars.colorBorder,
           width: context.hairlineWidth,

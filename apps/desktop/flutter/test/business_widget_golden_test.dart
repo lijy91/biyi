@@ -22,6 +22,7 @@ import 'package:beyondtranslate_desktop/src/widgets/avatar.dart';
 import 'package:beyondtranslate_desktop/src/widgets/block_heading.dart';
 import 'package:beyondtranslate_desktop/src/widgets/blocks.dart';
 import 'package:beyondtranslate_desktop/src/widgets/data_display.dart';
+import 'package:beyondtranslate_desktop/src/widgets/popover_panel.dart';
 import 'package:beyondtranslate_desktop/src/widgets/swap_pair.dart';
 import 'package:beyondtranslate_desktop/src/widgets/theme_picker.dart';
 import 'package:beyondtranslate_desktop/src/widgets/ui.dart'
@@ -169,11 +170,12 @@ void main() {
         tester,
         'limited_functionality_banner',
         width: 396,
-        // The mini window's tray colour behind it, so the strip's own gap to
-        // whatever sits below is visible in the image.
+        // The mini window's tray behind it — the paper, which is what the
+        // banner hangs on between the top bar and the panel — so the strip's
+        // own gap to whatever sits below is visible in the image.
         Builder(
           builder: (context) => ColoredBox(
-            color: context.vars.colorSurfaceMuted,
+            color: context.vars.colorSurface,
             child: const Padding(
               padding: EdgeInsets.all(8),
               child: LimitedFunctionalityBanner(
@@ -255,6 +257,38 @@ void main() {
         ]),
       );
     });
+
+    // The mini window's two surfaces, in the palette where they used to be
+    // one: the tray is the paper and the panel is the card off it, and Bright
+    // steps that card *up* to white where Studio steps it down. Rendered on
+    // the tray colour rather than the page, since a card that matches its own
+    // tray is exactly the failure.
+    for (final (String name, AppThemeName theme) in const [
+      ('mini_panel_on_tray', AppThemeName.studioLight),
+      ('mini_panel_on_tray_bright', AppThemeName.brightLight),
+    ]) {
+      testWidgets('mini panel on its tray — $name', (tester) async {
+        await expectGolden(
+          tester,
+          name,
+          theme: theme,
+          Builder(
+            builder: (context) => ColoredBox(
+              color: context.vars.colorSurface,
+              child: const Padding(
+                padding: EdgeInsets.all(8),
+                child: PopoverPanel(
+                  child: Padding(
+                    padding: EdgeInsets.all(14),
+                    child: Text('原文'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      });
+    }
 
     // 外观 › 主题风格, the row that has to say what six palettes look like in
     // the width of a preference row's trailing slot.

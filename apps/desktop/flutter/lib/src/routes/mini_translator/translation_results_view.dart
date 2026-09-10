@@ -24,6 +24,8 @@ import '../../widgets/ui.dart'
         Button,
         ButtonVariant,
         IconButton,
+        IconButtonTint,
+        IconButtonVariant,
         KeyCap,
         Pressable,
         SectionLabel,
@@ -634,7 +636,11 @@ class MiniTranslatorTranslation extends StatelessWidget {
                           semanticsLabel: copied
                               ? t.mini_translator.button.copied
                               : t.mini_translator.button.copy,
-                          active: copied,
+                          // Copied is a confirmation that clears itself,
+                          // not a state the button is held in, so it takes the
+                          // success recipe rather than a toggle's latch.
+                          tint: copied ? IconButtonTint.success : null,
+                          variant: copied ? IconButtonVariant.plain : null,
                           icon: Icon(
                             copied
                                 ? FluentIcons.checkmark_20_regular

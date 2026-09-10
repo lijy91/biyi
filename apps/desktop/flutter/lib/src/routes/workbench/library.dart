@@ -23,7 +23,7 @@ import '../../widgets/ui.dart'
         ButtonVariant,
         Checkbox,
         EmptyState,
-        IconButton,
+        Toggle,
         KeyCap,
         SearchField,
         SectionLabel,
@@ -471,16 +471,15 @@ class _WorkbenchLibraryPageState extends State<WorkbenchLibraryPage> {
                     onSelect: () => _deleteEntries([entry]),
                   ),
                 ],
-                trigger: (context, open, toggle) => IconButton(
+                trigger: (context, open, toggle) => Toggle(
                   semanticsLabel: strings.more_actions,
-                  active: open,
+                  pressed: open,
+                  onPressedChanged: (_) => toggle(),
                   // The 16-grid glyph at 16, as in the mini window's toolbar: a
                   // Fluent icon is drawn for one size, and the 20-grid one at
                   // 16 puts each of the three dots on a different subpixel
                   // phase — they come out visibly unequal.
-                  icon: Icon(FluentIcons.more_horizontal_16_regular),
-                  iconSize: 16,
-                  onPressed: toggle,
+                  child: Icon(FluentIcons.more_horizontal_16_regular, size: 16),
                 ),
               ),
             ],

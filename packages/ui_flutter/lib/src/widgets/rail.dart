@@ -57,7 +57,7 @@ class Aside extends StatelessWidget {
     return Container(
       width: vars.frameAsideWidth,
       decoration: BoxDecoration(
-        color: vars.colorSurfaceMuted,
+        color: vars.colorSurfaceColumn,
         border: BorderDirectional(
           start: BorderSide(
             color: vars.colorBorder,

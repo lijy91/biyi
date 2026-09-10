@@ -198,9 +198,11 @@ class ThemeVariables {
     this.checkboxRadius = 5,
     this.dialogWidth = 440,
     this.dialogScrimAlpha = 0.25,
+    this.drawerSize = 352,
     this.menuMinWidth = 176,
     this.menuItemPadding = 7,
     this.preferencesWidth = 480,
+    this.previewCardWidth = 320,
     this.progressGradientFrom = const Color(0xFF6B4DFF),
     this.progressGradientTo = const Color(0xFFA08CFF),
     this.segmentedControlInset = 3,
@@ -209,6 +211,7 @@ class ThemeVariables {
     this.switchMediumHeight = 18,
     this.switchMediumThumb = 14,
     this.toastMaxWidth = 420,
+    this.fontCode = const FontFace(family: 'SF Mono', fallback: ['Menlo']),
     this.fontDisplay = const FontFace(
       fallback: ['SF Pro Display', 'PingFang SC'],
     ),
@@ -636,12 +639,18 @@ class ThemeVariables {
   Color get dialogScrimColor => colorContent;
   final double dialogScrimAlpha;
 
+  // Drawer
+  final double drawerSize;
+
   // Menu
   final double menuMinWidth;
   final double menuItemPadding;
 
   // Preferences
   final double preferencesWidth;
+
+  // Preview Card
+  final double previewCardWidth;
 
   // Progress
   final Color progressGradientFrom;
@@ -662,6 +671,14 @@ class ThemeVariables {
   // Shortcut Recorder
   final double shortcutRecorderWidth;
 
+  // Slider
+  double get sliderSmallTrack => spacing1;
+  double get sliderSmallThumb => spacing35;
+  double get sliderMediumTrack => spacing15;
+  double get sliderMediumThumb => spacing4;
+  double get sliderLargeTrack => spacing2;
+  double get sliderLargeThumb => spacing5;
+
   // Switch
   double get switchSmallWidth => spacing7;
   double get switchSmallHeight => spacing4;
@@ -680,12 +697,19 @@ class ThemeVariables {
 
   // Type faces
 
-  /// The face `base.font.display` declares. Every type style set in it
-  /// reads this field, so a host re-points the face rather than each style.
+  /// The face `base.font.code` declares. Everything set in it reads this
+  /// field — the type styles that name it, and the widgets that reach it
+  /// directly — so a host re-points the face rather than each of them.
+  final FontFace fontCode;
+
+  /// The face `base.font.display` declares. Everything set in it reads this
+  /// field — the type styles that name it, and the widgets that reach it
+  /// directly — so a host re-points the face rather than each of them.
   final FontFace fontDisplay;
 
-  /// The face `base.font.ui` declares. Every type style set in it
-  /// reads this field, so a host re-points the face rather than each style.
+  /// The face `base.font.ui` declares. Everything set in it reads this
+  /// field — the type styles that name it, and the widgets that reach it
+  /// directly — so a host re-points the face rather than each of them.
   final FontFace fontUi;
 
   /// This theme with the named values replaced.
@@ -801,9 +825,11 @@ class ThemeVariables {
     double? checkboxRadius,
     double? dialogWidth,
     double? dialogScrimAlpha,
+    double? drawerSize,
     double? menuMinWidth,
     double? menuItemPadding,
     double? preferencesWidth,
+    double? previewCardWidth,
     Color? progressGradientFrom,
     Color? progressGradientTo,
     double? segmentedControlInset,
@@ -812,6 +838,7 @@ class ThemeVariables {
     double? switchMediumHeight,
     double? switchMediumThumb,
     double? toastMaxWidth,
+    FontFace? fontCode,
     FontFace? fontDisplay,
     FontFace? fontUi,
   }) {
@@ -955,9 +982,11 @@ class ThemeVariables {
       checkboxRadius: checkboxRadius ?? this.checkboxRadius,
       dialogWidth: dialogWidth ?? this.dialogWidth,
       dialogScrimAlpha: dialogScrimAlpha ?? this.dialogScrimAlpha,
+      drawerSize: drawerSize ?? this.drawerSize,
       menuMinWidth: menuMinWidth ?? this.menuMinWidth,
       menuItemPadding: menuItemPadding ?? this.menuItemPadding,
       preferencesWidth: preferencesWidth ?? this.preferencesWidth,
+      previewCardWidth: previewCardWidth ?? this.previewCardWidth,
       progressGradientFrom: progressGradientFrom ?? this.progressGradientFrom,
       progressGradientTo: progressGradientTo ?? this.progressGradientTo,
       segmentedControlInset:
@@ -968,6 +997,7 @@ class ThemeVariables {
       switchMediumHeight: switchMediumHeight ?? this.switchMediumHeight,
       switchMediumThumb: switchMediumThumb ?? this.switchMediumThumb,
       toastMaxWidth: toastMaxWidth ?? this.toastMaxWidth,
+      fontCode: fontCode ?? this.fontCode,
       fontDisplay: fontDisplay ?? this.fontDisplay,
       fontUi: fontUi ?? this.fontUi,
     );

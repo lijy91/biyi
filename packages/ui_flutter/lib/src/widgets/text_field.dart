@@ -24,10 +24,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+import '../foundation/font_face.dart';
 import '../foundation/widget_size.dart';
 import '../foundation/widget_tint.dart';
 import '../generated/theme_variables.dart';
 import '../theme/theme.dart';
+import 'field_box.dart';
 
 export 'package:flutter/services.dart'
     show
@@ -236,6 +238,7 @@ class TextField extends StatefulWidget {
     this.size = WidgetSize.medium,
     this.state = TextFieldState.normal,
     this.tint = TextFieldTint.primary,
+    this.mono = false,
     this.padding,
     this.placeholder,
     this.placeholderStyle,
@@ -372,6 +375,7 @@ class TextField extends StatefulWidget {
     this.size = WidgetSize.medium,
     this.state = TextFieldState.normal,
     this.tint = TextFieldTint.primary,
+    this.mono = false,
     this.padding = const EdgeInsets.all(6.0),
     this.placeholder,
     this.placeholderStyle,
@@ -494,6 +498,14 @@ class TextField extends StatefulWidget {
 
   /// The ramp the field's focus and error colours are drawn from.
   final TextFieldTint tint;
+
+  /// Set the mono face — for a key, an ID, or a URL.
+  ///
+  /// It reaches `base.font.code` directly, which `text-field.css` does too:
+  /// the code face is the one the graph has no semantic token in front of,
+  /// because setting it is a decision a control makes rather than a style the
+  /// design names.
+  final bool mono;
 
   final EdgeInsetsGeometry? padding;
 
@@ -1670,16 +1682,19 @@ class _TextFieldState extends State<TextField>
     // Entered text is body-weight at the control's own size and set solid: a
     // search query typed in semibold reads as shouting, and the control's
     // leading is what keeps one line centred in the box.
-    final TextStyle textStyle = controlFace
-        .copyWith(fontWeight: theme.vars.bodySmall.fontWeight)
-        .merge(resolvedStyle)
-        .copyWith(
-          color: enabled
-              ? (widget.state == TextFieldState.error
-                    ? theme.vars.colorDanger[800]!
-                    : theme.vars.colorContent)
-              : theme.vars.controlColorNormalContent.disabledColor,
-        );
+    final TextStyle entered = controlFace.copyWith(
+      fontWeight: theme.vars.bodySmall.fontWeight,
+    );
+    final TextStyle textStyle =
+        (widget.mono ? entered.inFace(vars.fontCode) : entered)
+            .merge(resolvedStyle)
+            .copyWith(
+              color: enabled
+                  ? (widget.state == TextFieldState.error
+                        ? theme.vars.colorDanger[800]!
+                        : theme.vars.colorContent)
+                  : theme.vars.controlColorNormalContent.disabledColor,
+            );
 
     final TextStyle? resolvedPlaceholderStyle = widget.placeholderStyle
         ?.copyWith(
@@ -1713,37 +1728,15 @@ class _TextFieldState extends State<TextField>
     // the container corner and a floor of its own, because it grows.
     final bool isMultiline = widget.maxLines != 1;
 
-    // The box is a recessed card — one step below the paper — that lifts to
-    // the paper on focus behind an accent border and a soft accent wash.
-    // That card→paper transition is the focus signal; a field that stays
-    // white can only signal with its ring.
-    final BoxDecoration designDecoration = BoxDecoration(
-      // An erroring field is washed in its own ramp and edged in it, which
-      // is the one place the box says something before the hint under it
-      // does.
-      color: invalid
-          ? ramp[50]!
-          : (focused ? vars.colorSurface : vars.colorSurfaceMuted),
-      border: Border.all(
-        color: focused || invalid ? accent : vars.colorBorderStrong,
-        // One width in every state: a border that thickened on focus would
-        // shift the text it wraps by half a pixel.
-        width: context.hairlineWidth,
-      ),
-      // A multiline field grows, so it takes the container corner rather
-      // than the control one — a pill textarea reads as a lozenge, which is
-      // the reason `radius.medium` and `radius.large` are separate axes.
-      borderRadius: BorderRadius.circular(
-        isMultiline ? vars.radiusLarge : vars.radiusMedium,
-      ),
-      boxShadow: focused
-          ? [
-              BoxShadow(
-                color: accent.withValues(alpha: vars.focusGlowAlpha),
-                spreadRadius: vars.focusWidth,
-              ),
-            ]
-          : null,
+    // The box is field_box.dart's, which is where the number field's group
+    // and the combobox's read it too — the five wearers `text-field.css`
+    // names, drawn once so they cannot drift.
+    final BoxDecoration designDecoration = fieldBoxDecoration(
+      context,
+      ramp: ramp,
+      focused: focused,
+      invalid: invalid,
+      grows: isMultiline,
     );
 
     final Color disabledColor = vars.controlColorNormalSurface.disabledColor!;
@@ -1779,17 +1772,11 @@ class _TextFieldState extends State<TextField>
     final BoxDecoration effectiveDecoration = widget.decoration == null
         ? (enabled
               ? designDecoration
-              // The disabled rule states a fill and an ink and nothing else,
-              // so the edge stays where the base rule put it: a field that
-              // lost its outline would read as a label rather than as a
-              // control that is merely not taking input.
-              : designDecoration.copyWith(
-                  color: disabledColor,
-                  border: Border.all(
-                    color: vars.colorBorderStrong,
-                    width: context.hairlineWidth,
-                  ),
-                  boxShadow: const [],
+              : fieldBoxDecoration(
+                  context,
+                  ramp: ramp,
+                  enabled: false,
+                  grows: isMultiline,
                 ))
         : widget.decoration!.copyWith(
             border: resolvedBorder,

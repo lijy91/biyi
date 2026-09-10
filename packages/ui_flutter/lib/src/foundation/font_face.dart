@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/painting.dart';
 
 /// One of the design's type faces, as the two things Flutter can be told
 /// about a family.
@@ -52,4 +53,19 @@ class FontFace {
 
   @override
   String toString() => 'FontFace(family: $family, fallback: $fallback)';
+}
+
+/// Sets a style in one of the design's faces.
+///
+/// A `TextStyle` takes a family and a fallback list where the graph declares
+/// one stack, so every reach for a face is these two lines. It is an extension
+/// rather than a helper on [FontFace] because what a caller has is the style
+/// they are building.
+extension FontFaceTextStyle on TextStyle {
+  TextStyle inFace(FontFace face) {
+    return copyWith(
+      fontFamily: face.family,
+      fontFamilyFallback: face.fallback,
+    );
+  }
 }

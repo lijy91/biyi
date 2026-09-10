@@ -4,6 +4,7 @@ import '../foundation/widget_size.dart';
 import '../foundation/widget_tint.dart';
 import '../generated/theme_variables.dart';
 import '../theme/theme.dart';
+import 'checkbox_group.dart';
 import 'pressable.dart';
 
 /// The tint a [Checkbox] fills with when it is checked.
@@ -27,8 +28,11 @@ enum CheckboxTint with WidgetTint {
 class Checkbox extends StatelessWidget {
   const Checkbox({
     super.key,
-    required this.value,
-    required this.onChanged,
+    this.value = false,
+    this.onChanged,
+    this.indeterminate = false,
+    this.name,
+    this.parent = false,
     this.label,
     this.note,
     this.tint = CheckboxTint.primary,
@@ -41,6 +45,20 @@ class Checkbox extends StatelessWidget {
   final bool value;
 
   final ValueChanged<bool>? onChanged;
+
+  /// Neither on nor off — the state a parent arrives at when only some of its
+  /// children are checked. A lone checkbox can never reach it on its own,
+  /// which is why it is a property rather than a third value.
+  final bool indeterminate;
+
+  /// Identifies this box inside a [CheckboxGroup]. Given one, the group owns
+  /// the value and [value]/[onChanged] are ignored.
+  final String? name;
+
+  /// Reads the [CheckboxGroup] it sits in rather than a value of its own:
+  /// checked when every child is, mixed when only some are, and pressing it
+  /// sets or clears the lot.
+  final bool parent;
 
   /// The row's label. Without one the checkbox is the bare box.
   final Widget? label;
@@ -78,7 +96,32 @@ class Checkbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeVariables vars = Theme.of(context).vars;
-    final bool marked = value;
+
+    // Inside a group, the group is the value. A box that kept its own would be
+    // the second source of truth the parent is counting against.
+    final CheckboxGroupScope? group = (name != null || parent)
+        ? CheckboxGroup.maybeOf(context)
+        : null;
+    final bool checked = group == null
+        ? value
+        : parent
+        ? group.allChecked
+        : group.value.contains(name);
+    final bool mixed = group != null && parent
+        ? group.someChecked
+        : indeterminate;
+    final bool enabled = group == null ? _enabled : group.enabled;
+    final VoidCallback? press = group == null
+        ? (_enabled ? _handleTap : null)
+        : !group.enabled
+        ? null
+        : parent
+        ? group.onToggleAll
+        : () => group.onToggle(name!);
+
+    // Mixed fills like checked: a parent that is partly on is on. What
+    // separates the two is the glyph, not the box.
+    final bool marked = checked || mixed;
 
     final double box = switch (size.namedSize) {
       NamedSize.large => vars.checkboxLargeBox,
@@ -93,16 +136,16 @@ class Checkbox extends StatelessWidget {
     final BorderRadius radius = BorderRadius.circular(vars.checkboxRadius);
 
     return Pressable(
-      enabled: _enabled,
-      onPressed: _enabled ? _handleTap : null,
+      enabled: enabled,
+      onPressed: press,
       borderRadius: radius,
-      checked: value,
+      checked: mixed ? null : checked,
       isButton: false,
       focusNode: focusNode,
       autofocus: autofocus,
       semanticsLabel: semanticsLabel,
       builder: (context, states) => Opacity(
-        opacity: _enabled ? 1 : 0.6,
+        opacity: enabled ? 1 : 0.6,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -124,12 +167,14 @@ class Checkbox extends StatelessWidget {
                         width: vars.checkboxThickness,
                       ),
               ),
+              // A tick says every one; a dash says some.
               child: marked
                   ? _Mark(
                       color: vars.colorOnAccent,
                       // The glyph sits a step under the label so it clears the
                       // box's corners.
                       dimension: vars.labelSmall.fontSize!,
+                      dash: mixed,
                     )
                   : null,
             ),
@@ -138,10 +183,12 @@ class Checkbox extends StatelessWidget {
               Flexible(
                 child: DefaultTextStyle.merge(
                   style: vars.labelQuiet.copyWith(
-                    fontWeight: marked
+                    // A mixed parent does not take the label weight: it is not
+                    // an answer yet.
+                    fontWeight: checked
                         ? vars.labelMedium.fontWeight
                         : vars.labelQuiet.fontWeight,
-                    color: marked ? vars.colorContent : vars.colorContentMuted,
+                    color: checked ? vars.colorContent : vars.colorContentMuted,
                   ),
                   child: note == null
                       ? label!
@@ -168,29 +215,32 @@ class Checkbox extends StatelessWidget {
   }
 }
 
-/// The check.
+/// The check, or the dash a mixed box carries instead.
 class _Mark extends StatelessWidget {
   const _Mark({
     required this.color,
     required this.dimension,
+    this.dash = false,
   });
 
   final Color color;
   final double dimension;
+  final bool dash;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size.square(dimension),
-      painter: _MarkPainter(color: color),
+      painter: _MarkPainter(color: color, dash: dash),
     );
   }
 }
 
 class _MarkPainter extends CustomPainter {
-  const _MarkPainter({required this.color});
+  const _MarkPainter({required this.color, required this.dash});
 
   final Color color;
+  final bool dash;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -203,14 +253,19 @@ class _MarkPainter extends CustomPainter {
 
     final double w = size.width;
     canvas.drawPath(
-      Path()
-        ..moveTo(w * 0.22, w * 0.52)
-        ..lineTo(w * 0.42, w * 0.72)
-        ..lineTo(w * 0.78, w * 0.28),
+      dash
+          ? (Path()
+              ..moveTo(w * 0.24, w * 0.5)
+              ..lineTo(w * 0.76, w * 0.5))
+          : (Path()
+              ..moveTo(w * 0.22, w * 0.52)
+              ..lineTo(w * 0.42, w * 0.72)
+              ..lineTo(w * 0.78, w * 0.28)),
       paint,
     );
   }
 
   @override
-  bool shouldRepaint(_MarkPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(_MarkPainter oldDelegate) =>
+      oldDelegate.color != color || oldDelegate.dash != dash;
 }

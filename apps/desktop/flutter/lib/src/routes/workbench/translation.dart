@@ -34,6 +34,8 @@ import '../../widgets/ui.dart'
         Button,
         ButtonVariant,
         IconButton,
+        IconButtonTint,
+        IconButtonVariant,
         KeyCap,
         Pressable,
         SectionLabel,
@@ -700,7 +702,8 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
                             semanticsLabel: copied
                                 ? translation.copied
                                 : translation.copy_result,
-                            active: copied,
+                            tint: copied ? IconButtonTint.success : null,
+                            variant: copied ? IconButtonVariant.plain : null,
                             icon: Icon(
                               copied
                                   ? FluentIcons.checkmark_20_regular

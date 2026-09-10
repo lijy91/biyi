@@ -149,24 +149,6 @@ void main() {
         vars.colorContentSubtle,
       );
     });
-
-    testWidgets('the on-state turns the glyph accent', (tester) async {
-      await tester.pumpWidget(
-        host(
-          IconButton(
-            icon: const Icon(FluentIcons.add_16_regular),
-            active: true,
-            onPressed: () {},
-          ),
-        ),
-      );
-
-      // "This is on" is a colour statement, not a chip.
-      expect(
-        IconTheme.of(tester.element(find.byType(Icon))).color,
-        vars.colorPrimary[700],
-      );
-    });
   });
 
   group('Badge', () {

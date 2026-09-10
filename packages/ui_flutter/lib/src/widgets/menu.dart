@@ -201,6 +201,18 @@ class _MenuOverlay extends StatelessWidget {
 }
 
 /// The floating panel a menu's rows sit in.
+///
+/// `popup.css` gives it a `min-width` and no width at all, so the panel is as
+/// wide as its widest row and never narrower than [ThemeVariables.menuMinWidth]
+/// — a menu narrower than its trigger reads as broken, whatever its labels.
+///
+/// Saying that in Flutter takes [IntrinsicWidth]. A [Column] with
+/// `CrossAxisAlignment.stretch` hands its children a *tight* cross-axis
+/// constraint of the incoming `maxWidth`, and the rows have an [Expanded] in
+/// them, so left alone the panel fills whatever the overlay offers it — which
+/// is the whole window. IntrinsicWidth is what makes `maxWidth` the widest row
+/// instead, and the [ConstrainedBox] around it is the floor the stylesheet
+/// states.
 class MenuPanel extends StatelessWidget {
   const MenuPanel({super.key, required this.children});
 
@@ -212,22 +224,24 @@ class MenuPanel extends StatelessWidget {
 
     return ConstrainedBox(
       constraints: BoxConstraints(minWidth: vars.menuMinWidth),
-      child: Container(
-        clipBehavior: Clip.antiAlias,
-        padding: EdgeInsets.all(vars.spacing1),
-        decoration: BoxDecoration(
-          color: vars.colorSurfaceOverlay,
-          border: Border.all(
-            color: vars.colorBorderStrong,
-            width: context.hairlineWidth,
+      child: IntrinsicWidth(
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          padding: EdgeInsets.all(vars.spacing1),
+          decoration: BoxDecoration(
+            color: vars.colorSurfaceOverlay,
+            border: Border.all(
+              color: vars.colorBorderStrong,
+              width: context.hairlineWidth,
+            ),
+            borderRadius: BorderRadius.circular(vars.radiusLarge),
+            boxShadow: vars.shadowLg,
           ),
-          borderRadius: BorderRadius.circular(vars.radiusLarge),
-          boxShadow: vars.shadowLg,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: children,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
+          ),
         ),
       ),
     );
@@ -331,6 +345,62 @@ class MenuRow extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// A group heading inside the sheet: the section label's voice, on the row's
+/// own inset. A [Combobox]'s grouped list is what reaches for it.
+class MenuGroupLabel extends StatelessWidget {
+  const MenuGroupLabel({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeVariables vars = Theme.of(context).vars;
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        vars.spacing2,
+        vars.spacing15,
+        vars.spacing2,
+        vars.spacing1,
+      ),
+      child: DefaultTextStyle.merge(
+        style: vars.captionSmall.copyWith(
+          fontWeight: vars.labelSmall.fontWeight,
+          height: 1,
+          color: vars.colorContentSubtle,
+        ),
+        child: child,
+      ),
+    );
+  }
+}
+
+/// What the sheet says when a query matches nothing.
+///
+/// A line of prose in a panel of rows, so it takes the row's inset and the
+/// faint ink rather than looking like a row that cannot be picked.
+class MenuEmpty extends StatelessWidget {
+  const MenuEmpty({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeVariables vars = Theme.of(context).vars;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: vars.menuItemPadding,
+        horizontal: vars.spacing2,
+      ),
+      child: DefaultTextStyle.merge(
+        style: vars.bodySmall.copyWith(color: vars.colorContentFaint),
+        child: child,
+      ),
     );
   }
 }

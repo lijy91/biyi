@@ -42,7 +42,6 @@ class IconButton extends StatefulWidget {
     required this.icon,
     this.tint,
     this.variant,
-    this.active = false,
     this.size = WidgetSize.tiny,
     this.iconSize,
     this.focusNode,
@@ -65,11 +64,6 @@ class IconButton extends StatefulWidget {
   final IconButtonTint? tint;
 
   final IconButtonVariant? variant;
-
-  /// A persistent on-state — a pin held down, a panel kept open. The glyph
-  /// takes the accent's text grade and the fill goes: "this is on" is a
-  /// colour statement, not a chip.
-  final bool active;
 
   final WidgetSize size;
 
@@ -126,11 +120,7 @@ class _IconButtonState extends State<IconButton> {
         Color content;
         Color border;
 
-        if (widget.active) {
-          surface = const Color(0x00000000);
-          content = vars.colorPrimary[700]!;
-          border = const Color(0x00000000);
-        } else if (quietChrome) {
+        if (quietChrome) {
           // A toolbar glyph washes neutral, not accent.
           surface = hovered && widget.enabled
               ? vars.colorSurfaceSubtle

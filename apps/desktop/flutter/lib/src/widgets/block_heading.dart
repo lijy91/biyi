@@ -90,29 +90,29 @@ class BlockHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     final inherited = DefaultTextStyle.of(context).style;
     final color = inherited.color;
+    final detailStyle = context.vars.labelStyle().copyWith(
+          fontWeight: FontWeight.w500,
+          color: color?.withValues(alpha: (color.a) * _kDetailOpacity),
+        );
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.baseline,
-      textBaseline: TextBaseline.alphabetic,
-      children: [
-        Flexible(child: Text(parts.role, overflow: TextOverflow.ellipsis)),
-        for (final detail in parts.details) ...[
-          const SizedBox(width: _kGap),
-          Flexible(
-            child: Text(
-              detail,
-              overflow: TextOverflow.ellipsis,
-              style: context.vars.labelStyle().copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: color?.withValues(
-                      alpha: (color.a) * _kDetailOpacity,
-                    ),
-                  ),
-            ),
-          ),
+    // One line of rich text rather than a row of Flexible cells: a row hands
+    // every part an equal share of the width, so 译文 sits on slack while the
+    // service name it introduces is cut to `de…`. As spans the parts take the
+    // width they need and the ellipsis falls at the end, where the least
+    // important qualifier is.
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(text: parts.role),
+          for (final detail in parts.details) ...[
+            const WidgetSpan(child: SizedBox(width: _kGap)),
+            TextSpan(text: detail, style: detailStyle),
+          ],
         ],
-      ],
+      ),
+      maxLines: 1,
+      softWrap: false,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

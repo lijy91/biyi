@@ -43,6 +43,11 @@ import 'translation_target_select_view.dart';
 /// the action bar all float this far inside the window edge.
 const double _kTrayInset = 8;
 
+/// The same inset on the sides, widened. The window is narrow, so the cards
+/// run nearly its full width; at 8px the 原文/译文 blocks read as pressed
+/// against the window edge rather than floating on the tray.
+const double _kTrayInsetX = 12;
+
 /// What the footer's 复制 is keyed under — it copies the first target's text.
 const String _kCopiedAll = '*';
 
@@ -94,9 +99,6 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
   /// The source was edited after the last query — arms ⏎ 重新翻译.
   bool _resultStale = false;
 
-  /// Service promoted with 设为首选 / ⌥n; the preferred block follows it.
-  String? _preferredServiceId;
-
   /// Which target's 复制 just fired — a block's, or [_kCopiedAll] for the
   /// footer's.
   String? _copiedTarget;
@@ -107,11 +109,21 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
   /// Service display names and the translation-service ids, captured per query
   /// so the results view can attribute records without re-fetching settings.
   Map<String, String> _serviceNameById = {};
+
+  /// The provider type behind each queried service, captured with the names so
+  /// a compare row can carry the provider's own mark.
+  Map<String, ProviderType> _providerTypeByServiceId = {};
   Set<String> _translationServiceIds = {};
 
-  /// The translation service 设置 marks 默认, captured per query: its output
-  /// is attributed as plain 译文, a promoted service by name.
+  /// The translation service 设置 marks 默认, captured per query: it is the
+  /// one the query runs, and its output fills the block.
   String? _defaultServiceId;
+
+  /// The services this query was built from, kept so 对比 can ask the ones the
+  /// query skipped without re-reading settings.
+  List<ServiceConfigEntry> _queryServices = const [];
+  Map<String, ServiceConfigEntry> _serviceById = const {};
+  Map<String, ProviderConfigEntry> _providersById = const {};
 
   Timer? _resizeSettledTimer;
   bool _isWindowResizeScheduled = false;
@@ -418,13 +430,17 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
       _translationResultList = [];
       _resultStale = false;
       _copiedTarget = null;
+      // A new query asks the default service and nothing else, so the lists
+      // fold back up: leaving one open would leave it staring at services
+      // this query never ran.
+      _compareOpen.clear();
     });
 
     final settings = runtime.settings();
     final providers = await settings.listProviders();
     final services = await settings.listServices();
     final generalSettings = await settings.getGeneral();
-    final providersById = {
+    _providersById = {
       for (final provider in providers) provider.id: provider,
     };
     final queryServices = services
@@ -437,9 +453,16 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
               isServiceEnabled(service),
         )
         .toList();
+    _queryServices = queryServices;
+    _serviceById = {for (final service in queryServices) service.id: service};
     _serviceNameById = {
       for (final service in queryServices)
         service.id: serviceDisplayName(service),
+    };
+    _providerTypeByServiceId = {
+      for (final service in queryServices)
+        if (_providersById[service.providerId] case final provider?)
+          service.id: provider.type,
     };
     _translationServiceIds = {
       for (final service in queryServices)
@@ -476,10 +499,25 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
       }
     }
 
+    // Only the default translation service runs on submit — the rest are asked
+    // when 对比 opens, so a query costs one translation per target however many
+    // services are configured. Dictionary lookups always run: 词典 is its own
+    // block, not a folded candidate. A service with no record is a service
+    // that was not asked, which is what keeps the folded ones out of the
+    // block's own state.
+    final leadServiceId = _defaultServiceId ??
+        queryServices
+            .where((service) => service.type == ServiceType.translation)
+            .firstOrNull
+            ?.id;
     final activeTargets = await _activeTranslationTargets(generalSettings);
     final nextTranslationResultList = _createPendingTranslationResults(
       activeTargets,
-      queryServices,
+      queryServices
+          .where((service) =>
+              service.type != ServiceType.translation ||
+              service.id == leadServiceId)
+          .toList(growable: false),
     );
 
     _setStateAndScheduleWindowResize(() {
@@ -487,21 +525,16 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
     }, animate: false);
 
     final futures = <Future<bool>>[];
-    for (int i = 0; i < _translationResultList.length; i++) {
-      final translationTarget = _translationResultList[i].translationTarget;
-      final translationResultRecordList =
-          _translationResultList[i].translationResultRecordList;
-      if (translationResultRecordList == null) {
-        continue;
-      }
-
-      for (int j = 0; j < translationResultRecordList.length; j++) {
+    for (final result in _translationResultList) {
+      for (final record in result.translationResultRecordList ??
+          const <TranslationResultRecord>[]) {
+        final service = _serviceById[record.translationServiceId];
+        if (service == null) continue;
         futures.add(
           _queryProvider(
-            service: queryServices[j],
-            provider: providersById[queryServices[j].providerId],
-            translationTarget: translationTarget,
-            translationResultRecord: translationResultRecordList[j],
+            service: service,
+            translationTarget: result.translationTarget,
+            translationResultRecord: record,
           ),
         );
       }
@@ -511,10 +544,43 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
     await _saveMiniHistory();
   }
 
+  /// The services behind 对比, asked the moment the list opens rather than on
+  /// submit. Each is asked once: a second 对比 on the same target finds every
+  /// service already holding a record and does nothing.
+  Future<void> _queryComparisonServices(TranslationResult result) async {
+    final records = result.translationResultRecordList;
+    if (records == null) return;
+    final asked = {
+      for (final record in records) record.translationServiceId,
+    };
+    final pending = _queryServices
+        .where((service) =>
+            service.type == ServiceType.translation &&
+            !asked.contains(service.id))
+        .toList(growable: false);
+    if (pending.isEmpty) return;
+
+    final added = [
+      for (final service in pending)
+        TranslationResultRecord(translationServiceId: service.id),
+    ];
+    // The rows are spinners from here until the answers land.
+    _setStateAndScheduleWindowResize(() => records.addAll(added));
+
+    await Future.wait([
+      for (int i = 0; i < pending.length; i++)
+        _queryProvider(
+          service: pending[i],
+          translationTarget: result.translationTarget,
+          translationResultRecord: added[i],
+        ),
+    ]);
+  }
+
   Future<void> _saveMiniHistory() async {
     final preferred = preferredTranslation(
       _translationResultList,
-      _preferredServiceId,
+      _defaultServiceId,
     );
     if (preferred == null || _text.trim().isEmpty) return;
     final serviceId = preferred.record.translationServiceId ?? '';
@@ -534,13 +600,6 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
     _setStateAndScheduleWindowResize(() {
       _starred = entry.favorite;
     });
-  }
-
-  Future<void> _preferService(String serviceId) async {
-    _setStateAndScheduleWindowResize(() {
-      _preferredServiceId = serviceId;
-    });
-    await _saveMiniHistory();
   }
 
   Future<void> _toggleHistoryFavorite() async {
@@ -570,10 +629,10 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
 
   Future<bool> _queryProvider({
     required ServiceConfigEntry service,
-    required ProviderConfigEntry? provider,
     required TranslationTarget? translationTarget,
     required TranslationResultRecord translationResultRecord,
   }) async {
+    final provider = _providersById[service.providerId];
     final sourceLanguage = translationTarget?.source;
     final targetLanguage = translationTarget?.target;
     final futures = <Future<void>>[];
@@ -611,17 +670,20 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
           providerType == ProviderType.ollama ||
           providerType == ProviderType.xAi;
 
+      // Recorded before the call goes out: the request is what tells the
+      // results view this service was asked at all, and the ones 对比 skipped
+      // must not read as still in flight.
+      final translateRequest = TranslateRequest(
+        sourceLanguage: sourceLanguage,
+        targetLanguage: targetLanguage,
+        text: _text,
+      );
+      translationResultRecord.translateRequest = translateRequest;
+
       if (isLlmProvider) {
         // Streaming LLM translation — update UI progressively
         futures.add(() async {
           try {
-            final translateRequest = TranslateRequest(
-              sourceLanguage: sourceLanguage,
-              targetLanguage: targetLanguage,
-              text: _text,
-            );
-            translationResultRecord.translateRequest = translateRequest;
-
             final buffer = StringBuffer();
             final stream = LlmStream.translate(
               providerId: service.id,
@@ -659,15 +721,9 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
         // Traditional non-streaming translation
         futures.add(() async {
           try {
-            final translateRequest = TranslateRequest(
-              sourceLanguage: sourceLanguage,
-              targetLanguage: targetLanguage,
-              text: _text,
-            );
             final translateResponse = await runtime
                 .translation(providerId: service.id)
                 .translate(request: translateRequest);
-            translationResultRecord.translateRequest = translateRequest;
             translationResultRecord.translateResponse = translateResponse;
           } catch (error) {
             translationResultRecord.translateError = TranslationError(
@@ -910,7 +966,7 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
   void _handleButtonTappedCopy() {
     final preferred = preferredTranslation(
       _translationResultList,
-      _preferredServiceId,
+      _defaultServiceId,
     );
     if (preferred == null) return;
     _copy(preferred.text, _kCopiedAll);
@@ -920,7 +976,7 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
   void _handleCopyTarget(String target) {
     for (final result in _translationResultList) {
       if (result.translationTarget?.target != target) continue;
-      final preferred = preferredTranslation([result], _preferredServiceId);
+      final preferred = preferredTranslation([result], _defaultServiceId);
       if (preferred != null) _copy(preferred.text, target);
       return;
     }
@@ -936,18 +992,23 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
   }
 
   void _handleToggleCompare(String target) {
+    final opening = !_compareOpen.contains(target);
     _setStateAndScheduleWindowResize(() {
-      if (!_compareOpen.add(target)) _compareOpen.remove(target);
+      if (opening) {
+        _compareOpen.add(target);
+      } else {
+        _compareOpen.remove(target);
+      }
     });
-  }
-
-  /// ⌥1/⌥2/⌥3 promote a service, matching the shortcut hints on the cards —
-  /// numbered by the service's position in the configured list, whichever
-  /// target's list the hint was read from.
-  void _handlePreferServiceAt(int index) {
-    final ids = _translationServiceIds.toList();
-    if (index < 0 || index >= ids.length) return;
-    _preferService(ids[index]);
+    // 失效清单 opens over a query that already failed; it lists the reasons
+    // it has rather than starting new work.
+    if (!opening || target == MiniTranslatorTranslation.kFailureListKey) {
+      return;
+    }
+    final result = _translationResultList
+        .where((result) => result.translationTarget?.target == target)
+        .firstOrNull;
+    if (result != null) unawaited(_queryComparisonServices(result));
   }
 
   void _handleButtonTappedTrans() async {
@@ -997,7 +1058,7 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
 
   Widget _buildBody(BuildContext context) {
     final hasTranslation =
-        preferredTranslation(_translationResultList, _preferredServiceId) !=
+        preferredTranslation(_translationResultList, _defaultServiceId) !=
             null;
     final noResult = _querySubmitted &&
         allServicesFailed(_translationResultList, _translationServiceIds);
@@ -1009,7 +1070,7 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
     final allMissing = _querySubmitted &&
         allTargetsMissingLanguage(
           _translationResultList,
-          _preferredServiceId,
+          _defaultServiceId,
           _translationServiceIds,
         );
 
@@ -1055,15 +1116,15 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
                 translationResultList: _translationResultList,
                 translationServiceIds: _translationServiceIds,
                 serviceNameById: _serviceNameById,
+                providerTypeByServiceId: _providerTypeByServiceId,
                 defaultServiceId: _defaultServiceId,
-                preferredServiceId: _preferredServiceId,
+                preferredServiceId: _defaultServiceId,
                 inputSubmitMode: settingsStore.inputSubmitMode,
                 matchedAutomatically: _selectedTargetLanguage == null,
                 compareOpenTargets: _compareOpen,
                 copiedTarget: _copiedTarget,
                 onToggleCompare: _handleToggleCompare,
                 onCopyTarget: _handleCopyTarget,
-                onPreferService: _preferService,
                 onRequery: _handleButtonTappedTrans,
               ),
               MiniTranslatorWordDefinition(
@@ -1106,54 +1167,47 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
     // into the window.
     return ColoredBox(
       color: context.vars.colorSurface,
-      child: CallbackShortcuts(
-        bindings: {
-          // ⌥1…⌥9 promote the matching service, as hinted on the cards.
-          for (var digit = 1; digit <= 9; digit++)
-            SingleActivator(
-              LogicalKeyboardKey(LogicalKeyboardKey.digit1.keyId + digit - 1),
-              alt: true,
-            ): () => _handlePreferServiceAt(digit - 1),
-        },
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          padding: const EdgeInsets.all(_kTrayInset),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              MiniTranslatorTopBar(
-                key: _toolbarViewKey,
-                sourceLanguage: _sourceLanguage,
-                selectedTargetLanguage: _selectedTargetLanguage,
-                activeConfigIndex: _activeConfigIndex,
-                persistentTargets: settingsStore.general.translationTargets,
-                commonLanguageCodes:
-                    settingsStore.general.commonLanguages.isNotEmpty
-                        ? settingsStore.general.commonLanguages
-                        : defaultCommonLanguages(),
-                onSourceChanged: _handleSourceChanged,
-                onTargetLanguageChanged: _handleTargetLanguageChanged,
-                onConfigTargetSelected: _handleConfigTargetSelected,
-                onManageCommonLanguages: _handleManageCommonLanguages,
-                onAddTarget: _handleAddTarget,
-                onManageTargets: _handleManageTargets,
-                isAlwaysOnTop: _isAlwaysOnTop,
-                onTogglePin: () {
-                  setState(() {
-                    _isAlwaysOnTop = !_isAlwaysOnTop;
-                  });
-                  // On macOS the panel lives at the floating level regardless;
-                  // the pin only exempts it from closing on blur.
-                  if (!kIsMacOS) _window.isAlwaysOnTop = _isAlwaysOnTop;
-                },
-                onExtractScreenCapture: _handleExtractTextFromScreenCapture,
-                onExtractClipboard: _handleExtractTextFromClipboard,
-                onOpenWorkbench: () => handOffToWorkbench(_text),
-                onOpenSettings: showSettingsWindow,
-              ),
-              _buildBody(context),
-            ],
-          ),
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        padding: const EdgeInsets.symmetric(
+          horizontal: _kTrayInsetX,
+          vertical: _kTrayInset,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MiniTranslatorTopBar(
+              key: _toolbarViewKey,
+              sourceLanguage: _sourceLanguage,
+              selectedTargetLanguage: _selectedTargetLanguage,
+              activeConfigIndex: _activeConfigIndex,
+              persistentTargets: settingsStore.general.translationTargets,
+              commonLanguageCodes:
+                  settingsStore.general.commonLanguages.isNotEmpty
+                      ? settingsStore.general.commonLanguages
+                      : defaultCommonLanguages(),
+              onSourceChanged: _handleSourceChanged,
+              onTargetLanguageChanged: _handleTargetLanguageChanged,
+              onConfigTargetSelected: _handleConfigTargetSelected,
+              onManageCommonLanguages: _handleManageCommonLanguages,
+              onAddTarget: _handleAddTarget,
+              onManageTargets: _handleManageTargets,
+              isAlwaysOnTop: _isAlwaysOnTop,
+              onTogglePin: () {
+                setState(() {
+                  _isAlwaysOnTop = !_isAlwaysOnTop;
+                });
+                // On macOS the panel lives at the floating level regardless;
+                // the pin only exempts it from closing on blur.
+                if (!kIsMacOS) _window.isAlwaysOnTop = _isAlwaysOnTop;
+              },
+              onExtractScreenCapture: _handleExtractTextFromScreenCapture,
+              onExtractClipboard: _handleExtractTextFromClipboard,
+              onOpenWorkbench: () => handOffToWorkbench(_text),
+              onOpenSettings: showSettingsWindow,
+            ),
+            _buildBody(context),
+          ],
         ),
       ),
     );

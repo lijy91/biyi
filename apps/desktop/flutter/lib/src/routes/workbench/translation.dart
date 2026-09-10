@@ -9,7 +9,8 @@ import '../../features.dart';
 import '../../i18n/i18n.dart';
 import '../../services/app_windows.dart' show workbenchTextHandoff;
 import '../../services/history_store.dart';
-import '../../services/runtime.dart' show HistoryEntryInput, InputSubmitMode;
+import '../../services/runtime.dart'
+    show HistoryEntryInput, InputSubmitMode, ProviderType;
 import '../../services/settings_store.dart';
 import '../../services/system_translation.dart';
 import '../../services/workbench_translation_controller.dart';
@@ -20,12 +21,13 @@ import '../../widgets/avatar.dart' show Avatar, AvatarSize;
 import '../../widgets/block_heading.dart';
 import '../../widgets/blocks.dart'
     show HighlightBlock, HighlightRule, HighlightTone;
-import '../../widgets/candidate_row.dart'
-    show CandidateRow, kProviderAvatarColors;
+import '../../widgets/candidate_row.dart' show CandidateRow;
+import '../../widgets/compare_toggle.dart';
 import '../../widgets/data_display.dart' show DetailBlock;
 import '../../widgets/language_selector.dart' show LanguageSelector;
 import '../../widgets/missing_language.dart';
 import '../../widgets/plain_text_field.dart' show PlainTextField;
+import '../../widgets/provider_icon/provider_icon.dart' show ProviderIcon;
 import '../../widgets/translation_text.dart';
 import '../../widgets/ui.dart'
     show
@@ -36,7 +38,6 @@ import '../../widgets/ui.dart'
         IconButton,
         IconButtonTint,
         IconButtonVariant,
-        KeyCap,
         Pressable,
         SectionLabel,
         SectionLabelTone,
@@ -175,15 +176,6 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
     });
   }
 
-  Future<void> _selectService(String serviceId) async {
-    setState(() {
-      _editingTarget = null;
-      _override.clear();
-    });
-    _controller.selectService(serviceId);
-    await _saveHistory(edited: false);
-  }
-
   Future<void> _toggleFavorite() async {
     if (_historySession.entryId == null) {
       await _saveHistory(edited: _override.isNotEmpty);
@@ -297,127 +289,111 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
     final lastOpen = failed ? _expanded : _compareOpen.contains(targets.last);
     final stretchPreferred = !lastOpen && _definitionText == null;
 
-    return CallbackShortcuts(
-      bindings: {
-        // ⌥1…⌥9 promote the matching service, as hinted on the cards.
-        for (var digit = 1; digit <= 9; digit++)
-          SingleActivator(
-            LogicalKeyboardKey(LogicalKeyboardKey.digit1.keyId + digit - 1),
-            alt: true,
-          ): () {
-            final results = _controller.results;
-            if (digit <= results.length) {
-              _selectService(results[digit - 1].service.id);
-            }
-          },
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          WorkbenchToolbar(
-            title: t.workbench.translate,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        WorkbenchToolbar(
+          title: t.workbench.translate,
+          children: [
+            // The mini translator's capsule, drawn at the same size: both
+            // ends open the same native language menus, so the two windows
+            // pick languages alike and look alike doing it.
+            LanguageSelector(
+              sourceLanguage: _controller.sourceLanguage,
+              targetLanguage: _controller.targetLanguage,
+              allowAutoTarget: true,
+              commonLanguageCodes:
+                  settingsStore.general.commonLanguages.isNotEmpty
+                      ? settingsStore.general.commonLanguages
+                      : defaultCommonLanguages(),
+              onSourceChanged: _handleSourceChanged,
+              onTargetChanged: _handleTargetChanged,
+              onManageCommonLanguages: _handleManageCommonLanguages,
+            ),
+          ],
+        ),
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // The mini translator's capsule, drawn at the same size: both
-              // ends open the same native language menus, so the two windows
-              // pick languages alike and look alike doing it.
-              LanguageSelector(
-                sourceLanguage: _controller.sourceLanguage,
-                targetLanguage: _controller.targetLanguage,
-                allowAutoTarget: true,
-                commonLanguageCodes:
-                    settingsStore.general.commonLanguages.isNotEmpty
-                        ? settingsStore.general.commonLanguages
-                        : defaultCommonLanguages(),
-                onSourceChanged: _handleSourceChanged,
-                onTargetChanged: _handleTargetChanged,
-                onManageCommonLanguages: _handleManageCommonLanguages,
-              ),
-            ],
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) => SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constraints.maxHeight,
-                        ),
-                        child: IntrinsicHeight(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              _buildSourceBlock(context),
-                              if (failed)
-                                if (stretchPreferred)
-                                  Expanded(
-                                    child: _buildFailedBlock(
-                                      context,
-                                      result!,
-                                      stretch: true,
-                                    ),
-                                  )
-                                else
-                                  _buildFailedBlock(context, result!)
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) => SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: IntrinsicHeight(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _buildSourceBlock(context),
+                            if (failed)
+                              if (stretchPreferred)
+                                Expanded(
+                                  child: _buildFailedBlock(
+                                    context,
+                                    result!,
+                                    stretch: true,
+                                  ),
+                                )
                               else
-                                // 自动匹配 can resolve to more than one target
-                                // — a specific rule and the 自动检测 fallback
-                                // both apply — and the core translates into
-                                // each. The pane stacks one preferred block
-                                // per target instead of hiding the rest
-                                // behind a switcher: both were asked for, so
-                                // both stay on screen, and each keeps its
-                                // own copy and edit state.
-                                for (var i = 0; i < targets.length; i++)
-                                  if (i == targets.length - 1 &&
-                                      stretchPreferred)
-                                    Expanded(
-                                      child: _buildPreferredBlock(
-                                        context,
-                                        result,
-                                        target: targets[i],
-                                        index: i,
-                                        last: true,
-                                        stacked: stacked,
-                                        stretch: true,
-                                      ),
-                                    )
-                                  else
-                                    _buildPreferredBlock(
+                                _buildFailedBlock(context, result!)
+                            else
+                              // 自动匹配 can resolve to more than one target
+                              // — a specific rule and the 自动检测 fallback
+                              // both apply — and the core translates into
+                              // each. The pane stacks one preferred block
+                              // per target instead of hiding the rest
+                              // behind a switcher: both were asked for, so
+                              // both stay on screen, and each keeps its
+                              // own copy and edit state.
+                              for (var i = 0; i < targets.length; i++)
+                                if (i == targets.length - 1 && stretchPreferred)
+                                  Expanded(
+                                    child: _buildPreferredBlock(
                                       context,
                                       result,
                                       target: targets[i],
                                       index: i,
-                                      last: i == targets.length - 1,
+                                      last: true,
                                       stacked: stacked,
+                                      stretch: true,
                                     ),
-                              if (_definitionText != null)
-                                DetailBlock(
-                                  title: Text(
-                                    _controller.dictionaryResult?.word ??
-                                        _controller.text.trim(),
+                                  )
+                                else
+                                  _buildPreferredBlock(
+                                    context,
+                                    result,
+                                    target: targets[i],
+                                    index: i,
+                                    last: i == targets.length - 1,
+                                    stacked: stacked,
                                   ),
-                                  subtitle: _pronunciation == null
-                                      ? null
-                                      : Text(_pronunciation!),
-                                  child: Text(_definitionText!),
+                            if (_definitionText != null)
+                              DetailBlock(
+                                title: Text(
+                                  _controller.dictionaryResult?.word ??
+                                      _controller.text.trim(),
                                 ),
-                              if (failed) _buildFailureList(context),
-                            ],
-                          ),
+                                subtitle: _pronunciation == null
+                                    ? null
+                                    : Text(_pronunciation!),
+                                child: Text(_definitionText!),
+                              ),
+                            if (failed) _buildFailureList(context),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
-                if (kTranslationAsideEnabled) _buildAside(context),
-              ],
-            ),
+              ),
+              if (kTranslationAsideEnabled) _buildAside(context),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -581,7 +557,8 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
             ),
           ),
           const SizedBox(width: 10),
-          _CompareToggle(
+          CompareToggle(
+            count: count,
             label: _expanded
                 ? t.mini_translator.result.collapse_reasons
                 : t.mini_translator.result.show_reasons(count: count),
@@ -637,8 +614,9 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
     // 对比开关 — lives in the preferred block's action row, the mini's
     // placement. With every other service disabled it degrades to a note.
     final compareToggle = others.isNotEmpty
-        ? _CompareToggle(
+        ? CompareToggle(
             expanded: open,
+            count: others.length + 1,
             label: open
                 ? t.mini_translator.result.collapse_compare
                 : t.mini_translator.result.compare_services(
@@ -887,11 +865,6 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
     );
   }
 
-  /// ⌥n hint and avatar colour follow the service's position in the full
-  /// list — the same order the deck numbers its cards.
-  int _serviceIndex(WorkbenchServiceResult result) => _controller.results
-      .indexWhere((entry) => entry.service.id == result.service.id);
-
   static String _serviceName(WorkbenchServiceResult result) =>
       serviceDisplayName(result.service);
 
@@ -904,17 +877,11 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
   ) {
     final vars = context.vars;
     final translation = t.workbench.translation;
-    final name = _serviceName(result);
-    final index = _serviceIndex(result);
     final output = result.output(target);
 
     return CandidateRow(
-      name: name,
-      avatarLabel: name.characters.first.toUpperCase(),
-      avatarColor: kProviderAvatarColors[
-          index < 0 ? 0 : index % kProviderAvatarColors.length],
-      shortcut: index >= 0 && index < 9 ? '⌥${index + 1}' : null,
-      onPrefer: output.hasText ? () => _selectService(result.service.id) : null,
+      name: _serviceName(result),
+      providerType: result.provider?.type,
       child: output.loading
           ? Text(
               translation.translating,
@@ -982,7 +949,6 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
       BuildContext context, WorkbenchServiceResult result) {
     final vars = context.vars;
     final name = _serviceName(result);
-    final index = _serviceIndex(result);
     final missing = SystemLanguageNotInstalled.of(result.error);
 
     return Container(
@@ -997,18 +963,13 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
         children: [
           Row(
             children: [
-              Avatar(
-                size: AvatarSize.xs,
-                label: name.characters.first.toUpperCase(),
-                color: kProviderAvatarColors[
-                    index < 0 ? 0 : index % kProviderAvatarColors.length],
-              ),
+              // The provider's own mark, as the compare rows carry it.
+              ProviderIcon(result.provider?.type ?? ProviderType.system,
+                  size: 16),
               const SizedBox(width: 7),
               Expanded(
                 child: SectionLabel(name),
               ),
-              if (index >= 0 && index < 9)
-                KeyCap('⌥${index + 1}', size: WidgetSize.small),
             ],
           ),
           const SizedBox(height: 5),
@@ -1137,66 +1098,6 @@ class _WorkbenchTranslationPageState extends State<WorkbenchTranslationPage> {
   }
 }
 
-/// The 对比 N 个服务 / 收起对比 pill — same control as the mini translator's.
-class _CompareToggle extends StatelessWidget {
-  const _CompareToggle({
-    required this.expanded,
-    required this.label,
-    required this.onPressed,
-  });
-
-  final bool expanded;
-
-  /// 对比 N 个服务 when the services answered, 查看 N 个服务的原因 when none did.
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final vars = context.vars;
-    final radius = BorderRadius.circular(vars.radiusFull);
-
-    return Pressable(
-      onPressed: onPressed,
-      borderRadius: radius,
-      semanticsLabel: label,
-      builder: (context, states) => AnimatedContainer(
-        duration: context.vars.motionDuration,
-        height: 18,
-        padding: const EdgeInsets.symmetric(horizontal: 9),
-        decoration: BoxDecoration(
-          color: vars.accent.withValues(
-              alpha: states.contains(WidgetState.hovered) ? 0.20 : 0.12),
-          borderRadius: radius,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              label,
-              style: vars.sansStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                height: 1,
-                color: vars.accentText,
-              ),
-            ),
-            const SizedBox(width: 4),
-            AnimatedRotation(
-              turns: expanded ? 0.5 : 0,
-              duration: context.vars.motionDuration,
-              child: Icon(
-                FluentIcons.chevron_down_20_regular,
-                size: 10,
-                color: vars.accentText,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 /// Three shimmering lines standing in for the translation being fetched.
 class _TranslationSkeleton extends StatefulWidget {

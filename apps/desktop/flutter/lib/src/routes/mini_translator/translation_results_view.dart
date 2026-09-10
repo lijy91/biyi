@@ -1,5 +1,5 @@
 import 'package:beyondtranslate_runtime/beyondtranslate_runtime.dart'
-    show InputSubmitMode;
+    show InputSubmitMode, ProviderType;
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/widgets.dart';
 
@@ -14,8 +14,8 @@ import '../../utils/language_util.dart';
 import '../../utils/shortcut_util.dart';
 import '../../widgets/block_heading.dart';
 import '../../widgets/blocks.dart' show CompareTray;
-import '../../widgets/candidate_row.dart'
-    show CandidateRow, kProviderAvatarColors;
+import '../../widgets/candidate_row.dart' show CandidateRow;
+import '../../widgets/compare_toggle.dart';
 import '../../widgets/data_display.dart' show DetailBlock;
 import '../../widgets/missing_language.dart';
 import '../../widgets/translation_text.dart';
@@ -26,8 +26,6 @@ import '../../widgets/ui.dart'
         IconButton,
         IconButtonTint,
         IconButtonVariant,
-        KeyCap,
-        Pressable,
         SectionLabel,
         Spinner,
         ThemeDataBuildContextProps,
@@ -59,55 +57,75 @@ List<ServiceTranslation> serviceTranslations(List<TranslationResult> results) {
   return translations;
 }
 
-/// The translation the preferred block shows: the service the user promoted
-/// (⌥n / 设为首选) when it has text, else the first service that answered.
+/// The translation the preferred block shows: the default service's, and only
+/// its own. A default that failed is a failed translation — the block says so
+/// rather than quietly promoting whichever other service answered, which would
+/// leave 设置 · 服务 naming one service and the window showing another.
+///
+/// With no default among the enabled services there is nothing to be faithful
+/// to, and the first service that answered stands in.
 ServiceTranslation? preferredTranslation(
   List<TranslationResult> results,
   String? preferredServiceId,
 ) {
   final translations = serviceTranslations(results);
   if (translations.isEmpty) return null;
+  if (preferredServiceId == null) return translations.first;
   for (final translation in translations) {
     if (translation.record.translationServiceId == preferredServiceId) {
       return translation;
     }
   }
-  return translations.first;
+  return null;
 }
+
 
 bool _recordHasText(TranslationResultRecord record) {
   final texts = record.translateResponse?.translations ?? [];
   return texts.isNotEmpty && texts.first.text.isNotEmpty;
 }
 
+/// The record a target's block speaks for: the default service's, whatever
+/// state it is in — its text, its failure, or its spinner. The other services
+/// only ever appear in the compare list, so nothing they do can take this
+/// slot.
+///
+/// With no default among the enabled services the block follows the first
+/// service that answered, and before any of them has, the first that was
+/// asked.
+TranslationResultRecord? blockRecord(
+  TranslationResult result,
+  String? preferredServiceId,
+  Set<String> translationServiceIds,
+) {
+  final records = (result.translationResultRecordList ??
+          const <TranslationResultRecord>[])
+      .where((record) =>
+          translationServiceIds.contains(record.translateServiceIdOrEmpty));
+  if (preferredServiceId != null) {
+    return records
+        .where((record) => record.translationServiceId == preferredServiceId)
+        .firstOrNull;
+  }
+  return records.where(_recordHasText).firstOrNull ?? records.firstOrNull;
+}
+
 /// The record whose missing language files take [result]'s slot — 系统翻译
 /// reporting `languagePairNotInstalled` for this target.
 ///
-/// The preferred service's, when the user promoted it and that is how it
-/// failed: they asked for it, so they hear why it has nothing. Otherwise only
-/// when no service produced text for the target: a service that answered
-/// keeps the slot, and the missing one shows its reason in the compare list.
+/// Only the block's own service can take that slot: what another service made
+/// of this target says nothing about whether the one you configured could
+/// answer.
 TranslationResultRecord? missingLanguageRecord(
   TranslationResult result,
   String? preferredServiceId,
   Set<String> translationServiceIds,
 ) {
-  final records =
-      result.translationResultRecordList ?? const <TranslationResultRecord>[];
-  bool notInstalled(TranslationResultRecord record) =>
-      translationServiceIds.contains(record.translationServiceId ?? '') &&
-      !_recordHasText(record) &&
-      SystemLanguageNotInstalled.of(record.translateError?.message) != null;
-
-  if (preferredServiceId != null) {
-    final own = records
-        .where((record) => record.translationServiceId == preferredServiceId)
-        .firstOrNull;
-    if (own != null && notInstalled(own)) return own;
-    if (own != null && _recordHasText(own)) return null;
-  }
-  if (records.any(_recordHasText)) return null;
-  return records.where(notInstalled).firstOrNull;
+  final own = blockRecord(result, preferredServiceId, translationServiceIds);
+  if (own == null || _recordHasText(own)) return null;
+  return SystemLanguageNotInstalled.of(own.translateError?.message) != null
+      ? own
+      : null;
 }
 
 /// 语言文件未下载 on every target is a failed query like 未返回结果: nothing to
@@ -172,6 +190,7 @@ class MiniTranslatorTranslation extends StatelessWidget {
     required this.translationResultList,
     required this.translationServiceIds,
     required this.serviceNameById,
+    required this.providerTypeByServiceId,
     this.defaultServiceId,
     this.matchedAutomatically = true,
     required this.preferredServiceId,
@@ -180,7 +199,6 @@ class MiniTranslatorTranslation extends StatelessWidget {
     required this.copiedTarget,
     required this.onToggleCompare,
     required this.onCopyTarget,
-    required this.onPreferService,
     required this.onRequery,
   });
 
@@ -191,6 +209,10 @@ class MiniTranslatorTranslation extends StatelessWidget {
   /// block in the translating phase.
   final Set<String> translationServiceIds;
   final Map<String, String> serviceNameById;
+
+  /// The provider each service runs on, so a compare row carries the same
+  /// mark 服务 shows it under rather than a lettered disc.
+  final Map<String, ProviderType> providerTypeByServiceId;
 
   /// The translation service 设置 marks 默认. Its output is attributed as plain
   /// 译文; only a promoted service is named, so you know what you switched to.
@@ -215,7 +237,6 @@ class MiniTranslatorTranslation extends StatelessWidget {
   final String? copiedTarget;
   final ValueChanged<String> onToggleCompare;
   final ValueChanged<String> onCopyTarget;
-  final ValueChanged<String> onPreferService;
   final VoidCallback onRequery;
 
   /// What the 失效清单 toggle is keyed under in [compareOpenTargets].
@@ -237,37 +258,14 @@ class MiniTranslatorTranslation extends StatelessWidget {
     );
   }
 
-  /// ⌥n hint by the service's position in the configured list — the same index
-  /// the page's ⌥1/2/3 shortcuts promote, and the one hint that stays live when
-  /// no service answered.
-  String? _shortcutForService(String? serviceId) {
-    final index = _serviceIndex(serviceId);
-    if (index < 0 || index > 8) return null;
-    return '⌥${index + 1}';
-  }
-
-  int _serviceIndex(String? serviceId) =>
-      translationServiceIds.toList().indexOf(serviceId ?? '');
-
   _ServiceFailure _failureOf(TranslationResultRecord record) {
     final message = record.translateError?.message.trim() ?? '';
     return _ServiceFailure(
       name: _serviceName(record.translationServiceId),
       reason:
           message.isEmpty ? t.mini_translator.result.unknown_error : message,
-      shortcut: _shortcutForService(record.translationServiceId),
       notInstalled: SystemLanguageNotInstalled.of(message),
     );
-  }
-
-  /// A translation record that came back with an error and no text.
-  bool _isFailedRecord(TranslationResultRecord record) {
-    if (!translationServiceIds.contains(record.translationServiceId ?? '')) {
-      return false;
-    }
-    if (record.translateError == null) return false;
-    final texts = record.translateResponse?.translations ?? [];
-    return texts.isEmpty || texts.first.text.isEmpty;
   }
 
   @override
@@ -361,7 +359,10 @@ class MiniTranslatorTranslation extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 7),
-                    Flexible(
+                    // The heading takes the rest of the row, so the toggle
+                    // sits at the right edge and the label is cut only when
+                    // there is genuinely no room left.
+                    Expanded(
                       child: DefaultTextStyle(
                         style: vars.labelStyle(color: vars.dangerFg),
                         // A failed query keeps the plain heading — the body
@@ -372,9 +373,10 @@ class MiniTranslatorTranslation extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Spacer(),
-                    _CompareToggle(
+                    const SizedBox(width: 8),
+                    CompareToggle(
                       expanded: open,
+                      count: failures.length,
                       label: open
                           ? t.mini_translator.result.collapse_reasons
                           : t.mini_translator.result.show_reasons(
@@ -451,7 +453,9 @@ class MiniTranslatorTranslation extends StatelessWidget {
     // The resolved target rides on the attribution label, as in the main
     // window's 首选译文 block; the capsule stays on 自动检测 ⇄ 自动匹配.
     final targetName = getLanguageName(targetCode);
-    final translations = serviceTranslations([result]);
+    // The block belongs to one service — the default — and shows whatever
+    // that service did with this target.
+    final own = blockRecord(result, preferredServiceId, translationServiceIds);
     // 系统翻译 without this pair's language files: reason + fix, no text.
     final missingRecord = missingLanguageRecord(
       result,
@@ -464,46 +468,55 @@ class MiniTranslatorTranslation extends StatelessWidget {
     final preferred = missing != null
         ? null
         : preferredTranslation([result], preferredServiceId);
-    final translating = missing == null && preferred == null;
+    // The default came back with a reason instead of a translation. It takes
+    // the block the way the missing-language notice does: another service
+    // answering is not this service answering.
+    final failureRecord = missing == null &&
+            preferred == null &&
+            own != null &&
+            own.translateError != null
+        ? own
+        : null;
+    final failed = missing != null || failureRecord != null;
+    final translating = !failed && preferred == null;
     final open = compareOpenTargets.contains(targetCode);
     final copied = copiedTarget == targetCode;
-    final candidates = [
-      for (final translation in translations)
-        if (translation.record != preferred?.record) translation,
-    ];
-    // A service that failed for this target is listed too — a failure the
-    // user can fix (the system translator's missing language files) must
-    // not hide behind the service that did answer.
-    final failed = [
+    // The list is keyed by service, not by what came back: opening it is what
+    // asks the other services, so one with no record yet is a row too — it
+    // just holds a spinner until it answers.
+    final ownServiceId = own?.translateServiceIdOrEmpty;
+    final recordByService = {
       for (final record in result.translationResultRecordList ??
           const <TranslationResultRecord>[])
-        if (record != missingRecord && _isFailedRecord(record)) record,
-    ];
+        record.translateServiceIdOrEmpty: record,
+    };
     final rows = [
-      for (final candidate in candidates)
-        _buildCandidateRow(context, candidate),
-      for (final record in failed) _buildFailedRow(context, record),
+      for (final serviceId in translationServiceIds)
+        if (serviceId != ownServiceId)
+          _buildCompareRow(context, serviceId, recordByService[serviceId]),
     ];
-    final showList = open && !translating && rows.isNotEmpty;
+    // 对比 counts the services being compared, this block's own included —
+    // it is the size of the comparison, not of the list that folds out.
+    final compareCount = rows.length + (own == null ? 0 : 1);
+    final showList = open && rows.isNotEmpty;
     // 复制 on the attribution row is a 24px button beside an 18px toggle;
     // the deck pulls it in with negative margins, so the gap above and the
     // inset below give up the difference here to keep the block's rhythm.
-    final controls = stacked && !translating && missing == null;
+    final controls = stacked && !translating && !failed;
 
     return Container(
       decoration: BoxDecoration(
-        // A missing language pair is a failed translation, so the block
-        // takes the danger key the way 未返回结果 does.
-        color: missing != null ? vars.dangerSurface : vars.accentSurface,
+        // A default service that could not answer — no language files, or any
+        // other reason — is a failed translation, so the block takes the
+        // danger key the way 未返回结果 does.
+        color: failed ? vars.dangerSurface : vars.accentSurface,
         // The 2px accent rule marks where the output starts; a further target
         // shares the surface behind a neutral 1px hairline — a second accent
         // line would read as a second output rather than a section of this one.
         border: Border(
           top: first
               ? BorderSide(
-                  color: missing != null
-                      ? vars.dangerHairline
-                      : vars.accentHairline,
+                  color: failed ? vars.dangerHairline : vars.accentHairline,
                   width: ProductTokens.highlightRule,
                 )
               : BorderSide(
@@ -517,16 +530,7 @@ class MiniTranslatorTranslation extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(
-              15,
-              14,
-              15,
-              showList
-                  ? 0
-                  : controls
-                      ? 12
-                      : 15,
-            ),
+            padding: const EdgeInsets.fromLTRB(15, 14, 15, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
@@ -586,6 +590,14 @@ class MiniTranslatorTranslation extends StatelessWidget {
                       color: vars.colorContentSubtle,
                     ),
                   )
+                else if (failureRecord != null)
+                  // The reason sits where the translation would have been, at
+                  // the same type scale: the block reports what the service
+                  // you configured said, and 对比 is there to ask the others.
+                  Text(
+                    _failureOf(failureRecord).reason,
+                    style: vars.miniTranslationStyle(color: vars.dangerFg),
+                  )
                 else
                   TranslationText(
                     preferred!.text,
@@ -593,74 +605,94 @@ class MiniTranslatorTranslation extends StatelessWidget {
                       color: vars.colorContent,
                     ),
                   ),
-                SizedBox(height: controls ? 9 : 12),
-                // 服务署名与对比开关 — under the translation, so the text stays
-                // the visual protagonist of the block. 对比按目标各开各的：比的
-                // 是其他服务译到这一种语言的结果.
-                Row(
-                  children: [
-                    Container(
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: missing != null ? vars.danger : vars.accentText,
-                        shape: BoxShape.circle,
-                        // No glow: the glow marks the one that answered.
-                        boxShadow: missing != null
-                            ? null
-                            : context.product.highlightGlow,
-                      ),
-                    ),
-                    const SizedBox(width: 7),
-                    Flexible(
-                      child: DefaultTextStyle(
-                        style: vars.labelStyle(
-                          color:
-                              missing != null ? vars.dangerFg : vars.accentText,
-                        ),
-                        // 语言文件未下载 is already said by the body in the
-                        // translation's slot; the heading does not repeat it.
-                        child: BlockHeading(
-                          _heading(
-                            missing != null
-                                ? missingRecord!.translationServiceId
-                                : preferred?.record.translationServiceId,
-                            targetName,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    if (controls) ...[
-                      IconButton(
-                          semanticsLabel: copied
-                              ? t.mini_translator.button.copied
-                              : t.mini_translator.button.copy,
-                          // Copied is a confirmation that clears itself,
-                          // not a state the button is held in, so it takes the
-                          // success recipe rather than a toggle's latch.
-                          tint: copied ? IconButtonTint.success : null,
-                          variant: copied ? IconButtonVariant.plain : null,
-                          icon: Icon(
-                            copied
-                                ? FluentIcons.checkmark_20_regular
-                                : FluentIcons.copy_20_regular,
-                          ),
-                          onPressed: () => onCopyTarget(targetCode)),
-                      const SizedBox(width: 8),
-                    ],
-                    if (!translating && rows.isNotEmpty)
-                      _CompareToggle(
-                        expanded: open,
-                        label: open
-                            ? t.mini_translator.result.collapse_compare
-                            : t.mini_translator.result.compare_services(
-                                count: translations.length + failed.length,
-                              ),
-                        onPressed: () => onToggleCompare(targetCode),
-                      ),
-                  ],
+              ],
+            ),
+          ),
+          // 服务署名与对比开关 — under the translation, so the text stays the
+          // visual protagonist of the block. 对比按目标各开各的：比的是其他服务
+          // 译到这一种语言的结果.
+          //
+          // The row hangs 6px past the text column on the right: its trailing
+          // control is a filled chip, and at the text's own 15px inset it
+          // reads as drifting away from the card's edge. 9px is the compare
+          // tray's inset, so the chip lines up with the rows it opens.
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              15,
+              controls ? 9 : 12,
+              9,
+              showList
+                  ? 0
+                  : controls
+                      ? 12
+                      : 15,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 6,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    color: failed ? vars.danger : vars.accentText,
+                    shape: BoxShape.circle,
+                    // No glow: the glow marks the one that answered.
+                    boxShadow: failed ? null : context.product.highlightGlow,
+                  ),
                 ),
+                const SizedBox(width: 7),
+                // The heading takes the rest of the row: 复制 and 对比
+                // ride at the right edge, and 译文 语言 服务名 gets every
+                // pixel between them and the dot.
+                Expanded(
+                  child: DefaultTextStyle(
+                    style: vars.labelStyle(
+                      color: failed ? vars.dangerFg : vars.accentText,
+                    ),
+                    // 语言文件未下载 is already said by the body in the
+                    // translation's slot; the heading does not repeat it.
+                    child: BlockHeading(
+                      _heading(
+                        (missingRecord ?? failureRecord)
+                                ?.translationServiceId ??
+                            preferred?.record.translationServiceId,
+                        targetName,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                if (controls) ...[
+                  IconButton(
+                      semanticsLabel: copied
+                          ? t.mini_translator.button.copied
+                          : t.mini_translator.button.copy,
+                      // Copied is a confirmation that clears itself,
+                      // not a state the button is held in, so it takes the
+                      // success recipe rather than a toggle's latch.
+                      tint: copied ? IconButtonTint.success : null,
+                      variant: copied ? IconButtonVariant.plain : null,
+                      icon: Icon(
+                        copied
+                            ? FluentIcons.checkmark_20_regular
+                            : FluentIcons.copy_20_regular,
+                      ),
+                      onPressed: () => onCopyTarget(targetCode)),
+                  const SizedBox(width: 8),
+                ],
+                if (rows.isNotEmpty)
+                  CompareToggle(
+                    expanded: open,
+                    // The badge counts the rows the list would open; the name
+                    // it answers to counts the comparison, this block's own
+                    // service included.
+                    count: rows.length,
+                    label: open
+                        ? t.mini_translator.result.collapse_compare
+                        : t.mini_translator.result.compare_services(
+                            count: compareCount,
+                          ),
+                    onPressed: () => onToggleCompare(targetCode),
+                  ),
               ],
             ),
           ),
@@ -681,59 +713,50 @@ class MiniTranslatorTranslation extends StatelessWidget {
     );
   }
 
-  Widget _buildCandidateRow(
-      BuildContext context, ServiceTranslation candidate) {
+  /// One other service's row. Opening the list is what asks these services, so
+  /// a row starts as a spinner and settles into the translation that came
+  /// back, or the reason it did not.
+  Widget _buildCompareRow(
+    BuildContext context,
+    String serviceId,
+    TranslationResultRecord? record,
+  ) {
     final vars = context.vars;
-    final serviceId = candidate.record.translationServiceId;
-    final name = _serviceName(serviceId);
-    final index = _serviceIndex(serviceId);
-
-    return CandidateRow(
-      name: name,
-      avatarLabel: name.isEmpty ? '?' : name.characters.first.toUpperCase(),
-      avatarColor: kProviderAvatarColors[
-          index < 0 ? 0 : index % kProviderAvatarColors.length],
-      shortcut: _shortcutForService(serviceId),
-      onPrefer: serviceId == null ? null : () => onPreferService(serviceId),
-      child: TranslationText(
-        candidate.text,
-        style: vars.cjkStyle(
-          fontSize: 13,
-          height: 1.7,
-          color: vars.colorContentSecondary,
-        ),
-      ),
-    );
-  }
-
-  /// One failed service in the compare list: the same row, its attribution
-  /// inert, and where the text would be either the install notice or the
-  /// reason the service gave.
-  Widget _buildFailedRow(BuildContext context, TranslationResultRecord record) {
-    final vars = context.vars;
-    final failure = _failureOf(record);
-    final serviceId = record.translationServiceId;
-    final index = _serviceIndex(serviceId);
     final bodyStyle = vars.cjkStyle(
       fontSize: 13,
       height: 1.7,
       color: vars.colorContentSecondary,
     );
+    final texts = record?.translateResponse?.translations ?? [];
+    final text = texts.isEmpty ? '' : texts.first.text;
+    final failure = record?.translateError == null ? null : _failureOf(record!);
 
-    return CandidateRow(
-      name: failure.name,
-      avatarLabel: failure.name.isEmpty
-          ? '?'
-          : failure.name.characters.first.toUpperCase(),
-      avatarColor: kProviderAvatarColors[
-          index < 0 ? 0 : index % kProviderAvatarColors.length],
-      shortcut: failure.shortcut,
-      child: failure.notInstalled != null
+    final Widget child;
+    if (text.isNotEmpty) {
+      child = TranslationText(text, style: bodyStyle);
+    } else if (failure != null) {
+      // The install notice or the reason the service gave, where its
+      // translation would have been.
+      child = failure.notInstalled != null
           ? MissingLanguageNote(missing: failure.notInstalled!)
           : Text(
               failure.reason,
               style: bodyStyle.copyWith(color: vars.dangerFg),
-            ),
+            );
+    } else {
+      child = const Padding(
+        padding: EdgeInsets.symmetric(vertical: 4),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Spinner(size: WidgetSize.small),
+        ),
+      );
+    }
+
+    return CandidateRow(
+      name: _serviceName(serviceId),
+      providerType: providerTypeByServiceId[serviceId],
+      child: child,
     );
   }
 }
@@ -742,79 +765,17 @@ extension on TranslationResultRecord {
   String get translateServiceIdOrEmpty => translationServiceId ?? '';
 }
 
-/// The 对比 N 个服务 / 收起对比 pill — accent-tinted with a rotating chevron.
-class _CompareToggle extends StatelessWidget {
-  const _CompareToggle({
-    required this.expanded,
-    required this.label,
-    required this.onPressed,
-  });
-
-  final bool expanded;
-
-  /// 对比 N 个服务 when the services answered, 查看 N 个服务的原因 when none did.
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final vars = context.vars;
-    final radius = BorderRadius.circular(vars.radiusFull);
-
-    return Pressable(
-      onPressed: onPressed,
-      borderRadius: radius,
-      semanticsLabel: label,
-      builder: (context, states) => AnimatedContainer(
-        duration: context.vars.motionDuration,
-        padding: const EdgeInsets.fromLTRB(9, 4, 7, 4),
-        decoration: BoxDecoration(
-          color: vars.accent.withValues(
-              alpha: states.contains(WidgetState.hovered) ? 0.20 : 0.12),
-          borderRadius: radius,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              label,
-              style: vars.sansStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                height: 1,
-                color: vars.accentText,
-              ),
-            ),
-            const SizedBox(width: 4),
-            AnimatedRotation(
-              turns: expanded ? 0.5 : 0,
-              duration: context.vars.motionDuration,
-              child: Icon(
-                FluentIcons.chevron_down_20_regular,
-                size: 10,
-                color: vars.accentText,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 /// Why one service came back empty — a blanket "failed" gives the user nothing
 /// to act on, and the block's job in this state is to point at the fix.
 class _ServiceFailure {
   const _ServiceFailure({
     required this.name,
     required this.reason,
-    required this.shortcut,
     this.notInstalled,
   });
 
   final String name;
   final String reason;
-  final String? shortcut;
 
   /// Set when the system translator lacks the language files for the pair —
   /// the one failure the card can point at a fix for.
@@ -822,7 +783,7 @@ class _ServiceFailure {
 }
 
 /// One failed service: the same card the compare list draws, with the reason
-/// where the translation would be and 重试 where 设为首选 would.
+/// where the translation would be and 重试 under it.
 class _FailureCard extends StatelessWidget {
   const _FailureCard({required this.failure, required this.onRetry});
 
@@ -843,15 +804,7 @@ class _FailureCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: SectionLabel(failure.name),
-              ),
-              if (failure.shortcut != null)
-                KeyCap(failure.shortcut!, size: WidgetSize.small),
-            ],
-          ),
+          SectionLabel(failure.name),
           const SizedBox(height: 5),
           Text(
             failure.notInstalled != null

@@ -7,6 +7,7 @@ import 'package:beyondtranslate_desktop/src/services/runtime.dart'
     show TranslationError;
 import 'package:beyondtranslate_desktop/src/utils/language_util.dart';
 import 'package:beyondtranslate_desktop/src/utils/shortcut_util.dart';
+import 'package:beyondtranslate_desktop/src/widgets/block_heading.dart';
 import 'package:beyondtranslate_desktop/src/widgets/blocks.dart';
 import 'package:beyondtranslate_desktop/src/widgets/candidate_row.dart';
 import 'package:beyondtranslate_desktop/src/widgets/missing_language.dart';
@@ -22,6 +23,14 @@ import 'harness.dart';
 /// 自动匹配 can resolve to several targets at once, and both windows stack one
 /// result block per target: the first behind the accent rule, the rest behind
 /// a hairline, each with its own 对比 list and its own 复制.
+/// The heading is one line of rich text, so a part of it is matched inside
+/// [BlockHeading] rather than as a `Text` of its own — and only there, since
+/// a body sentence can carry the same word.
+Finder headingContaining(String text) => find.descendant(
+      of: find.byType(BlockHeading),
+      matching: find.textContaining(text),
+    );
+
 void main() {
   Widget specimen(Widget child, {double width = 460}) {
     return appHarness(
@@ -86,8 +95,6 @@ void main() {
                 name: 'Claude',
                 avatarLabel: 'C',
                 avatarColor: kProviderAvatarColors[1],
-                shortcut: '⌥2',
-                onPrefer: () {},
                 child: const Text('自注意力…'),
               ),
               const CandidateRow(
@@ -189,7 +196,6 @@ void main() {
 
     final toggled = <String>[];
     final copied = <String>[];
-    final preferred = <String>[];
 
     Widget view({
       required List<TranslationResult> results,
@@ -210,7 +216,6 @@ void main() {
           copiedTarget: copiedTarget,
           onToggleCompare: toggled.add,
           onCopyTarget: copied.add,
-          onPreferService: preferred.add,
           onRequery: () {},
         ),
       );
@@ -219,7 +224,6 @@ void main() {
     setUp(() {
       toggled.clear();
       copied.clear();
-      preferred.clear();
     });
 
     testWidgets('two targets stack two blocks, each with its own controls', (
@@ -235,14 +239,15 @@ void main() {
       );
       expect(tester.takeException(), isNull);
 
-      // One heading per target. The role word leads on both; the language
-      // is what tells them apart.
+      // One heading per target — one line of rich text each, so the role and
+      // the language are read out of the same widget. The role word leads on
+      // both; the language is what tells them apart.
       expect(
-        find.text(t.workbench.translation.target),
+        headingContaining(t.workbench.translation.target),
         findsNWidgets(2),
       );
-      expect(find.text(getLanguageName('zh-Hans')), findsOneWidget);
-      expect(find.text(getLanguageName('ja')), findsOneWidget);
+      expect(headingContaining(getLanguageName('zh-Hans')), findsOneWidget);
+      expect(headingContaining(getLanguageName('ja')), findsOneWidget);
 
       // 复制 rides on each block's attribution row and acts on that language.
       final copyLabel = t.mini_translator.button.copy;
@@ -250,11 +255,17 @@ void main() {
       await tester.tap(find.bySemanticsLabel(copyLabel).last);
       expect(copied, ['ja']);
 
-      // 对比 opens per target; nothing is listed until it does.
+      // 对比 opens per target; nothing is listed until it does. The toggle
+      // is a glyph with the count on its corner, so it answers to its name
+      // rather than printing it.
       expect(find.byType(CandidateRow), findsNothing);
+      // Two services in the comparison per target, one of them the block's
+      // own — so the button announces 2 and the badge counts the 1 row the
+      // list would open.
       final compare = t.mini_translator.result.compare_services(count: 2);
-      expect(find.text(compare), findsNWidgets(2));
-      await tester.tap(find.text(compare).first);
+      expect(find.bySemanticsLabel(compare), findsNWidgets(2));
+      expect(find.text('1'), findsNWidgets(2));
+      await tester.tap(find.bySemanticsLabel(compare).first);
       expect(toggled, ['zh-Hans']);
     });
 
@@ -275,11 +286,12 @@ void main() {
       expect(find.byType(CandidateRow), findsOneWidget);
       expect(find.text('自己注意は…'), findsOneWidget);
       expect(find.text('自注意力机制…'), findsNothing);
-      // The attribution row is itself 设为首选.
-      await tester.tap(find.text('Claude'));
-      expect(preferred, ['claude']);
-      expect(
-          find.text(t.mini_translator.result.collapse_compare), findsOneWidget);
+      // The list is there to be read: no 设为首选 on the attribution row and
+      // no ⌥n hint beside it.
+      expect(find.text('⌥1'), findsNothing);
+      expect(find.text('⌥2'), findsNothing);
+      expect(find.bySemanticsLabel(t.mini_translator.result.collapse_compare),
+          findsOneWidget);
     });
 
     testWidgets('one target keeps the footer\'s copy and shows no icon', (
@@ -313,8 +325,8 @@ void main() {
       // The danger key, with the pair named and the fix as a link. The
       // heading names the target and the service only — the reason is
       // already said by the body in the translation's slot.
-      expect(find.text(t.workbench.translation.target), findsOneWidget);
-      expect(find.text(getLanguageName('zh-Hans')), findsOneWidget);
+      expect(headingContaining(t.workbench.translation.target), findsOneWidget);
+      expect(headingContaining(getLanguageName('zh-Hans')), findsOneWidget);
       expect(
         find.textContaining(t.mini_translator.result.language_missing_flag),
         findsNothing,
@@ -388,7 +400,7 @@ void main() {
       );
       expect(tester.takeException(), isNull);
       expect(find.text(t.mini_translator.result.translating), findsOneWidget);
-      expect(find.text(getLanguageName('ja')), findsOneWidget);
+      expect(headingContaining(getLanguageName('ja')), findsOneWidget);
       // No 复制 on a block with nothing to copy yet.
       expect(
           find.bySemanticsLabel(t.mini_translator.button.copy), findsOneWidget);

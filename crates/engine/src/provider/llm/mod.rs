@@ -9,6 +9,7 @@ pub mod anthropic;
 pub mod ollama;
 pub mod openai_compatible;
 pub mod prompt;
+pub mod response;
 
 #[cfg(feature = "anthropic")]
 pub use anthropic::AnthropicProvider;

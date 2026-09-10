@@ -6,13 +6,13 @@
 pub mod llm;
 pub mod traditional;
 
-pub use llm::prompt;
 #[cfg(feature = "anthropic")]
 pub use llm::AnthropicProvider;
 pub use llm::AnthropicProviderConfig;
 #[cfg(feature = "ollama")]
 pub use llm::OllamaProvider;
 pub use llm::OllamaProviderConfig;
+pub use llm::{prompt, response};
 pub use llm::{
     specs, OpenAiCompatibleProvider, OpenAiCompatibleProviderConfig, OpenAiCompatibleSpec,
     OpenAiProviderConfig, XAiProviderConfig,

@@ -84,6 +84,14 @@ pub trait StreamCallback: Send + Sync {
     fn on_error(&self, error: String);
 }
 
+/// Forwards a chunk unless unwrapping left nothing to forward, so listeners
+/// are not woken for the parts of the reply that were only envelope.
+fn emit_chunk(callback: &dyn StreamCallback, content: String) {
+    if !content.is_empty() {
+        callback.on_chunk(content);
+    }
+}
+
 /// Broadcast channel buffer size; settings updates are infrequent so 64
 /// is generous. If a subscriber falls more than this many events behind,
 /// they receive [`broadcast::error::RecvError::Lagged`] and we transparently
@@ -1636,12 +1644,17 @@ impl RuntimeTranslation {
                     .first()
                     .map(|choice| choice.message.content.clone())
                     .ok_or_else(|| "no response from llm".to_owned())?;
+                // The prompt asks for a JSON envelope; the user wants what is
+                // inside it.
                 Ok(TranslateResponse {
-                    translations: vec![beyondtranslate_core::TextTranslation {
-                        text: content,
-                        detected_source_language: None,
-                        audio_url: None,
-                    }],
+                    translations: beyondtranslate_engine::response::translated_texts(&content)
+                        .into_iter()
+                        .map(|text| beyondtranslate_core::TextTranslation {
+                            text,
+                            detected_source_language: None,
+                            audio_url: None,
+                        })
+                        .collect(),
                 })
             } else {
                 Err(format!(
@@ -2127,6 +2140,9 @@ impl RuntimeLlm {
                     .await
                     .map_err(|error| error.to_string())?;
 
+                // The reply arrives wrapped in a JSON envelope, so chunks are
+                // unwrapped on the way out rather than handed on raw.
+                let mut translation = beyondtranslate_engine::response::TranslationStream::new();
                 loop {
                     match receiver.rx.recv() {
                         Ok(chunk) => {
@@ -2134,13 +2150,15 @@ impl RuntimeLlm {
                                 if reason == "error" {
                                     callback.on_error(chunk.content);
                                 } else {
+                                    emit_chunk(&*callback, translation.finish());
                                     callback.on_finish(reason);
                                 }
                                 break;
                             }
-                            callback.on_chunk(chunk.content);
+                            emit_chunk(&*callback, translation.push(&chunk.content));
                         }
                         Err(_) => {
+                            emit_chunk(&*callback, translation.finish());
                             callback.on_finish("stop".to_string());
                             break;
                         }
@@ -2248,6 +2266,8 @@ impl RuntimeLlm {
     }
 }
 
+/// Reads the alternatives out of a reply, which may arrive fenced or with a
+/// preamble around the JSON.
 fn parse_alternatives_json(content: &str) -> Result<Vec<String>, String> {
     #[derive(serde::Deserialize)]
     struct AlternativesContainer {
@@ -2259,8 +2279,9 @@ fn parse_alternatives_json(content: &str) -> Result<Vec<String>, String> {
         text: String,
     }
 
-    let parsed: AlternativesContainer = serde_json::from_str(content)
-        .map_err(|error| format!("failed to parse alternatives response: {error}"))?;
+    let parsed: AlternativesContainer =
+        serde_json::from_str(beyondtranslate_engine::response::json_payload(content))
+            .map_err(|error| format!("failed to parse alternatives response: {error}"))?;
 
     Ok(parsed.alternatives.into_iter().map(|a| a.text).collect())
 }

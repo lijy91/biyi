@@ -14,8 +14,8 @@ pub use languages::{all_languages, app_languages};
 
 // LLM providers (primary).
 pub use provider::{
-    prompt, specs, OpenAiCompatibleProvider, OpenAiCompatibleProviderConfig, OpenAiCompatibleSpec,
-    OpenAiProviderConfig, XAiProviderConfig,
+    prompt, response, specs, OpenAiCompatibleProvider, OpenAiCompatibleProviderConfig,
+    OpenAiCompatibleSpec, OpenAiProviderConfig, XAiProviderConfig,
 };
 
 // Traditional providers.

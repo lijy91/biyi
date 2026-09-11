@@ -41,11 +41,6 @@ pub struct ShortcutSettings {
         alias = "extractFromClipboard"
     )]
     pub extract_text_from_clipboard: String,
-    #[serde(
-        default = "default_translate_input_content_shortcut",
-        rename = "translateInputContent"
-    )]
-    pub translate_input_content: String,
 }
 
 impl Default for ShortcutSettings {
@@ -56,7 +51,6 @@ impl Default for ShortcutSettings {
             ),
             extract_text_from_screen_capture: default_extract_text_from_screen_capture_shortcut(),
             extract_text_from_clipboard: default_extract_text_from_clipboard_shortcut(),
-            translate_input_content: default_translate_input_content_shortcut(),
         }
     }
 }
@@ -75,10 +69,6 @@ fn default_extract_text_from_screen_capture_shortcut() -> String {
 
 fn default_extract_text_from_clipboard_shortcut() -> String {
     "Option+E".to_owned()
-}
-
-fn default_translate_input_content_shortcut() -> String {
-    "Option+Z".to_owned()
 }
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize, Patch, uniffi::Record)]
@@ -621,7 +611,8 @@ mod tests {
             settings.shortcuts.extract_text_from_clipboard,
             "Command+Shift+3"
         );
-        assert_eq!(settings.shortcuts.translate_input_content, "Option+Z");
+        // The fixture still carries `translateInputContent`, as a file written
+        // before that binding was removed does; loading ignores it.
         assert_eq!(settings.appearance.language, "en");
         assert_eq!(settings.appearance.theme_mode, "dark");
         // The fixture predates `theme`, so loading it must fall back to the
@@ -747,7 +738,6 @@ mod tests {
             "Option+W"
         );
         assert_eq!(settings.shortcuts.extract_text_from_clipboard, "Option+E");
-        assert_eq!(settings.shortcuts.translate_input_content, "Option+Z");
     }
 
     #[test]
@@ -760,7 +750,6 @@ mod tests {
         settings.shortcuts.extract_text_from_screen_selection = "Command+Shift+1".to_owned();
         settings.shortcuts.extract_text_from_screen_capture = "Command+Shift+2".to_owned();
         settings.shortcuts.extract_text_from_clipboard = "Command+Shift+3".to_owned();
-        settings.shortcuts.translate_input_content = "Option+Z".to_owned();
         settings.appearance.language = "en".to_owned();
         settings.appearance.theme_mode = "system".to_owned();
         settings.general.launch_at_login = true;
@@ -795,10 +784,6 @@ mod tests {
         assert_eq!(
             json.pointer("/shortcuts/extractTextFromClipboard").cloned(),
             Some(Value::String("Command+Shift+3".to_owned()))
-        );
-        assert_eq!(
-            json.pointer("/shortcuts/translateInputContent").cloned(),
-            Some(Value::String("Option+Z".to_owned()))
         );
         assert_eq!(
             json.pointer("/appearance/language").cloned(),

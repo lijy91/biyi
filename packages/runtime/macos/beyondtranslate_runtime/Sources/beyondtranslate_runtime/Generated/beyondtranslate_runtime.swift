@@ -5423,20 +5423,17 @@ public struct ShortcutSettings: Equatable, Hashable {
   public var extractTextFromScreenSelection: String
   public var extractTextFromScreenCapture: String
   public var extractTextFromClipboard: String
-  public var translateInputContent: String
 
   // Default memberwise initializers are never public by default, so we
   // declare one manually.
   public init(
     toggleMiniTranslator: String, extractTextFromScreenSelection: String,
-    extractTextFromScreenCapture: String, extractTextFromClipboard: String,
-    translateInputContent: String
+    extractTextFromScreenCapture: String, extractTextFromClipboard: String
   ) {
     self.toggleMiniTranslator = toggleMiniTranslator
     self.extractTextFromScreenSelection = extractTextFromScreenSelection
     self.extractTextFromScreenCapture = extractTextFromScreenCapture
     self.extractTextFromClipboard = extractTextFromClipboard
-    self.translateInputContent = translateInputContent
   }
 
 }
@@ -5457,8 +5454,7 @@ public struct FfiConverterTypeShortcutSettings: FfiConverterRustBuffer {
         toggleMiniTranslator: FfiConverterString.read(from: &buf),
         extractTextFromScreenSelection: FfiConverterString.read(from: &buf),
         extractTextFromScreenCapture: FfiConverterString.read(from: &buf),
-        extractTextFromClipboard: FfiConverterString.read(from: &buf),
-        translateInputContent: FfiConverterString.read(from: &buf)
+        extractTextFromClipboard: FfiConverterString.read(from: &buf)
       )
   }
 
@@ -5467,7 +5463,6 @@ public struct FfiConverterTypeShortcutSettings: FfiConverterRustBuffer {
     FfiConverterString.write(value.extractTextFromScreenSelection, into: &buf)
     FfiConverterString.write(value.extractTextFromScreenCapture, into: &buf)
     FfiConverterString.write(value.extractTextFromClipboard, into: &buf)
-    FfiConverterString.write(value.translateInputContent, into: &buf)
   }
 }
 
@@ -5490,20 +5485,17 @@ public struct ShortcutSettingsPatch: Equatable, Hashable {
   public var extractTextFromScreenSelection: String?
   public var extractTextFromScreenCapture: String?
   public var extractTextFromClipboard: String?
-  public var translateInputContent: String?
 
   // Default memberwise initializers are never public by default, so we
   // declare one manually.
   public init(
     toggleMiniTranslator: String?, extractTextFromScreenSelection: String?,
-    extractTextFromScreenCapture: String?, extractTextFromClipboard: String?,
-    translateInputContent: String?
+    extractTextFromScreenCapture: String?, extractTextFromClipboard: String?
   ) {
     self.toggleMiniTranslator = toggleMiniTranslator
     self.extractTextFromScreenSelection = extractTextFromScreenSelection
     self.extractTextFromScreenCapture = extractTextFromScreenCapture
     self.extractTextFromClipboard = extractTextFromClipboard
-    self.translateInputContent = translateInputContent
   }
 
 }
@@ -5524,8 +5516,7 @@ public struct FfiConverterTypeShortcutSettingsPatch: FfiConverterRustBuffer {
         toggleMiniTranslator: FfiConverterOptionString.read(from: &buf),
         extractTextFromScreenSelection: FfiConverterOptionString.read(from: &buf),
         extractTextFromScreenCapture: FfiConverterOptionString.read(from: &buf),
-        extractTextFromClipboard: FfiConverterOptionString.read(from: &buf),
-        translateInputContent: FfiConverterOptionString.read(from: &buf)
+        extractTextFromClipboard: FfiConverterOptionString.read(from: &buf)
       )
   }
 
@@ -5534,7 +5525,6 @@ public struct FfiConverterTypeShortcutSettingsPatch: FfiConverterRustBuffer {
     FfiConverterOptionString.write(value.extractTextFromScreenSelection, into: &buf)
     FfiConverterOptionString.write(value.extractTextFromScreenCapture, into: &buf)
     FfiConverterOptionString.write(value.extractTextFromClipboard, into: &buf)
-    FfiConverterOptionString.write(value.translateInputContent, into: &buf)
   }
 }
 

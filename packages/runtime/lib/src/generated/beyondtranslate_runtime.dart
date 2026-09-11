@@ -1883,13 +1883,11 @@ class ShortcutSettings {
   final String extractTextFromScreenSelection;
   final String extractTextFromScreenCapture;
   final String extractTextFromClipboard;
-  final String translateInputContent;
   ShortcutSettings({
     required this.toggleMiniTranslator,
     required this.extractTextFromScreenSelection,
     required this.extractTextFromScreenCapture,
     required this.extractTextFromClipboard,
-    required this.translateInputContent,
   });
 }
 
@@ -1918,17 +1916,12 @@ class FfiConverterShortcutSettings {
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final extractTextFromClipboard = extractTextFromClipboard_lifted.value;
     new_offset += extractTextFromClipboard_lifted.bytesRead;
-    final translateInputContent_lifted =
-        FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
-    final translateInputContent = translateInputContent_lifted.value;
-    new_offset += translateInputContent_lifted.bytesRead;
     return LiftRetVal(
         ShortcutSettings(
           toggleMiniTranslator: toggleMiniTranslator,
           extractTextFromScreenSelection: extractTextFromScreenSelection,
           extractTextFromScreenCapture: extractTextFromScreenCapture,
           extractTextFromClipboard: extractTextFromClipboard,
-          translateInputContent: translateInputContent,
         ),
         new_offset - buf.offsetInBytes);
   }
@@ -1940,7 +1933,6 @@ class FfiConverterShortcutSettings {
             value.extractTextFromScreenSelection) +
         FfiConverterString.allocationSize(value.extractTextFromScreenCapture) +
         FfiConverterString.allocationSize(value.extractTextFromClipboard) +
-        FfiConverterString.allocationSize(value.translateInputContent) +
         0;
     final buf = Uint8List(total_length);
     write(value, buf);
@@ -1957,8 +1949,6 @@ class FfiConverterShortcutSettings {
         Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterString.write(
         value.extractTextFromClipboard, Uint8List.view(buf.buffer, new_offset));
-    new_offset += FfiConverterString.write(
-        value.translateInputContent, Uint8List.view(buf.buffer, new_offset));
     return new_offset - buf.offsetInBytes;
   }
 
@@ -1968,7 +1958,6 @@ class FfiConverterShortcutSettings {
             value.extractTextFromScreenSelection) +
         FfiConverterString.allocationSize(value.extractTextFromScreenCapture) +
         FfiConverterString.allocationSize(value.extractTextFromClipboard) +
-        FfiConverterString.allocationSize(value.translateInputContent) +
         0;
   }
 }
@@ -1978,13 +1967,11 @@ class ShortcutSettingsPatch {
   final String? extractTextFromScreenSelection;
   final String? extractTextFromScreenCapture;
   final String? extractTextFromClipboard;
-  final String? translateInputContent;
   ShortcutSettingsPatch({
     this.toggleMiniTranslator,
     this.extractTextFromScreenSelection,
     this.extractTextFromScreenCapture,
     this.extractTextFromClipboard,
-    this.translateInputContent,
   });
 }
 
@@ -2013,32 +2000,26 @@ class FfiConverterShortcutSettingsPatch {
         FfiConverterOptionalString.read(Uint8List.view(buf.buffer, new_offset));
     final extractTextFromClipboard = extractTextFromClipboard_lifted.value;
     new_offset += extractTextFromClipboard_lifted.bytesRead;
-    final translateInputContent_lifted =
-        FfiConverterOptionalString.read(Uint8List.view(buf.buffer, new_offset));
-    final translateInputContent = translateInputContent_lifted.value;
-    new_offset += translateInputContent_lifted.bytesRead;
     return LiftRetVal(
         ShortcutSettingsPatch(
           toggleMiniTranslator: toggleMiniTranslator,
           extractTextFromScreenSelection: extractTextFromScreenSelection,
           extractTextFromScreenCapture: extractTextFromScreenCapture,
           extractTextFromClipboard: extractTextFromClipboard,
-          translateInputContent: translateInputContent,
         ),
         new_offset - buf.offsetInBytes);
   }
 
   static RustBuffer lower(ShortcutSettingsPatch value) {
-    final total_length = FfiConverterOptionalString.allocationSize(
-            value.toggleMiniTranslator) +
-        FfiConverterOptionalString.allocationSize(
-            value.extractTextFromScreenSelection) +
-        FfiConverterOptionalString.allocationSize(
-            value.extractTextFromScreenCapture) +
-        FfiConverterOptionalString.allocationSize(
-            value.extractTextFromClipboard) +
-        FfiConverterOptionalString.allocationSize(value.translateInputContent) +
-        0;
+    final total_length =
+        FfiConverterOptionalString.allocationSize(value.toggleMiniTranslator) +
+            FfiConverterOptionalString.allocationSize(
+                value.extractTextFromScreenSelection) +
+            FfiConverterOptionalString.allocationSize(
+                value.extractTextFromScreenCapture) +
+            FfiConverterOptionalString.allocationSize(
+                value.extractTextFromClipboard) +
+            0;
     final buf = Uint8List(total_length);
     write(value, buf);
     return toRustBuffer(buf);
@@ -2056,8 +2037,6 @@ class FfiConverterShortcutSettingsPatch {
         Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterOptionalString.write(
         value.extractTextFromClipboard, Uint8List.view(buf.buffer, new_offset));
-    new_offset += FfiConverterOptionalString.write(
-        value.translateInputContent, Uint8List.view(buf.buffer, new_offset));
     return new_offset - buf.offsetInBytes;
   }
 
@@ -2070,7 +2049,6 @@ class FfiConverterShortcutSettingsPatch {
             value.extractTextFromScreenCapture) +
         FfiConverterOptionalString.allocationSize(
             value.extractTextFromClipboard) +
-        FfiConverterOptionalString.allocationSize(value.translateInputContent) +
         0;
   }
 }

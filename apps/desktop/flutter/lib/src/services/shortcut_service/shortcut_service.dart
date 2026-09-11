@@ -11,7 +11,6 @@ abstract mixin class ShortcutListener {
   void onShortcutKeyDownExtractFromScreenSelection();
   void onShortcutKeyDownExtractFromScreenCapture();
   void onShortcutKeyDownExtractFromClipboard();
-  void onShortcutKeyDownTranslateInputContent();
 }
 
 /// The actions the global keys fire, named apart from [ShortcutListener] so one
@@ -21,7 +20,6 @@ enum _ShortcutAction {
   extractFromScreenSelection,
   extractFromScreenCapture,
   extractFromClipboard,
-  translateInputContent,
 }
 
 /// Manages global hotkeys for the mini translator.
@@ -89,7 +87,6 @@ class ShortcutService {
         shortcuts.extractTextFromClipboard,
         _ShortcutAction.extractFromClipboard,
       ),
-      (shortcuts.translateInputContent, _ShortcutAction.translateInputContent),
     ];
   }
 
@@ -164,10 +161,6 @@ class ShortcutService {
       case _ShortcutAction.extractFromClipboard:
         _pendingAction = action;
         unawaited(showMiniTranslatorWindow());
-      // Reads the frontmost app's own input box; the mini translator window
-      // has no part in it, so a press with nobody listening is simply dropped.
-      case _ShortcutAction.translateInputContent:
-        break;
     }
   }
 
@@ -181,8 +174,6 @@ class ShortcutService {
         listener.onShortcutKeyDownExtractFromScreenCapture();
       case _ShortcutAction.extractFromClipboard:
         listener.onShortcutKeyDownExtractFromClipboard();
-      case _ShortcutAction.translateInputContent:
-        listener.onShortcutKeyDownTranslateInputContent();
     }
   }
 
@@ -196,6 +187,4 @@ class ShortcutService {
       _dispatch(_ShortcutAction.extractFromScreenCapture);
   void notifyExtractTextFromClipboard() =>
       _dispatch(_ShortcutAction.extractFromClipboard);
-  void notifyTranslateInputContent() =>
-      _dispatch(_ShortcutAction.translateInputContent);
 }

@@ -2654,7 +2654,6 @@ mod tests {
                         extract_text_from_screen_selection: Some("Command+Shift+1".to_owned()),
                         extract_text_from_screen_capture: Some("Command+Shift+2".to_owned()),
                         extract_text_from_clipboard: Some("Command+Shift+3".to_owned()),
-                        translate_input_content: Some("Option+Z".to_owned()),
                     })
                     .await
                     .expect("failed to update shortcuts");
@@ -2681,10 +2680,6 @@ mod tests {
             json.pointer("/shortcuts/extractTextFromClipboard").cloned(),
             Some(serde_json::Value::String("Command+Shift+3".to_owned()))
         );
-        assert_eq!(
-            json.pointer("/shortcuts/translateInputContent").cloned(),
-            Some(serde_json::Value::String("Option+Z".to_owned()))
-        );
     }
 
     #[test]
@@ -2707,7 +2702,6 @@ mod tests {
                         extract_text_from_screen_selection: Some("Command+Shift+1".to_owned()),
                         extract_text_from_screen_capture: Some("Command+Shift+2".to_owned()),
                         extract_text_from_clipboard: Some("Command+Shift+3".to_owned()),
-                        translate_input_content: Some("Command+Shift+4".to_owned()),
                     })
                     .await
                     .expect("failed to update shortcuts");
@@ -2896,7 +2890,6 @@ mod tests {
                         extract_text_from_screen_selection: None,
                         extract_text_from_screen_capture: None,
                         extract_text_from_clipboard: None,
-                        translate_input_content: None,
                     })
                     .await
                     .expect("update_shortcuts failed");

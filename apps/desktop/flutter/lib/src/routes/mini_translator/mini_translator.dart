@@ -1253,9 +1253,4 @@ class _MiniTranslatorPageState extends State<MiniTranslatorPage>
   void onShortcutKeyDownExtractFromClipboard() {
     _handleExtractTextFromClipboard();
   }
-
-  @override
-  void onShortcutKeyDownTranslateInputContent() {
-    // TODO: Reimplement when keypress_simulator dependency is restored
-  }
 }

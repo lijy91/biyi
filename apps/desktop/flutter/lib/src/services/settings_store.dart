@@ -59,7 +59,6 @@ class SettingsStore extends ChangeNotifier {
     extractTextFromScreenSelection: '',
     extractTextFromScreenCapture: '',
     extractTextFromClipboard: '',
-    translateInputContent: '',
   );
   AdvancedSettings _advanced = AdvancedSettings(
     apiServerEnabled: false,
